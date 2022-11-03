@@ -1,5 +1,9 @@
 import UIKit
 
+protocol BottomSheetUIViewProtocol {
+    func createTaskTapped()
+}
+
 class BottomSheetUIView: UIView {
 
     private lazy var mainLabel:UILabel = {
@@ -30,9 +34,12 @@ class BottomSheetUIView: UIView {
     private var createTaskButton:UIButton = {
        let button = UIButton()
         button.setImage(UIImage(systemName: Resources.Images.createTaskButtonImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-        button.tintColor = .systemOrange
+        button.tintColor = .gray
+        button.isEnabled = false
+        button.addTarget(self, action: #selector(createTaskButtonTapped), for: .touchUpInside)
         return button
     }()
+    
     
     private enum UIConstants {
         static let mainLabelFont = 24.0
@@ -40,7 +47,7 @@ class BottomSheetUIView: UIView {
         static let viewCornerRadius = 40.0
         static let mainLabelTopAnchor = 10.0
         static let nameTextFieldTopAnchor = 15.0
-        static let nameTextFieldHeight = 30.0
+        static let nameTextFieldHeight = 35.0
         static let nameTextFieldLeftAnchor = 5.0
         static let nameTextFieldRightAnchor = -5.0
         static let descriptionTextFieldTopAnchor = 10.0
@@ -69,10 +76,11 @@ class BottomSheetUIView: UIView {
     }
     
     func setupViewAttributes() {
-        self.backgroundColor = .white
+        self.backgroundColor = .secondarySystemBackground
         self.layer.cornerRadius = UIConstants.viewCornerRadius
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.gray.cgColor
+        nameTextField.delegate = self
     }
     
     func setupLayout() {
@@ -93,6 +101,13 @@ class BottomSheetUIView: UIView {
     }
 }
 
+extension BottomSheetUIView {
+    @objc private func createTaskButtonTapped(_ sender: UIButton) {
+        
+    }
+}
+
+
 extension BottomSheetUIView:UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
@@ -109,3 +124,11 @@ extension BottomSheetUIView:UITextViewDelegate {
     }
 }
 
+extension BottomSheetUIView:UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.text?.isEmpty == false {
+            createTaskButton.tintColor = .systemOrange
+            createTaskButton.isEnabled = true
+        }
+    }
+}

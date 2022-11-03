@@ -26,15 +26,10 @@ extension MainViewController {
         
         topBackgroundView.backgroundColor = .systemOrange
         
-        profileButton.setImage(UIImage(systemName: Resources.Images.profileImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-        profileButton.tintColor = .white
-        
-        addTaskButton.setImage(UIImage(systemName: Resources.Images.plusImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-        addTaskButton.tintColor = .white
+        self.configureTopButton(button: profileButton, imageName: Resources.Images.profileImage)
+        self.configureTopButton(button: addTaskButton, imageName: Resources.Images.plusImage)
+        self.configureTopButton(button: settingsButton, imageName: Resources.Images.settingsImage)
         addTaskButton.addTarget(self, action: #selector(addTaskButtonTapped(_:)), for: .touchUpInside)
-        
-        settingsButton.setImage(UIImage(systemName: Resources.Images.settingsImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-        settingsButton.tintColor = .white
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -77,38 +72,7 @@ extension MainViewController {
     }
     
     @objc private func handlerGesture(gesture:UIPanGestureRecognizer) {
-        if gesture.state == .changed {
-            let translation = gesture.translation(in: self.view)
-            
-            if ((self.view.frame.height - bottomSheetView.center.y > 150 && translation.y < 0 ) || (self.view.frame.height - bottomSheetView.center.y < 0 && translation.y > 0)) {
-                
-            }
-            else {
-                gesture.view!.center = CGPoint(x: gesture.view!.center.x, y: gesture.view!.center.y + translation.y)
-                gesture.setTranslation(CGPoint.zero, in: self.view)
-            }
-            
-            if (self.view.frame.height - bottomSheetView.center.y > 150) {
-                bottomSheetView.center.y = self.view.frame.height
-                 - 150
-            }
-            
-            if (self.view.frame.height - bottomSheetView.center.y < 0) {
-                bottomSheetView.center.y = self.view.frame.height
-            }
-        }
-        else if gesture.state == .ended {
-            gesture.view?.center = CGPoint(x: self.bottomSheetView.center.x, y: self.bottomSheetView.center.y)
-            
-            UIView.animate(withDuration: 0.15, animations: {
-                if (self.view.frame.height - self.bottomSheetView.center.y < 60) {
-                    self.bottomSheetView.center.y = self.view.frame.height
-                }
-                else {
-                    self.bottomSheetView.center.y = self.view.frame.height - 150
-                }
-            })
-        }
+        presenter?.handleBottomSheetGesture(gesture: gesture, view: self.view, bottomSheetView: bottomSheetView)
     }
 }
 
@@ -121,6 +85,11 @@ extension MainViewController {
             bottomSheetView.heightAnchor.constraint(equalToConstant: 400),
             bottomSheetView.topAnchor.constraint(equalTo: self.view.bottomAnchor,constant: -400)
         ])
+    }
+    
+    private func configureTopButton(button:UIButton, imageName:String) {
+        button.setImage(UIImage(systemName: imageName,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
+        button.tintColor = .white
     }
 }
 

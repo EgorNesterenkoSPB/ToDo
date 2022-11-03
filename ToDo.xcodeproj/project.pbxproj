@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		543330982914190600B1EA44 /* CoreModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 543330962914190600B1EA44 /* CoreModel.xcdatamodeld */; };
+		543330A62914203700B1EA44 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543330A52914203700B1EA44 /* DataManager.swift */; };
 		543D8F8B290C1597008396B0 /* Extensions+ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543D8F8A290C1597008396B0 /* Extensions+ScrollView.swift */; };
 		5461889E2912E68000279FE3 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5461889D2912E68000279FE3 /* SignInViewController.swift */; };
 		546188A02912E6B500279FE3 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5461889F2912E6B500279FE3 /* SignInPresenter.swift */; };
@@ -23,6 +25,12 @@
 		546188B92913225A00279FE3 /* LoaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188B82913225A00279FE3 /* LoaderButton.swift */; };
 		546188BC29132B0800279FE3 /* MainEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BB29132B0800279FE3 /* MainEntity.swift */; };
 		546188BE2913A14A00279FE3 /* BottomSheetUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BD2913A14A00279FE3 /* BottomSheetUIView.swift */; };
+		548038952914250900BBD88B /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548038912914250900BBD88B /* Project+CoreDataClass.swift */; };
+		548038962914250900BBD88B /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548038932914250900BBD88B /* Task+CoreDataProperties.swift */; };
+		548038972914250900BBD88B /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548038922914250900BBD88B /* Task+CoreDataClass.swift */; };
+		548038982914250900BBD88B /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548038902914250900BBD88B /* Project+CoreDataProperties.swift */; };
+		548038992914250900BBD88B /* Category+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548038942914250900BBD88B /* Category+CoreDataClass.swift */; };
+		5480389A2914250900BBD88B /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5480388F2914250900BBD88B /* Category+CoreDataProperties.swift */; };
 		549491E7290C72C600CA72AA /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491E6290C72C600CA72AA /* PostRequest.swift */; };
 		549491E9290C7D0100CA72AA /* APIResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491E8290C7D0100CA72AA /* APIResources.swift */; };
 		549491EB290C7D1700CA72AA /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491EA290C7D1700CA72AA /* NetworkRequest.swift */; };
@@ -51,6 +59,8 @@
 /* Begin PBXFileReference section */
 		2ABDDF17572F31F32EFD3BA8 /* Pods_ToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53F3632286E011B7D3CFE2F3 /* Pods-ToDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.debug.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.debug.xcconfig"; sourceTree = "<group>"; };
+		543330972914190600B1EA44 /* CoreModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreModel.xcdatamodel; sourceTree = "<group>"; };
+		543330A52914203700B1EA44 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		543D8F8A290C1597008396B0 /* Extensions+ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+ScrollView.swift"; sourceTree = "<group>"; };
 		5461889D2912E68000279FE3 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		5461889F2912E6B500279FE3 /* SignInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
@@ -67,6 +77,12 @@
 		546188B82913225A00279FE3 /* LoaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderButton.swift; sourceTree = "<group>"; };
 		546188BB29132B0800279FE3 /* MainEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEntity.swift; sourceTree = "<group>"; };
 		546188BD2913A14A00279FE3 /* BottomSheetUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetUIView.swift; sourceTree = "<group>"; };
+		5480388F2914250900BBD88B /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Category+CoreDataProperties.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Category+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		548038902914250900BBD88B /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Project+CoreDataProperties.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Project+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		548038912914250900BBD88B /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Project+CoreDataClass.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Project+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		548038922914250900BBD88B /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Task+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		548038932914250900BBD88B /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Task+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		548038942914250900BBD88B /* Category+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Category+CoreDataClass.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Category+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		549491E6290C72C600CA72AA /* PostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
 		549491E8290C7D0100CA72AA /* APIResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResources.swift; sourceTree = "<group>"; };
 		549491EA290C7D1700CA72AA /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
@@ -112,6 +128,30 @@
 				2ABDDF17572F31F32EFD3BA8 /* Pods_ToDo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		543330942914183B00B1EA44 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				549491E6290C72C600CA72AA /* PostRequest.swift */,
+				549491EA290C7D1700CA72AA /* NetworkRequest.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		543330952914184700B1EA44 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				548038922914250900BBD88B /* Task+CoreDataClass.swift */,
+				548038932914250900BBD88B /* Task+CoreDataProperties.swift */,
+				548038912914250900BBD88B /* Project+CoreDataClass.swift */,
+				548038902914250900BBD88B /* Project+CoreDataProperties.swift */,
+				548038942914250900BBD88B /* Category+CoreDataClass.swift */,
+				5480388F2914250900BBD88B /* Category+CoreDataProperties.swift */,
+				543330962914190600B1EA44 /* CoreModel.xcdatamodeld */,
+				543330A52914203700B1EA44 /* DataManager.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		546188A92913179B00279FE3 /* MainScreen */ = {
@@ -268,8 +308,8 @@
 		54BF85B3290C140E002DAB62 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				549491E6290C72C600CA72AA /* PostRequest.swift */,
-				549491EA290C7D1700CA72AA /* NetworkRequest.swift */,
+				543330952914184700B1EA44 /* CoreData */,
+				543330942914183B00B1EA44 /* Network */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -280,7 +320,6 @@
 				53F3632286E011B7D3CFE2F3 /* Pods-ToDo.debug.xcconfig */,
 				EE6188836D078F0E17025EEC /* Pods-ToDo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -405,8 +444,10 @@
 				54BF85AA290C0E87002DAB62 /* RegisterEntity.swift in Sources */,
 				546188B1291317E300279FE3 /* MainInteractor.swift in Sources */,
 				546188AF291317D700279FE3 /* MainRouter.swift in Sources */,
+				543330982914190600B1EA44 /* CoreModel.xcdatamodeld in Sources */,
 				54BF858D290BC382002DAB62 /* LoginViewController.swift in Sources */,
 				54BF85A4290BD234002DAB62 /* Extensions+UIView.swift in Sources */,
+				548038982914250900BBD88B /* Project+CoreDataProperties.swift in Sources */,
 				546188AB291317BA00279FE3 /* MainViewController.swift in Sources */,
 				546188A22912E6CC00279FE3 /* SignInRouter.swift in Sources */,
 				543D8F8B290C1597008396B0 /* Extensions+ScrollView.swift in Sources */,
@@ -414,6 +455,7 @@
 				549491EB290C7D1700CA72AA /* NetworkRequest.swift in Sources */,
 				546188A02912E6B500279FE3 /* SignInPresenter.swift in Sources */,
 				549491E7290C72C600CA72AA /* PostRequest.swift in Sources */,
+				548038992914250900BBD88B /* Category+CoreDataClass.swift in Sources */,
 				546188B529131BA600279FE3 /* ShakingTextField.swift in Sources */,
 				54BF85AE290C0EC0002DAB62 /* RegisterRouter.swift in Sources */,
 				54BF8592290BC406002DAB62 /* LoginProtocols.swift in Sources */,
@@ -430,9 +472,14 @@
 				54BF85B2290C0EE7002DAB62 /* RegisterPresenter.swift in Sources */,
 				546188BC29132B0800279FE3 /* MainEntity.swift in Sources */,
 				546188A42912E6DD00279FE3 /* SignInInteractor.swift in Sources */,
+				548038952914250900BBD88B /* Project+CoreDataClass.swift in Sources */,
 				54BF8578290BC2C2002DAB62 /* AppDelegate.swift in Sources */,
 				546188AD291317CB00279FE3 /* MainPresenter.swift in Sources */,
+				548038972914250900BBD88B /* Task+CoreDataClass.swift in Sources */,
+				5480389A2914250900BBD88B /* Category+CoreDataProperties.swift in Sources */,
+				543330A62914203700B1EA44 /* DataManager.swift in Sources */,
 				54BF85A8290C0E3C002DAB62 /* RegisterViewController.swift in Sources */,
+				548038962914250900BBD88B /* Task+CoreDataProperties.swift in Sources */,
 				54BF857A290BC2C2002DAB62 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -645,6 +692,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		543330962914190600B1EA44 /* CoreModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				543330972914190600B1EA44 /* CoreModel.xcdatamodel */,
+			);
+			currentVersion = 543330972914190600B1EA44 /* CoreModel.xcdatamodel */;
+			path = CoreModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 54BF856C290BC2C1002DAB62 /* Project object */;
 }

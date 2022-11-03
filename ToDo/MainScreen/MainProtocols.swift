@@ -12,6 +12,7 @@ protocol ViewToPresenterMainProtocol {
     func viewForHeaderInSection(tableView: UITableView, section:Int) -> UIView?
     func heightForHeaderInSection() -> CGFloat
     func heightForFooterInSection() -> CGFloat
+    func handleBottomSheetGesture(gesture:UIPanGestureRecognizer,view:UIView,bottomSheetView:BottomSheetUIView)
 }
 
 //MARK: - View Output (Presenter -> View)

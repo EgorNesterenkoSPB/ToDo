@@ -1,7 +1,8 @@
 import UIKit
 
-
 enum Resources {
+    static let coreModelName = "CoreModel"
+    
     enum Links {
         static let PostRequestURL = "http://127.0.0.1:8000/user"
     }
@@ -23,6 +24,7 @@ enum Resources {
         static let errorTitle = "Error"
         static let errorActionTitle = "OK"
         static let loginOrMailTitle = "Login/Mail:"
+        static let cancelButton = "Cancel"
     }
     enum Placeholders {
         static let textViewPlaceholder = "Description"
