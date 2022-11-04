@@ -66,18 +66,55 @@ final class MainPresenter: ViewToPresenterMainProtocol {
     }
     
     func viewForHeaderInSection(tableView: UITableView, section: Int) -> UIView? {
-        let sectionHeaderButton = UIButton()
-        sectionHeaderButton.setTitle(sectionsData[section].sectionTitle, for: .normal)
-        sectionHeaderButton.setTitleColor(.black, for: .normal)
-        sectionHeaderButton.layer.borderWidth = 1
-        sectionHeaderButton.layer.borderColor = UIColor.lightGray.cgColor
-        sectionHeaderButton.setImage(sectionsData[section].expandable ? UIImage(systemName: Resources.Images.chevronDown) : UIImage(systemName: Resources.Images.chevronRight), for: .normal)
-        sectionHeaderButton.tintColor = .lightGray
-        sectionHeaderButton.semanticContentAttribute = .forceRightToLeft
-        sectionHeaderButton.tag = section
-        sectionHeaderButton.addTarget(self, action: #selector(expandSection(sender:)), for: .touchUpInside)
-        sectionHeaderButton.titleLabel?.font = .systemFont(ofSize: 20)
-        return sectionHeaderButton
+        let headerView = UIView()
+        headerView.backgroundColor = .white
+        headerView.tag = section
+        
+        let title:UILabel = {
+           let label = UILabel()
+            label.text = sectionsData[section].sectionTitle
+            label.textColor = .black
+            label.font = .boldSystemFont(ofSize: 18)
+            return label
+        }()
+        headerView.addView(title)
+        
+        let addProjectButton:UIButton = {
+           let button = UIButton()
+            button.setImage(UIImage(systemName: Resources.Images.plusImage), for: .normal)
+            button.tintColor = .gray
+            return button
+        }()
+        headerView.addView(addProjectButton)
+        
+        let chevronImageView = UIImageView.init(image: UIImage(systemName: sectionsData[section].expandable ? Resources.Images.chevronDown : Resources.Images.chevronRight))
+        chevronImageView.tintColor = .gray
+        headerView.addView(chevronImageView)
+        
+        let deviderTopView:UIView = {
+           let view = UIView()
+            view.backgroundColor = .lightGray
+            return view
+        }()
+        headerView.addView(deviderTopView)
+        
+        NSLayoutConstraint.activate([
+            deviderTopView.topAnchor.constraint(equalTo: headerView.topAnchor),
+            deviderTopView.heightAnchor.constraint(equalToConstant: 1),
+            deviderTopView.leftAnchor.constraint(equalTo: headerView.leftAnchor),
+            deviderTopView.rightAnchor.constraint(equalTo: headerView.rightAnchor),
+            title.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            title.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 20),
+            chevronImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            chevronImageView.rightAnchor.constraint(equalTo: headerView.rightAnchor,constant: -20),
+            addProjectButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            addProjectButton.rightAnchor.constraint(equalTo: chevronImageView.leftAnchor, constant: -30)
+        ])
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(expandSection))
+        headerView.addGestureRecognizer(gesture)
+        
+        return headerView
     }
     
     func heightForHeaderInSection() -> CGFloat {
@@ -95,8 +132,9 @@ extension MainPresenter:InteractorToPresenterMainProtocol {
 }
 
 extension MainPresenter {
-    @objc private func expandSection(sender:UIButton) {
-        let sectionIndex = sender.tag
+    @objc private func expandSection(_ gesture: UITapGestureRecognizer) {
+        guard let tag = gesture.view?.tag else {return}
+        let sectionIndex = tag
         sectionsData[sectionIndex].expandable.toggle()
         view?.updateTableView()
     }
