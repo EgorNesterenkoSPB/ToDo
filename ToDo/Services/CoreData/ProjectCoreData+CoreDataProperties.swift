@@ -1,8 +1,8 @@
 //
-//  Project+CoreDataProperties.swift
+//  ProjectCoreData+CoreDataProperties.swift
 //  
 //
-//  Created by no name on 03.11.2022.
+//  Created by no name on 05.11.2022.
 //
 //
 
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension Project {
+extension ProjectCoreData {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Project> {
-        return NSFetchRequest<Project>(entityName: "Project")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<ProjectCoreData> {
+        return NSFetchRequest<ProjectCoreData>(entityName: "ProjectCoreData")
     }
 
     @NSManaged public var name: String?
@@ -22,13 +22,13 @@ extension Project {
 }
 
 // MARK: Generated accessors for categories
-extension Project {
+extension ProjectCoreData {
 
     @objc(addCategoriesObject:)
-    @NSManaged public func addToCategories(_ value: Category)
+    @NSManaged public func addToCategories(_ value: CategoryCoreData)
 
     @objc(removeCategoriesObject:)
-    @NSManaged public func removeFromCategories(_ value: Category)
+    @NSManaged public func removeFromCategories(_ value: CategoryCoreData)
 
     @objc(addCategories:)
     @NSManaged public func addToCategories(_ values: NSSet)

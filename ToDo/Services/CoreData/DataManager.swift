@@ -33,21 +33,21 @@ class DataManager {
         }
     }
     
-    func project(name:String) -> Project {
-        let project = Project(context: persistentContainer.viewContext)
+    func project(name:String) -> ProjectCoreData {
+        let project = ProjectCoreData(context: persistentContainer.viewContext)
         project.name = name
         return project
     }
     
-    func category(name:String,project:Project) -> Category {
-        let category = Category(context: persistentContainer.viewContext)
+    func category(name:String,project:ProjectCoreData) -> CategoryCoreData {
+        let category = CategoryCoreData(context: persistentContainer.viewContext)
         category.name = name
         project.addToCategories(category)
         return category
     }
     
-    func task(name: String, description:String, priority:PriorityTask, time:Date,category:Category) -> Task {
-        let task = Task(context: persistentContainer.viewContext)
+    func task(name: String, description:String, priority:PriorityTask, time:Date,category:CategoryCoreData) -> TaskCoreData {
+        let task = TaskCoreData(context: persistentContainer.viewContext)
         task.name = name
         task.descriptionTask = description
         task.priority = priority.rawValue
@@ -56,9 +56,9 @@ class DataManager {
         return task
     }
     
-    func projects() -> [Project] {
-        let request:NSFetchRequest<Project> = Project.fetchRequest()
-        var fetchedProjects:[Project] = []
+    func projects() -> [ProjectCoreData] {
+        let request:NSFetchRequest<ProjectCoreData> = ProjectCoreData.fetchRequest()
+        var fetchedProjects:[ProjectCoreData] = []
         
         do {
             fetchedProjects = try persistentContainer.viewContext.fetch(request)
@@ -68,12 +68,12 @@ class DataManager {
         return fetchedProjects
     }
     
-    func categories(project:Project) -> [Category] {
-        let request:NSFetchRequest<Category> = Category.fetchRequest()
+    func categories(project:ProjectCoreData) -> [CategoryCoreData] {
+        let request:NSFetchRequest<CategoryCoreData> = CategoryCoreData.fetchRequest()
         request.predicate = NSPredicate(format: "project = %@", project)
         request.sortDescriptors = [NSSortDescriptor(key: "releaseDate", ascending: false)]
         
-        var fetchedCategories:[Category] = []
+        var fetchedCategories:[CategoryCoreData] = []
         
         do {
             fetchedCategories = try persistentContainer.viewContext.fetch(request)
@@ -83,12 +83,12 @@ class DataManager {
         return fetchedCategories
     }
     
-    func tasks(category:Category) -> [Task] {
-        let request:NSFetchRequest<Task> = Task.fetchRequest()
+    func tasks(category:CategoryCoreData) -> [TaskCoreData] {
+        let request:NSFetchRequest<TaskCoreData> = TaskCoreData.fetchRequest()
         request.predicate = NSPredicate(format: "category = %@",category)
         request.sortDescriptors = [NSSortDescriptor(key: "releaseDate", ascending: false)]
         
-        var fetchedTasks:[Task] = []
+        var fetchedTasks:[TaskCoreData] = []
         
         do {
             fetchedTasks = try persistentContainer.viewContext.fetch(request)
@@ -98,19 +98,19 @@ class DataManager {
         return fetchedTasks
     }
     
-    func deleteProject(project:Project) {
+    func deleteProject(project:ProjectCoreData) {
         let context = persistentContainer.viewContext
         context.delete(project)
         save()
     }
     
-    func deleteCategory(category:Category) {
+    func deleteCategory(category:CategoryCoreData) {
         let context = persistentContainer.viewContext
         context.delete(category)
         save()
     }
     
-    func deleteTask(task:Task) {
+    func deleteTask(task:TaskCoreData) {
         let context = persistentContainer.viewContext
         context.delete(task)
         save()

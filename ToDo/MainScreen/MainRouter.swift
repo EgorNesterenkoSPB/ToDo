@@ -1,6 +1,7 @@
 import UIKit
 
 final class MainRouter:PresenterToRouterMainProtocol {
+    
     static func createModule() -> MainViewController {
         let mainViewController = MainViewController()
         
@@ -12,6 +13,14 @@ final class MainRouter:PresenterToRouterMainProtocol {
         mainViewController.presenter?.router = MainRouter()
         mainViewController.presenter?.interactor?.presenter = mainPresenter
         return mainViewController
+    }
+    
+    func showCreateProjectScreen() {
+        
+    }
+    
+    func showProfileScreen() {
+        
     }
     
     

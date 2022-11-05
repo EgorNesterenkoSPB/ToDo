@@ -4,7 +4,8 @@ final class MainPresenter: ViewToPresenterMainProtocol {
     var view: PresenterToViewMainProtocol?
     var router: PresenterToRouterMainProtocol?
     var interactor: PresenterToInteractorMainProtocol?
-    var sectionsData = [MainSection(sectionTitle: "Today", data: [], expandable: false),MainSection(sectionTitle: "Favorite", data: ["Test3","Test4"], expandable: false),MainSection(sectionTitle: "Projects", data: ["Test1","Test2"], expandable: false)]
+   // var sectionsData = [MainSection(sectionTitle: "Today", data: [], expandable: false),MainSection(sectionTitle: "Favorite", data: ["Test3","Test4"], expandable: false),MainSection(sectionTitle: "Projects", data: ["Test1","Test2"], expandable: false)]
+    var todayProject = Project(name: "Today", categories: [Category(name: "", tasks: [Task(name: "FastAPI", description: "test description", priority: "high", time: "test time", isOverdue: false),Task(name: "2 videos OOP", description: "watch it", priority: "medium", time: "test time", isOverdue: false),Task(name: "Oruel", description: "read book", priority: "low", time: "test time", isOverdue: false)])]).self
     
     private enum UIConstants {
         static let heightHeader = 60.0
@@ -47,74 +48,98 @@ final class MainPresenter: ViewToPresenterMainProtocol {
     }
     
     func numberOfSections() -> Int {
-        sectionsData.count
+        //sectionsData.count
+        2
     }
     
     func numberOfRowsInSection(section: Int) -> Int {
-        if sectionsData[section].expandable {
-            return sectionsData[section].data.count
+//        if sectionsData[section].expandable {
+//            return sectionsData[section].data.count
+//        }
+//        else {
+//            return 0
+//        }
+        var countOverdueTasks = 0
+        if section == 0 {
+            for task in todayProject.categories[0].tasks {
+                if task.isOverdue {
+                    countOverdueTasks += 1
+                }
+            }
+            return countOverdueTasks
         }
         else {
-            return 0
+            return todayProject.categories[0].tasks.count
         }
     }
     
     func cellForRowAt(tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.mainCell, for: indexPath)
-        cell.textLabel?.text = sectionsData[indexPath.section].sectionTitle
+        //cell.textLabel?.text = sectionsData[indexPath.section].sectionTitle
+        cell.textLabel?.text = todayProject.categories[0].tasks[indexPath.row].name
         return cell
     }
     
     func viewForHeaderInSection(tableView: UITableView, section: Int) -> UIView? {
         let headerView = UIView()
-        headerView.backgroundColor = .white
-        headerView.tag = section
+        
+        let date = Date()
+        let calendar = NSCalendar.current
+        let day = calendar.component(.day, from: date)
+        let month = calendar.component(.month, from: date)
         
         let title:UILabel = {
            let label = UILabel()
-            label.text = sectionsData[section].sectionTitle
-            label.textColor = .black
-            label.font = .boldSystemFont(ofSize: 18)
+            label.font = .boldSystemFont(ofSize: 24)
+            label.text = section == 0 ? "Overdue" : "\(day).\(month) \u{2022} Today"
             return label
         }()
         headerView.addView(title)
         
-        let addProjectButton:UIButton = {
-           let button = UIButton()
-            button.setImage(UIImage(systemName: Resources.Images.plusImage), for: .normal)
-            button.tintColor = .gray
-            return button
-        }()
-        headerView.addView(addProjectButton)
-        
-        let chevronImageView = UIImageView.init(image: UIImage(systemName: sectionsData[section].expandable ? Resources.Images.chevronDown : Resources.Images.chevronRight))
-        chevronImageView.tintColor = .gray
-        headerView.addView(chevronImageView)
-        
-        let deviderTopView:UIView = {
-           let view = UIView()
-            view.backgroundColor = .lightGray
-            return view
-        }()
-        headerView.addView(deviderTopView)
-        
         NSLayoutConstraint.activate([
-            deviderTopView.topAnchor.constraint(equalTo: headerView.topAnchor),
-            deviderTopView.heightAnchor.constraint(equalToConstant: 1),
-            deviderTopView.leftAnchor.constraint(equalTo: headerView.leftAnchor),
-            deviderTopView.rightAnchor.constraint(equalTo: headerView.rightAnchor),
-            title.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            title.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 20),
-            chevronImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            chevronImageView.rightAnchor.constraint(equalTo: headerView.rightAnchor,constant: -20),
-            addProjectButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            addProjectButton.rightAnchor.constraint(equalTo: chevronImageView.leftAnchor, constant: -30)
+            title.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
+            title.leftAnchor.constraint(equalTo: headerView.leftAnchor,constant: 20)
         ])
         
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(expandSection))
-        headerView.addGestureRecognizer(gesture)
-        
         return headerView
+//        let headerView = UIView()
+//        headerView.backgroundColor = .clear
+//        headerView.tag = section
+//
+//        let title:UILabel = {
+//           let label = UILabel()
+//            label.text = sectionsData[section].sectionTitle
+//            label.textColor = .black
+//            label.font = .boldSystemFont(ofSize: 18)
+//            return label
+//        }()
+//        headerView.addView(title)
+//
+//        let addProjectButton:UIButton = {
+//           let button = UIButton()
+//            button.setImage(UIImage(systemName: Resources.Images.plusImage), for: .normal)
+//            button.tintColor = .gray
+//            button.addTarget(self, action: #selector(createProjectButtonTapped(_:)), for: .touchUpInside)
+//            return button
+//        }()
+//        headerView.addView(addProjectButton)
+//
+//        let chevronImageView = UIImageView.init(image: UIImage(systemName: sectionsData[section].expandable ? Resources.Images.chevronDown : Resources.Images.chevronRight))
+//        chevronImageView.tintColor = .gray
+//        headerView.addView(chevronImageView)
+//
+//        NSLayoutConstraint.activate([
+//            title.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+//            title.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 20),
+//            chevronImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+//            chevronImageView.rightAnchor.constraint(equalTo: headerView.rightAnchor,constant: -20),
+//            addProjectButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+//            addProjectButton.rightAnchor.constraint(equalTo: chevronImageView.leftAnchor, constant: -30)
+//        ])
+//
+//        let gesture = UITapGestureRecognizer(target: self, action: #selector(expandSection))
+//        headerView.addGestureRecognizer(gesture)
+//        return headerView
     }
     
     func heightForHeaderInSection() -> CGFloat {
@@ -132,10 +157,13 @@ extension MainPresenter:InteractorToPresenterMainProtocol {
 }
 
 extension MainPresenter {
-    @objc private func expandSection(_ gesture: UITapGestureRecognizer) {
-        guard let tag = gesture.view?.tag else {return}
-        let sectionIndex = tag
-        sectionsData[sectionIndex].expandable.toggle()
-        view?.updateTableView()
-    }
+//    @objc private func expandSection(_ gesture: UITapGestureRecognizer) {
+//        guard let tag = gesture.view?.tag else {return}
+//        let sectionIndex = tag
+//        sectionsData[sectionIndex].expandable.toggle()
+//        view?.updateTableView()
+//    }
+    
+//    @objc private func createProjectButtonTapped(_ sender:UIButton) {
+//    }
 }

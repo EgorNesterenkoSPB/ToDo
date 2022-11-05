@@ -5,32 +5,38 @@ final class MainViewController:BaseViewController {
     
     let tableView = UITableView()
     let bottomSheetView = BottomSheetUIView()
-    let addTaskButton = UIButton()
-    let profileButton = UIButton()
-    let settingsButton = UIButton()
-    let topBackgroundView = UIView()
+    let bottomBackgroundView = CustomizedShapeView()
+    let circleButton = UIButton()
+    let topTitle = UILabel()
+    
+    override func viewDidLayoutSubviews() {
+        circleButton.clipsToBounds = true
+        circleButton.layer.cornerRadius = circleButton.frame.width / 2
+    }
 }
 
 
 extension MainViewController {
     override func addViews() {
+        self.view.addView(bottomBackgroundView)
+        self.view.addView(circleButton)
         self.view.addView(tableView)
-        self.view.addView(topBackgroundView)
-        topBackgroundView.addView(profileButton)
-        topBackgroundView.addView(addTaskButton)
-        topBackgroundView.addView(settingsButton)
+        self.view.addView(topTitle)
     }
     
     override func configure() {
         navigationController?.navigationBar.isHidden = true
+        self.view.backgroundColor = .white
         
-        topBackgroundView.backgroundColor = .systemOrange
+        topTitle.text = "Today"
+        topTitle.font = .boldSystemFont(ofSize: 30)
         
-        self.configureTopButton(button: profileButton, imageName: Resources.Images.profileImage)
-        self.configureTopButton(button: addTaskButton, imageName: Resources.Images.plusImage)
-        self.configureTopButton(button: settingsButton, imageName: Resources.Images.settingsImage)
-        addTaskButton.addTarget(self, action: #selector(addTaskButtonTapped(_:)), for: .touchUpInside)
+        circleButton.backgroundColor = .systemOrange
+        circleButton.setImage(UIImage(systemName: Resources.Images.plusImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
+        circleButton.tintColor = .white
+        circleButton.addTarget(self, action: #selector(addTaskButtonTapped(_:)), for: .touchUpInside)
         
+        tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Resources.Cells.mainCell)
@@ -43,29 +49,26 @@ extension MainViewController {
     
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            topBackgroundView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            topBackgroundView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            topBackgroundView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
-            topBackgroundView.heightAnchor.constraint(equalToConstant: 50),
-            profileButton.centerYAnchor.constraint(equalTo: topBackgroundView.centerYAnchor),
-            profileButton.rightAnchor.constraint(equalTo: topBackgroundView.rightAnchor, constant: -10),
-            addTaskButton.centerYAnchor.constraint(equalTo: profileButton.centerYAnchor),
-            addTaskButton.rightAnchor.constraint(equalTo: profileButton.leftAnchor, constant: -10),
-            settingsButton.centerYAnchor.constraint(equalTo: profileButton.centerYAnchor),
-            settingsButton.leftAnchor.constraint(equalTo: topBackgroundView.leftAnchor, constant: 10),
-            tableView.topAnchor.constraint(equalTo: topBackgroundView.bottomAnchor,constant: 10),
-            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            topTitle.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,constant: 10),
+            topTitle.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor,constant: 15),
+            bottomBackgroundView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            bottomBackgroundView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
+            bottomBackgroundView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
+            bottomBackgroundView.heightAnchor.constraint(equalToConstant: 55),
+            tableView.topAnchor.constraint(equalTo: topTitle.bottomAnchor,constant: 10),
+            tableView.bottomAnchor.constraint(equalTo: circleButton.topAnchor),
             tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
+            circleButton.centerXAnchor.constraint(equalTo: bottomBackgroundView.centerXAnchor),
+            circleButton.bottomAnchor.constraint(equalTo: bottomBackgroundView.bottomAnchor,constant: -20),
+            circleButton.widthAnchor.constraint(equalToConstant: 70),
+            circleButton.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
 }
 
 
 extension MainViewController {
-    @objc private func profileButtonTapped(_ sender:UIButton) {
-        
-    }
     
     @objc private func addTaskButtonTapped(_ sender:UIButton) {
         self.activateBottomSheet()
@@ -87,10 +90,10 @@ extension MainViewController {
         ])
     }
     
-    private func configureTopButton(button:UIButton, imageName:String) {
-        button.setImage(UIImage(systemName: imageName,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-        button.tintColor = .white
-    }
+//    private func configureTopButton(button:UIButton, imageName:String) {
+//        button.setImage(UIImage(systemName: imageName,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
+//        button.tintColor = .white
+//    }
 }
 
 extension MainViewController:PresenterToViewMainProtocol {
@@ -115,7 +118,7 @@ extension MainViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         presenter?.cellForRowAt(tableView: tableView, cellForRowAt: indexPath) ?? UITableViewCell()
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         presenter?.viewForHeaderInSection(tableView: tableView, section: section) ?? UIView()
     }

@@ -9,10 +9,10 @@ protocol ViewToPresenterMainProtocol {
     func numberOfSections() -> Int
     func numberOfRowsInSection(section:Int) -> Int
     func cellForRowAt(tableView:UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell
-    func viewForHeaderInSection(tableView: UITableView, section:Int) -> UIView?
     func heightForHeaderInSection() -> CGFloat
     func heightForFooterInSection() -> CGFloat
     func handleBottomSheetGesture(gesture:UIPanGestureRecognizer,view:UIView,bottomSheetView:BottomSheetUIView)
+    func viewForHeaderInSection(tableView: UITableView, section: Int) -> UIView?
 }
 
 //MARK: - View Output (Presenter -> View)
@@ -34,4 +34,6 @@ protocol InteractorToPresenterMainProtocol {
 //MARK: - Router Input (Presenter -> Router)
 protocol PresenterToRouterMainProtocol {
     static func createModule() -> MainViewController
+    func showCreateProjectScreen()
+    func showProfileScreen()
 }

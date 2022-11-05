@@ -38,8 +38,8 @@ enum Resources {
         static let chevronDown = "chevron.down"
         static let chevronRight = "chevron.right"
         static let profileImage = "person.crop.circle"
-        static let plusImage = "plus.circle"
-        static let settingsImage = "gearshape"
+        static let plusImage = "plus"
+        static let settingsImage = "gear"
     }
     enum Cells {
         static let mainCell = "mainCell"
