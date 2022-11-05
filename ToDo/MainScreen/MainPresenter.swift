@@ -74,9 +74,13 @@ final class MainPresenter: ViewToPresenterMainProtocol {
     }
     
     func cellForRowAt(tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.mainCell, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.taskCellIdentefier, for: indexPath) as? TaskTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.nameTitle.text = todayProject.categories[0].tasks[indexPath.row].name
+        cell.projectTitle.text = todayProject.name
         //cell.textLabel?.text = sectionsData[indexPath.section].sectionTitle
-        cell.textLabel?.text = todayProject.categories[0].tasks[indexPath.row].name
+        //cell.textLabel?.text = todayProject.categories[0].tasks[indexPath.row].name
         return cell
     }
     
@@ -95,6 +99,7 @@ final class MainPresenter: ViewToPresenterMainProtocol {
             return label
         }()
         headerView.addView(title)
+        
         
         NSLayoutConstraint.activate([
             title.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),

@@ -39,7 +39,9 @@ extension MainViewController {
         tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Resources.Cells.mainCell)
+        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: Resources.Cells.taskCellIdentefier)
+        tableView.tableFooterView = UIView()
+        tableView.separatorStyle = .none
         
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlerGesture(gesture: )))
         gestureRecognizer.cancelsTouchesInView = false

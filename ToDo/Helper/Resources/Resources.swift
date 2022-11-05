@@ -40,9 +40,11 @@ enum Resources {
         static let profileImage = "person.crop.circle"
         static let plusImage = "plus"
         static let settingsImage = "gear"
+        static let circle = "circle"
+        static let circleFill = "circle.fill"
     }
     enum Cells {
-        static let mainCell = "mainCell"
+        static let taskCellIdentefier = "taskCell"
     }
 }
 
