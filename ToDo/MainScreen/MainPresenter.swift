@@ -94,7 +94,6 @@ final class MainPresenter: ViewToPresenterMainProtocol {
         }()
         headerView.addView(title)
         
-        
         NSLayoutConstraint.activate([
             title.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
             title.leftAnchor.constraint(equalTo: headerView.leftAnchor,constant: 20)

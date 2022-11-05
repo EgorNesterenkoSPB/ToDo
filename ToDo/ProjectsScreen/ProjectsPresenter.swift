@@ -61,44 +61,19 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
     
     
     func viewForHeaderInSection(tableView: UITableView, section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = .clear
-        headerView.tag = section
+        let titleText = sectionsData[section].sectionTitle
+        let expandable = sectionsData[section].expandable
+        switch section {
+        case 0:
+            let headerView = BaseTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable)
+            headerView.delegate = self
+            return headerView
+        default:
+            let headerView = ProjectsTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable)
+            headerView.delegate = self
+            return headerView
+        }
         
-        let title:UILabel = {
-            let label = UILabel()
-            label.text = sectionsData[section].sectionTitle
-            label.textColor = .black
-            label.font = .boldSystemFont(ofSize: 18)
-            return label
-        }()
-        headerView.addView(title)
-        
-        let addProjectButton:UIButton = {
-            let button = UIButton()
-            button.setImage(UIImage(systemName: Resources.Images.plusImage), for: .normal)
-            button.tintColor = .gray
-            button.addTarget(self, action: #selector(createProjectButtonTapped(_:)), for: .touchUpInside)
-            return button
-        }()
-        headerView.addView(addProjectButton)
-        
-        let chevronImageView = UIImageView.init(image: UIImage(systemName: sectionsData[section].expandable ? Resources.Images.chevronDown : Resources.Images.chevronRight))
-        chevronImageView.tintColor = .gray
-        headerView.addView(chevronImageView)
-        
-        NSLayoutConstraint.activate([
-            title.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            title.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 20),
-            chevronImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            chevronImageView.rightAnchor.constraint(equalTo: headerView.rightAnchor,constant: -20),
-            addProjectButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            addProjectButton.rightAnchor.constraint(equalTo: chevronImageView.leftAnchor, constant: -30)
-        ])
-        
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(expandSection))
-        headerView.addGestureRecognizer(gesture)
-        return headerView
     }
 }
 
@@ -106,14 +81,9 @@ extension ProjectsPresenter:InteractorToPresenterProjectsProtocol {
     
 }
 
-extension ProjectsPresenter {
-        @objc private func expandSection(_ gesture: UITapGestureRecognizer) {
-            guard let tag = gesture.view?.tag else {return}
-            let sectionIndex = tag
-            sectionsData[sectionIndex].expandable.toggle()
-            view?.updateTableView()
-        }
-        
-        @objc private func createProjectButtonTapped(_ sender:UIButton) {
-        }
+extension ProjectsPresenter:BaseTableSectionHeaderViewProtocol {
+    func updateExpandable(sectionIndex: Int) {
+        sectionsData[sectionIndex].expandable.toggle()
+        view?.updateTableView()
+    }
 }
