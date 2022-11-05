@@ -25,12 +25,6 @@
 		546188B92913225A00279FE3 /* LoaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188B82913225A00279FE3 /* LoaderButton.swift */; };
 		546188BC29132B0800279FE3 /* MainEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BB29132B0800279FE3 /* MainEntity.swift */; };
 		546188BE2913A14A00279FE3 /* BottomSheetUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BD2913A14A00279FE3 /* BottomSheetUIView.swift */; };
-		548038952914250900BBD88B /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548038912914250900BBD88B /* Project+CoreDataClass.swift */; };
-		548038962914250900BBD88B /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548038932914250900BBD88B /* Task+CoreDataProperties.swift */; };
-		548038972914250900BBD88B /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548038922914250900BBD88B /* Task+CoreDataClass.swift */; };
-		548038982914250900BBD88B /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548038902914250900BBD88B /* Project+CoreDataProperties.swift */; };
-		548038992914250900BBD88B /* Category+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548038942914250900BBD88B /* Category+CoreDataClass.swift */; };
-		5480389A2914250900BBD88B /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5480388F2914250900BBD88B /* Category+CoreDataProperties.swift */; };
 		549491E7290C72C600CA72AA /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491E6290C72C600CA72AA /* PostRequest.swift */; };
 		549491E9290C7D0100CA72AA /* APIResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491E8290C7D0100CA72AA /* APIResources.swift */; };
 		549491EB290C7D1700CA72AA /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491EA290C7D1700CA72AA /* NetworkRequest.swift */; };
@@ -53,6 +47,26 @@
 		54BF85AE290C0EC0002DAB62 /* RegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF85AD290C0EC0002DAB62 /* RegisterRouter.swift */; };
 		54BF85B0290C0ED0002DAB62 /* RegisterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF85AF290C0ED0002DAB62 /* RegisterInteractor.swift */; };
 		54BF85B2290C0EE7002DAB62 /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF85B1290C0EE7002DAB62 /* RegisterPresenter.swift */; };
+		54ED8E232915EA2F00A43C62 /* Extensions+CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E222915EA2F00A43C62 /* Extensions+CGFloat.swift */; };
+		54ED8E262915EA7500A43C62 /* CustomizedShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E252915EA7500A43C62 /* CustomizedShapeView.swift */; };
+		54ED8E2D2915F0DE00A43C62 /* ProjectCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E2B2915F0DE00A43C62 /* ProjectCoreData+CoreDataProperties.swift */; };
+		54ED8E2E2915F0DE00A43C62 /* CategoryCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E2C2915F0DE00A43C62 /* CategoryCoreData+CoreDataProperties.swift */; };
+		54ED8E2F2915F0DE00A43C62 /* ProjectCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E272915F0DE00A43C62 /* ProjectCoreData+CoreDataClass.swift */; };
+		54ED8E302915F0DE00A43C62 /* TaskCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E292915F0DE00A43C62 /* TaskCoreData+CoreDataProperties.swift */; };
+		54ED8E312915F0DE00A43C62 /* TaskCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E2A2915F0DE00A43C62 /* TaskCoreData+CoreDataClass.swift */; };
+		54ED8E322915F0DE00A43C62 /* CategoryCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E282915F0DE00A43C62 /* CategoryCoreData+CoreDataClass.swift */; };
+		54ED8E342916C44000A43C62 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E332916C44000A43C62 /* TaskTableViewCell.swift */; };
+		54ED8E362916C6F600A43C62 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E352916C6F600A43C62 /* BaseTableViewCell.swift */; };
+		54ED8E3C2916E32500A43C62 /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E3B2916E32500A43C62 /* ProjectsViewController.swift */; };
+		54ED8E3E2916E33100A43C62 /* ProjectsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E3D2916E33100A43C62 /* ProjectsRouter.swift */; };
+		54ED8E402916E33F00A43C62 /* ProjectsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E3F2916E33F00A43C62 /* ProjectsPresenter.swift */; };
+		54ED8E422916E34C00A43C62 /* ProjectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E412916E34C00A43C62 /* ProjectsInteractor.swift */; };
+		54ED8E442916E35700A43C62 /* ProjectsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E432916E35700A43C62 /* ProjectsProtocols.swift */; };
+		54ED8E462916E36000A43C62 /* ProjectsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E452916E36000A43C62 /* ProjectsEntity.swift */; };
+		54ED8E482917052F00A43C62 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E472917052F00A43C62 /* ProjectTableViewCell.swift */; };
+		54ED8E4A29170BF000A43C62 /* Extensions+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E4929170BEF00A43C62 /* Extensions+UIColor.swift */; };
+		54ED8E4D29170EE600A43C62 /* ProjectsTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E4C29170EE600A43C62 /* ProjectsTableSectionHeaderView.swift */; };
+		54ED8E4F29170F0A00A43C62 /* BaseTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E4E29170F0A00A43C62 /* BaseTableSectionHeaderView.swift */; };
 		EB252CB0F2FF4CF128CCA463 /* Pods_ToDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ABDDF17572F31F32EFD3BA8 /* Pods_ToDo.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,12 +91,6 @@
 		546188B82913225A00279FE3 /* LoaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderButton.swift; sourceTree = "<group>"; };
 		546188BB29132B0800279FE3 /* MainEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEntity.swift; sourceTree = "<group>"; };
 		546188BD2913A14A00279FE3 /* BottomSheetUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetUIView.swift; sourceTree = "<group>"; };
-		5480388F2914250900BBD88B /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Category+CoreDataProperties.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Category+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		548038902914250900BBD88B /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Project+CoreDataProperties.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Project+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		548038912914250900BBD88B /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Project+CoreDataClass.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Project+CoreDataClass.swift"; sourceTree = "<absolute>"; };
-		548038922914250900BBD88B /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Task+CoreDataClass.swift"; sourceTree = "<absolute>"; };
-		548038932914250900BBD88B /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Task+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		548038942914250900BBD88B /* Category+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Category+CoreDataClass.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Category+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		549491E6290C72C600CA72AA /* PostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
 		549491E8290C7D0100CA72AA /* APIResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResources.swift; sourceTree = "<group>"; };
 		549491EA290C7D1700CA72AA /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
@@ -107,6 +115,26 @@
 		54BF85AD290C0EC0002DAB62 /* RegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRouter.swift; sourceTree = "<group>"; };
 		54BF85AF290C0ED0002DAB62 /* RegisterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInteractor.swift; sourceTree = "<group>"; };
 		54BF85B1290C0EE7002DAB62 /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
+		54ED8E222915EA2F00A43C62 /* Extensions+CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+CGFloat.swift"; sourceTree = "<group>"; };
+		54ED8E252915EA7500A43C62 /* CustomizedShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizedShapeView.swift; sourceTree = "<group>"; };
+		54ED8E272915F0DE00A43C62 /* ProjectCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProjectCoreData+CoreDataClass.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/ProjectCoreData+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		54ED8E282915F0DE00A43C62 /* CategoryCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CategoryCoreData+CoreDataClass.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/CategoryCoreData+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		54ED8E292915F0DE00A43C62 /* TaskCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TaskCoreData+CoreDataProperties.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/TaskCoreData+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		54ED8E2A2915F0DE00A43C62 /* TaskCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TaskCoreData+CoreDataClass.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/TaskCoreData+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		54ED8E2B2915F0DE00A43C62 /* ProjectCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProjectCoreData+CoreDataProperties.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/ProjectCoreData+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		54ED8E2C2915F0DE00A43C62 /* CategoryCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CategoryCoreData+CoreDataProperties.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/CategoryCoreData+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		54ED8E332916C44000A43C62 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		54ED8E352916C6F600A43C62 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		54ED8E3B2916E32500A43C62 /* ProjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewController.swift; sourceTree = "<group>"; };
+		54ED8E3D2916E33100A43C62 /* ProjectsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsRouter.swift; sourceTree = "<group>"; };
+		54ED8E3F2916E33F00A43C62 /* ProjectsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsPresenter.swift; sourceTree = "<group>"; };
+		54ED8E412916E34C00A43C62 /* ProjectsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsInteractor.swift; sourceTree = "<group>"; };
+		54ED8E432916E35700A43C62 /* ProjectsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsProtocols.swift; sourceTree = "<group>"; };
+		54ED8E452916E36000A43C62 /* ProjectsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsEntity.swift; sourceTree = "<group>"; };
+		54ED8E472917052F00A43C62 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
+		54ED8E4929170BEF00A43C62 /* Extensions+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIColor.swift"; sourceTree = "<group>"; };
+		54ED8E4C29170EE600A43C62 /* ProjectsTableSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsTableSectionHeaderView.swift; sourceTree = "<group>"; };
+		54ED8E4E29170F0A00A43C62 /* BaseTableSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableSectionHeaderView.swift; sourceTree = "<group>"; };
 		EE6188836D078F0E17025EEC /* Pods-ToDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.release.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,12 +170,12 @@
 		543330952914184700B1EA44 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				548038922914250900BBD88B /* Task+CoreDataClass.swift */,
-				548038932914250900BBD88B /* Task+CoreDataProperties.swift */,
-				548038912914250900BBD88B /* Project+CoreDataClass.swift */,
-				548038902914250900BBD88B /* Project+CoreDataProperties.swift */,
-				548038942914250900BBD88B /* Category+CoreDataClass.swift */,
-				5480388F2914250900BBD88B /* Category+CoreDataProperties.swift */,
+				54ED8E2A2915F0DE00A43C62 /* TaskCoreData+CoreDataClass.swift */,
+				54ED8E292915F0DE00A43C62 /* TaskCoreData+CoreDataProperties.swift */,
+				54ED8E282915F0DE00A43C62 /* CategoryCoreData+CoreDataClass.swift */,
+				54ED8E2C2915F0DE00A43C62 /* CategoryCoreData+CoreDataProperties.swift */,
+				54ED8E272915F0DE00A43C62 /* ProjectCoreData+CoreDataClass.swift */,
+				54ED8E2B2915F0DE00A43C62 /* ProjectCoreData+CoreDataProperties.swift */,
 				543330962914190600B1EA44 /* CoreModel.xcdatamodeld */,
 				543330A52914203700B1EA44 /* DataManager.swift */,
 			);
@@ -170,9 +198,12 @@
 		546188B72913222C00279FE3 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				54ED8E4B29170E8600A43C62 /* Projects */,
+				54ED8E252915EA7500A43C62 /* CustomizedShapeView.swift */,
 				546188B429131BA600279FE3 /* ShakingTextField.swift */,
 				546188B82913225A00279FE3 /* LoaderButton.swift */,
 				546188BD2913A14A00279FE3 /* BottomSheetUIView.swift */,
+				54ED8E332916C44000A43C62 /* TaskTableViewCell.swift */,
 			);
 			path = "UI Elements";
 			sourceTree = "<group>";
@@ -205,6 +236,8 @@
 		54BF8576290BC2C2002DAB62 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
+				54ED8E382916D92600A43C62 /* ProjectsScreen */,
+				54ED8E372916D91D00A43C62 /* SettingsScreen */,
 				546188BA291325D800279FE3 /* ProfileScreen */,
 				546188A92913179B00279FE3 /* MainScreen */,
 				54BF85B3290C140E002DAB62 /* Services */,
@@ -266,6 +299,7 @@
 			children = (
 				54BF859C290BC5C0002DAB62 /* BaseViewController.swift */,
 				54BF85A0290BC84B002DAB62 /* NavController.swift */,
+				54ED8E352916C6F600A43C62 /* BaseTableViewCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -275,6 +309,8 @@
 			children = (
 				54BF85A3290BD234002DAB62 /* Extensions+UIView.swift */,
 				543D8F8A290C1597008396B0 /* Extensions+ScrollView.swift */,
+				54ED8E222915EA2F00A43C62 /* Extensions+CGFloat.swift */,
+				54ED8E4929170BEF00A43C62 /* Extensions+UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -312,6 +348,36 @@
 				543330942914183B00B1EA44 /* Network */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		54ED8E372916D91D00A43C62 /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SettingsScreen;
+			sourceTree = "<group>";
+		};
+		54ED8E382916D92600A43C62 /* ProjectsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				54ED8E3B2916E32500A43C62 /* ProjectsViewController.swift */,
+				54ED8E3D2916E33100A43C62 /* ProjectsRouter.swift */,
+				54ED8E3F2916E33F00A43C62 /* ProjectsPresenter.swift */,
+				54ED8E412916E34C00A43C62 /* ProjectsInteractor.swift */,
+				54ED8E432916E35700A43C62 /* ProjectsProtocols.swift */,
+				54ED8E452916E36000A43C62 /* ProjectsEntity.swift */,
+			);
+			path = ProjectsScreen;
+			sourceTree = "<group>";
+		};
+		54ED8E4B29170E8600A43C62 /* Projects */ = {
+			isa = PBXGroup;
+			children = (
+				54ED8E472917052F00A43C62 /* ProjectTableViewCell.swift */,
+				54ED8E4C29170EE600A43C62 /* ProjectsTableSectionHeaderView.swift */,
+				54ED8E4E29170F0A00A43C62 /* BaseTableSectionHeaderView.swift */,
+			);
+			path = Projects;
 			sourceTree = "<group>";
 		};
 		E1F06B5BF521C38159C4A756 /* Pods */ = {
@@ -439,47 +505,61 @@
 			files = (
 				5461889E2912E68000279FE3 /* SignInViewController.swift in Sources */,
 				54BF85AC290C0EB2002DAB62 /* RegisterProtocols.swift in Sources */,
+				54ED8E2E2915F0DE00A43C62 /* CategoryCoreData+CoreDataProperties.swift in Sources */,
 				546188A82912E6FB00279FE3 /* SignInProtocols.swift in Sources */,
 				54BF8598290BC47E002DAB62 /* LoginPresenter.swift in Sources */,
 				54BF85AA290C0E87002DAB62 /* RegisterEntity.swift in Sources */,
 				546188B1291317E300279FE3 /* MainInteractor.swift in Sources */,
 				546188AF291317D700279FE3 /* MainRouter.swift in Sources */,
+				54ED8E322915F0DE00A43C62 /* CategoryCoreData+CoreDataClass.swift in Sources */,
 				543330982914190600B1EA44 /* CoreModel.xcdatamodeld in Sources */,
 				54BF858D290BC382002DAB62 /* LoginViewController.swift in Sources */,
 				54BF85A4290BD234002DAB62 /* Extensions+UIView.swift in Sources */,
-				548038982914250900BBD88B /* Project+CoreDataProperties.swift in Sources */,
 				546188AB291317BA00279FE3 /* MainViewController.swift in Sources */,
 				546188A22912E6CC00279FE3 /* SignInRouter.swift in Sources */,
+				54ED8E4D29170EE600A43C62 /* ProjectsTableSectionHeaderView.swift in Sources */,
 				543D8F8B290C1597008396B0 /* Extensions+ScrollView.swift in Sources */,
 				54BF85B0290C0ED0002DAB62 /* RegisterInteractor.swift in Sources */,
+				54ED8E362916C6F600A43C62 /* BaseTableViewCell.swift in Sources */,
 				549491EB290C7D1700CA72AA /* NetworkRequest.swift in Sources */,
+				54ED8E462916E36000A43C62 /* ProjectsEntity.swift in Sources */,
 				546188A02912E6B500279FE3 /* SignInPresenter.swift in Sources */,
+				54ED8E402916E33F00A43C62 /* ProjectsPresenter.swift in Sources */,
 				549491E7290C72C600CA72AA /* PostRequest.swift in Sources */,
-				548038992914250900BBD88B /* Category+CoreDataClass.swift in Sources */,
 				546188B529131BA600279FE3 /* ShakingTextField.swift in Sources */,
 				54BF85AE290C0EC0002DAB62 /* RegisterRouter.swift in Sources */,
 				54BF8592290BC406002DAB62 /* LoginProtocols.swift in Sources */,
+				54ED8E342916C44000A43C62 /* TaskTableViewCell.swift in Sources */,
+				54ED8E262915EA7500A43C62 /* CustomizedShapeView.swift in Sources */,
 				54BF8596290BC46E002DAB62 /* LoginInteractor.swift in Sources */,
+				54ED8E3E2916E33100A43C62 /* ProjectsRouter.swift in Sources */,
 				546188B92913225A00279FE3 /* LoaderButton.swift in Sources */,
+				54ED8E482917052F00A43C62 /* ProjectTableViewCell.swift in Sources */,
 				54BF8594290BC41B002DAB62 /* LoginRouter.swift in Sources */,
 				54BF85A1290BC84B002DAB62 /* NavController.swift in Sources */,
 				54BF859D290BC5C0002DAB62 /* BaseViewController.swift in Sources */,
+				54ED8E422916E34C00A43C62 /* ProjectsInteractor.swift in Sources */,
 				549491E9290C7D0100CA72AA /* APIResources.swift in Sources */,
 				546188BE2913A14A00279FE3 /* BottomSheetUIView.swift in Sources */,
 				54BF8590290BC3C4002DAB62 /* Resources.swift in Sources */,
+				54ED8E442916E35700A43C62 /* ProjectsProtocols.swift in Sources */,
+				54ED8E2F2915F0DE00A43C62 /* ProjectCoreData+CoreDataClass.swift in Sources */,
+				54ED8E3C2916E32500A43C62 /* ProjectsViewController.swift in Sources */,
+				54ED8E312915F0DE00A43C62 /* TaskCoreData+CoreDataClass.swift in Sources */,
 				546188B3291317FA00279FE3 /* MainProtocols.swift in Sources */,
+				54ED8E4A29170BF000A43C62 /* Extensions+UIColor.swift in Sources */,
 				546188A62912E6EB00279FE3 /* SignInEntity.swift in Sources */,
+				54ED8E302915F0DE00A43C62 /* TaskCoreData+CoreDataProperties.swift in Sources */,
 				54BF85B2290C0EE7002DAB62 /* RegisterPresenter.swift in Sources */,
+				54ED8E4F29170F0A00A43C62 /* BaseTableSectionHeaderView.swift in Sources */,
 				546188BC29132B0800279FE3 /* MainEntity.swift in Sources */,
 				546188A42912E6DD00279FE3 /* SignInInteractor.swift in Sources */,
-				548038952914250900BBD88B /* Project+CoreDataClass.swift in Sources */,
 				54BF8578290BC2C2002DAB62 /* AppDelegate.swift in Sources */,
 				546188AD291317CB00279FE3 /* MainPresenter.swift in Sources */,
-				548038972914250900BBD88B /* Task+CoreDataClass.swift in Sources */,
-				5480389A2914250900BBD88B /* Category+CoreDataProperties.swift in Sources */,
+				54ED8E2D2915F0DE00A43C62 /* ProjectCoreData+CoreDataProperties.swift in Sources */,
 				543330A62914203700B1EA44 /* DataManager.swift in Sources */,
+				54ED8E232915EA2F00A43C62 /* Extensions+CGFloat.swift in Sources */,
 				54BF85A8290C0E3C002DAB62 /* RegisterViewController.swift in Sources */,
-				548038962914250900BBD88B /* Task+CoreDataProperties.swift in Sources */,
 				54BF857A290BC2C2002DAB62 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
