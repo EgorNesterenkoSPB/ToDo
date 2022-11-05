@@ -15,13 +15,9 @@ final class MainRouter:PresenterToRouterMainProtocol {
         return mainViewController
     }
     
-    func showCreateProjectScreen() {
-        
+    func showProjectsScreen(mainViewController: MainViewController) {
+        let projectsViewController = ProjectsRouter.createModule()
+        mainViewController.present(projectsViewController,animated: true)
     }
-    
-    func showProfileScreen() {
-        
-    }
-    
     
 }

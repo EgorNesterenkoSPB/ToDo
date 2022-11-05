@@ -1,14 +1,9 @@
 import Foundation
 
-//struct MainSection {
-//    var sectionTitle:String
-//    var data:[String] //TODO: - Test string type
-//    var expandable:Bool
-//}
-
 struct Project:Codable {
     let name:String
     let categories:[Category]
+    let hexColor:String
 }
 
 struct Category:Codable {

@@ -42,9 +42,11 @@ enum Resources {
         static let settingsImage = "gear"
         static let circle = "circle"
         static let circleFill = "circle.fill"
+        static let projectsImage = "text.justify"
     }
     enum Cells {
         static let taskCellIdentefier = "taskCell"
+        static let projectCellIdentefier = "projectCell"
     }
 }
 

@@ -13,6 +13,7 @@ protocol ViewToPresenterMainProtocol {
     func heightForFooterInSection() -> CGFloat
     func handleBottomSheetGesture(gesture:UIPanGestureRecognizer,view:UIView,bottomSheetView:BottomSheetUIView)
     func viewForHeaderInSection(tableView: UITableView, section: Int) -> UIView?
+    func userTapProjectsButton(mainViewController:MainViewController)
 }
 
 //MARK: - View Output (Presenter -> View)
@@ -34,6 +35,5 @@ protocol InteractorToPresenterMainProtocol {
 //MARK: - Router Input (Presenter -> Router)
 protocol PresenterToRouterMainProtocol {
     static func createModule() -> MainViewController
-    func showCreateProjectScreen()
-    func showProfileScreen()
+    func showProjectsScreen(mainViewController:MainViewController)
 }

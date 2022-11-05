@@ -8,6 +8,8 @@ final class MainViewController:BaseViewController {
     let bottomBackgroundView = CustomizedShapeView()
     let circleButton = UIButton()
     let topTitle = UILabel()
+    let projectsButton = UIButton()
+    let settingsButton = UIButton()
     
     override func viewDidLayoutSubviews() {
         circleButton.clipsToBounds = true
@@ -15,13 +17,15 @@ final class MainViewController:BaseViewController {
     }
 }
 
-
+//MARK: - Setup UI
 extension MainViewController {
     override func addViews() {
         self.view.addView(bottomBackgroundView)
         self.view.addView(circleButton)
         self.view.addView(tableView)
         self.view.addView(topTitle)
+        bottomBackgroundView.addView(projectsButton)
+        bottomBackgroundView.addView(settingsButton)
     }
     
     override func configure() {
@@ -35,6 +39,11 @@ extension MainViewController {
         circleButton.setImage(UIImage(systemName: Resources.Images.plusImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
         circleButton.tintColor = .white
         circleButton.addTarget(self, action: #selector(addTaskButtonTapped(_:)), for: .touchUpInside)
+        
+        self.configureBottomButton(button: projectsButton, imageName:  Resources.Images.projectsImage)
+        projectsButton.addTarget(self, action: #selector(projectsButtonTapped), for: .touchUpInside)
+        self.configureBottomButton(button: settingsButton, imageName: Resources.Images.settingsImage)
+        
         
         tableView.backgroundColor = .clear
         tableView.delegate = self
@@ -64,20 +73,28 @@ extension MainViewController {
             circleButton.centerXAnchor.constraint(equalTo: bottomBackgroundView.centerXAnchor),
             circleButton.bottomAnchor.constraint(equalTo: bottomBackgroundView.bottomAnchor,constant: -20),
             circleButton.widthAnchor.constraint(equalToConstant: 70),
-            circleButton.heightAnchor.constraint(equalToConstant: 70)
+            circleButton.heightAnchor.constraint(equalToConstant: 70),
+            projectsButton.centerYAnchor.constraint(equalTo: bottomBackgroundView.centerYAnchor),
+            projectsButton.leftAnchor.constraint(equalTo: bottomBackgroundView.leftAnchor, constant: 20),
+            settingsButton.rightAnchor.constraint(equalTo: bottomBackgroundView.rightAnchor, constant: -20),
+            settingsButton.centerYAnchor.constraint(equalTo: bottomBackgroundView.centerYAnchor)
         ])
     }
 }
 
 
+//MARK: - Buttons methods
 extension MainViewController {
-    
     @objc private func addTaskButtonTapped(_ sender:UIButton) {
         self.activateBottomSheet()
     }
     
     @objc private func handlerGesture(gesture:UIPanGestureRecognizer) {
         presenter?.handleBottomSheetGesture(gesture: gesture, view: self.view, bottomSheetView: bottomSheetView)
+    }
+    
+    @objc private func projectsButtonTapped(_ sender:UIButton) {
+        presenter?.userTapProjectsButton(mainViewController: self)
     }
 }
 
@@ -92,12 +109,13 @@ extension MainViewController {
         ])
     }
     
-//    private func configureTopButton(button:UIButton, imageName:String) {
-//        button.setImage(UIImage(systemName: imageName,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-//        button.tintColor = .white
-//    }
+    private func configureBottomButton(button:UIButton, imageName:String) {
+        button.setImage(UIImage(systemName: imageName,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
+        button.tintColor = .darkGray
+    }
 }
 
+//MARK: - PresenterToViewMethods
 extension MainViewController:PresenterToViewMainProtocol {
     func updateTableView() {
         DispatchQueue.main.async {
