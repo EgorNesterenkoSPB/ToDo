@@ -24,7 +24,11 @@
 		546188B529131BA600279FE3 /* ShakingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188B429131BA600279FE3 /* ShakingTextField.swift */; };
 		546188B92913225A00279FE3 /* LoaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188B82913225A00279FE3 /* LoaderButton.swift */; };
 		546188BC29132B0800279FE3 /* MainEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BB29132B0800279FE3 /* MainEntity.swift */; };
-		546188BE2913A14A00279FE3 /* BottomSheetUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BD2913A14A00279FE3 /* BottomSheetUIView.swift */; };
+		546188BE2913A14A00279FE3 /* CreateTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BD2913A14A00279FE3 /* CreateTaskViewController.swift */; };
+		5479B6D22917C3E70094B6F1 /* CreateProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5479B6D12917C3E70094B6F1 /* CreateProjectViewController.swift */; };
+		5479B6D82917F2130094B6F1 /* BottomSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5479B6D72917F2130094B6F1 /* BottomSheetController.swift */; };
+		5479B6DA291809DD0094B6F1 /* ColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5479B6D9291809DC0094B6F1 /* ColorTableViewCell.swift */; };
+		5479B6DC291839200094B6F1 /* ColorHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5479B6DB291839200094B6F1 /* ColorHeaderView.swift */; };
 		549491E7290C72C600CA72AA /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491E6290C72C600CA72AA /* PostRequest.swift */; };
 		549491E9290C7D0100CA72AA /* APIResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491E8290C7D0100CA72AA /* APIResources.swift */; };
 		549491EB290C7D1700CA72AA /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491EA290C7D1700CA72AA /* NetworkRequest.swift */; };
@@ -90,7 +94,11 @@
 		546188B429131BA600279FE3 /* ShakingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakingTextField.swift; sourceTree = "<group>"; };
 		546188B82913225A00279FE3 /* LoaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderButton.swift; sourceTree = "<group>"; };
 		546188BB29132B0800279FE3 /* MainEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEntity.swift; sourceTree = "<group>"; };
-		546188BD2913A14A00279FE3 /* BottomSheetUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetUIView.swift; sourceTree = "<group>"; };
+		546188BD2913A14A00279FE3 /* CreateTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskViewController.swift; sourceTree = "<group>"; };
+		5479B6D12917C3E70094B6F1 /* CreateProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewController.swift; sourceTree = "<group>"; };
+		5479B6D72917F2130094B6F1 /* BottomSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetController.swift; sourceTree = "<group>"; };
+		5479B6D9291809DC0094B6F1 /* ColorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTableViewCell.swift; sourceTree = "<group>"; };
+		5479B6DB291839200094B6F1 /* ColorHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHeaderView.swift; sourceTree = "<group>"; };
 		549491E6290C72C600CA72AA /* PostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
 		549491E8290C7D0100CA72AA /* APIResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResources.swift; sourceTree = "<group>"; };
 		549491EA290C7D1700CA72AA /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
@@ -191,6 +199,7 @@
 				546188B0291317E300279FE3 /* MainInteractor.swift */,
 				546188B2291317FA00279FE3 /* MainProtocols.swift */,
 				546188BB29132B0800279FE3 /* MainEntity.swift */,
+				546188BD2913A14A00279FE3 /* CreateTaskViewController.swift */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -202,8 +211,8 @@
 				54ED8E252915EA7500A43C62 /* CustomizedShapeView.swift */,
 				546188B429131BA600279FE3 /* ShakingTextField.swift */,
 				546188B82913225A00279FE3 /* LoaderButton.swift */,
-				546188BD2913A14A00279FE3 /* BottomSheetUIView.swift */,
 				54ED8E332916C44000A43C62 /* TaskTableViewCell.swift */,
+				54ED8E352916C6F600A43C62 /* BaseTableViewCell.swift */,
 			);
 			path = "UI Elements";
 			sourceTree = "<group>";
@@ -299,7 +308,7 @@
 			children = (
 				54BF859C290BC5C0002DAB62 /* BaseViewController.swift */,
 				54BF85A0290BC84B002DAB62 /* NavController.swift */,
-				54ED8E352916C6F600A43C62 /* BaseTableViewCell.swift */,
+				5479B6D72917F2130094B6F1 /* BottomSheetController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -366,6 +375,12 @@
 				54ED8E412916E34C00A43C62 /* ProjectsInteractor.swift */,
 				54ED8E432916E35700A43C62 /* ProjectsProtocols.swift */,
 				54ED8E452916E36000A43C62 /* ProjectsEntity.swift */,
+				54ED8E472917052F00A43C62 /* ProjectTableViewCell.swift */,
+				54ED8E4C29170EE600A43C62 /* ProjectsTableSectionHeaderView.swift */,
+				54ED8E4E29170F0A00A43C62 /* BaseTableSectionHeaderView.swift */,
+				5479B6D12917C3E70094B6F1 /* CreateProjectViewController.swift */,
+				5479B6D9291809DC0094B6F1 /* ColorTableViewCell.swift */,
+				5479B6DB291839200094B6F1 /* ColorHeaderView.swift */,
 			);
 			path = ProjectsScreen;
 			sourceTree = "<group>";
@@ -373,9 +388,6 @@
 		54ED8E4B29170E8600A43C62 /* Projects */ = {
 			isa = PBXGroup;
 			children = (
-				54ED8E472917052F00A43C62 /* ProjectTableViewCell.swift */,
-				54ED8E4C29170EE600A43C62 /* ProjectsTableSectionHeaderView.swift */,
-				54ED8E4E29170F0A00A43C62 /* BaseTableSectionHeaderView.swift */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
@@ -520,11 +532,13 @@
 				54ED8E4D29170EE600A43C62 /* ProjectsTableSectionHeaderView.swift in Sources */,
 				543D8F8B290C1597008396B0 /* Extensions+ScrollView.swift in Sources */,
 				54BF85B0290C0ED0002DAB62 /* RegisterInteractor.swift in Sources */,
+				5479B6DC291839200094B6F1 /* ColorHeaderView.swift in Sources */,
 				54ED8E362916C6F600A43C62 /* BaseTableViewCell.swift in Sources */,
 				549491EB290C7D1700CA72AA /* NetworkRequest.swift in Sources */,
 				54ED8E462916E36000A43C62 /* ProjectsEntity.swift in Sources */,
 				546188A02912E6B500279FE3 /* SignInPresenter.swift in Sources */,
 				54ED8E402916E33F00A43C62 /* ProjectsPresenter.swift in Sources */,
+				5479B6DA291809DD0094B6F1 /* ColorTableViewCell.swift in Sources */,
 				549491E7290C72C600CA72AA /* PostRequest.swift in Sources */,
 				546188B529131BA600279FE3 /* ShakingTextField.swift in Sources */,
 				54BF85AE290C0EC0002DAB62 /* RegisterRouter.swift in Sources */,
@@ -539,8 +553,9 @@
 				54BF85A1290BC84B002DAB62 /* NavController.swift in Sources */,
 				54BF859D290BC5C0002DAB62 /* BaseViewController.swift in Sources */,
 				54ED8E422916E34C00A43C62 /* ProjectsInteractor.swift in Sources */,
+				5479B6D82917F2130094B6F1 /* BottomSheetController.swift in Sources */,
 				549491E9290C7D0100CA72AA /* APIResources.swift in Sources */,
-				546188BE2913A14A00279FE3 /* BottomSheetUIView.swift in Sources */,
+				546188BE2913A14A00279FE3 /* CreateTaskViewController.swift in Sources */,
 				54BF8590290BC3C4002DAB62 /* Resources.swift in Sources */,
 				54ED8E442916E35700A43C62 /* ProjectsProtocols.swift in Sources */,
 				54ED8E2F2915F0DE00A43C62 /* ProjectCoreData+CoreDataClass.swift in Sources */,
@@ -554,6 +569,7 @@
 				54ED8E4F29170F0A00A43C62 /* BaseTableSectionHeaderView.swift in Sources */,
 				546188BC29132B0800279FE3 /* MainEntity.swift in Sources */,
 				546188A42912E6DD00279FE3 /* SignInInteractor.swift in Sources */,
+				5479B6D22917C3E70094B6F1 /* CreateProjectViewController.swift in Sources */,
 				54BF8578290BC2C2002DAB62 /* AppDelegate.swift in Sources */,
 				546188AD291317CB00279FE3 /* MainPresenter.swift in Sources */,
 				54ED8E2D2915F0DE00A43C62 /* ProjectCoreData+CoreDataProperties.swift in Sources */,

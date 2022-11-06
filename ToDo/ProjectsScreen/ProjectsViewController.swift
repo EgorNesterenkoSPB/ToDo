@@ -15,7 +15,7 @@ extension ProjectsViewController {
     }
     
     override func configure() {
-        self.view.backgroundColor = .white
+        navigationController?.navigationBar.isHidden = false
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -61,7 +61,7 @@ extension ProjectsViewController:UITableViewDelegate,UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        presenter?.viewForHeaderInSection(tableView: tableView, section: section)
+        presenter?.viewForHeaderInSection(projectsViewController: self, tableView: tableView, section: section)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

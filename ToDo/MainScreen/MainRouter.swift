@@ -1,7 +1,7 @@
 import UIKit
 
 final class MainRouter:PresenterToRouterMainProtocol {
-    
+
     static func createModule() -> MainViewController {
         let mainViewController = MainViewController()
         
@@ -15,9 +15,15 @@ final class MainRouter:PresenterToRouterMainProtocol {
         return mainViewController
     }
     
-    func showProjectsScreen(mainViewController: MainViewController) {
+    func showProjectsScreen(navigationController:UINavigationController?) {
         let projectsViewController = ProjectsRouter.createModule()
-        mainViewController.present(projectsViewController,animated: true)
+        navigationController?.pushViewController(projectsViewController, animated: true)
+    }
+    
+    func showCreateTaskViewController(mainViewController: MainViewController) {
+        let createTaskViewController = CreateTaskViewController()
+        createTaskViewController.modalPresentationStyle = .overCurrentContext
+        mainViewController.present(createTaskViewController,animated: false)
     }
     
 }

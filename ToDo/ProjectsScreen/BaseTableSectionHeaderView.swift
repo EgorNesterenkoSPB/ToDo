@@ -36,7 +36,7 @@ class BaseTableSectionHeaderView: UIView {
         title.font = .boldSystemFont(ofSize: 18)
         self.addView(title)
         
-         chevronImageView.image = UIImage(systemName: expandable ? Resources.Images.chevronDown : Resources.Images.chevronRight)
+        chevronImageView.image = UIImage(systemName: expandable ? Resources.Images.chevronDown : Resources.Images.chevronRight)
         chevronImageView.tintColor = .gray
         self.addView(chevronImageView)
         

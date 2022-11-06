@@ -5,22 +5,13 @@ class TaskTableViewCell: BaseTableViewCell {
     let circleButton = UIButton()
     let nameTitle = UILabel()
     let projectTitle = UILabel()
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
 }
 
 extension TaskTableViewCell {
     override func addViews() {
-        self.addView(circleButton)
-        self.addView(nameTitle)
-        self.addView(projectTitle)
+        contentView.addView(circleButton)
+        contentView.addView(nameTitle)
+        contentView.addView(projectTitle)
     }
     
     override func configure() {
@@ -39,14 +30,13 @@ extension TaskTableViewCell {
     
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            circleButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            circleButton.leftAnchor.constraint(equalTo: self.leftAnchor,constant:20),
-            nameTitle.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            circleButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            circleButton.leftAnchor.constraint(equalTo: contentView.leftAnchor,constant:20),
+            nameTitle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             nameTitle.leftAnchor.constraint(equalTo: circleButton.rightAnchor, constant: 15),
-            projectTitle.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            projectTitle.rightAnchor.constraint(equalTo: self.rightAnchor,constant: -10)
+            projectTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            projectTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor,constant: -10)
         ])
-        
     }
 }
 

@@ -4,7 +4,7 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
     var view: PresenterToViewProjectsProtocol?
     var router: PresenterToRouterProjectsProtocol?
     var interactor: PresenterToInteractorProjectsProtocol?
-     var sectionsData = [
+    var sectionsData = [
         ProjectsSection(sectionTitle: "Favorite", data: [
             Project(name: "Application", categories: [
                 Category(name: "test Category", tasks: [
@@ -60,7 +60,7 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
     }
     
     
-    func viewForHeaderInSection(tableView: UITableView, section: Int) -> UIView? {
+    func viewForHeaderInSection(projectsViewController:ProjectsViewController,tableView: UITableView, section: Int) -> UIView? {
         let titleText = sectionsData[section].sectionTitle
         let expandable = sectionsData[section].expandable
         switch section {
@@ -69,7 +69,7 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
             headerView.delegate = self
             return headerView
         default:
-            let headerView = ProjectsTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable)
+            let headerView = ProjectsTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable, projectsViewController: projectsViewController)
             headerView.delegate = self
             return headerView
         }
@@ -82,6 +82,7 @@ extension ProjectsPresenter:InteractorToPresenterProjectsProtocol {
 }
 
 extension ProjectsPresenter:BaseTableSectionHeaderViewProtocol {
+    
     func updateExpandable(sectionIndex: Int) {
         sectionsData[sectionIndex].expandable.toggle()
         view?.updateTableView()

@@ -11,7 +11,7 @@ protocol ViewToPresenterProjectsProtocol {
     func cellForRowAt(tableView:UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell
     func heightForHeaderInSection() -> CGFloat
     func heightForFooterInSection() -> CGFloat
-    func viewForHeaderInSection(tableView: UITableView, section: Int) -> UIView?
+    func viewForHeaderInSection(projectsViewController:ProjectsViewController,tableView: UITableView, section: Int) -> UIView?
 }
 
 //MARK: - View Output (Presenter -> View)

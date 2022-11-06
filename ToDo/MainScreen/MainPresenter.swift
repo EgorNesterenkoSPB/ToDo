@@ -1,6 +1,7 @@
 import UIKit
 
 final class MainPresenter: ViewToPresenterMainProtocol {
+    
     var view: PresenterToViewMainProtocol?
     var router: PresenterToRouterMainProtocol?
     var interactor: PresenterToInteractorMainProtocol?
@@ -11,43 +12,12 @@ final class MainPresenter: ViewToPresenterMainProtocol {
         static let heightFooter = 2.0
     }
     
-    func userTapProjectsButton(mainViewController: MainViewController) {
-        router?.showProjectsScreen(mainViewController: mainViewController)
+    func userTapProjectsButton(navigationController:UINavigationController?) {
+        router?.showProjectsScreen(navigationController:navigationController)
     }
     
-    func handleBottomSheetGesture(gesture: UIPanGestureRecognizer, view: UIView, bottomSheetView: BottomSheetUIView) {
-        if gesture.state == .changed {
-            let translation = gesture.translation(in: view)
-            
-            if ((view.frame.height - bottomSheetView.center.y > 150 && translation.y < 0 ) || (view.frame.height - bottomSheetView.center.y < 0 && translation.y > 0)) {
-                
-            }
-            else {
-                gesture.view!.center = CGPoint(x: gesture.view!.center.x, y: gesture.view!.center.y + translation.y)
-                gesture.setTranslation(CGPoint.zero, in: view)
-            }
-            
-            if (view.frame.height - bottomSheetView.center.y > 150) {
-                bottomSheetView.center.y = view.frame.height
-                 - 150
-            }
-            if (view.frame.height - bottomSheetView.center.y < -0.5) {
-                //bottomSheetView.center.y = self.view.frame.height
-                bottomSheetView.removeFromSuperview()
-            }
-        }
-        else if gesture.state == .ended {
-            gesture.view?.center = CGPoint(x: bottomSheetView.center.x, y: bottomSheetView.center.y)
-            
-            UIView.animate(withDuration: 0.15, animations: {
-                if (view.frame.height - bottomSheetView.center.y < 60) {
-                    bottomSheetView.center.y = view.frame.height
-                }
-                else {
-                    bottomSheetView.center.y = view.frame.height - 150
-                }
-            })
-        }
+    func userTapCreateTask(mainViewController: MainViewController) {
+        router?.showCreateTaskViewController(mainViewController: mainViewController)
     }
     
     func numberOfSections() -> Int {

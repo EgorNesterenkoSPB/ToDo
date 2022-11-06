@@ -4,7 +4,6 @@ final class MainViewController:BaseViewController {
     var presenter:(InteractorToPresenterMainProtocol & ViewToPresenterMainProtocol)?
     
     let tableView = UITableView()
-    let bottomSheetView = BottomSheetUIView()
     let bottomBackgroundView = CustomizedShapeView()
     let circleButton = UIButton()
     let topTitle = UILabel()
@@ -52,9 +51,6 @@ extension MainViewController {
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         
-        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlerGesture(gesture: )))
-        gestureRecognizer.cancelsTouchesInView = false
-        bottomSheetView.addGestureRecognizer(gestureRecognizer)
         
     }
     
@@ -86,29 +82,15 @@ extension MainViewController {
 //MARK: - Buttons methods
 extension MainViewController {
     @objc private func addTaskButtonTapped(_ sender:UIButton) {
-        self.activateBottomSheet()
+        presenter?.userTapCreateTask(mainViewController: self)
     }
-    
-    @objc private func handlerGesture(gesture:UIPanGestureRecognizer) {
-        presenter?.handleBottomSheetGesture(gesture: gesture, view: self.view, bottomSheetView: bottomSheetView)
-    }
-    
+        
     @objc private func projectsButtonTapped(_ sender:UIButton) {
-        presenter?.userTapProjectsButton(mainViewController: self)
+        presenter?.userTapProjectsButton(navigationController:navigationController)
     }
 }
 
 extension MainViewController {
-    private func activateBottomSheet() {
-        self.view.addView(bottomSheetView)
-        NSLayoutConstraint.activate([
-            bottomSheetView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            bottomSheetView.widthAnchor.constraint(equalToConstant: self.view.frame.width - 2),
-            bottomSheetView.heightAnchor.constraint(equalToConstant: 400),
-            bottomSheetView.topAnchor.constraint(equalTo: self.view.bottomAnchor,constant: -400)
-        ])
-    }
-    
     private func configureBottomButton(button:UIButton, imageName:String) {
         button.setImage(UIImage(systemName: imageName,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
         button.tintColor = .darkGray

@@ -6,22 +6,13 @@ class ProjectTableViewCell: BaseTableViewCell {
     let circleImageView = UIImageView()
     let countOfTasksLabel = UILabel()
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
 }
 
 extension ProjectTableViewCell {
     override func addViews() {
-        self.addView(nameTitle)
-        self.addView(circleImageView)
-        self.addView(countOfTasksLabel)
+        contentView.addView(nameTitle)
+        contentView.addView(circleImageView)
+        contentView.addView(countOfTasksLabel)
     }
     
     override func configure() {
@@ -36,12 +27,12 @@ extension ProjectTableViewCell {
     
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            circleImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            circleImageView.leftAnchor.constraint(equalTo: self.leftAnchor,constant: 20),
-            nameTitle.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            circleImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            circleImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor,constant: 20),
+            nameTitle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             nameTitle.leftAnchor.constraint(equalTo: circleImageView.rightAnchor,constant: 15),
-            countOfTasksLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            countOfTasksLabel.rightAnchor.constraint(equalTo: self.rightAnchor,constant: -10)
+            countOfTasksLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            countOfTasksLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor,constant: -10)
         ])
     }
 }

@@ -3,6 +3,18 @@ import UIKit
 
 class ProjectsTableSectionHeaderView: BaseTableSectionHeaderView {
     
+    let projectsViewController:ProjectsViewController
+    private var bottomSheetTransitioningDelegate:UIViewControllerTransitioningDelegate?
+    
+    init(titleText: String, section: Int, expandable: Bool,projectsViewController:ProjectsViewController) {
+        self.projectsViewController = projectsViewController
+        super.init(titleText: titleText, section: section, expandable: expandable)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func configureView() {
         super.configureView()
         let addProjectButton:UIButton = {
@@ -23,6 +35,8 @@ class ProjectsTableSectionHeaderView: BaseTableSectionHeaderView {
 
 extension ProjectsTableSectionHeaderView {
     @objc private func createProjectButtonTapped(_ sender:UIButton) {
-        
+        let createProjectViewController = CreateProjectViewController()
+        createProjectViewController.modalPresentationStyle = .overCurrentContext
+        projectsViewController.present(createProjectViewController,animated: false)
     }
 }
