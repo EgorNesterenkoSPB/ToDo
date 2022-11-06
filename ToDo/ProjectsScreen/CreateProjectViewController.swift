@@ -10,8 +10,12 @@ final class CreateProjectViewController:BottomSheetController {
     let colorTableView = UITableView()
     let addToFavoriteLabel = UILabel()
     let favoriteIconImageView = UIImageView()
+    let favoriteHorizontallStackView = UIStackView()
     var sectionColorData = ColorSection(data: Resources.colorsData, expandable: false)
     private var colorTableHeightConstraint:NSLayoutConstraint?
+    private var colorTableBottomConstraint:NSLayoutConstraint?
+    private var favoriteHorizontalStackViewTopConstraint:NSLayoutConstraint?
+    private var favoriteHorizontalStackViewBottomConstraint:NSLayoutConstraint?
     
     private enum UIConstans {
         static let startingHexColor = "b8b8b8"
@@ -22,18 +26,25 @@ final class CreateProjectViewController:BottomSheetController {
 extension CreateProjectViewController {
     override func addViews() {
         super.addViews()
+        containerView.addView(favoriteHorizontallStackView)
         containerView.addView(topTitle)
         containerView.addView(cancelButton)
         containerView.addView(confirmButton)
         containerView.addView(nameTextField)
-        containerView.addView(favoriteSwitcher)
         containerView.addView(colorTableView)
-        containerView.addView(addToFavoriteLabel)
-        containerView.addView(favoriteIconImageView)
+        favoriteHorizontallStackView.addArrangedSubview(favoriteIconImageView)
+        favoriteHorizontallStackView.addArrangedSubview(addToFavoriteLabel)
+        favoriteHorizontallStackView.addArrangedSubview(favoriteSwitcher)
     }
     
     override func configure() {
         super.configure()
+        
+        favoriteHorizontallStackView.axis = NSLayoutConstraint.Axis.horizontal
+        favoriteHorizontallStackView.distribution = UIStackView.Distribution.equalSpacing
+        favoriteHorizontallStackView.alignment = UIStackView.Alignment.center
+        favoriteHorizontallStackView.spacing = 10
+        
         topTitle.text = Resources.Titles.createProjectTitle
         topTitle.textColor = .systemOrange
         topTitle.font = .boldSystemFont(ofSize: 25)
@@ -56,6 +67,10 @@ extension CreateProjectViewController {
         colorTableView.backgroundColor = .clear
         colorTableView.showsVerticalScrollIndicator = false
         
+        if #available(iOS 15.0, *) {
+            colorTableView.sectionHeaderTopPadding = 0
+        }
+        
         nameTextField.placeholder = Resources.Placeholders.textFieldPlaceholder
         nameTextField.delegate = self
         
@@ -74,18 +89,16 @@ extension CreateProjectViewController {
             nameTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor,constant: 10),
             nameTextField.rightAnchor.constraint(equalTo: containerView.rightAnchor,constant: -10),
             nameTextField.heightAnchor.constraint(equalToConstant: 30),
-            colorTableView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor,constant: 5),
+            colorTableView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor,constant: 10),
             colorTableView.leftAnchor.constraint(equalTo: nameTextField.leftAnchor),
             colorTableView.rightAnchor.constraint(equalTo: nameTextField.rightAnchor),
-            favoriteIconImageView.topAnchor.constraint(equalTo: colorTableView.bottomAnchor,constant: 5),
-            favoriteIconImageView.leftAnchor.constraint(equalTo: nameTextField.leftAnchor),
-            addToFavoriteLabel.centerYAnchor.constraint(equalTo: favoriteIconImageView.centerYAnchor),
-            addToFavoriteLabel.leftAnchor.constraint(equalTo: favoriteIconImageView.rightAnchor,constant: 20),
-            favoriteSwitcher.centerYAnchor.constraint(equalTo: favoriteIconImageView.centerYAnchor),
-            favoriteSwitcher.rightAnchor.constraint(equalTo: nameTextField.rightAnchor)
+            favoriteHorizontallStackView.leftAnchor.constraint(equalTo: nameTextField.leftAnchor),
+            favoriteHorizontallStackView.rightAnchor.constraint(equalTo: nameTextField.rightAnchor)
         ])
         colorTableHeightConstraint = colorTableView.heightAnchor.constraint(equalToConstant: UIConstans.tableHeight)
         colorTableHeightConstraint?.isActive = true
+        favoriteHorizontalStackViewTopConstraint = favoriteHorizontallStackView.topAnchor.constraint(equalTo: colorTableView.bottomAnchor,constant:0)
+        favoriteHorizontalStackViewTopConstraint?.isActive = true
     }
 }
 
@@ -137,16 +150,22 @@ extension CreateProjectViewController:ColorHeaderViewProtocol {
     func updateExpandable() {
         sectionColorData.expandable.toggle()
         if sectionColorData.expandable {
-            self.colorTableHeightConstraint?.constant = 150
+            favoriteHorizontalStackViewTopConstraint?.isActive = false
+            favoriteHorizontalStackViewBottomConstraint = favoriteHorizontallStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20)
+            favoriteHorizontalStackViewBottomConstraint?.isActive = true
+            self.colorTableHeightConstraint?.isActive = false
+            self.colorTableBottomConstraint = colorTableView.bottomAnchor.constraint(equalTo: favoriteHorizontallStackView.topAnchor)
+            self.colorTableBottomConstraint?.isActive = true
         }
         else {
-            self.colorTableHeightConstraint?.constant = UIConstans.tableHeight
+            favoriteHorizontalStackViewTopConstraint?.isActive = true
+            favoriteHorizontalStackViewBottomConstraint?.isActive = false
+            self.colorTableBottomConstraint?.isActive = false
+            self.colorTableHeightConstraint?.isActive = true
         }
         view.layoutIfNeeded()
         DispatchQueue.main.async {
             self.colorTableView.reloadData()
         }
     }
-    
-    
 }
