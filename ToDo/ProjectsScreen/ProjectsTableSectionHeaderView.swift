@@ -37,6 +37,7 @@ extension ProjectsTableSectionHeaderView {
     @objc private func createProjectButtonTapped(_ sender:UIButton) {
         let createProjectViewController = CreateProjectViewController()
         createProjectViewController.modalPresentationStyle = .overCurrentContext
+        createProjectViewController.delegate = projectsViewController
         projectsViewController.present(createProjectViewController,animated: false)
     }
 }

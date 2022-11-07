@@ -81,7 +81,7 @@ extension BottomSheetController {
         })
     }
     
-    private func animateDismissView() {
+    public func animateDismissView() {
         UIView.animate(withDuration: 0.3, animations: {
             self.containerViewBottomConstraint?.constant = UIConstans.defaultHeight
             self.view.layoutIfNeeded()

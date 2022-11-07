@@ -2,7 +2,7 @@
 //  ProjectCoreData+CoreDataProperties.swift
 //  
 //
-//  Created by no name on 05.11.2022.
+//  Created by no name on 07.11.2022.
 //
 //
 
@@ -17,6 +17,8 @@ extension ProjectCoreData {
     }
 
     @NSManaged public var name: String?
+    @NSManaged public var hexColor: String?
+    @NSManaged @objc public var isFavorite: Bool
     @NSManaged public var categories: NSSet?
 
 }

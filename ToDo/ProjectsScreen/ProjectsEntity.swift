@@ -2,7 +2,7 @@ import Foundation
 
 struct ProjectsSection {
     let sectionTitle:String
-    let data:[Project]
+    var data:[ProjectCoreData]
     var expandable:Bool
 }
 

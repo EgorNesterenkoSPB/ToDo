@@ -6,7 +6,14 @@ final class ProjectsViewController:BaseViewController {
     let tableView = UITableView()
     var presenter:(InteractorToPresenterProjectsProtocol & ViewToPresenterProjectsProtocol)?
     
-
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        do {
+            try presenter?.viewDidLoad()
+        } catch let error {
+            presenter?.showErrorAlert(errorText: "\(error)", projectsViewController: self)
+        }
+    }
 }
 
 extension ProjectsViewController {
@@ -35,8 +42,19 @@ extension ProjectsViewController {
     }
 }
 
+
+//MARK: - PresenterToViewProtocol
 extension ProjectsViewController:PresenterToViewProjectsProtocol {
+    func failedGetCoreData(errorText: String) {
+        presenter?.showErrorAlert(errorText: errorText, projectsViewController: self)
+    }
+    
+    func onFailureCreateProject(errorText: String) {
+        presenter?.showErrorAlert(errorText: errorText, projectsViewController: self)
+    }
+    
     func updateTableView() {
+        print("test2")
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -71,9 +89,12 @@ extension ProjectsViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         presenter?.heightForFooterInSection() ?? 0
     }
-    
-    
-    
+}
+
+extension ProjectsViewController:CreateProjectViewControllerProtocol {
+    func createProject(name: String, hexColor: String,isFavorite:Bool) {
+        presenter?.createProject(name: name, hexColor: hexColor,isFavorite:isFavorite)
+    }
 }
 
 

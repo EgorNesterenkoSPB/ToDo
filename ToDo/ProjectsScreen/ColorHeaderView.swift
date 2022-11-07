@@ -9,12 +9,12 @@ class ColorHeaderView: UIView {
     let titleLabel = UILabel()
     let circleImageView = UIImageView()
     let chevronImageView = UIImageView()
-    let hexColor:String
+    let color:UIColor
     let expandable:Bool
     var delegate:ColorHeaderViewProtocol?
     
-    init(hexColor:String,expandable:Bool) {
-        self.hexColor = hexColor
+    init(color:UIColor,expandable:Bool) {
+        self.color = color
         self.expandable = expandable
         super.init(frame: .zero)
         self.configureView()
@@ -31,7 +31,7 @@ class ColorHeaderView: UIView {
         self.addView(titleLabel)
         
         circleImageView.image = UIImage(systemName: Resources.Images.circleFill,withConfiguration: Resources.Configurations.largeConfiguration)
-        circleImageView.tintColor = UIColor(hexString: hexColor)
+        circleImageView.tintColor = color
         self.addView(circleImageView)
         
         chevronImageView.image = UIImage(systemName: expandable ? Resources.Images.chevronDown : Resources.Images.chevronRight)

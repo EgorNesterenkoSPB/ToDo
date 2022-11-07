@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CategoryCoreData" representedClassName="CategoryCoreData" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectCoreData" inverseName="categories" inverseEntity="ProjectCoreData"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaskCoreData" inverseName="category" inverseEntity="TaskCoreData"/>
     </entity>
     <entity name="ProjectCoreData" representedClassName="ProjectCoreData" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="hexColor" attributeType="String"/>
+        <attribute name="isFavorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
         <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CategoryCoreData" inverseName="project" inverseEntity="CategoryCoreData"/>
     </entity>
     <entity name="TaskCoreData" representedClassName="TaskCoreData" syncable="YES">
         <attribute name="descriptionTask" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
         <attribute name="priority" optional="YES" attributeType="String"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryCoreData" inverseName="tasks" inverseEntity="CategoryCoreData"/>
     </entity>
     <elements>
         <element name="CategoryCoreData" positionX="-54" positionY="0" width="128" height="74"/>
-        <element name="ProjectCoreData" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="ProjectCoreData" positionX="-63" positionY="-18" width="128" height="89"/>
         <element name="TaskCoreData" positionX="-36" positionY="18" width="128" height="104"/>
     </elements>
 </model>

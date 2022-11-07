@@ -2,7 +2,7 @@
 //  CategoryCoreData+CoreDataClass.swift
 //  
 //
-//  Created by no name on 05.11.2022.
+//  Created by no name on 07.11.2022.
 //
 //
 

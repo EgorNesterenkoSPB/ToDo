@@ -2,6 +2,7 @@ import UIKit
 
 enum Resources {
     static let coreModelName = "CoreModel"
+    static let headerColorIdentefier = "colorHeader"
     static let colorsData = [Color(hex: "b8256f", name: "Berry red"),Color(hex: "db4035", name: "Red"),Color(hex: "ff9933", name: "Orange"),Color(hex: "fad000", name: "Yellow"),Color(hex: "afb83b", name: "Olive green"),Color(hex: "7ecc49", name: "Lime green"),Color(hex: "299438", name: "Green"),Color(hex: "6accbc", name: "Mint green"),Color(hex: "158fad", name: "Teal"),Color(hex: "14aaf5", name: "Sky blue"),Color(hex: "96c3eb", name: "Light blue"),Color(hex: "4073ff", name: "Blue"),Color(hex: "884dff", name: "Grape"),Color(hex: "af38eb", name: "Violet"),Color(hex: "eb96eb", name: "Lavender"),Color(hex: "e05194", name: "Magenta"),Color(hex: "ff8d85", name: "Salmon"),Color(hex: "808080", name: "Charcoal"),Color(hex: "b8b8b8", name: "Grey"),Color(hex: "ccac93", name: "Taupe")]
     
     enum Links {
@@ -26,8 +27,10 @@ enum Resources {
         static let errorActionTitle = "OK"
         static let loginOrMailTitle = "Login/Mail:"
         static let cancelButton = "Cancel"
-        static let createProjectTitle = "Create project"
+        static let createProjectTitle = "New project"
         static let addToFavorite = "Add to favorite"
+        static let favoriteSection = "Favorite"
+        static let projectsSection = "Projects"
     }
     enum Placeholders {
         static let textViewPlaceholder = "Description"

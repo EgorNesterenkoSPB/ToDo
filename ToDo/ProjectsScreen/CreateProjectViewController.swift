@@ -1,5 +1,9 @@
 import UIKit
 
+protocol CreateProjectViewControllerProtocol {
+    func createProject(name:String,hexColor:String,isFavorite:Bool)
+}
+
 final class CreateProjectViewController:BottomSheetController {
     
     let topTitle = UILabel()
@@ -16,9 +20,11 @@ final class CreateProjectViewController:BottomSheetController {
     private var colorTableBottomConstraint:NSLayoutConstraint?
     private var favoriteHorizontalStackViewTopConstraint:NSLayoutConstraint?
     private var favoriteHorizontalStackViewBottomConstraint:NSLayoutConstraint?
+    private var headerCircleImageColor = UIColor(hexString: "b8b8b8")
+    public var delegate:CreateProjectViewControllerProtocol?
+    private var projectName:String = "" // to store project name
     
     private enum UIConstans {
-        static let startingHexColor = "b8b8b8"
         static let tableHeight:CGFloat = 60.0
     }
 }
@@ -51,9 +57,12 @@ extension CreateProjectViewController {
         
         cancelButton.setTitle(Resources.Titles.cancelButton, for: .normal)
         cancelButton.setTitleColor(.systemOrange, for: .normal)
+        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         
         confirmButton.setTitle(Resources.Titles.confirmButtonTitle, for: .normal)
-        confirmButton.setTitleColor(.systemOrange, for: .normal)
+        confirmButton.setTitleColor(.gray, for: .normal)
+        confirmButton.isEnabled = false
+        confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         
         favoriteIconImageView.image = UIImage(systemName: Resources.Images.heart,withConfiguration: Resources.Configurations.largeConfiguration)
         favoriteIconImageView.tintColor = .black
@@ -102,6 +111,18 @@ extension CreateProjectViewController {
     }
 }
 
+extension CreateProjectViewController {
+    @objc private func cancelButtonTapped(_ sender:UIButton) {
+        super.animateDismissView()
+    }
+    
+    @objc private func confirmButtonTapped(_ sender:UIButton) {
+        guard self.projectName != "" else {return}
+        self.delegate?.createProject(name: projectName, hexColor: self.headerCircleImageColor.toHexString(), isFavorite: favoriteSwitcher.isOn)
+        super.animateDismissView()
+    }
+}
+
 //MARK: - TableViewMethods
 extension CreateProjectViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -122,12 +143,18 @@ extension CreateProjectViewController:UITableViewDelegate,UITableViewDataSource 
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? ColorTableViewCell else {return}
+        self.headerCircleImageColor = cell.colorCircleImageView.tintColor
+        self.updateExpandable()
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = ColorHeaderView(hexColor: UIConstans.startingHexColor, expandable: sectionColorData.expandable)
+        let headerView = ColorHeaderView(color: self.headerCircleImageColor, expandable: sectionColorData.expandable)
         headerView.delegate = self
         return headerView
     }
@@ -142,10 +169,18 @@ extension CreateProjectViewController:UITableViewDelegate,UITableViewDataSource 
     
 }
 
+//MARK: - TextFieldMethods
 extension CreateProjectViewController:UITextFieldDelegate {
-    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text, text != "" && text != " " else {return}
+        confirmButton.setTitleColor(.systemOrange, for: .normal)
+        confirmButton.isEnabled = true
+        self.projectName = text
+    }
 }
 
+
+//MARK: - ColorHeaderViewProtocol
 extension CreateProjectViewController:ColorHeaderViewProtocol {
     func updateExpandable() {
         sectionColorData.expandable.toggle()

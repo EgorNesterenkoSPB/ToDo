@@ -4,20 +4,52 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
     var view: PresenterToViewProjectsProtocol?
     var router: PresenterToRouterProjectsProtocol?
     var interactor: PresenterToInteractorProjectsProtocol?
+//    var sectionsData = [
+//        ProjectsSection(sectionTitle: "Favorite", data: [
+//            Project(name: "Application", categories: [
+//                Category(name: "test Category", tasks: [
+//                    Task(name: "first task", description: "test description", priority: "hight", time: "test Time", isOverdue: false)])], hexColor: "644AFF")],
+//                        expandable: false),
+//        ProjectsSection(sectionTitle: "Projects", data: [
+//            Project(name: "Application", categories: [
+//                Category(name: "test Category", tasks: [
+//                    Task(name: "first task", description: "test description", priority: "hight", time: "test Time", isOverdue: false)])], hexColor: "644AFF"),
+//            Project(name: "Desktop", categories: [
+//                Category(name: "test Category", tasks: [
+//                    Task(name: "first task", description: "test description", priority: "hight", time: "test Time", isOverdue: false)])], hexColor: "3FFF34")],
+//                        expandable: false)]
     var sectionsData = [
-        ProjectsSection(sectionTitle: "Favorite", data: [
-            Project(name: "Application", categories: [
-                Category(name: "test Category", tasks: [
-                    Task(name: "first task", description: "test description", priority: "hight", time: "test Time", isOverdue: false)])], hexColor: "644AFF")],
+        ProjectsSection(sectionTitle: Resources.Titles.favoriteSection,
+                        data: [],
                         expandable: false),
-        ProjectsSection(sectionTitle: "Projects", data: [
-            Project(name: "Application", categories: [
-                Category(name: "test Category", tasks: [
-                    Task(name: "first task", description: "test description", priority: "hight", time: "test Time", isOverdue: false)])], hexColor: "644AFF"),
-            Project(name: "Desktop", categories: [
-                Category(name: "test Category", tasks: [
-                    Task(name: "first task", description: "test description", priority: "hight", time: "test Time", isOverdue: false)])], hexColor: "3FFF34")],
-                        expandable: false)]
+        ProjectsSection(sectionTitle: Resources.Titles.projectsSection,
+                        data: [],
+                        expandable: false)
+    ]
+    
+    func viewDidLoad() throws {
+        do {
+            let projects = try DataManager.shared.projects()
+            sectionsData[1].data = projects
+            sectionsData[0].data = getFavoriteProjects(projects: projects)
+        } catch let error {
+            throw CoreManagerError.failedFetchProjects(text: "\(error)")
+        }
+    }
+    
+    private func getFavoriteProjects(projects:[ProjectCoreData]) -> [ProjectCoreData] {
+        var favoriteProjects = [ProjectCoreData]()
+        for project in projects {
+            if project.isFavorite {
+                favoriteProjects.append(project)
+            }
+        }
+        return favoriteProjects
+    }
+
+    func showErrorAlert(errorText: String, projectsViewController: ProjectsViewController) {
+        router?.onShowErrorAlert(errorText: errorText, projectsViewController: projectsViewController)
+    }
     
     func numberOfSections() -> Int {
         sectionsData.count
@@ -38,15 +70,31 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         }
         let project = sectionsData[indexPath.section].data[indexPath.row]
         cell.nameTitle.text = project.name
-        cell.countOfTasksLabel.text = "\(countOfProjectTasks(project: project))"
-        cell.circleImageView.tintColor = UIColor(hexString: project.hexColor)
+        //cell.countOfTasksLabel.text = "\(countOfProjectTasks(project: project))"
+        do {
+            let countOfTasks = try countOfProjectTasks(project: project)
+            cell.countOfTasksLabel.text = "\(countOfTasks)"
+        } catch let error {
+            view?.failedGetCoreData(errorText: "\(error)")
+        }
+        cell.circleImageView.tintColor = UIColor(hexString: project.hexColor ?? "b8b8b8")
         return cell
     }
     
-    private func countOfProjectTasks(project:Project) -> Int {
+    private func countOfProjectTasks(project:ProjectCoreData) throws -> Int {
         var count:Int = 0
-        for category in project.categories {
-            count += category.tasks.count
+        do {
+            let categories = try DataManager.shared.categories(project: project)
+            for category in categories {
+                do {
+                    let tasks = try DataManager.shared.tasks(category: category)
+                    count += tasks.count
+                } catch let error {
+                    throw CoreManagerError.failedFetchTasks(text: "\(error)")
+                }
+            }
+        } catch let error {
+            throw CoreManagerError.failedFetchCategories(text: "\(error)")
         }
         return count
     }
@@ -75,9 +123,24 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         }
         
     }
+    
+    func createProject(name: String, hexColor: String,isFavorite:Bool) {
+        interactor?.onCreateProject(name: name, hexColor: hexColor,isFavorite:isFavorite)
+    }
+    
 }
 
 extension ProjectsPresenter:InteractorToPresenterProjectsProtocol {
+    func successfulyCreateProject(projects:[ProjectCoreData]) {
+        sectionsData[1].data = projects
+        sectionsData[0].data = getFavoriteProjects(projects: projects)
+        view?.updateTableView()
+    }
+    
+    func failureCreateProject(errorText: String) {
+        view?.onFailureCreateProject(errorText: errorText)
+    }
+    
     
 }
 

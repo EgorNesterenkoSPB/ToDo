@@ -7,6 +7,16 @@ enum PriorityTask:String {
     case low
 }
 
+enum CoreManagerError:Error {
+    case failedSaveContext(text:String)
+    case failedFetchProjects(text:String)
+    case failedFetchCategories(text:String)
+    case failedFetchTasks(text:String)
+    case failedDeleteProject(text:String)
+    case failedDeleteCategory(text:String)
+    case failedDeleteTask(text:String)
+}
+
 class DataManager {
     static let shared = DataManager()
     
@@ -20,7 +30,7 @@ class DataManager {
         return container
     }()
     
-    func save() {
+    func save() throws {
         let context = persistentContainer.viewContext
         
         if context.hasChanges {
@@ -28,14 +38,17 @@ class DataManager {
                 try context.save()
             } catch {
                 let nsError = error as NSError
-                fatalError("Unresolver error \(nsError), \(nsError.userInfo)")
+                throw CoreManagerError.failedSaveContext(text: "Unresolver error \(nsError), \(nsError.userInfo)")
+                //fatalError("Unresolver error \(nsError), \(nsError.userInfo)")
             }
         }
     }
     
-    func project(name:String) -> ProjectCoreData {
+    func project(name:String,hexColor:String,isFavorite:Bool) -> ProjectCoreData {
         let project = ProjectCoreData(context: persistentContainer.viewContext)
         project.name = name
+        project.hexColor = hexColor
+        project.isFavorite = isFavorite
         return project
     }
     
@@ -56,64 +69,76 @@ class DataManager {
         return task
     }
     
-    func projects() -> [ProjectCoreData] {
+    func projects() throws -> [ProjectCoreData] {
         let request:NSFetchRequest<ProjectCoreData> = ProjectCoreData.fetchRequest()
         var fetchedProjects:[ProjectCoreData] = []
         
         do {
             fetchedProjects = try persistentContainer.viewContext.fetch(request)
         } catch let error {
-            print("Error fetching projects \(error)")
+            throw CoreManagerError.failedFetchProjects(text: "Error fetching projects \(error)")
         }
         return fetchedProjects
     }
     
-    func categories(project:ProjectCoreData) -> [CategoryCoreData] {
+    func categories(project:ProjectCoreData) throws -> [CategoryCoreData] {
         let request:NSFetchRequest<CategoryCoreData> = CategoryCoreData.fetchRequest()
         request.predicate = NSPredicate(format: "project = %@", project)
-        request.sortDescriptors = [NSSortDescriptor(key: "releaseDate", ascending: false)]
+        //request.sortDescriptors = [NSSortDescriptor(key: "releaseDate", ascending: false)]
         
         var fetchedCategories:[CategoryCoreData] = []
         
         do {
             fetchedCategories = try persistentContainer.viewContext.fetch(request)
         } catch let error {
-            print("Error fetching categories \(error)")
+            throw CoreManagerError.failedFetchCategories(text: "Error fetching categories \(error)")
         }
         return fetchedCategories
     }
     
-    func tasks(category:CategoryCoreData) -> [TaskCoreData] {
+    func tasks(category:CategoryCoreData) throws -> [TaskCoreData] {
         let request:NSFetchRequest<TaskCoreData> = TaskCoreData.fetchRequest()
-        request.predicate = NSPredicate(format: "category = %@",category)
-        request.sortDescriptors = [NSSortDescriptor(key: "releaseDate", ascending: false)]
+//        request.predicate = NSPredicate(format: "category = %@",category)
+//        request.sortDescriptors = [NSSortDescriptor(key: "releaseDate", ascending: false)]
         
         var fetchedTasks:[TaskCoreData] = []
         
         do {
             fetchedTasks = try persistentContainer.viewContext.fetch(request)
         } catch let error {
-            print("Error fetching tasks \(error)")
+            throw CoreManagerError.failedFetchTasks(text: "Error fetching tasks \(error)")
         }
         return fetchedTasks
     }
     
-    func deleteProject(project:ProjectCoreData) {
+    func deleteProject(project:ProjectCoreData) throws {
         let context = persistentContainer.viewContext
         context.delete(project)
-        save()
+        do {
+            try save()
+        } catch let error {
+            throw CoreManagerError.failedDeleteProject(text: "\(error)")
+        }
     }
     
-    func deleteCategory(category:CategoryCoreData) {
+    func deleteCategory(category:CategoryCoreData) throws {
         let context = persistentContainer.viewContext
         context.delete(category)
-        save()
+        do {
+            try save()
+        } catch let error {
+            throw CoreManagerError.failedDeleteCategory(text: "\(error)")
+        }
     }
     
-    func deleteTask(task:TaskCoreData) {
+    func deleteTask(task:TaskCoreData) throws {
         let context = persistentContainer.viewContext
         context.delete(task)
-        save()
+        do {
+            try save()
+        } catch let error {
+            throw CoreManagerError.failedDeleteTask(text: "\(error)")
+        }
     }
     
 }
