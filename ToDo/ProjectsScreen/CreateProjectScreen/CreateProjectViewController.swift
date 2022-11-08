@@ -1,7 +1,7 @@
 import UIKit
 
 protocol CreateProjectViewControllerProtocol {
-    func createProject(name:String,hexColor:String,isFavorite:Bool)
+    func createProject(name: String, hexColor: String, isFavorite: Bool)
 }
 
 final class CreateProjectViewController:BottomSheetController {
@@ -15,14 +15,13 @@ final class CreateProjectViewController:BottomSheetController {
     let addToFavoriteLabel = UILabel()
     let favoriteIconImageView = UIImageView()
     let favoriteHorizontallStackView = UIStackView()
-    var sectionColorData = ColorSection(data: Resources.colorsData, expandable: false)
     private var colorTableHeightConstraint:NSLayoutConstraint?
     private var colorTableBottomConstraint:NSLayoutConstraint?
     private var favoriteHorizontalStackViewTopConstraint:NSLayoutConstraint?
     private var favoriteHorizontalStackViewBottomConstraint:NSLayoutConstraint?
-    private var headerCircleImageColor = UIColor(hexString: "b8b8b8")
-    public var delegate:CreateProjectViewControllerProtocol?
-    private var projectName:String = "" // to store project name
+    var presenter:(ViewToPresenterCreateProjectProtocol & InteractorToPresenterCreateProjectProtocol)?
+    var delegate:CreateProjectViewControllerProtocol?
+    var sectionColorData = ColorSection(data: Resources.colorsData, expandable: false)
     
     private enum UIConstans {
         static let tableHeight:CGFloat = 60.0
@@ -75,6 +74,7 @@ extension CreateProjectViewController {
         colorTableView.register(ColorTableViewCell.self, forCellReuseIdentifier: Resources.Cells.colorCellIdentefier)
         colorTableView.backgroundColor = .clear
         colorTableView.showsVerticalScrollIndicator = false
+        colorTableView.tableFooterView = UIView()
         
         if #available(iOS 15.0, *) {
             colorTableView.sectionHeaderTopPadding = 0
@@ -117,8 +117,9 @@ extension CreateProjectViewController {
     }
     
     @objc private func confirmButtonTapped(_ sender:UIButton) {
-        guard self.projectName != "" else {return}
-        self.delegate?.createProject(name: projectName, hexColor: self.headerCircleImageColor.toHexString(), isFavorite: favoriteSwitcher.isOn)
+        guard let name = presenter?.projectName, name != "" else {return}
+        guard let hexColor =  presenter?.headerCircleImageColor.toHexString() else {return}
+        self.delegate?.createProject(name: name, hexColor: hexColor, isFavorite: favoriteSwitcher.isOn)
         super.animateDismissView()
     }
 }
@@ -126,37 +127,24 @@ extension CreateProjectViewController {
 //MARK: - TableViewMethods
 extension CreateProjectViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if sectionColorData.expandable {
-            return sectionColorData.data.count
-        }
-        else {
-            return 0
-        }
+        presenter?.numberOfRowsInSection(sectionColorData: self.sectionColorData) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.colorCellIdentefier, for: indexPath) as? ColorTableViewCell else {
-            return UITableViewCell()
-        }
-        cell.title.text = sectionColorData.data[indexPath.row].name
-        cell.colorCircleImageView.tintColor = UIColor(hexString: sectionColorData.data[indexPath.row].hex)
-        return cell
+        presenter?.cellForRowAt(tableView: tableView, indexPath: indexPath, sectionColorData: self.sectionColorData) ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? ColorTableViewCell else {return}
-        self.headerCircleImageColor = cell.colorCircleImageView.tintColor
+        presenter?.didSelectRowAt(tableView: tableView, indexPath: indexPath)
         self.updateExpandable()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        1
+        presenter?.numberOfSections() ?? 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = ColorHeaderView(color: self.headerCircleImageColor, expandable: sectionColorData.expandable)
-        headerView.delegate = self
-        return headerView
+        return presenter?.viewForHeaderInSection(createProjectViewController: self, sectionColorData: self.sectionColorData)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -172,10 +160,7 @@ extension CreateProjectViewController:UITableViewDelegate,UITableViewDataSource 
 //MARK: - TextFieldMethods
 extension CreateProjectViewController:UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text, text != "" && text != " " else {return}
-        confirmButton.setTitleColor(.systemOrange, for: .normal)
-        confirmButton.isEnabled = true
-        self.projectName = text
+        presenter?.textFieldDidEndEditing(textField: textField, confirmButton: confirmButton)
     }
 }
 
@@ -203,4 +188,7 @@ extension CreateProjectViewController:ColorHeaderViewProtocol {
             self.colorTableView.reloadData()
         }
     }
+}
+
+extension CreateProjectViewController:PresenterToViewCreateProjectProtocol {
 }

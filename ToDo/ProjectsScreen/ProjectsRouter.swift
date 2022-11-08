@@ -19,4 +19,9 @@ final class ProjectsRouter:PresenterToRouterProjectsProtocol {
         projectsViewController.presenter?.interactor?.presenter = projectsPresenter
         return projectsViewController
     }
+    
+    func showProjectScreen(projectsViewController:ProjectsViewController,project: ProjectCoreData) {
+        let prjViewController = PrjRouter.createModule(project: project)
+        projectsViewController.navigationController?.pushViewController(prjViewController, animated: true)
+    }
 }

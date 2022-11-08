@@ -9,7 +9,7 @@ final class ProjectsViewController:BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         do {
-            try presenter?.viewDidLoad()
+            try presenter?.getData()
         } catch let error {
             presenter?.showErrorAlert(errorText: "\(error)", projectsViewController: self)
         }
@@ -23,6 +23,7 @@ extension ProjectsViewController {
     
     override func configure() {
         navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Today", style: .plain, target: nil, action: nil)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -45,6 +46,10 @@ extension ProjectsViewController {
 
 //MARK: - PresenterToViewProtocol
 extension ProjectsViewController:PresenterToViewProjectsProtocol {
+    func onfailedDeleteProject(errorText: String) {
+        presenter?.showErrorAlert(errorText: errorText, projectsViewController: self)
+    }
+    
     func failedGetCoreData(errorText: String) {
         presenter?.showErrorAlert(errorText: errorText, projectsViewController: self)
     }
@@ -54,7 +59,6 @@ extension ProjectsViewController:PresenterToViewProjectsProtocol {
     }
     
     func updateTableView() {
-        print("test2")
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -77,6 +81,13 @@ extension ProjectsViewController:UITableViewDelegate,UITableViewDataSource {
         presenter?.cellForRowAt(tableView: tableView, cellForRowAt: indexPath) ?? UITableViewCell()
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.didSelectRowAt(tableView: tableView, indexPath: indexPath, projectsViewController: self)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         presenter?.viewForHeaderInSection(projectsViewController: self, tableView: tableView, section: section)

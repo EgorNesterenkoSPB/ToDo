@@ -9,6 +9,7 @@ final class CreateTaskViewController:BottomSheetController {
     private lazy var descriptionTextView = UITextView()
     private var nameTextField = UITextField()
     private var createTaskButton = UIButton()
+    var presenter:(InteractorToPresenterCreateTaskProtocol & ViewToPresenterCreateTaskProtocol)?
     
     
     private enum UIConstants {
@@ -88,25 +89,20 @@ extension CreateTaskViewController {
 
 extension CreateTaskViewController:UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
-            textView.text = nil
-            textView.textColor = .black
-        }
+        presenter?.textViewDidBeginEditing(textView: textView)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = Resources.Placeholders.textViewPlaceholder
-            textView.textColor = UIColor.lightGray
-        }
+        presenter?.textViewDidEndEditing(textView: textView)
     }
 }
 
 extension CreateTaskViewController:UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.text?.isEmpty == false {
-            createTaskButton.tintColor = .systemOrange
-            createTaskButton.isEnabled = true
-        }
+        presenter?.textFieldDidEndEditing(textField: textField, createTaskButton: createTaskButton)
     }
+}
+
+extension CreateTaskViewController:PresenterToViewCreateTaskProtocol {
+    
 }

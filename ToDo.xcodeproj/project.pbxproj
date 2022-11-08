@@ -31,6 +31,15 @@
 		546188B92913225A00279FE3 /* LoaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188B82913225A00279FE3 /* LoaderButton.swift */; };
 		546188BC29132B0800279FE3 /* MainEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BB29132B0800279FE3 /* MainEntity.swift */; };
 		546188BE2913A14A00279FE3 /* CreateTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BD2913A14A00279FE3 /* CreateTaskViewController.swift */; };
+		54788970291976260089F254 /* CreateTaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5478896F291976260089F254 /* CreateTaskEntity.swift */; };
+		54788972291976340089F254 /* CreateTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54788971291976340089F254 /* CreateTaskPresenter.swift */; };
+		54788974291976430089F254 /* CreateTaskInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54788973291976430089F254 /* CreateTaskInteractor.swift */; };
+		547889762919764C0089F254 /* CreateTaskRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547889752919764C0089F254 /* CreateTaskRouter.swift */; };
+		54788978291976590089F254 /* CreateTaskProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54788977291976590089F254 /* CreateTaskProtocols.swift */; };
+		5478897C291979C40089F254 /* CreateProjectRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5478897B291979C40089F254 /* CreateProjectRouter.swift */; };
+		5478897E291979CD0089F254 /* CreateProjectPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5478897D291979CD0089F254 /* CreateProjectPresenter.swift */; };
+		54788980291979D90089F254 /* CreateProjectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5478897F291979D90089F254 /* CreateProjectInteractor.swift */; };
+		54788982291979EA0089F254 /* CreateProjectProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54788981291979EA0089F254 /* CreateProjectProtocols.swift */; };
 		5479B6D22917C3E70094B6F1 /* CreateProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5479B6D12917C3E70094B6F1 /* CreateProjectViewController.swift */; };
 		5479B6D82917F2130094B6F1 /* BottomSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5479B6D72917F2130094B6F1 /* BottomSheetController.swift */; };
 		5479B6DA291809DD0094B6F1 /* ColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5479B6D9291809DC0094B6F1 /* ColorTableViewCell.swift */; };
@@ -38,6 +47,11 @@
 		549491E7290C72C600CA72AA /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491E6290C72C600CA72AA /* PostRequest.swift */; };
 		549491E9290C7D0100CA72AA /* APIResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491E8290C7D0100CA72AA /* APIResources.swift */; };
 		549491EB290C7D1700CA72AA /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491EA290C7D1700CA72AA /* NetworkRequest.swift */; };
+		54ACFE3E2919C185002C806C /* PrjViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACFE3D2919C185002C806C /* PrjViewController.swift */; };
+		54ACFE402919C1A5002C806C /* PrjPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACFE3F2919C1A5002C806C /* PrjPresenter.swift */; };
+		54ACFE422919C1B7002C806C /* PrjInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACFE412919C1B7002C806C /* PrjInteractor.swift */; };
+		54ACFE442919C1EA002C806C /* PrjRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACFE432919C1EA002C806C /* PrjRouter.swift */; };
+		54ACFE462919C292002C806C /* PrjProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACFE452919C292002C806C /* PrjProtocols.swift */; };
 		54BF8578290BC2C2002DAB62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF8577290BC2C2002DAB62 /* AppDelegate.swift */; };
 		54BF857A290BC2C2002DAB62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF8579290BC2C2002DAB62 /* SceneDelegate.swift */; };
 		54BF8581290BC2C6002DAB62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54BF8580290BC2C6002DAB62 /* Assets.xcassets */; };
@@ -101,6 +115,15 @@
 		546188B82913225A00279FE3 /* LoaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderButton.swift; sourceTree = "<group>"; };
 		546188BB29132B0800279FE3 /* MainEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEntity.swift; sourceTree = "<group>"; };
 		546188BD2913A14A00279FE3 /* CreateTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskViewController.swift; sourceTree = "<group>"; };
+		5478896F291976260089F254 /* CreateTaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskEntity.swift; sourceTree = "<group>"; };
+		54788971291976340089F254 /* CreateTaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskPresenter.swift; sourceTree = "<group>"; };
+		54788973291976430089F254 /* CreateTaskInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskInteractor.swift; sourceTree = "<group>"; };
+		547889752919764C0089F254 /* CreateTaskRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskRouter.swift; sourceTree = "<group>"; };
+		54788977291976590089F254 /* CreateTaskProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskProtocols.swift; sourceTree = "<group>"; };
+		5478897B291979C40089F254 /* CreateProjectRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectRouter.swift; sourceTree = "<group>"; };
+		5478897D291979CD0089F254 /* CreateProjectPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectPresenter.swift; sourceTree = "<group>"; };
+		5478897F291979D90089F254 /* CreateProjectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectInteractor.swift; sourceTree = "<group>"; };
+		54788981291979EA0089F254 /* CreateProjectProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectProtocols.swift; sourceTree = "<group>"; };
 		5479B6D12917C3E70094B6F1 /* CreateProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewController.swift; sourceTree = "<group>"; };
 		5479B6D72917F2130094B6F1 /* BottomSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetController.swift; sourceTree = "<group>"; };
 		5479B6D9291809DC0094B6F1 /* ColorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTableViewCell.swift; sourceTree = "<group>"; };
@@ -108,6 +131,11 @@
 		549491E6290C72C600CA72AA /* PostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
 		549491E8290C7D0100CA72AA /* APIResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResources.swift; sourceTree = "<group>"; };
 		549491EA290C7D1700CA72AA /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		54ACFE3D2919C185002C806C /* PrjViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrjViewController.swift; sourceTree = "<group>"; };
+		54ACFE3F2919C1A5002C806C /* PrjPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrjPresenter.swift; sourceTree = "<group>"; };
+		54ACFE412919C1B7002C806C /* PrjInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrjInteractor.swift; sourceTree = "<group>"; };
+		54ACFE432919C1EA002C806C /* PrjRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrjRouter.swift; sourceTree = "<group>"; };
+		54ACFE452919C292002C806C /* PrjProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrjProtocols.swift; sourceTree = "<group>"; };
 		54BF8574290BC2C2002DAB62 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54BF8577290BC2C2002DAB62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54BF8579290BC2C2002DAB62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -193,13 +221,13 @@
 		546188A92913179B00279FE3 /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
+				5478896E2919760C0089F254 /* CreateTaskScreen */,
 				546188AA291317BA00279FE3 /* MainViewController.swift */,
 				546188AC291317CB00279FE3 /* MainPresenter.swift */,
 				546188AE291317D700279FE3 /* MainRouter.swift */,
 				546188B0291317E300279FE3 /* MainInteractor.swift */,
 				546188B2291317FA00279FE3 /* MainProtocols.swift */,
 				546188BB29132B0800279FE3 /* MainEntity.swift */,
-				546188BD2913A14A00279FE3 /* CreateTaskViewController.swift */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -221,6 +249,43 @@
 			children = (
 			);
 			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		5478896E2919760C0089F254 /* CreateTaskScreen */ = {
+			isa = PBXGroup;
+			children = (
+				546188BD2913A14A00279FE3 /* CreateTaskViewController.swift */,
+				5478896F291976260089F254 /* CreateTaskEntity.swift */,
+				54788971291976340089F254 /* CreateTaskPresenter.swift */,
+				54788973291976430089F254 /* CreateTaskInteractor.swift */,
+				547889752919764C0089F254 /* CreateTaskRouter.swift */,
+				54788977291976590089F254 /* CreateTaskProtocols.swift */,
+			);
+			path = CreateTaskScreen;
+			sourceTree = "<group>";
+		};
+		5478897A291977500089F254 /* CreateProjectScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5479B6D12917C3E70094B6F1 /* CreateProjectViewController.swift */,
+				5478897B291979C40089F254 /* CreateProjectRouter.swift */,
+				5478897D291979CD0089F254 /* CreateProjectPresenter.swift */,
+				5478897F291979D90089F254 /* CreateProjectInteractor.swift */,
+				54788981291979EA0089F254 /* CreateProjectProtocols.swift */,
+			);
+			path = CreateProjectScreen;
+			sourceTree = "<group>";
+		};
+		54ACFE3C2919C15A002C806C /* PrjScreen */ = {
+			isa = PBXGroup;
+			children = (
+				54ACFE3D2919C185002C806C /* PrjViewController.swift */,
+				54ACFE3F2919C1A5002C806C /* PrjPresenter.swift */,
+				54ACFE412919C1B7002C806C /* PrjInteractor.swift */,
+				54ACFE432919C1EA002C806C /* PrjRouter.swift */,
+				54ACFE452919C292002C806C /* PrjProtocols.swift */,
+			);
+			path = PrjScreen;
 			sourceTree = "<group>";
 		};
 		54BF856B290BC2C1002DAB62 = {
@@ -368,6 +433,8 @@
 		54ED8E382916D92600A43C62 /* ProjectsScreen */ = {
 			isa = PBXGroup;
 			children = (
+				54ACFE3C2919C15A002C806C /* PrjScreen */,
+				5478897A291977500089F254 /* CreateProjectScreen */,
 				54ED8E3B2916E32500A43C62 /* ProjectsViewController.swift */,
 				54ED8E3D2916E33100A43C62 /* ProjectsRouter.swift */,
 				54ED8E3F2916E33F00A43C62 /* ProjectsPresenter.swift */,
@@ -377,7 +444,6 @@
 				54ED8E472917052F00A43C62 /* ProjectTableViewCell.swift */,
 				54ED8E4C29170EE600A43C62 /* ProjectsTableSectionHeaderView.swift */,
 				54ED8E4E29170F0A00A43C62 /* BaseTableSectionHeaderView.swift */,
-				5479B6D12917C3E70094B6F1 /* CreateProjectViewController.swift */,
 				5479B6D9291809DC0094B6F1 /* ColorTableViewCell.swift */,
 				5479B6DB291839200094B6F1 /* ColorHeaderView.swift */,
 			);
@@ -507,24 +573,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54788978291976590089F254 /* CreateTaskProtocols.swift in Sources */,
 				5461889E2912E68000279FE3 /* SignInViewController.swift in Sources */,
 				54BF85AC290C0EB2002DAB62 /* RegisterProtocols.swift in Sources */,
 				546188A82912E6FB00279FE3 /* SignInProtocols.swift in Sources */,
 				54BF8598290BC47E002DAB62 /* LoginPresenter.swift in Sources */,
+				54788970291976260089F254 /* CreateTaskEntity.swift in Sources */,
+				54ACFE462919C292002C806C /* PrjProtocols.swift in Sources */,
 				5452CCCD29194969000FC6EC /* ProjectCoreData+CoreDataClass.swift in Sources */,
 				54BF85AA290C0E87002DAB62 /* RegisterEntity.swift in Sources */,
 				546188B1291317E300279FE3 /* MainInteractor.swift in Sources */,
+				54788974291976430089F254 /* CreateTaskInteractor.swift in Sources */,
 				546188AF291317D700279FE3 /* MainRouter.swift in Sources */,
 				543330982914190600B1EA44 /* CoreModel.xcdatamodeld in Sources */,
+				5478897C291979C40089F254 /* CreateProjectRouter.swift in Sources */,
 				54BF858D290BC382002DAB62 /* LoginViewController.swift in Sources */,
+				54788980291979D90089F254 /* CreateProjectInteractor.swift in Sources */,
 				54BF85A4290BD234002DAB62 /* Extensions+UIView.swift in Sources */,
 				546188AB291317BA00279FE3 /* MainViewController.swift in Sources */,
 				5452CCCC29194969000FC6EC /* TaskCoreData+CoreDataClass.swift in Sources */,
+				547889762919764C0089F254 /* CreateTaskRouter.swift in Sources */,
 				5452CCCA29194969000FC6EC /* ProjectCoreData+CoreDataProperties.swift in Sources */,
 				546188A22912E6CC00279FE3 /* SignInRouter.swift in Sources */,
 				54ED8E4D29170EE600A43C62 /* ProjectsTableSectionHeaderView.swift in Sources */,
 				543D8F8B290C1597008396B0 /* Extensions+ScrollView.swift in Sources */,
 				54BF85B0290C0ED0002DAB62 /* RegisterInteractor.swift in Sources */,
+				54ACFE402919C1A5002C806C /* PrjPresenter.swift in Sources */,
+				54788972291976340089F254 /* CreateTaskPresenter.swift in Sources */,
 				5479B6DC291839200094B6F1 /* ColorHeaderView.swift in Sources */,
 				54ED8E362916C6F600A43C62 /* BaseTableViewCell.swift in Sources */,
 				549491EB290C7D1700CA72AA /* NetworkRequest.swift in Sources */,
@@ -534,9 +609,11 @@
 				5479B6DA291809DD0094B6F1 /* ColorTableViewCell.swift in Sources */,
 				549491E7290C72C600CA72AA /* PostRequest.swift in Sources */,
 				546188B529131BA600279FE3 /* ShakingTextField.swift in Sources */,
+				54788982291979EA0089F254 /* CreateProjectProtocols.swift in Sources */,
 				54BF85AE290C0EC0002DAB62 /* RegisterRouter.swift in Sources */,
 				54BF8592290BC406002DAB62 /* LoginProtocols.swift in Sources */,
 				54ED8E342916C44000A43C62 /* TaskTableViewCell.swift in Sources */,
+				5478897E291979CD0089F254 /* CreateProjectPresenter.swift in Sources */,
 				54ED8E262915EA7500A43C62 /* CustomizedShapeView.swift in Sources */,
 				54BF8596290BC46E002DAB62 /* LoginInteractor.swift in Sources */,
 				54ED8E3E2916E33100A43C62 /* ProjectsRouter.swift in Sources */,
@@ -544,6 +621,7 @@
 				5452CCC829194969000FC6EC /* CategoryCoreData+CoreDataClass.swift in Sources */,
 				54ED8E482917052F00A43C62 /* ProjectTableViewCell.swift in Sources */,
 				54BF8594290BC41B002DAB62 /* LoginRouter.swift in Sources */,
+				54ACFE3E2919C185002C806C /* PrjViewController.swift in Sources */,
 				5452CCC929194969000FC6EC /* CategoryCoreData+CoreDataProperties.swift in Sources */,
 				54BF85A1290BC84B002DAB62 /* NavController.swift in Sources */,
 				54BF859D290BC5C0002DAB62 /* BaseViewController.swift in Sources */,
@@ -551,6 +629,7 @@
 				5479B6D82917F2130094B6F1 /* BottomSheetController.swift in Sources */,
 				549491E9290C7D0100CA72AA /* APIResources.swift in Sources */,
 				546188BE2913A14A00279FE3 /* CreateTaskViewController.swift in Sources */,
+				54ACFE422919C1B7002C806C /* PrjInteractor.swift in Sources */,
 				54BF8590290BC3C4002DAB62 /* Resources.swift in Sources */,
 				54ED8E442916E35700A43C62 /* ProjectsProtocols.swift in Sources */,
 				54ED8E3C2916E32500A43C62 /* ProjectsViewController.swift in Sources */,
@@ -561,6 +640,7 @@
 				54BF85B2290C0EE7002DAB62 /* RegisterPresenter.swift in Sources */,
 				54ED8E4F29170F0A00A43C62 /* BaseTableSectionHeaderView.swift in Sources */,
 				546188BC29132B0800279FE3 /* MainEntity.swift in Sources */,
+				54ACFE442919C1EA002C806C /* PrjRouter.swift in Sources */,
 				546188A42912E6DD00279FE3 /* SignInInteractor.swift in Sources */,
 				5479B6D22917C3E70094B6F1 /* CreateProjectViewController.swift in Sources */,
 				54BF8578290BC2C2002DAB62 /* AppDelegate.swift in Sources */,

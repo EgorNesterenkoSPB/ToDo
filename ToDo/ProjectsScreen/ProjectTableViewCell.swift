@@ -5,7 +5,7 @@ class ProjectTableViewCell: BaseTableViewCell {
     let nameTitle = UILabel()
     let circleImageView = UIImageView()
     let countOfTasksLabel = UILabel()
-
+    var project:ProjectCoreData?
 }
 
 extension ProjectTableViewCell {

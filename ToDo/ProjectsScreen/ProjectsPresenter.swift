@@ -4,20 +4,6 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
     var view: PresenterToViewProjectsProtocol?
     var router: PresenterToRouterProjectsProtocol?
     var interactor: PresenterToInteractorProjectsProtocol?
-//    var sectionsData = [
-//        ProjectsSection(sectionTitle: "Favorite", data: [
-//            Project(name: "Application", categories: [
-//                Category(name: "test Category", tasks: [
-//                    Task(name: "first task", description: "test description", priority: "hight", time: "test Time", isOverdue: false)])], hexColor: "644AFF")],
-//                        expandable: false),
-//        ProjectsSection(sectionTitle: "Projects", data: [
-//            Project(name: "Application", categories: [
-//                Category(name: "test Category", tasks: [
-//                    Task(name: "first task", description: "test description", priority: "hight", time: "test Time", isOverdue: false)])], hexColor: "644AFF"),
-//            Project(name: "Desktop", categories: [
-//                Category(name: "test Category", tasks: [
-//                    Task(name: "first task", description: "test description", priority: "hight", time: "test Time", isOverdue: false)])], hexColor: "3FFF34")],
-//                        expandable: false)]
     var sectionsData = [
         ProjectsSection(sectionTitle: Resources.Titles.favoriteSection,
                         data: [],
@@ -27,7 +13,7 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
                         expandable: false)
     ]
     
-    func viewDidLoad() throws {
+    func getData() throws {
         do {
             let projects = try DataManager.shared.projects()
             sectionsData[1].data = projects
@@ -69,6 +55,7 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
             return UITableViewCell()
         }
         let project = sectionsData[indexPath.section].data[indexPath.row]
+        cell.project = project
         cell.nameTitle.text = project.name
         //cell.countOfTasksLabel.text = "\(countOfProjectTasks(project: project))"
         do {
@@ -128,9 +115,54 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         interactor?.onCreateProject(name: name, hexColor: hexColor,isFavorite:isFavorite)
     }
     
+    func didSelectRowAt(tableView: UITableView, indexPath: IndexPath,projectsViewController:ProjectsViewController) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? ProjectTableViewCell else {return}
+        guard let project = cell.project else {return}
+        router?.showProjectScreen(projectsViewController:projectsViewController,project: project)
+    }
+    
+    func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: nil, handler: {[weak self] (action,swipeButtonView,completion) in
+            self?.userTapDeleteAction(tableView: tableView, indexPath: indexPath)
+            completion(true)
+        })
+        delete.image = UIImage(systemName: "trash",withConfiguration: Resources.Configurations.largeConfiguration)
+        delete.image?.withTintColor(.white)
+        delete.backgroundColor = .red
+        
+        let edite = UIContextualAction(style: .normal, title: nil, handler: {(action,swipeButtonView,completion) in
+            completion(true)
+        })
+        edite.image = UIImage(systemName: "pencil",withConfiguration: Resources.Configurations.largeConfiguration)
+        edite.image?.withTintColor(.white)
+        edite.backgroundColor = .gray
+        
+        let configuration = UISwipeActionsConfiguration(actions: [delete,edite])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
+    }
+    
+    private func userTapDeleteAction(tableView: UITableView, indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? ProjectTableViewCell else {return}
+        guard let project = cell.project else {return}
+        interactor?.deleteProject(project: project)
+    }
 }
 
 extension ProjectsPresenter:InteractorToPresenterProjectsProtocol {
+    func successfulyDeleteProject() {
+        do {
+            try self.getData()
+        } catch let error {
+            view?.failedGetCoreData(errorText: "\(error)")
+        }
+        view?.updateTableView()
+    }
+    
+    func failedDeleteProject(errorText: String) {
+        view?.onfailedDeleteProject(errorText: errorText)
+    }
+    
     func successfulyCreateProject(projects:[ProjectCoreData]) {
         sectionsData[1].data = projects
         sectionsData[0].data = getFavoriteProjects(projects: projects)
