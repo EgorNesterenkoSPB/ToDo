@@ -139,6 +139,5 @@ class DataManager {
         } catch let error {
             throw CoreManagerError.failedDeleteTask(text: "\(error)")
         }
-    }
-    
+    }    
 }

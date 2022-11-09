@@ -14,6 +14,15 @@ final class ProjectsViewController:BaseViewController {
             presenter?.showErrorAlert(errorText: "\(error)", projectsViewController: self)
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        do {
+            try presenter?.getData()
+        } catch let error {
+            presenter?.showErrorAlert(errorText: "\(error)", projectsViewController: self)
+        }
+        self.updateTableView()
+    }
 }
 
 extension ProjectsViewController {
@@ -86,7 +95,7 @@ extension ProjectsViewController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        presenter?.trailingSwipeActionsConfigurationForRowAt(tableView: tableView, indexPath: indexPath, projectsViewController: self)
+        presenter?.trailingSwipeActionsConfigurationForRowAt(tableView: tableView, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

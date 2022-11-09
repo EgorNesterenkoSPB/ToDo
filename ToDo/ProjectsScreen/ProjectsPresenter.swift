@@ -120,7 +120,7 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         router?.showProjectScreen(projectsViewController:projectsViewController,project: project)
     }
     
-    func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath,projectsViewController:ProjectsViewController) -> UISwipeActionsConfiguration? {
+    func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let cell = tableView.cellForRow(at: indexPath) as? ProjectTableViewCell else {return nil}
         guard let project = cell.project else {return nil}
         let delete = UIContextualAction(style: .destructive, title: nil, handler: {[weak self] (action,swipeButtonView,completion) in

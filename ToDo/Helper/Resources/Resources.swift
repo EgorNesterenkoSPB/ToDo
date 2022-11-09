@@ -61,6 +61,7 @@ enum Resources {
         static let heart = "suit.heart"
         static let trash = "trash"
         static let plusSquare = "plus.square"
+        static let edite = "ellipsis"
     }
     enum Cells {
         static let taskCellIdentefier = "taskCell"

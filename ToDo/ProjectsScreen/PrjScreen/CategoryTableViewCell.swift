@@ -4,7 +4,7 @@ class CategoryTableViewCell: BaseTableViewCell {
 
     let nameLabel = UILabel()
     let countOfTasksLabel = UILabel()
-
+    var category:CategoryCoreData?
 }
 
 extension CategoryTableViewCell {
@@ -14,6 +14,8 @@ extension CategoryTableViewCell {
     }
     
     override func configure() {
+        self.selectionStyle = .none
+        
         nameLabel.font = .boldSystemFont(ofSize: 18)
         
         countOfTasksLabel.font = .systemFont(ofSize: 15)
