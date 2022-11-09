@@ -17,6 +17,7 @@ extension ProjectTableViewCell {
     
     override func configure() {
         self.backgroundColor = .clear
+        self.selectionStyle = .none
         
         nameTitle.font = .systemFont(ofSize: 18)
         circleImageView.image = UIImage(systemName: Resources.Images.circleFill,withConfiguration: Resources.Configurations.largeConfiguration)

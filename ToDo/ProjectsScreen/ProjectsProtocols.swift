@@ -16,7 +16,7 @@ protocol ViewToPresenterProjectsProtocol {
     func showErrorAlert(errorText:String,projectsViewController:ProjectsViewController)
     func createProject(name: String, hexColor: String,isFavorite:Bool)
     func didSelectRowAt(tableView:UITableView,indexPath:IndexPath,projectsViewController:ProjectsViewController)
-    func trailingSwipeActionsConfigurationForRowAt(tableView:UITableView,indexPath:IndexPath) -> UISwipeActionsConfiguration?
+    func trailingSwipeActionsConfigurationForRowAt(tableView:UITableView,indexPath:IndexPath,projectsViewController:ProjectsViewController) -> UISwipeActionsConfiguration?
 }
 
 //MARK: - View Output (Presenter -> View)

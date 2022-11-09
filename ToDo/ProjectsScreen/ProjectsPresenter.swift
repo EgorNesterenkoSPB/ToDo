@@ -57,14 +57,13 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         let project = sectionsData[indexPath.section].data[indexPath.row]
         cell.project = project
         cell.nameTitle.text = project.name
-        //cell.countOfTasksLabel.text = "\(countOfProjectTasks(project: project))"
         do {
             let countOfTasks = try countOfProjectTasks(project: project)
             cell.countOfTasksLabel.text = "\(countOfTasks)"
         } catch let error {
             view?.failedGetCoreData(errorText: "\(error)")
         }
-        cell.circleImageView.tintColor = UIColor(hexString: project.hexColor ?? "b8b8b8")
+        cell.circleImageView.tintColor = UIColor(hexString: project.hexColor ?? Resources.defaultHexColor)
         return cell
     }
     
@@ -121,31 +120,19 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         router?.showProjectScreen(projectsViewController:projectsViewController,project: project)
     }
     
-    func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath,projectsViewController:ProjectsViewController) -> UISwipeActionsConfiguration? {
+        guard let cell = tableView.cellForRow(at: indexPath) as? ProjectTableViewCell else {return nil}
+        guard let project = cell.project else {return nil}
         let delete = UIContextualAction(style: .destructive, title: nil, handler: {[weak self] (action,swipeButtonView,completion) in
-            self?.userTapDeleteAction(tableView: tableView, indexPath: indexPath)
+            self?.interactor?.deleteProject(project: project)
             completion(true)
         })
-        delete.image = UIImage(systemName: "trash",withConfiguration: Resources.Configurations.largeConfiguration)
+        delete.image = UIImage(systemName: Resources.Images.trash,withConfiguration: Resources.Configurations.largeConfiguration)
         delete.image?.withTintColor(.white)
         delete.backgroundColor = .red
-        
-        let edite = UIContextualAction(style: .normal, title: nil, handler: {(action,swipeButtonView,completion) in
-            completion(true)
-        })
-        edite.image = UIImage(systemName: "pencil",withConfiguration: Resources.Configurations.largeConfiguration)
-        edite.image?.withTintColor(.white)
-        edite.backgroundColor = .gray
-        
-        let configuration = UISwipeActionsConfiguration(actions: [delete,edite])
-        configuration.performsFirstActionWithFullSwipe = false
+
+        let configuration = UISwipeActionsConfiguration(actions: [delete])
         return configuration
-    }
-    
-    private func userTapDeleteAction(tableView: UITableView, indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? ProjectTableViewCell else {return}
-        guard let project = cell.project else {return}
-        interactor?.deleteProject(project: project)
     }
 }
 

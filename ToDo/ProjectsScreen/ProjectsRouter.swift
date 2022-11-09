@@ -1,9 +1,9 @@
 import UIKit
 
 final class ProjectsRouter:PresenterToRouterProjectsProtocol {
+    
     func onShowErrorAlert(errorText: String, projectsViewController: ProjectsViewController) {
-        let alertController = UIAlertController(title: Resources.Titles.errorTitle, message: errorText, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: Resources.Titles.errorActionTitle, style: .default, handler: nil))
+        let alertController = createErrorAlert(errorText: errorText)
         projectsViewController.present(alertController,animated: true)
     }
     

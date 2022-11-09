@@ -140,9 +140,7 @@ extension RegisterViewController:UITextFieldDelegate {
 extension RegisterViewController:PresenterToViewRegisterProtocol {
     func onFailureRegistered(errorText: String) {
         confirmButton.isLoading = false
-        let alert = UIAlertController(title: Resources.Titles.errorTitle, message: errorText, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Resources.Titles.errorActionTitle, style: .default, handler: nil))
-        present(alert,animated: true)
+        present(createErrorAlert(errorText: errorText),animated: true)
     }
     
     func enableConfirmButton() {

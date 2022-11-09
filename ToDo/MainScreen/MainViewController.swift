@@ -14,6 +14,10 @@ final class MainViewController:BaseViewController {
         circleButton.clipsToBounds = true
         circleButton.layer.cornerRadius = circleButton.frame.width / 2
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
 }
 
 //MARK: - Setup UI
@@ -31,7 +35,7 @@ extension MainViewController {
         navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = .white
         
-        topTitle.text = "Today"
+        topTitle.text = Resources.Titles.today
         topTitle.font = .boldSystemFont(ofSize: 30)
         
         circleButton.backgroundColor = .systemOrange

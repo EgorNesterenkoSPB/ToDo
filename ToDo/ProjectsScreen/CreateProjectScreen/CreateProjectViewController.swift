@@ -4,7 +4,7 @@ protocol CreateProjectViewControllerProtocol {
     func createProject(name: String, hexColor: String, isFavorite: Bool)
 }
 
-final class CreateProjectViewController:BottomSheetController {
+class CreateProjectViewController:BottomSheetController {
     
     let topTitle = UILabel()
     let cancelButton = UIButton()

@@ -23,7 +23,7 @@ extension ProjectsViewController {
     
     override func configure() {
         navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Today", style: .plain, target: nil, action: nil)
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: Resources.Titles.today, style: .plain, target: nil, action: nil)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -86,7 +86,7 @@ extension ProjectsViewController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
+        presenter?.trailingSwipeActionsConfigurationForRowAt(tableView: tableView, indexPath: indexPath, projectsViewController: self)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

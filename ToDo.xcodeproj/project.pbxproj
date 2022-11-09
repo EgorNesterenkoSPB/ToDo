@@ -52,6 +52,7 @@
 		54ACFE422919C1B7002C806C /* PrjInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACFE412919C1B7002C806C /* PrjInteractor.swift */; };
 		54ACFE442919C1EA002C806C /* PrjRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACFE432919C1EA002C806C /* PrjRouter.swift */; };
 		54ACFE462919C292002C806C /* PrjProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACFE452919C292002C806C /* PrjProtocols.swift */; };
+		54ACFE4D291AC930002C806C /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACFE4C291AC930002C806C /* BaseCollectionViewCell.swift */; };
 		54BF8578290BC2C2002DAB62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF8577290BC2C2002DAB62 /* AppDelegate.swift */; };
 		54BF857A290BC2C2002DAB62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF8579290BC2C2002DAB62 /* SceneDelegate.swift */; };
 		54BF8581290BC2C6002DAB62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54BF8580290BC2C6002DAB62 /* Assets.xcassets */; };
@@ -71,6 +72,14 @@
 		54BF85AE290C0EC0002DAB62 /* RegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF85AD290C0EC0002DAB62 /* RegisterRouter.swift */; };
 		54BF85B0290C0ED0002DAB62 /* RegisterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF85AF290C0ED0002DAB62 /* RegisterInteractor.swift */; };
 		54BF85B2290C0EE7002DAB62 /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF85B1290C0EE7002DAB62 /* RegisterPresenter.swift */; };
+		54C8D364291BD1840003A958 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C8D363291BD1840003A958 /* GlobalFunctions.swift */; };
+		54C8D366291BD3630003A958 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C8D365291BD3630003A958 /* CategoryTableViewCell.swift */; };
+		54D8FC4A291B27EA007F7A39 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8FC49291B27EA007F7A39 /* ProfileViewController.swift */; };
+		54D8FC4C291B27F6007F7A39 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8FC4B291B27F6007F7A39 /* ProfileRouter.swift */; };
+		54D8FC4E291B2801007F7A39 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8FC4D291B2801007F7A39 /* ProfilePresenter.swift */; };
+		54D8FC50291B280C007F7A39 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8FC4F291B280C007F7A39 /* ProfileInteractor.swift */; };
+		54D8FC52291B2816007F7A39 /* ProfileProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8FC51291B2816007F7A39 /* ProfileProtocols.swift */; };
+		54D8FC54291B281F007F7A39 /* ProfileEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8FC53291B281F007F7A39 /* ProfileEntity.swift */; };
 		54ED8E232915EA2F00A43C62 /* Extensions+CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E222915EA2F00A43C62 /* Extensions+CGFloat.swift */; };
 		54ED8E262915EA7500A43C62 /* CustomizedShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E252915EA7500A43C62 /* CustomizedShapeView.swift */; };
 		54ED8E342916C44000A43C62 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ED8E332916C44000A43C62 /* TaskTableViewCell.swift */; };
@@ -136,6 +145,7 @@
 		54ACFE412919C1B7002C806C /* PrjInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrjInteractor.swift; sourceTree = "<group>"; };
 		54ACFE432919C1EA002C806C /* PrjRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrjRouter.swift; sourceTree = "<group>"; };
 		54ACFE452919C292002C806C /* PrjProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrjProtocols.swift; sourceTree = "<group>"; };
+		54ACFE4C291AC930002C806C /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		54BF8574290BC2C2002DAB62 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54BF8577290BC2C2002DAB62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54BF8579290BC2C2002DAB62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +167,14 @@
 		54BF85AD290C0EC0002DAB62 /* RegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRouter.swift; sourceTree = "<group>"; };
 		54BF85AF290C0ED0002DAB62 /* RegisterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInteractor.swift; sourceTree = "<group>"; };
 		54BF85B1290C0EE7002DAB62 /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
+		54C8D363291BD1840003A958 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		54C8D365291BD3630003A958 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		54D8FC49291B27EA007F7A39 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		54D8FC4B291B27F6007F7A39 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		54D8FC4D291B2801007F7A39 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		54D8FC4F291B280C007F7A39 /* ProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
+		54D8FC51291B2816007F7A39 /* ProfileProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileProtocols.swift; sourceTree = "<group>"; };
+		54D8FC53291B281F007F7A39 /* ProfileEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEntity.swift; sourceTree = "<group>"; };
 		54ED8E222915EA2F00A43C62 /* Extensions+CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+CGFloat.swift"; sourceTree = "<group>"; };
 		54ED8E252915EA7500A43C62 /* CustomizedShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizedShapeView.swift; sourceTree = "<group>"; };
 		54ED8E332916C44000A43C62 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
@@ -221,7 +239,6 @@
 		546188A92913179B00279FE3 /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
-				5478896E2919760C0089F254 /* CreateTaskScreen */,
 				546188AA291317BA00279FE3 /* MainViewController.swift */,
 				546188AC291317CB00279FE3 /* MainPresenter.swift */,
 				546188AE291317D700279FE3 /* MainRouter.swift */,
@@ -240,6 +257,7 @@
 				546188B82913225A00279FE3 /* LoaderButton.swift */,
 				54ED8E332916C44000A43C62 /* TaskTableViewCell.swift */,
 				54ED8E352916C6F600A43C62 /* BaseTableViewCell.swift */,
+				54ACFE4C291AC930002C806C /* BaseCollectionViewCell.swift */,
 			);
 			path = "UI Elements";
 			sourceTree = "<group>";
@@ -284,6 +302,7 @@
 				54ACFE412919C1B7002C806C /* PrjInteractor.swift */,
 				54ACFE432919C1EA002C806C /* PrjRouter.swift */,
 				54ACFE452919C292002C806C /* PrjProtocols.swift */,
+				54C8D365291BD3630003A958 /* CategoryTableViewCell.swift */,
 			);
 			path = PrjScreen;
 			sourceTree = "<group>";
@@ -309,6 +328,8 @@
 		54BF8576290BC2C2002DAB62 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
+				54D8FC48291B27B0007F7A39 /* ProfileUserScreen */,
+				5478896E2919760C0089F254 /* CreateTaskScreen */,
 				54ED8E382916D92600A43C62 /* ProjectsScreen */,
 				54ED8E372916D91D00A43C62 /* SettingsScreen */,
 				546188BA291325D800279FE3 /* ProfileScreen */,
@@ -343,6 +364,7 @@
 				546188B72913222C00279FE3 /* UI Elements */,
 				54BF859F290BC839002DAB62 /* Controllers */,
 				54BF859E290BC830002DAB62 /* Resources */,
+				54C8D363291BD1840003A958 /* GlobalFunctions.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -421,6 +443,19 @@
 				543330942914183B00B1EA44 /* Network */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		54D8FC48291B27B0007F7A39 /* ProfileUserScreen */ = {
+			isa = PBXGroup;
+			children = (
+				54D8FC49291B27EA007F7A39 /* ProfileViewController.swift */,
+				54D8FC4B291B27F6007F7A39 /* ProfileRouter.swift */,
+				54D8FC4D291B2801007F7A39 /* ProfilePresenter.swift */,
+				54D8FC4F291B280C007F7A39 /* ProfileInteractor.swift */,
+				54D8FC51291B2816007F7A39 /* ProfileProtocols.swift */,
+				54D8FC53291B281F007F7A39 /* ProfileEntity.swift */,
+			);
+			path = ProfileUserScreen;
 			sourceTree = "<group>";
 		};
 		54ED8E372916D91D00A43C62 /* SettingsScreen */ = {
@@ -575,7 +610,9 @@
 			files = (
 				54788978291976590089F254 /* CreateTaskProtocols.swift in Sources */,
 				5461889E2912E68000279FE3 /* SignInViewController.swift in Sources */,
+				54C8D364291BD1840003A958 /* GlobalFunctions.swift in Sources */,
 				54BF85AC290C0EB2002DAB62 /* RegisterProtocols.swift in Sources */,
+				54D8FC52291B2816007F7A39 /* ProfileProtocols.swift in Sources */,
 				546188A82912E6FB00279FE3 /* SignInProtocols.swift in Sources */,
 				54BF8598290BC47E002DAB62 /* LoginPresenter.swift in Sources */,
 				54788970291976260089F254 /* CreateTaskEntity.swift in Sources */,
@@ -583,7 +620,9 @@
 				5452CCCD29194969000FC6EC /* ProjectCoreData+CoreDataClass.swift in Sources */,
 				54BF85AA290C0E87002DAB62 /* RegisterEntity.swift in Sources */,
 				546188B1291317E300279FE3 /* MainInteractor.swift in Sources */,
+				54D8FC50291B280C007F7A39 /* ProfileInteractor.swift in Sources */,
 				54788974291976430089F254 /* CreateTaskInteractor.swift in Sources */,
+				54ACFE4D291AC930002C806C /* BaseCollectionViewCell.swift in Sources */,
 				546188AF291317D700279FE3 /* MainRouter.swift in Sources */,
 				543330982914190600B1EA44 /* CoreModel.xcdatamodeld in Sources */,
 				5478897C291979C40089F254 /* CreateProjectRouter.swift in Sources */,
@@ -619,6 +658,7 @@
 				54ED8E3E2916E33100A43C62 /* ProjectsRouter.swift in Sources */,
 				546188B92913225A00279FE3 /* LoaderButton.swift in Sources */,
 				5452CCC829194969000FC6EC /* CategoryCoreData+CoreDataClass.swift in Sources */,
+				54C8D366291BD3630003A958 /* CategoryTableViewCell.swift in Sources */,
 				54ED8E482917052F00A43C62 /* ProjectTableViewCell.swift in Sources */,
 				54BF8594290BC41B002DAB62 /* LoginRouter.swift in Sources */,
 				54ACFE3E2919C185002C806C /* PrjViewController.swift in Sources */,
@@ -627,6 +667,7 @@
 				54BF859D290BC5C0002DAB62 /* BaseViewController.swift in Sources */,
 				54ED8E422916E34C00A43C62 /* ProjectsInteractor.swift in Sources */,
 				5479B6D82917F2130094B6F1 /* BottomSheetController.swift in Sources */,
+				54D8FC4A291B27EA007F7A39 /* ProfileViewController.swift in Sources */,
 				549491E9290C7D0100CA72AA /* APIResources.swift in Sources */,
 				546188BE2913A14A00279FE3 /* CreateTaskViewController.swift in Sources */,
 				54ACFE422919C1B7002C806C /* PrjInteractor.swift in Sources */,
@@ -635,7 +676,9 @@
 				54ED8E3C2916E32500A43C62 /* ProjectsViewController.swift in Sources */,
 				5452CCCB29194969000FC6EC /* TaskCoreData+CoreDataProperties.swift in Sources */,
 				546188B3291317FA00279FE3 /* MainProtocols.swift in Sources */,
+				54D8FC4C291B27F6007F7A39 /* ProfileRouter.swift in Sources */,
 				54ED8E4A29170BF000A43C62 /* Extensions+UIColor.swift in Sources */,
+				54D8FC54291B281F007F7A39 /* ProfileEntity.swift in Sources */,
 				546188A62912E6EB00279FE3 /* SignInEntity.swift in Sources */,
 				54BF85B2290C0EE7002DAB62 /* RegisterPresenter.swift in Sources */,
 				54ED8E4F29170F0A00A43C62 /* BaseTableSectionHeaderView.swift in Sources */,
@@ -646,6 +689,7 @@
 				54BF8578290BC2C2002DAB62 /* AppDelegate.swift in Sources */,
 				546188AD291317CB00279FE3 /* MainPresenter.swift in Sources */,
 				543330A62914203700B1EA44 /* DataManager.swift in Sources */,
+				54D8FC4E291B2801007F7A39 /* ProfilePresenter.swift in Sources */,
 				54ED8E232915EA2F00A43C62 /* Extensions+CGFloat.swift in Sources */,
 				54BF85A8290C0E3C002DAB62 /* RegisterViewController.swift in Sources */,
 				54BF857A290BC2C2002DAB62 /* SceneDelegate.swift in Sources */,
