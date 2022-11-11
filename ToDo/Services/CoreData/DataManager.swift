@@ -98,7 +98,7 @@ class DataManager {
     
     func tasks(category:CategoryCoreData) throws -> [TaskCoreData] {
         let request:NSFetchRequest<TaskCoreData> = TaskCoreData.fetchRequest()
-//        request.predicate = NSPredicate(format: "category = %@",category)
+        request.predicate = NSPredicate(format: "category = %@",category)
 //        request.sortDescriptors = [NSSortDescriptor(key: "releaseDate", ascending: false)]
         
         var fetchedTasks:[TaskCoreData] = []
@@ -139,5 +139,9 @@ class DataManager {
         } catch let error {
             throw CoreManagerError.failedDeleteTask(text: "\(error)")
         }
-    }    
+    }
+    
+    func loadCategory(with request:NSFetchRequest<CategoryCoreData> = CategoryCoreData.fetchRequest(),predicate:NSPredicate? = nil,categoryName:String) {
+        
+    }
 }

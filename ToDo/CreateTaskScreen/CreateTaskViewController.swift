@@ -1,7 +1,7 @@
 import UIKit
 
 protocol CreateTaskViewControllerProtocol {
-    func createTaskTapped()
+    func refreshView()
 }
 
 final class CreateTaskViewController:BottomSheetController {
@@ -10,7 +10,8 @@ final class CreateTaskViewController:BottomSheetController {
     private var nameTextField = UITextField()
     private var createTaskButton = UIButton()
     var presenter:(InteractorToPresenterCreateTaskProtocol & ViewToPresenterCreateTaskProtocol)?
-    
+    var category:CategoryCoreData
+    var delegate:CreateTaskViewControllerProtocol?
     
     private enum UIConstants {
         static let mainLabelFont = 24.0
@@ -26,6 +27,15 @@ final class CreateTaskViewController:BottomSheetController {
         static let descriptionTextFieldRightAnchor = -5.0
         static let descriptionHeightAnchor = 100.0
         static let createTaskButtonTopAnchor = 20.0
+    }
+    
+    init(category:CategoryCoreData) {
+        self.category = category
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -83,7 +93,7 @@ extension CreateTaskViewController {
 
 extension CreateTaskViewController {
     @objc private func createTaskButtonTapped(_ sender: UIButton) {
-    
+        presenter?.createTask(category: self.category)
     }
 }
 
@@ -104,5 +114,12 @@ extension CreateTaskViewController:UITextFieldDelegate {
 }
 
 extension CreateTaskViewController:PresenterToViewCreateTaskProtocol {
+    func onFailedCreateTask(errorText: String) {
+        self.present(createErrorAlert(errorText: errorText),animated: true)
+    }
     
+    func onSuccessfulyCreateTask() {
+        self.delegate?.refreshView()
+        super.animateDismissView()
+    }
 }

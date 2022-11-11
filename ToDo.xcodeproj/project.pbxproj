@@ -47,6 +47,8 @@
 		549491E7290C72C600CA72AA /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491E6290C72C600CA72AA /* PostRequest.swift */; };
 		549491E9290C7D0100CA72AA /* APIResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491E8290C7D0100CA72AA /* APIResources.swift */; };
 		549491EB290C7D1700CA72AA /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549491EA290C7D1700CA72AA /* NetworkRequest.swift */; };
+		549AFFA5291E7B1D009924CC /* PrjEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549AFFA4291E7B1C009924CC /* PrjEntity.swift */; };
+		549AFFA7291E8B27009924CC /* CategoryTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549AFFA6291E8B27009924CC /* CategoryTableSectionHeaderView.swift */; };
 		54ACFE3E2919C185002C806C /* PrjViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACFE3D2919C185002C806C /* PrjViewController.swift */; };
 		54ACFE402919C1A5002C806C /* PrjPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACFE3F2919C1A5002C806C /* PrjPresenter.swift */; };
 		54ACFE422919C1B7002C806C /* PrjInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACFE412919C1B7002C806C /* PrjInteractor.swift */; };
@@ -73,7 +75,6 @@
 		54BF85B0290C0ED0002DAB62 /* RegisterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF85AF290C0ED0002DAB62 /* RegisterInteractor.swift */; };
 		54BF85B2290C0EE7002DAB62 /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF85B1290C0EE7002DAB62 /* RegisterPresenter.swift */; };
 		54C8D364291BD1840003A958 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C8D363291BD1840003A958 /* GlobalFunctions.swift */; };
-		54C8D366291BD3630003A958 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C8D365291BD3630003A958 /* CategoryTableViewCell.swift */; };
 		54D8FC4A291B27EA007F7A39 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8FC49291B27EA007F7A39 /* ProfileViewController.swift */; };
 		54D8FC4C291B27F6007F7A39 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8FC4B291B27F6007F7A39 /* ProfileRouter.swift */; };
 		54D8FC4E291B2801007F7A39 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8FC4D291B2801007F7A39 /* ProfilePresenter.swift */; };
@@ -140,6 +141,8 @@
 		549491E6290C72C600CA72AA /* PostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
 		549491E8290C7D0100CA72AA /* APIResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResources.swift; sourceTree = "<group>"; };
 		549491EA290C7D1700CA72AA /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		549AFFA4291E7B1C009924CC /* PrjEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrjEntity.swift; sourceTree = "<group>"; };
+		549AFFA6291E8B27009924CC /* CategoryTableSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableSectionHeaderView.swift; sourceTree = "<group>"; };
 		54ACFE3D2919C185002C806C /* PrjViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrjViewController.swift; sourceTree = "<group>"; };
 		54ACFE3F2919C1A5002C806C /* PrjPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrjPresenter.swift; sourceTree = "<group>"; };
 		54ACFE412919C1B7002C806C /* PrjInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrjInteractor.swift; sourceTree = "<group>"; };
@@ -168,7 +171,6 @@
 		54BF85AF290C0ED0002DAB62 /* RegisterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInteractor.swift; sourceTree = "<group>"; };
 		54BF85B1290C0EE7002DAB62 /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
 		54C8D363291BD1840003A958 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
-		54C8D365291BD3630003A958 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		54D8FC49291B27EA007F7A39 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		54D8FC4B291B27F6007F7A39 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		54D8FC4D291B2801007F7A39 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
@@ -302,7 +304,8 @@
 				54ACFE412919C1B7002C806C /* PrjInteractor.swift */,
 				54ACFE432919C1EA002C806C /* PrjRouter.swift */,
 				54ACFE452919C292002C806C /* PrjProtocols.swift */,
-				54C8D365291BD3630003A958 /* CategoryTableViewCell.swift */,
+				549AFFA4291E7B1C009924CC /* PrjEntity.swift */,
+				549AFFA6291E8B27009924CC /* CategoryTableSectionHeaderView.swift */,
 			);
 			path = PrjScreen;
 			sourceTree = "<group>";
@@ -630,6 +633,7 @@
 				54788980291979D90089F254 /* CreateProjectInteractor.swift in Sources */,
 				54BF85A4290BD234002DAB62 /* Extensions+UIView.swift in Sources */,
 				546188AB291317BA00279FE3 /* MainViewController.swift in Sources */,
+				549AFFA7291E8B27009924CC /* CategoryTableSectionHeaderView.swift in Sources */,
 				5452CCCC29194969000FC6EC /* TaskCoreData+CoreDataClass.swift in Sources */,
 				547889762919764C0089F254 /* CreateTaskRouter.swift in Sources */,
 				5452CCCA29194969000FC6EC /* ProjectCoreData+CoreDataProperties.swift in Sources */,
@@ -658,9 +662,9 @@
 				54ED8E3E2916E33100A43C62 /* ProjectsRouter.swift in Sources */,
 				546188B92913225A00279FE3 /* LoaderButton.swift in Sources */,
 				5452CCC829194969000FC6EC /* CategoryCoreData+CoreDataClass.swift in Sources */,
-				54C8D366291BD3630003A958 /* CategoryTableViewCell.swift in Sources */,
 				54ED8E482917052F00A43C62 /* ProjectTableViewCell.swift in Sources */,
 				54BF8594290BC41B002DAB62 /* LoginRouter.swift in Sources */,
+				549AFFA5291E7B1D009924CC /* PrjEntity.swift in Sources */,
 				54ACFE3E2919C185002C806C /* PrjViewController.swift in Sources */,
 				5452CCC929194969000FC6EC /* CategoryCoreData+CoreDataProperties.swift in Sources */,
 				54BF85A1290BC84B002DAB62 /* NavController.swift in Sources */,

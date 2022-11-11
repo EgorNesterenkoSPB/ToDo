@@ -5,14 +5,15 @@ protocol BaseTableSectionHeaderViewProtocol {
 }
 
 class BaseTableSectionHeaderView: UIView {
-
+    
     let title = UILabel()
     let chevronImageView = UIImageView()
+    let addButton = UIButton()
     let titleText:String
     let section:Int
     let expandable:Bool
     var delegate:BaseTableSectionHeaderViewProtocol?
-
+    
     init(titleText:String,section:Int,expandable:Bool) {
         self.titleText = titleText
         self.section = section
@@ -27,7 +28,7 @@ class BaseTableSectionHeaderView: UIView {
     }
     
     
-     public func configureView() {
+    public func configureView() {
         self.backgroundColor = .clear
         self.tag = section
         
@@ -40,6 +41,11 @@ class BaseTableSectionHeaderView: UIView {
         chevronImageView.tintColor = .gray
         self.addView(chevronImageView)
         
+        addButton.setImage(UIImage(systemName: Resources.Images.plusImage), for: .normal)
+        addButton.tintColor = .gray
+        addButton.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
+        self.addView(addButton)
+        
         let gesture = UITapGestureRecognizer(target: self, action: #selector(expandSection))
         self.addGestureRecognizer(gesture)
         
@@ -48,6 +54,8 @@ class BaseTableSectionHeaderView: UIView {
             title.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
             chevronImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             chevronImageView.rightAnchor.constraint(equalTo: self.rightAnchor,constant: -20),
+            addButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            addButton.rightAnchor.constraint(equalTo: chevronImageView.leftAnchor, constant: -30)
         ])
     }
 }
@@ -58,5 +66,12 @@ extension BaseTableSectionHeaderView {
         let sectionIndex = tag
         self.delegate?.updateExpandable(sectionIndex: sectionIndex)
     }
+    
+    @objc private func addButtonTapped(_ sender:UIButton) {
+        self._addButtonTapped()
+    }
 }
 
+@objc extension BaseTableSectionHeaderView {
+    func _addButtonTapped() {}
+}

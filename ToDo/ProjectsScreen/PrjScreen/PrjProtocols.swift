@@ -7,10 +7,15 @@ protocol ViewToPresenterPrjProtocol {
     var interactor: PresenterToInteractorPrjProtocol? {get set}
     func getCategories(project:ProjectCoreData)
     func showCreateCategoryAlert(project:ProjectCoreData) -> UIAlertController
-    func numberOfRowsInSection() -> Int
+    func numberOfRowsInSection(section:Int) -> Int
+    func numberOfSections() -> Int
     func cellForRowAt(tableView:UITableView,indexPath:IndexPath) -> UITableViewCell
     func showEditAlert(project:ProjectCoreData) -> UIAlertController
     func trailingSwipeActionsConfigurationForRowAt(tableView:UITableView,indexPath:IndexPath) -> UISwipeActionsConfiguration?
+    func heightForHeaderInSection() -> CGFloat
+    func heightForFooterInSection() -> CGFloat
+    func viewForHeaderInSection(prjViewController:PrjViewController,tableView: UITableView, section: Int) -> UIView?
+
 }
 
 //MARK: - View Output (Presenter -> View)
@@ -44,10 +49,10 @@ protocol InteractorToPresenterPrjProtocol {
     func successfulyDeleteAllCategories(project:ProjectCoreData)
     func successfulyDeleteCategory()
     func failedDeleteCategory(errorText:String)
+    
 }
 
 //MARK: - Router Input (Presenter -> Router)
 protocol PresenterToRouterPrjProtocol {
     static func createModule(project:ProjectCoreData) -> PrjViewController
-
 }

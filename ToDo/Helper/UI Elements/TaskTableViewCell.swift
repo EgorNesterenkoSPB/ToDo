@@ -5,6 +5,7 @@ class TaskTableViewCell: BaseTableViewCell {
     let circleButton = UIButton()
     let nameTitle = UILabel()
     let projectTitle = UILabel()
+    let descriptionTitle = UILabel()
 }
 
 extension TaskTableViewCell {
@@ -12,10 +13,17 @@ extension TaskTableViewCell {
         contentView.addView(circleButton)
         contentView.addView(nameTitle)
         contentView.addView(projectTitle)
+        contentView.addView(descriptionTitle)
     }
     
     override func configure() {
         self.selectionStyle = .none
+        self.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.6).cgColor
+        self.layer.cornerRadius = 10
+        self.layer.masksToBounds = true
+        self.layer.borderWidth = 1
+        self.backgroundColor = .white
+        //self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0))
         
         circleButton.setImage(UIImage(systemName: isSelected ? Resources.Images.circleFill : Resources.Images.circle,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
         circleButton.tintColor = isSelected ? .systemOrange : .black
@@ -26,6 +34,9 @@ extension TaskTableViewCell {
         
         projectTitle.textColor = .gray
         projectTitle.font = .systemFont(ofSize: 15)
+        
+        descriptionTitle.font = .systemFont(ofSize: 15)
+        descriptionTitle.textColor = .secondaryLabel
     }
     
     override func layoutViews() {
@@ -35,7 +46,9 @@ extension TaskTableViewCell {
             nameTitle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             nameTitle.leftAnchor.constraint(equalTo: circleButton.rightAnchor, constant: 15),
             projectTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            projectTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor,constant: -10)
+            projectTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor,constant: -10),
+            descriptionTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            descriptionTitle.leftAnchor.constraint(equalTo: nameTitle.leftAnchor)
         ])
     }
 }

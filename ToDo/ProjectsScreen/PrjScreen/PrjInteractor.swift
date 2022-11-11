@@ -7,7 +7,8 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
     func createCategory(name:String,project: ProjectCoreData) {
         let newCategory = DataManager.shared.category(name: name, project: project)
         do {
-            project.addToCategories(newCategory)
+            var categories = try DataManager.shared.categories(project: project)
+            categories.append(newCategory)
             try DataManager.shared.save()
             presenter?.successfulyCreateCategory(project: project)
         } catch let error {
@@ -27,7 +28,7 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
     
     func deleteAllCategories(project: ProjectCoreData) {
         do {
-            project.setValue(nil, forKey: "categories")
+            project.setValue(nil, forKey: Resources.categoriesKeyCoreData)
             try DataManager.shared.save()
             presenter?.successfulyDeleteAllCategories(project:project)
         } catch let error {

@@ -2,7 +2,7 @@ import UIKit
 
 final class PrjViewController:BaseViewController {
     
-    let categoriesTableView = UITableView()
+    let tasksTableView = UITableView()
     let topTitle = UILabel()
     let editButton = UIButton()
     var presenter:(ViewToPresenterPrjProtocol & InteractorToPresenterPrjProtocol)?
@@ -17,8 +17,11 @@ final class PrjViewController:BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        presenter?.getCategories(project: self.project)
+//    }
+    override func viewWillAppear(_ animated: Bool) {
         presenter?.getCategories(project: self.project)
     }
 }
@@ -27,7 +30,7 @@ extension PrjViewController {
     override func addViews() {
         self.view.addView(topTitle)
         self.view.addView(editButton)
-        self.view.addView(categoriesTableView)
+        self.view.addView(tasksTableView)
     }
     
     override func configure() {
@@ -38,11 +41,11 @@ extension PrjViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped(_:)))
         navigationItem.rightBarButtonItems = [addButton]
     
-        categoriesTableView.delegate = self
-        categoriesTableView.dataSource = self
-        categoriesTableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: Resources.Cells.categoryIdentefier)
-        categoriesTableView.separatorStyle = .none
-        categoriesTableView.tableFooterView = UIView()
+        tasksTableView.delegate = self
+        tasksTableView.dataSource = self
+        tasksTableView.register(TaskTableViewCell.self, forCellReuseIdentifier: Resources.Cells.taskCellIdentefier)
+        tasksTableView.separatorStyle = .none
+        tasksTableView.tableFooterView = UIView()
         
         topTitle.font = .boldSystemFont(ofSize: 23)
         topTitle.text = Resources.Titles.categoriesTitle
@@ -58,10 +61,10 @@ extension PrjViewController {
             topTitle.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 15),
             editButton.centerYAnchor.constraint(equalTo: topTitle.centerYAnchor),
             editButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor,constant: -20),
-            categoriesTableView.topAnchor.constraint(equalTo: topTitle.bottomAnchor,constant: 10),
-            categoriesTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            categoriesTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            categoriesTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor)
+            tasksTableView.topAnchor.constraint(equalTo: topTitle.bottomAnchor,constant: 10),
+            tasksTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            tasksTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
+            tasksTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor)
         ])
         
     }
@@ -111,7 +114,7 @@ extension PrjViewController:PresenterToViewPrjProtocol {
     
     func updateTableView() {
         DispatchQueue.main.async {
-            self.categoriesTableView.reloadData()
+            self.tasksTableView.reloadData()
         }
     }
     
@@ -120,8 +123,13 @@ extension PrjViewController:PresenterToViewPrjProtocol {
 
 //MARK: - TableViewMethods
 extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        presenter?.numberOfSections() ?? 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.numberOfRowsInSection() ?? 0
+        presenter?.numberOfRowsInSection(section: section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -131,5 +139,26 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         presenter?.trailingSwipeActionsConfigurationForRowAt(tableView: tableView, indexPath: indexPath)
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        presenter?.viewForHeaderInSection(prjViewController: self, tableView: tableView, section: section)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        presenter?.heightForHeaderInSection() ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        presenter?.heightForFooterInSection() ?? 0
+    }
+    
+}
+
+
+extension PrjViewController:CreateTaskViewControllerProtocol {
+    func refreshView() {
+        self.presenter?.getCategories(project: project)
+    }
+    
     
 }

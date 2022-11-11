@@ -4,12 +4,22 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     var view: PresenterToViewPrjProtocol?
     var router: PresenterToRouterPrjProtocol?
     var interactor: PresenterToInteractorPrjProtocol?
-    private var categories:[CategoryCoreData]?
+    private var sectionsData = [CategorySection]()
+    private var categories = [CategoryCoreData]()
     
     func getCategories(project: ProjectCoreData) {
         do {
+            var newSectionsData = [CategorySection]()
             let categories = try DataManager.shared.categories(project: project)
             self.categories = categories
+            for category in categories {
+                var tasks = [TaskCoreData]()
+                let savedTasks = try DataManager.shared.tasks(category: category)
+                tasks = savedTasks
+                let section = CategorySection(sectionTitle: category.name ?? "error get name", data: tasks, expandable: false)
+                newSectionsData.append(section)
+            }
+            self.sectionsData = newSectionsData
             view?.updateTableView()
         } catch let error {
             view?.failedGetCoreData(errorText: "\(error)")
@@ -18,10 +28,10 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     
     func showEditAlert(project: ProjectCoreData) -> UIAlertController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Delete project", style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
+        alertController.addAction(UIAlertAction(title: Resources.Titles.deleteProject, style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
             self?.interactor?.deleteProject(project: project)
         }))
-        alertController.addAction(UIAlertAction(title: "Delete all categories", style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
+        alertController.addAction(UIAlertAction(title: Resources.Titles.deleteAllProjects, style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
             self?.interactor?.deleteAllCategories(project: project)
         }))
         alertController.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
@@ -43,24 +53,31 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         return createAlertController
     }
     
-    func numberOfRowsInSection() -> Int {
-        self.categories?.count ?? 0
+    func numberOfRowsInSection(section:Int) -> Int {
+        if sectionsData[section].expandable {
+            return sectionsData[section].data.count
+        }
+        else {
+            return 0
+        }
+    }
+    
+    func numberOfSections() -> Int {
+        self.sectionsData.count
     }
     
     func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.categoryIdentefier, for: indexPath) as? CategoryTableViewCell else {return UITableViewCell()}
-        guard let categories = categories else {return cell}
-        cell.nameLabel.text = categories[indexPath.row].name
-        cell.countOfTasksLabel.text = "\(categories[indexPath.row].tasks?.count ?? 0)"
-        cell.category = categories[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.taskCellIdentefier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
+        let task = sectionsData[indexPath.section].data[indexPath.row]
+        cell.nameTitle.text = task.name
+        cell.descriptionTitle.text = task.descriptionTask
         return cell
     }
     
     func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let cell = tableView.cellForRow(at: indexPath) as? CategoryTableViewCell else {return nil}
-        guard let category = cell.category else {return nil}
+        guard let cell = tableView.cellForRow(at: indexPath) as? TaskTableViewCell else {return nil}
         let delete = UIContextualAction(style: .destructive, title: nil, handler: {[weak self] (action,swipeButtonView,completion) in
-            self?.interactor?.deleteCategory(category: category)
+            
             completion(true)
         })
         delete.image = UIImage(systemName: Resources.Images.trash,withConfiguration: Resources.Configurations.largeConfiguration)
@@ -71,7 +88,43 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         return configuration
     }
     
+    func heightForHeaderInSection() -> CGFloat {
+        60
+    }
+    
+    func heightForFooterInSection() -> CGFloat {
+        2
+    }
+    
+    func viewForHeaderInSection(prjViewController:PrjViewController, tableView: UITableView, section: Int) -> UIView? {
+        let titleText = sectionsData[section].sectionTitle
+        let expandable = sectionsData[section].expandable
+        var currentCategory:CategoryCoreData?
+        
+        for category in categories {
+            if category.name == titleText {
+                currentCategory = category
+            }
+        }
+        guard let currentCategory = currentCategory else {
+            return nil
+        }
+
+        let headerView = CategoryTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable, prjViewController: prjViewController, category:currentCategory)
+        headerView.delegate = self
+        return headerView
+    }
 }
+
+extension PrjPresenter:BaseTableSectionHeaderViewProtocol {
+    func updateExpandable(sectionIndex: Int) {
+        sectionsData[sectionIndex].expandable.toggle()
+        view?.updateTableView()
+    }
+    
+    
+}
+
 
 extension PrjPresenter:InteractorToPresenterPrjProtocol {
     func successfulyDeleteCategory() {
@@ -103,12 +156,6 @@ extension PrjPresenter:InteractorToPresenterPrjProtocol {
     }
     
     func successfulyCreateCategory(project:ProjectCoreData) {
-        do {
-            let newCategories = try DataManager.shared.categories(project: project)
-            self.categories = newCategories
-            view?.updateTableView()
-        } catch let error {
-            view?.failedGetCoreData(errorText: "\(error)")
-        }
+        self.getCategories(project: project)
     }
 }

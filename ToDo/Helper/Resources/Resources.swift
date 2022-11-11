@@ -1,6 +1,7 @@
 import UIKit
 
 enum Resources {
+    static let categoriesKeyCoreData = "categories"
     static let coreModelName = "CoreModel"
     static let headerColorIdentefier = "colorHeader"
     static let defaultHexColor = "b8b8b8"
@@ -40,6 +41,8 @@ enum Resources {
         static let name = "Name"
         static let create = "Create"
         static let categoriesTitle = "Categories:"
+        static let deleteProject = "Delete project"
+        static let deleteAllProjects = "Delete all categories"
     }
     enum Placeholders {
         static let textViewPlaceholder = "Description"
