@@ -1,7 +1,6 @@
 import Foundation
 
 final class PrjInteractor:PresenterToInteractorPrjProtocol {
-
     var presenter: InteractorToPresenterPrjProtocol?
     
     func createCategory(name:String,project: ProjectCoreData) {
@@ -13,6 +12,15 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
             presenter?.successfulyCreateCategory(project: project)
         } catch let error {
             presenter?.failedCreateCategory(errorText: "\(error)")
+        }
+    }
+    
+    func deleteTask(task: TaskCoreData) {
+        do {
+            try DataManager.shared.deleteTask(task: task)
+            presenter?.successfulyDeleteTask()
+        } catch let error {
+            presenter?.failedDeleteTask(errorText: "\(error)")
         }
     }
     

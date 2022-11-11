@@ -75,9 +75,10 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     }
     
     func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let cell = tableView.cellForRow(at: indexPath) as? TaskTableViewCell else {return nil}
+        //guard let cell = tableView.cellForRow(at: indexPath) as? TaskTableViewCell else {return nil}
         let delete = UIContextualAction(style: .destructive, title: nil, handler: {[weak self] (action,swipeButtonView,completion) in
-            
+            guard let task = self?.sectionsData[indexPath.section].data[indexPath.row] else {return}
+            self?.interactor?.deleteTask(task: task)
             completion(true)
         })
         delete.image = UIImage(systemName: Resources.Images.trash,withConfiguration: Resources.Configurations.largeConfiguration)
@@ -127,6 +128,14 @@ extension PrjPresenter:BaseTableSectionHeaderViewProtocol {
 
 
 extension PrjPresenter:InteractorToPresenterPrjProtocol {
+    func failedDeleteTask(errorText: String) {
+        view?.onFailedDeleteTask(errorText: errorText)
+    }
+    
+    func successfulyDeleteTask() {
+        view?.onSuccessefulyDeleteTask()
+    }
+    
     func successfulyDeleteCategory() {
         view?.onSuccessfulyDeleteCategory()
     }

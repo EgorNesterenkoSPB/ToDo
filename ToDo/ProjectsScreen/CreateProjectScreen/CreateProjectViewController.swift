@@ -1,7 +1,7 @@
 import UIKit
 
 protocol CreateProjectViewControllerProtocol {
-    func createProject(name: String, hexColor: String, isFavorite: Bool)
+    func refreshView()
 }
 
 class CreateProjectViewController:BottomSheetController {
@@ -117,10 +117,7 @@ extension CreateProjectViewController {
     }
     
     @objc private func confirmButtonTapped(_ sender:UIButton) {
-        guard let name = presenter?.projectName, name != "" else {return}
-        guard let hexColor =  presenter?.headerCircleImageColor.toHexString() else {return}
-        self.delegate?.createProject(name: name, hexColor: hexColor, isFavorite: favoriteSwitcher.isOn)
-        super.animateDismissView()
+        presenter?.createProject(isFavorite: favoriteSwitcher.isOn)
     }
 }
 
@@ -191,4 +188,13 @@ extension CreateProjectViewController:ColorHeaderViewProtocol {
 }
 
 extension CreateProjectViewController:PresenterToViewCreateProjectProtocol {
+    func onFailureCreateProject(errorText: String) {
+        present(createErrorAlert(errorText: errorText),animated: true)
+    }
+    
+    func onSuccessulyCreateProject() {
+        delegate?.refreshView()
+        super.animateDismissView()
+    }
+    
 }

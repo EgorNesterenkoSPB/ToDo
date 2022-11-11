@@ -15,7 +15,6 @@ protocol ViewToPresenterPrjProtocol {
     func heightForHeaderInSection() -> CGFloat
     func heightForFooterInSection() -> CGFloat
     func viewForHeaderInSection(prjViewController:PrjViewController,tableView: UITableView, section: Int) -> UIView?
-
 }
 
 //MARK: - View Output (Presenter -> View)
@@ -28,6 +27,8 @@ protocol PresenterToViewPrjProtocol {
     func hideViewController()
     func onSuccessfulyDeleteCategory()
     func onFailedDeleteCategory(errorText:String)
+    func onFailedDeleteTask(errorText:String)
+    func onSuccessefulyDeleteTask()
 }
 
 //MARK: -  Interactor Input (Presenter -> Interactor)
@@ -37,6 +38,7 @@ protocol PresenterToInteractorPrjProtocol {
     func deleteProject(project:ProjectCoreData)
     func deleteAllCategories(project:ProjectCoreData)
     func deleteCategory(category:CategoryCoreData)
+    func deleteTask(task:TaskCoreData)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
@@ -49,7 +51,8 @@ protocol InteractorToPresenterPrjProtocol {
     func successfulyDeleteAllCategories(project:ProjectCoreData)
     func successfulyDeleteCategory()
     func failedDeleteCategory(errorText:String)
-    
+    func failedDeleteTask(errorText:String)
+    func successfulyDeleteTask()
 }
 
 //MARK: - Router Input (Presenter -> Router)

@@ -14,7 +14,6 @@ protocol ViewToPresenterProjectsProtocol {
     func viewForHeaderInSection(projectsViewController:ProjectsViewController,tableView: UITableView, section: Int) -> UIView?
     func getData() throws
     func showErrorAlert(errorText:String,projectsViewController:ProjectsViewController)
-    func createProject(name: String, hexColor: String,isFavorite:Bool)
     func didSelectRowAt(tableView:UITableView,indexPath:IndexPath,projectsViewController:ProjectsViewController)
     func trailingSwipeActionsConfigurationForRowAt(tableView:UITableView,indexPath:IndexPath) -> UISwipeActionsConfiguration?
 }
@@ -22,7 +21,6 @@ protocol ViewToPresenterProjectsProtocol {
 //MARK: - View Output (Presenter -> View)
 protocol PresenterToViewProjectsProtocol {
     func updateTableView()
-    func onFailureCreateProject(errorText:String)
     func failedGetCoreData(errorText:String)
     func onfailedDeleteProject(errorText:String)
 }
@@ -30,14 +28,11 @@ protocol PresenterToViewProjectsProtocol {
 //MARK: -  Interactor Input (Presenter -> Interactor)
 protocol PresenterToInteractorProjectsProtocol {
     var presenter:InteractorToPresenterProjectsProtocol? {get set}
-    func onCreateProject(name:String,hexColor:String,isFavorite:Bool)
     func deleteProject(project:ProjectCoreData)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
 protocol InteractorToPresenterProjectsProtocol {
-    func successfulyCreateProject(projects:[ProjectCoreData])
-    func failureCreateProject(errorText:String)
     func successfulyDeleteProject()
     func failedDeleteProject(errorText:String)
 }

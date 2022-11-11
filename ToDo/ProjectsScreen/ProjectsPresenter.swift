@@ -110,9 +110,6 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         
     }
     
-    func createProject(name: String, hexColor: String,isFavorite:Bool) {
-        interactor?.onCreateProject(name: name, hexColor: hexColor,isFavorite:isFavorite)
-    }
     
     func didSelectRowAt(tableView: UITableView, indexPath: IndexPath,projectsViewController:ProjectsViewController) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ProjectTableViewCell else {return}
@@ -149,17 +146,7 @@ extension ProjectsPresenter:InteractorToPresenterProjectsProtocol {
     func failedDeleteProject(errorText: String) {
         view?.onfailedDeleteProject(errorText: errorText)
     }
-    
-    func successfulyCreateProject(projects:[ProjectCoreData]) {
-        sectionsData[1].data = projects
-        sectionsData[0].data = getFavoriteProjects(projects: projects)
-        view?.updateTableView()
-    }
-    
-    func failureCreateProject(errorText: String) {
-        view?.onFailureCreateProject(errorText: errorText)
-    }
-    
+        
     
 }
 

@@ -84,6 +84,14 @@ extension PrjViewController {
 
 //MARK: - PresenterToView
 extension PrjViewController:PresenterToViewPrjProtocol {
+    func onFailedDeleteTask(errorText: String) {
+        self.present(createErrorAlert(errorText: errorText),animated: true)
+    }
+    
+    func onSuccessefulyDeleteTask() {
+        self.presenter?.getCategories(project: self.project)
+    }
+    
     func onSuccessfulyDeleteCategory() {
         self.presenter?.getCategories(project: self.project)
     }

@@ -46,7 +46,19 @@ final class CreateProjectPresenter:ViewToPresenterCreateProjectProtocol{
         confirmButton.isEnabled = true
         self.projectName = text
     }
+    func createProject(isFavorite:Bool) {
+        guard self.projectName != "" else {return}
+        interactor?.onCreateProject(name: projectName, hexColor: headerCircleImageColor.toHexString(), isFavorite: isFavorite)
+    }
 }
 
 extension CreateProjectPresenter:InteractorToPresenterCreateProjectProtocol {
+    func successfulyCreateProject() {
+        view?.onSuccessulyCreateProject()
+    }
+    
+    func failureCreateProject(errorText: String) {
+        view?.onFailureCreateProject(errorText: errorText)
+    }
+    
 }

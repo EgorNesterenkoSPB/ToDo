@@ -112,8 +112,13 @@ extension ProjectsViewController:UITableViewDelegate,UITableViewDataSource {
 }
 
 extension ProjectsViewController:CreateProjectViewControllerProtocol {
-    func createProject(name: String, hexColor: String,isFavorite:Bool) {
-        presenter?.createProject(name: name, hexColor: hexColor,isFavorite:isFavorite)
+    func refreshView() {
+        do {
+            try presenter?.getData()
+        } catch let error {
+            presenter?.showErrorAlert(errorText: "\(error)", projectsViewController: self)
+        }
+        self.updateTableView()
     }
 }
 
