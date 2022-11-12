@@ -4,12 +4,16 @@ import IQKeyboardManagerSwift
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var restrictRotation:UIInterfaceOrientationMask = .portrait
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared.enable = true
         UINavigationBar.appearance().tintColor = .systemOrange
         return true
+    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return self.restrictRotation
     }
 
     // MARK: UISceneSession Lifecycle
