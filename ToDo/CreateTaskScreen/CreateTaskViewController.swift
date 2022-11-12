@@ -1,7 +1,7 @@
 import UIKit
 
 protocol CreateTaskViewControllerProtocol {
-    func refreshView()
+    func refreshView(category:CategoryCoreData,section:Int)
 }
 
 final class CreateTaskViewController:BottomSheetController {
@@ -10,8 +10,9 @@ final class CreateTaskViewController:BottomSheetController {
     private var nameTextField = UITextField()
     private var createTaskButton = UIButton()
     var presenter:(InteractorToPresenterCreateTaskProtocol & ViewToPresenterCreateTaskProtocol)?
-    var category:CategoryCoreData
+    let category:CategoryCoreData
     var delegate:CreateTaskViewControllerProtocol?
+    let section:Int
     
     private enum UIConstants {
         static let mainLabelFont = 24.0
@@ -29,8 +30,9 @@ final class CreateTaskViewController:BottomSheetController {
         static let createTaskButtonTopAnchor = 20.0
     }
     
-    init(category:CategoryCoreData) {
+    init(section:Int,category:CategoryCoreData) {
         self.category = category
+        self.section = section
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,6 +54,7 @@ extension CreateTaskViewController {
         super.configure()
     
         nameTextField.delegate = self
+        nameTextField.becomeFirstResponder()
         
         mainLabel.text = Resources.Titles.bottomSheetMainLabel
         mainLabel.font = .systemFont(ofSize: UIConstants.mainLabelFont)
@@ -119,7 +122,7 @@ extension CreateTaskViewController:PresenterToViewCreateTaskProtocol {
     }
     
     func onSuccessfulyCreateTask() {
-        self.delegate?.refreshView()
+        self.delegate?.refreshView(category: self.category, section: self.section)
         super.animateDismissView()
     }
 }

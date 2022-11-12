@@ -13,6 +13,9 @@ final class MainViewController:BaseViewController {
     override func viewDidLayoutSubviews() {
         circleButton.clipsToBounds = true
         circleButton.layer.cornerRadius = circleButton.frame.width / 2
+        circleButton.layoutIfNeeded()
+        bottomBackgroundView.layoutIfNeeded()
+        super.viewDidLayoutSubviews()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -6,6 +6,7 @@ class TaskTableViewCell: BaseTableViewCell {
     let nameTitle = UILabel()
     let projectTitle = UILabel()
     let descriptionTitle = UILabel()
+    let bottomDividerView = UIView()
 }
 
 extension TaskTableViewCell {
@@ -14,16 +15,13 @@ extension TaskTableViewCell {
         contentView.addView(nameTitle)
         contentView.addView(projectTitle)
         contentView.addView(descriptionTitle)
+        contentView.addView(bottomDividerView)
     }
     
     override func configure() {
         self.selectionStyle = .none
-        self.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.6).cgColor
-        self.layer.cornerRadius = 10
-        self.layer.masksToBounds = true
-        self.layer.borderWidth = 1
-        self.backgroundColor = .white
-        //self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0))
+        
+        bottomDividerView.backgroundColor = .lightGray
         
         circleButton.setImage(UIImage(systemName: isSelected ? Resources.Images.circleFill : Resources.Images.circle,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
         circleButton.tintColor = isSelected ? .systemOrange : .black
@@ -42,13 +40,18 @@ extension TaskTableViewCell {
     override func layoutViews() {
         NSLayoutConstraint.activate([
             circleButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            circleButton.leftAnchor.constraint(equalTo: contentView.leftAnchor,constant:20),
-            nameTitle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameTitle.leftAnchor.constraint(equalTo: circleButton.rightAnchor, constant: 15),
-            projectTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            projectTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor,constant: -10),
-            descriptionTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            descriptionTitle.leftAnchor.constraint(equalTo: nameTitle.leftAnchor)
+            circleButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
+            nameTitle.centerYAnchor.constraint(equalTo: circleButton.centerYAnchor),
+            nameTitle.leftAnchor.constraint(equalTo: circleButton.rightAnchor, constant: 10),
+            descriptionTitle.topAnchor.constraint(equalTo: nameTitle.bottomAnchor, constant: 5),
+            descriptionTitle.leftAnchor.constraint(equalTo: nameTitle.leftAnchor),
+            descriptionTitle.bottomAnchor.constraint(equalTo: bottomDividerView.topAnchor, constant: -5),
+            projectTitle.bottomAnchor.constraint(equalTo: bottomDividerView.topAnchor,constant: -5),
+            projectTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
+            bottomDividerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            bottomDividerView.heightAnchor.constraint(equalToConstant: 1),
+            bottomDividerView.leftAnchor.constraint(equalTo: circleButton.leftAnchor),
+            bottomDividerView.rightAnchor.constraint(equalTo: projectTitle.rightAnchor)
         ])
     }
 }

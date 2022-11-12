@@ -21,7 +21,7 @@ class CategoryTableSectionHeaderView: BaseTableSectionHeaderView {
 extension CategoryTableSectionHeaderView {
     override func _addButtonTapped() {
         super._addButtonTapped()
-        let createTaskViewController = CreateTaskRouter.createModule(category: self.category)
+        let createTaskViewController = CreateTaskRouter.createModule(category: self.category, section: section)
         createTaskViewController.modalPresentationStyle = .overCurrentContext
         createTaskViewController.delegate = prjViewController
         prjViewController.present(createTaskViewController,animated: false)

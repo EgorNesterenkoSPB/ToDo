@@ -82,6 +82,7 @@ extension CreateProjectViewController {
         
         nameTextField.placeholder = Resources.Placeholders.textFieldPlaceholder
         nameTextField.delegate = self
+        nameTextField.becomeFirstResponder()
         
     }
     

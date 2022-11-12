@@ -15,10 +15,10 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
         }
     }
     
-    func deleteTask(task: TaskCoreData) {
+    func deleteTask(task: TaskCoreData,category:CategoryCoreData,section:Int) {
         do {
             try DataManager.shared.deleteTask(task: task)
-            presenter?.successfulyDeleteTask()
+            presenter?.successfulyDeleteTask(category: category, section: section)
         } catch let error {
             presenter?.failedDeleteTask(errorText: "\(error)")
         }

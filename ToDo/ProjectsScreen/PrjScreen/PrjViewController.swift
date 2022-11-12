@@ -17,10 +17,6 @@ final class PrjViewController:BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        presenter?.getCategories(project: self.project)
-//    }
     override func viewWillAppear(_ animated: Bool) {
         presenter?.getCategories(project: self.project)
     }
@@ -84,6 +80,12 @@ extension PrjViewController {
 
 //MARK: - PresenterToView
 extension PrjViewController:PresenterToViewPrjProtocol {
+    func onUpdateSection(section: Int) {
+        DispatchQueue.main.async {
+            self.tasksTableView.reloadSections(IndexSet(integer: section), with: .none)
+        }
+    }
+    
     func onFailedDeleteTask(errorText: String) {
         self.present(createErrorAlert(errorText: errorText),animated: true)
     }
@@ -164,9 +166,7 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
 
 
 extension PrjViewController:CreateTaskViewControllerProtocol {
-    func refreshView() {
-        self.presenter?.getCategories(project: project)
+    func refreshView(category: CategoryCoreData, section: Int) {
+        presenter?.updateSection(category: category, section: section)
     }
-    
-    
 }

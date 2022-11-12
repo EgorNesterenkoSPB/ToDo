@@ -26,6 +26,21 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         }
     }
     
+    func updateSection(category: CategoryCoreData,section:Int) {
+        do {
+            let tasks = try DataManager.shared.tasks(category: category)
+            if let row = self.sectionsData.firstIndex(where: {$0.sectionTitle == category.name}) {
+                sectionsData[row].data = tasks
+                sectionsData[row].expandable = true
+                view?.onUpdateSection(section: section)
+            }
+        } catch let error {
+            view?.failedGetCoreData(errorText: "\(error)")
+        }
+        
+    }
+    
+    
     func showEditAlert(project: ProjectCoreData) -> UIAlertController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: Resources.Titles.deleteProject, style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
@@ -75,10 +90,9 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     }
     
     func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        //guard let cell = tableView.cellForRow(at: indexPath) as? TaskTableViewCell else {return nil}
         let delete = UIContextualAction(style: .destructive, title: nil, handler: {[weak self] (action,swipeButtonView,completion) in
-            guard let task = self?.sectionsData[indexPath.section].data[indexPath.row] else {return}
-            self?.interactor?.deleteTask(task: task)
+            guard let task = self?.sectionsData[indexPath.section].data[indexPath.row], let category = task.category else {return}
+            self?.interactor?.deleteTask(task: task, category: category , section: indexPath.section)
             completion(true)
         })
         delete.image = UIImage(systemName: Resources.Images.trash,withConfiguration: Resources.Configurations.largeConfiguration)
@@ -115,6 +129,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         headerView.delegate = self
         return headerView
     }
+    
 }
 
 extension PrjPresenter:BaseTableSectionHeaderViewProtocol {
@@ -132,8 +147,8 @@ extension PrjPresenter:InteractorToPresenterPrjProtocol {
         view?.onFailedDeleteTask(errorText: errorText)
     }
     
-    func successfulyDeleteTask() {
-        view?.onSuccessefulyDeleteTask()
+    func successfulyDeleteTask(category:CategoryCoreData,section:Int) {
+        self.updateSection(category: category, section: section)
     }
     
     func successfulyDeleteCategory() {
