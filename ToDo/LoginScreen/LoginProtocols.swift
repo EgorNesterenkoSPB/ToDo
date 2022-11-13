@@ -20,7 +20,7 @@ protocol PresenterToViewLoginProtocol {
 //MARK: -  Interactor Input (Presenter -> Interactor)
 protocol PresenterToInteractorLoginProtocol {
     var presenter: InteractorToPresenterLoginProtocol? {get set}
-
+    func setEnteredApplication()
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)

@@ -14,6 +14,7 @@ final class LoginPresenter:ViewToPresenterLoginProtocol {
     }
     
     func touchSkipButton(navigationController: UINavigationController?) {
+        interactor?.setEnteredApplication()
         router?.openMainScreen(navigationController: navigationController)
     }
     

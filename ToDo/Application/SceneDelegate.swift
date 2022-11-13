@@ -8,16 +8,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        let defaults = UserDefaults.standard
+        
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = NavController(rootViewController: LoginRouter.createModule())
+        let isEntered = defaults.bool(forKey: Resources.isEnteredApplication)
+        switch isEntered {
+        case true:
+            window?.rootViewController = NavController(rootViewController: MainRouter.createModule())
+        case false:
+            window?.rootViewController = NavController(rootViewController: LoginRouter.createModule())
+        }
         window?.makeKeyAndVisible()
         
-        let defaults = UserDefaults.standard
         let isDark = defaults.bool(forKey: Resources.isDarkKeyTheme)
-        if isDark {
+        switch isDark {
+        case true:
             window?.overrideUserInterfaceStyle = .dark
-        }
-        else {
+        case false:
             window?.overrideUserInterfaceStyle = .light
         }
         

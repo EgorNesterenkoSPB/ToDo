@@ -17,20 +17,7 @@ final class SettingsPresenter:ViewToPresenterSettingsProtocol {
     }
     
     func switchTheme(isOn: Bool) {
-        
-        if isOn {
-            UIApplication.shared.windows.forEach({window in
-                window.overrideUserInterfaceStyle = .dark
-                defaults.set(true, forKey: Resources.isDarkKeyTheme)
-            })
-        }
-        else {
-            UIApplication.shared.windows.forEach({window in
-                window.overrideUserInterfaceStyle = .light
-                defaults.set(false, forKey: Resources.isDarkKeyTheme)
-            })
-        }
-
+        interactor?.onSwitchTheme(isOn: isOn)
     }
     
 }

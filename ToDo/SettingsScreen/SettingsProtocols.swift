@@ -18,7 +18,7 @@ protocol PresenterToViewSettingsProtocol {
 //MARK: -  Interactor Input (Presenter -> Interactor)
 protocol PresenterToInteractorSettingsProtocol {
     var presenter:InteractorToPresenterSettingsProtocol? {get set}
-
+    func onSwitchTheme(isOn:Bool)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
