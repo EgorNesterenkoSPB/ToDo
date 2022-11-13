@@ -14,6 +14,15 @@ final class ProfileViewController:BaseViewController {
     let loginTextField = UITextField()
     let mailTextField = UITextField()
     var presenter:(ViewToPresenterProfileProtocol & InteractorToPresenterProfileProtocol)?
+    let confirmButton = UIButton()
+    let scrollView = UIScrollView()
+    let verticalStackView = UIStackView()
+    
+    private enum UIConstans {
+        static let topSpacing = 20.0
+        static let accountImageButtonWidth = 100.0
+        static let textFieldWidth = 200.0
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,28 +33,21 @@ final class ProfileViewController:BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         accountImageButton.imageView?.layer.cornerRadius = accountImageButton.bounds.height / 2.0
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: verticalStackView.frame.height + UIConstans.topSpacing)
     }
 }
 
 extension ProfileViewController {
     override func addViews() {
-        self.view.addView(accountImageButton)
-        self.view.addView(logoutButton)
-        self.view.addView(deleteAccountButton)
-        self.view.addView(loginLabel)
-        self.view.addView(mailLabel)
-        self.view.addView(pincodeLabel)
-        self.view.addView(pincodeTextField)
-        self.view.addView(passwordLabel)
-        self.view.addView(passwordTextField)
-        self.view.addView(loginTextField)
-        self.view.addView(mailTextField)
+        self.view.addView(scrollView)
+        scrollView.addSubview(verticalStackView)
     }
     
     override func configure() {
         super.configure()
         navigationController?.navigationBar.isHidden = false
         title = Resources.Titles.account
+        scrollView.showsVerticalScrollIndicator = false
         
         accountImageButton.setImage(UIImage(named: Resources.Images.user), for: .normal)
         accountImageButton.tintColor = UIColor(named: Resources.Titles.labelAndTintColor)
@@ -66,6 +68,12 @@ extension ProfileViewController {
         self.configureTextField(textField: pincodeTextField, placeholderText: Resources.Placeholders.pincodeTextField,isSecury: true)
         pincodeTextField.keyboardType = .asciiCapableNumberPad
         
+        let loginHorizontalStackView = self.createHorizontalStackView(subviews: [loginLabel,loginTextField])
+        let mailHorizontalStackView = self.createHorizontalStackView(subviews: [mailLabel,mailTextField])
+        let passwordHorizontalStackView = self.createHorizontalStackView(subviews: [passwordLabel,passwordTextField])
+        let pincodeHorizontalStackView = self.createHorizontalStackView(subviews: [pincodeLabel,pincodeTextField])
+        
+        
         logoutButton.setTitle(Resources.Titles.logout, for: .normal)
         logoutButton.setTitleColor(.red, for: .normal)
         logoutButton.titleLabel?.font = .systemFont(ofSize: 20)
@@ -76,44 +84,46 @@ extension ProfileViewController {
         deleteAccountButton.addTarget(self, action: #selector(deleteAccountButtonTapped), for: .touchUpInside)
         deleteAccountButton.isEnabled = false
         
-
+        self.configureConfirmButton(confirmButton: confirmButton)
+        
+        verticalStackView.axis = .vertical
+        verticalStackView.alignment = .center
+        verticalStackView.distribution = .equalSpacing
+        verticalStackView.spacing = 20
+        verticalStackView.addArrangedSubviews([accountImageButton,loginHorizontalStackView,mailHorizontalStackView,passwordHorizontalStackView,pincodeHorizontalStackView,confirmButton,logoutButton,deleteAccountButton])
     }
     
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            accountImageButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            accountImageButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 30),
-            accountImageButton.widthAnchor.constraint(equalToConstant: 100),
-            accountImageButton.heightAnchor.constraint(equalToConstant: 100),
-            loginLabel.topAnchor.constraint(equalTo: accountImageButton.bottomAnchor, constant: 20),
-            loginLabel.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 30),
-            loginTextField.centerYAnchor.constraint(equalTo: loginLabel.centerYAnchor),
-            loginTextField.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -10),
-            loginTextField.leftAnchor.constraint(equalTo: loginLabel.rightAnchor, constant: 10),
-            loginTextField.widthAnchor.constraint(equalToConstant: 200),
-            mailLabel.leftAnchor.constraint(equalTo: loginLabel.leftAnchor),
-            mailLabel.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 30),
-            mailTextField.centerYAnchor.constraint(equalTo: mailLabel.centerYAnchor),
-            mailTextField.rightAnchor.constraint(equalTo: loginTextField.rightAnchor),
-            mailTextField.leftAnchor.constraint(equalTo: loginTextField.leftAnchor),
-            passwordLabel.leftAnchor.constraint(equalTo: mailLabel.leftAnchor),
-            passwordLabel.topAnchor.constraint(equalTo: mailTextField.bottomAnchor, constant: 30),
-            passwordTextField.centerYAnchor.constraint(equalTo: passwordLabel.centerYAnchor),
-            passwordTextField.rightAnchor.constraint(equalTo: loginTextField.rightAnchor),
-            passwordTextField.leftAnchor.constraint(equalTo: loginTextField.leftAnchor),
-            pincodeLabel.leftAnchor.constraint(equalTo: loginLabel.leftAnchor),
-            pincodeLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor,constant: 30),
-            pincodeTextField.centerYAnchor.constraint(equalTo: pincodeLabel.centerYAnchor),
-            pincodeTextField.leftAnchor.constraint(equalTo: loginTextField.leftAnchor),
-            pincodeTextField.rightAnchor.constraint(equalTo: loginTextField.rightAnchor),
-            logoutButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            logoutButton.topAnchor.constraint(equalTo: pincodeTextField.bottomAnchor, constant: 10),
-            deleteAccountButton.topAnchor.constraint(equalTo: logoutButton.bottomAnchor, constant: 10),
-            deleteAccountButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor)
+            scrollView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            verticalStackView.topAnchor.constraint(equalTo: scrollView.topAnchor,constant: UIConstans.topSpacing),
+            verticalStackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            verticalStackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor,constant: -10),
+            verticalStackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor,constant: 10),
+            accountImageButton.widthAnchor.constraint(equalToConstant: UIConstans.accountImageButtonWidth),
+            accountImageButton.heightAnchor.constraint(equalToConstant: UIConstans.accountImageButtonWidth),
+            loginTextField.widthAnchor.constraint(equalToConstant: UIConstans.textFieldWidth),
+            mailTextField.widthAnchor.constraint(equalToConstant: UIConstans.textFieldWidth),
+            passwordTextField.widthAnchor.constraint(equalToConstant: UIConstans.textFieldWidth),
+            pincodeTextField.widthAnchor.constraint(equalToConstant: UIConstans.textFieldWidth),
         ])
     }
 }
 
+extension ProfileViewController {
+    private func createHorizontalStackView(subviews:[UIView]) -> UIStackView {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        stackView.addArrangedSubviews(subviews)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView 
+    }
+}
 
 
 extension ProfileViewController {

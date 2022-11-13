@@ -28,6 +28,7 @@ final class ProfilePresenter:ViewToPresenterProfileProtocol {
                 self?.defaults.removeObject(forKey: Resources.imageProfilePathKey)
             }))
         }
+        alert.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
         
         profileViewController.present(alert,animated: true)
     }
@@ -54,7 +55,7 @@ final class ProfilePresenter:ViewToPresenterProfileProtocol {
     
     func showLogoutAlert(profileViewController: ProfileViewController, navigationController: UINavigationController?) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: Resources.Titles.logout, style: .destructive, handler: { [weak self] (action:UIAlertAction) -> Void in
             self?.interactor?.removeEnteredUserDefKey()
             self?.router?.onLogout(navigationController: navigationController)
