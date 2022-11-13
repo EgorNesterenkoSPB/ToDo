@@ -64,7 +64,7 @@ extension CreateProjectViewController {
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         
         favoriteIconImageView.image = UIImage(systemName: Resources.Images.heart,withConfiguration: Resources.Configurations.largeConfiguration)
-        favoriteIconImageView.tintColor = .black
+        favoriteIconImageView.tintColor = UIColor(named: Resources.Titles.labelAndTintColor)
         
         addToFavoriteLabel.text = Resources.Titles.addToFavorite
         addToFavoriteLabel.font = .boldSystemFont(ofSize: 20)
@@ -82,7 +82,6 @@ extension CreateProjectViewController {
         
         nameTextField.placeholder = Resources.Placeholders.textFieldPlaceholder
         nameTextField.delegate = self
-        nameTextField.becomeFirstResponder()
         
     }
     

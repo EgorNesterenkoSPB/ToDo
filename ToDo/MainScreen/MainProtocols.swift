@@ -14,6 +14,7 @@ protocol ViewToPresenterMainProtocol {
     func userTapCreateTask(mainViewController:MainViewController)
     func viewForHeaderInSection(tableView: UITableView, section: Int) -> UIView?
     func userTapProjectsButton(navigationController:UINavigationController?)
+    func userTapSettingsButton(navigationController:UINavigationController?)
 }
 
 //MARK: - View Output (Presenter -> View)
@@ -37,4 +38,5 @@ protocol PresenterToRouterMainProtocol {
     static func createModule() -> MainViewController
     func showProjectsScreen(navigationController:UINavigationController?)
     func showCreateTaskViewController(mainViewController:MainViewController)
+    func showSettingsScreen(navigationController:UINavigationController?)
 }

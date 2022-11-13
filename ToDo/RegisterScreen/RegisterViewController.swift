@@ -38,6 +38,7 @@ extension RegisterViewController {
     }
     
     override func configure() {
+        super.configure()
         title = Resources.Titles.registerTopTitle
         
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)

@@ -33,7 +33,7 @@ class BaseTableSectionHeaderView: UIView {
         self.tag = section
         
         title.text = titleText
-        title.textColor = .black
+        title.textColor = UIColor(named: Resources.Titles.labelAndTintColor)
         title.font = .boldSystemFont(ofSize: 18)
         self.addView(title)
         

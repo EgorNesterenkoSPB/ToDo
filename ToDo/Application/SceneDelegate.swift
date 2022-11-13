@@ -11,6 +11,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = NavController(rootViewController: LoginRouter.createModule())
         window?.makeKeyAndVisible()
+        
+        let defaults = UserDefaults.standard
+        let isDark = defaults.bool(forKey: Resources.isDarkKeyTheme)
+        if isDark {
+            window?.overrideUserInterfaceStyle = .dark
+        }
+        else {
+            window?.overrideUserInterfaceStyle = .light
+        }
+        
     }
 }
 

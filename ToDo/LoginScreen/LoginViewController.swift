@@ -43,6 +43,7 @@ extension LoginViewController {
     }
     
     override func configure() {
+        super.configure()
         title = Resources.Titles.loginTitle
         
         signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)

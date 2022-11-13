@@ -31,8 +31,10 @@ extension ProjectsViewController {
     }
     
     override func configure() {
+        super.configure()
         navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: Resources.Titles.today, style: .plain, target: nil, action: nil)
+        title = Resources.Titles.projectsSection
         
         tableView.delegate = self
         tableView.dataSource = self

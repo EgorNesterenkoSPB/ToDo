@@ -1,6 +1,11 @@
 import UIKit
 
 final class MainRouter:PresenterToRouterMainProtocol {
+    func showSettingsScreen(navigationController: UINavigationController?) {
+        let settingsViewController = SettingsRouter.createModule()
+        navigationController?.pushViewController(settingsViewController, animated: true)
+    }
+    
 
     static func createModule() -> MainViewController {
         let mainViewController = MainViewController()

@@ -35,8 +35,8 @@ extension MainViewController {
     }
     
     override func configure() {
+        super.configure()
         navigationController?.navigationBar.isHidden = true
-        self.view.backgroundColor = .white
         
         topTitle.text = Resources.Titles.today
         topTitle.font = .boldSystemFont(ofSize: 30)
@@ -47,9 +47,14 @@ extension MainViewController {
         circleButton.addTarget(self, action: #selector(addTaskButtonTapped(_:)), for: .touchUpInside)
         
         self.configureBottomButton(button: projectsButton, imageName:  Resources.Images.projectsImage)
+        
         projectsButton.addTarget(self, action: #selector(projectsButtonTapped), for: .touchUpInside)
+        projectsButton.tintColor = UIColor(named: Resources.Titles.labelAndTintColor)
+        
         self.configureBottomButton(button: settingsButton, imageName: Resources.Images.settingsImage)
         
+        settingsButton.addTarget(self, action: #selector(settingsButtonTapped(_:)), for: .touchUpInside)
+        settingsButton.tintColor = UIColor(named: Resources.Titles.labelAndTintColor)
         
         tableView.backgroundColor = .clear
         tableView.delegate = self
@@ -94,6 +99,10 @@ extension MainViewController {
         
     @objc private func projectsButtonTapped(_ sender:UIButton) {
         presenter?.userTapProjectsButton(navigationController:navigationController)
+    }
+    
+    @objc private func settingsButtonTapped(_ sender:UIButton) {
+        presenter?.userTapSettingsButton(navigationController: navigationController)
     }
 }
 

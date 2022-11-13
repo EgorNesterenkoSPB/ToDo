@@ -20,14 +20,14 @@ extension TaskTableViewCell {
     
     override func configure() {
         self.selectionStyle = .none
-        
+        self.backgroundColor = .clear
         bottomDividerView.backgroundColor = .lightGray
         
         circleButton.setImage(UIImage(systemName: isSelected ? Resources.Images.circleFill : Resources.Images.circle,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-        circleButton.tintColor = isSelected ? .systemOrange : .black
+        circleButton.tintColor = isSelected ? .systemOrange : UIColor(named: Resources.Titles.labelAndTintColor)
         circleButton.addTarget(self, action: #selector(userTapFinishTask(_:)), for: .touchUpInside)
         
-        nameTitle.textColor = .black
+        nameTitle.textColor = UIColor(named: Resources.Titles.labelAndTintColor)
         nameTitle.font = .systemFont(ofSize: 20)
         
         projectTitle.textColor = .gray

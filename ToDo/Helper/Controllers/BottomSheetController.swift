@@ -35,9 +35,8 @@ extension BottomSheetController {
     }
     
     override func configure() {
-        self.view.backgroundColor = .clear
-        
-        containerView.backgroundColor = .white
+        super.configure()
+        containerView.backgroundColor = .systemBackground
         containerView.layer.cornerRadius = 16
         containerView.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
         containerView.clipsToBounds = true

@@ -52,9 +52,8 @@ extension CreateTaskViewController {
     
     override func configure() {
         super.configure()
-    
+
         nameTextField.delegate = self
-        nameTextField.becomeFirstResponder()
         
         mainLabel.text = Resources.Titles.bottomSheetMainLabel
         mainLabel.font = .systemFont(ofSize: UIConstants.mainLabelFont)

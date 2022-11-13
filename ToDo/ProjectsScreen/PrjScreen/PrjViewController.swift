@@ -30,6 +30,7 @@ extension PrjViewController {
     }
     
     override func configure() {
+        super.configure()
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: Resources.Titles.projectsSection, style: .plain, target: nil, action: nil)
         title = project.name

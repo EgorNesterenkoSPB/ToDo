@@ -1,7 +1,6 @@
 import UIKit
 
 final class MainPresenter: ViewToPresenterMainProtocol {
-    
     var view: PresenterToViewMainProtocol?
     var router: PresenterToRouterMainProtocol?
     var interactor: PresenterToInteractorMainProtocol?
@@ -10,6 +9,10 @@ final class MainPresenter: ViewToPresenterMainProtocol {
     private enum UIConstants {
         static let heightHeader = 60.0
         static let heightFooter = 2.0
+    }
+    
+    func userTapSettingsButton(navigationController: UINavigationController?) {
+        router?.showSettingsScreen(navigationController: navigationController)
     }
     
     func userTapProjectsButton(navigationController:UINavigationController?) {

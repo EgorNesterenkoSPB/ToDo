@@ -20,7 +20,9 @@ class BaseViewController:UIViewController {
 @objc extension BaseViewController {
     func addViews() {}
     func layoutViews() {}
-    func configure() {}
+    func configure() {
+        self.view.backgroundColor = .systemBackground
+    }
     
     func configureTextField(textField:UITextField,placeholderText:String, isSecury:Bool = false) {
         textField.isSecureTextEntry = isSecury

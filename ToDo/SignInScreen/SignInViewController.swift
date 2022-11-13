@@ -47,6 +47,7 @@ extension SignInViewController {
     }
     
     override func configure() {
+        super.configure()
         title = Resources.Titles.signInTitle
         
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
