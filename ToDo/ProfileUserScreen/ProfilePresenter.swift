@@ -7,6 +7,10 @@ final class ProfilePresenter:ViewToPresenterProfileProtocol {
     var router: PresenterToRouterProfileProtocol?
     var interactor: PresenterToInteractorProfileProtocol?
     lazy var defaults = UserDefaults.standard
+    var newPincode:String?
+    var newLogin:String?
+    var newMail:String?
+    var newPassword:String?
     
     func userTapProfileButton(profileViewController: ProfileViewController,accountImageButton: UIButton) {
         let picker = UIImagePickerController()
@@ -61,6 +65,30 @@ final class ProfilePresenter:ViewToPresenterProfileProtocol {
             self?.router?.onLogout(navigationController: navigationController)
         }))
         profileViewController.present(alert,animated: true)
+    }
+    
+    func takePincode(textField: UITextField) {
+        guard let pincode = textField.text, pincode != "", pincode != " ",pincode.count == 4 else {
+            return}
+        self.newPincode = pincode
+        self.checkDataState()
+    }
+    
+    func checkDataState() {
+        if newPincode != nil || newLogin != nil || newMail != nil || newPassword != nil {
+            view?.enabledConfirmButton()
+        }
+        else {
+            view?.disableConfirmButton()
+        }
+    }
+    
+    func confirmButtonTapped() {
+        if let newPincode = newPincode {
+            interactor?.storeLocalPincode(pincode: newPincode)
+            self.newPincode = nil
+            view?.removeTextFromPincodeTextField()
+        }
     }
 }
 

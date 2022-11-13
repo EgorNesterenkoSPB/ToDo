@@ -14,7 +14,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let isEntered = defaults.bool(forKey: Resources.isEnteredApplication)
         switch isEntered {
         case true:
-            window?.rootViewController = NavController(rootViewController: MainRouter.createModule())
+            let pincode = defaults.integer(forKey: Resources.pincodeKey)
+            if pincode != 0 {
+                window?.rootViewController = NavController(rootViewController: PincodeViewController())
+            }
+            else {
+                window?.rootViewController = NavController(rootViewController: MainRouter.createModule())
+            }
         case false:
             window?.rootViewController = NavController(rootViewController: LoginRouter.createModule())
         }
