@@ -122,7 +122,7 @@ extension ProfileViewController {
     }
     
     @objc private func logoutButtonTapped(_ sender:UIButton) {
-        
+        presenter?.showLogoutAlert(profileViewController: self, navigationController: navigationController)
     }
     
     @objc private func deleteAccountButtonTapped(_ sener:UIButton) {

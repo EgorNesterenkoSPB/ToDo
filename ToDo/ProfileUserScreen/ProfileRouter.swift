@@ -1,4 +1,11 @@
+import UIKit
+
 final class ProfileRouter: PresenterToRouterProfileProtocol {
+    func onLogout(navigationController: UINavigationController?) {
+        let loginViewController = LoginRouter.createModule()
+        navigationController?.setViewControllers([loginViewController], animated: true)
+    }
+    
     static func createModule() -> ProfileViewController {
         let profileViewController = ProfileViewController()
         

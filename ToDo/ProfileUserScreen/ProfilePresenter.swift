@@ -14,11 +14,11 @@ final class ProfilePresenter:ViewToPresenterProfileProtocol {
         picker.delegate = profileViewController
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Take photo", style: .default, handler: {[weak self] (action:UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: "Take photo", style: .default, handler: { (action:UIAlertAction) -> Void in
             picker.sourceType = .camera
             profileViewController.present(picker,animated: true)
         }))
-        alert.addAction(UIAlertAction(title: "Choose from photo gallery", style: .default, handler: { [weak self] (action:UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: "Choose from photo gallery", style: .default, handler: { (action:UIAlertAction) -> Void in
             profileViewController.present(picker,animated: true)
         }))
         
@@ -52,7 +52,15 @@ final class ProfilePresenter:ViewToPresenterProfileProtocol {
         
     }
     
-    
+    func showLogoutAlert(profileViewController: ProfileViewController, navigationController: UINavigationController?) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: Resources.Titles.logout, style: .destructive, handler: { [weak self] (action:UIAlertAction) -> Void in
+            self?.interactor?.removeEnteredUserDefKey()
+            self?.router?.onLogout(navigationController: navigationController)
+        }))
+        profileViewController.present(alert,animated: true)
+    }
 }
 
 extension ProfilePresenter:InteractorToPresenterProfileProtocol {
