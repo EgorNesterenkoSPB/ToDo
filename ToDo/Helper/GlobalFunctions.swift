@@ -5,3 +5,8 @@ func createErrorAlert(errorText:String) -> UIAlertController {
     alert.addAction(UIAlertAction(title: Resources.Titles.errorActionTitle, style: .default, handler: nil))
     return alert
 }
+
+ func getDocumentsDirectory() -> URL {
+     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+     return paths[0]
+}

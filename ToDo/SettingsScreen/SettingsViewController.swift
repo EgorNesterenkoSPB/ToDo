@@ -101,7 +101,7 @@ extension SettingsViewController {
 
 extension SettingsViewController {
     @objc private func accountViewTapped(_ gesture: UITapGestureRecognizer) {
-
+        presenter?.userTapProfileView(navigationController:navigationController)
     }
     
     @objc private func supportViewTapped(_ gesture: UITapGestureRecognizer) {

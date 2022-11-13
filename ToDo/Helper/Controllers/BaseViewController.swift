@@ -26,7 +26,9 @@ class BaseViewController:UIViewController {
     
     func configureTextField(textField:UITextField,placeholderText:String, isSecury:Bool = false) {
         textField.isSecureTextEntry = isSecury
-        textField.placeholder = placeholderText
+        textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [
+            NSAttributedString.Key.foregroundColor: UIColor.placeholderText ]
+)
         textField.layer.borderWidth = 1
         textField.layer.masksToBounds = true
         textField.layer.borderColor = UIColor.black.cgColor
@@ -38,6 +40,7 @@ class BaseViewController:UIViewController {
         textField.returnKeyType = UIReturnKeyType.done
         textField.clearButtonMode = UITextField.ViewMode.whileEditing;
         textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        textField.backgroundColor = UIColor(named: Resources.textFieldBackColor)
     }
     
     func configureLabel(label:UILabel, text:String) {

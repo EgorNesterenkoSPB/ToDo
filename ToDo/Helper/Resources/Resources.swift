@@ -7,6 +7,8 @@ enum Resources {
     static let defaultHexColor = "b8b8b8"
     static let isDarkKeyTheme = "isDark"
     static let isEnteredApplication = "isEntered"
+    static let imageProfilePathKey = "imagePath"
+    static let textFieldBackColor = "textFieldBackground"
     static let colorsData = [Color(hex: "b8256f", name: "Berry red"),Color(hex: "db4035", name: "Red"),Color(hex: "ff9933", name: "Orange"),Color(hex: "fad000", name: "Yellow"),Color(hex: "afb83b", name: "Olive green"),Color(hex: "7ecc49", name: "Lime green"),Color(hex: "299438", name: "Green"),Color(hex: "6accbc", name: "Mint green"),Color(hex: "158fad", name: "Teal"),Color(hex: "14aaf5", name: "Sky blue"),Color(hex: "96c3eb", name: "Light blue"),Color(hex: "4073ff", name: "Blue"),Color(hex: "884dff", name: "Grape"),Color(hex: "af38eb", name: "Violet"),Color(hex: "eb96eb", name: "Lavender"),Color(hex: "e05194", name: "Magenta"),Color(hex: "ff8d85", name: "Salmon"),Color(hex: "808080", name: "Charcoal"),Color(hex: "b8b8b8", name: "Grey"),Color(hex: "ccac93", name: "Taupe")]
     
     enum Links {
@@ -51,6 +53,10 @@ enum Resources {
         static let colorTheme = "Dark theme"
         static let settings = "Settings"
         static let labelAndTintColor = "labelColor"
+        static let logout = "Logout"
+        static let pincode = "Pincode:"
+        static let changePincode = "Change pincode:"
+        static let deleteAccount = "Delete account"
     }
     enum Placeholders {
         static let textViewPlaceholder = "Description"
@@ -58,6 +64,7 @@ enum Resources {
         static let mailTextField = "Mail"
         static let passwordTextField = "Password"
         static let loginOrMailTextField = "Write login or mail"
+        static let pincodeTextField = "Pincode"
     }
     enum Images {
         static let createTaskButtonImage = "arrow.up.circle.fill"
@@ -75,6 +82,8 @@ enum Resources {
         static let edite = "ellipsis"
         static let question = "questionmark.circle"
         static let globe = "globe"
+        static let profileImageFill = "person.crop.circle.fill"
+        static let user = "user"
     }
     enum Cells {
         static let taskCellIdentefier = "taskCell"

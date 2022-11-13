@@ -20,6 +20,10 @@ final class SettingsPresenter:ViewToPresenterSettingsProtocol {
         interactor?.onSwitchTheme(isOn: isOn)
     }
     
+    func userTapProfileView(navigationController: UINavigationController?) {
+        router?.showProfileScreen(navigationController: navigationController)
+    }
+    
 }
 
 extension SettingsPresenter:InteractorToPresenterSettingsProtocol {

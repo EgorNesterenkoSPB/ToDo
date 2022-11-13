@@ -1,6 +1,11 @@
 import UIKit
 
 final class SettingsRouter:PresenterToRouterSettingsProtocol {
+    func showProfileScreen(navigationController: UINavigationController?) {
+        let profileViewController = ProfileRouter.createModule()
+        navigationController?.pushViewController(profileViewController, animated: true)
+    }
+    
     static func createModule() -> SettingsViewController {
         let settingsViewController = SettingsViewController()
         

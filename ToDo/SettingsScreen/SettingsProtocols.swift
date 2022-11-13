@@ -8,6 +8,7 @@ protocol ViewToPresenterSettingsProtocol {
     var interactor: PresenterToInteractorSettingsProtocol? {get set}
     func switchTheme(isOn:Bool)
     func viewDidLoad(themeSwitcher:UISwitch)
+    func userTapProfileView(navigationController:UINavigationController?)
 }
 
 //MARK: - View Output (Presenter -> View)
@@ -29,5 +30,5 @@ protocol InteractorToPresenterSettingsProtocol {
 //MARK: - Router Input (Presenter -> Router)
 protocol PresenterToRouterSettingsProtocol {
     static func createModule() -> SettingsViewController
-
+    func showProfileScreen(navigationController:UINavigationController?)
 }
