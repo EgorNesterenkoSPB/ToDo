@@ -10,7 +10,7 @@ final class CreateTaskPresenter:ViewToPresenterCreateTaskProtocol {
     func textViewDidBeginEditing(textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
-            textView.textColor = .black
+            textView.textColor = UIColor(named: Resources.Titles.labelAndTintColor)
         }
     }
     
