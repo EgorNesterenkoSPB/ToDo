@@ -26,9 +26,9 @@ final class MainRouter:PresenterToRouterMainProtocol {
     }
     
     func showCreateTaskViewController(mainViewController: MainViewController) {
-//        let createTaskViewController = CreateTaskRouter.createModule(category: <#CategoryCoreData#>)
-//        createTaskViewController.modalPresentationStyle = .overCurrentContext
-//        mainViewController.present(createTaskViewController,animated: false)
+        let createTaskViewController = CreateTaskBaseController()
+        createTaskViewController.modalPresentationStyle = .overCurrentContext
+        mainViewController.present(createTaskViewController,animated: false)
     }
-    
+
 }

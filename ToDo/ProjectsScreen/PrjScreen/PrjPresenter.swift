@@ -124,8 +124,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         guard let currentCategory = currentCategory else {
             return nil
         }
-
-        let headerView = CategoryTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable, prjViewController: prjViewController, category:currentCategory)
+        let headerView = CategoryTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable, prjViewController: prjViewController, category:currentCategory, projectName: prjViewController.title ?? Resources.Titles.errorTitle)
         headerView.delegate = self
         return headerView
     }

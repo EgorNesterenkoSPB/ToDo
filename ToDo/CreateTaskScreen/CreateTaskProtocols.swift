@@ -31,5 +31,5 @@ protocol InteractorToPresenterCreateTaskProtocol {
 
 //MARK: - Router Input (Presenter -> Router)
 protocol PresenterToRouterCreateTaskProtocol {
-    static func createModule(category:CategoryCoreData,section:Int) -> CreateTaskViewController
+    static func createModule(category:CategoryCoreData,section:Int,projectName:String) -> CreateTaskViewController
 }

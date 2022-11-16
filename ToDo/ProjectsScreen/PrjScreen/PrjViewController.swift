@@ -6,7 +6,7 @@ final class PrjViewController:BaseViewController {
     let topTitle = UILabel()
     let editButton = UIButton()
     var presenter:(ViewToPresenterPrjProtocol & InteractorToPresenterPrjProtocol)?
-    private var project:ProjectCoreData
+    var project:ProjectCoreData
     
     init(project:ProjectCoreData) {
         self.project = project

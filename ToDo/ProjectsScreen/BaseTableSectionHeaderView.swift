@@ -52,10 +52,13 @@ class BaseTableSectionHeaderView: UIView {
         NSLayoutConstraint.activate([
             title.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             title.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
+            title.rightAnchor.constraint(lessThanOrEqualTo: addButton.leftAnchor, constant: -10),
+            addButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            addButton.rightAnchor.constraint(equalTo: chevronImageView.leftAnchor, constant: -30),
+            addButton.widthAnchor.constraint(equalToConstant: addButton.imageView?.image?.size.width ?? 20),
             chevronImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             chevronImageView.rightAnchor.constraint(equalTo: self.rightAnchor,constant: -20),
-            addButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            addButton.rightAnchor.constraint(equalTo: chevronImageView.leftAnchor, constant: -30)
+            chevronImageView.widthAnchor.constraint(equalToConstant: chevronImageView.image?.size.width ?? 20)
         ])
     }
 }

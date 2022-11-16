@@ -32,6 +32,7 @@ extension ProjectTableViewCell {
             circleImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor,constant: 20),
             nameTitle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             nameTitle.leftAnchor.constraint(equalTo: circleImageView.rightAnchor,constant: 15),
+            nameTitle.rightAnchor.constraint(equalTo: countOfTasksLabel.leftAnchor, constant: -10),
             countOfTasksLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             countOfTasksLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor,constant: -10)
         ])
