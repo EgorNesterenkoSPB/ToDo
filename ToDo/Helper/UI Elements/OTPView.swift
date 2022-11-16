@@ -1,11 +1,17 @@
-
 import UIKit
+
+protocol OTPViewProtocol {
+    func showMainViewController()
+    func showErrorAlert(errorText:String)
+}
 
 class OTPView: UIStackView {
 
     var textFieldArray = [OTPTextField]()
-    var numberOfOTPDigit = 4
+    var numberOfOTPDigit = Resources.numberOfPincodeDigit
     var pincode:String = ""
+    var delegate:OTPViewProtocol?
+    lazy var defaults = UserDefaults.standard
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,6 +48,7 @@ class OTPView: UIStackView {
             field.layer.shadowColor = UIColor.black.cgColor
             field.layer.shadowOpacity = 0.1
             field.keyboardType = .asciiCapableNumberPad
+            field.isSecureTextEntry = true
             
             i != 0 ? (field.previousTextField = textFieldArray[i-1]) : ()
             i != 0 ? (textFieldArray[i-1].nextTextFiled = textFieldArray[i]) : ()
@@ -63,13 +70,27 @@ extension OTPView:UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let symbol = textField.text else {return}
-        if symbol == "" {
-            for field in textFieldArray {
-                field.text?.removeAll()
-            }
-            self.pincode.removeAll()
-        }
+        guard let symbol = textField.text, symbol != "" else {return}
         self.pincode += symbol
+        if self.pincode.count == Resources.numberOfPincodeDigit {
+            let savedPincode = defaults.string(forKey: Resources.pincodeKey)
+            if savedPincode == pincode {
+                self.delegate?.showMainViewController()
+            }
+            else {
+                self.removeAllData()
+                self.delegate?.showErrorAlert(errorText: "The pincode is wrong!")
+            }
+        }
+    }
+}
+
+extension OTPView {
+    private func removeAllData() {
+        for field in textFieldArray {
+            field.text?.removeAll()
+        }
+        textFieldArray[0].resignFirstResponder()
+        self.pincode.removeAll()
     }
 }
