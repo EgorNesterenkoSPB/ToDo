@@ -1,12 +1,17 @@
 import UIKit
 
-final class CreateTaskPresenter:ViewToPresenterCreateTaskProtocol {
-    var view: PresenterToViewCreateTaskProtocol?
-    var router: PresenterToRouterCreateTaskProtocol?
-    var interactor: PresenterToInteractorCreateTaskProtocol?
+final class CreateCommonTaskPresenter:ViewToPresenterCreateCommonTaskProtocol {
+    
+    var view: PresenterToViewCreateCommonTaskProtocol?
+    var router: PresenterToRouterCreateCommonTaskProtocol?
+    var interactor: PresenterToInteractorCreateCommonTaskProtocol?
     var name:String?
     var description:String?
-
+    
+    func createTask(project: ProjectCoreData) {
+        guard let name = name else {return}
+        interactor?.onCreateTask(project: project, name: name, description: description)
+    }
     
     func textViewDidEndEditing(textView: UITextView) {
         guard !textView.text.isEmpty else {return}
@@ -19,14 +24,9 @@ final class CreateTaskPresenter:ViewToPresenterCreateTaskProtocol {
         }
     }
     
-    func createTask(category: CategoryCoreData) {
-        guard let name = name,name != "" && name != " " else {return}
-        interactor?.onCreateTask(name: name, description: description, category: category)
-    }
-    
 }
 
-extension CreateTaskPresenter:InteractorToPresenterCreateTaskProtocol {
+extension CreateCommonTaskPresenter:InteractorToPresenterCreateCommonTaskProtocol {
     func failedCreateTask(errorText: String) {
         view?.onFailedCreateTask(errorText: errorText)
     }

@@ -10,7 +10,7 @@ class CreateTaskBaseController:BottomSheetController {
     
     private enum UIConstants {
         static let mainLabelFont = 24.0
-        static let descriptionTextViewFont = 18.0
+        static let descriptionTextViewFont = 15.0
         static let viewCornerRadius = 40.0
         static let mainLabelTopAnchor = 10.0
         static let nameTextFieldTopAnchor = 15.0
@@ -45,12 +45,12 @@ extension CreateTaskBaseController {
         mainLabel.textColor = .systemOrange
         
         descriptionTextView.text = Resources.Placeholders.textViewPlaceholder
-        descriptionTextView.textColor = UIColor.lightGray
-        descriptionTextView.layer.borderWidth = 1
+        descriptionTextView.textColor = UIColor.placeholderText
         descriptionTextView.font = .systemFont(ofSize: UIConstants.descriptionTextViewFont)
-        descriptionTextView.layer.borderColor = UIColor.gray.cgColor
-        
+        descriptionTextView.delegate = self
+
         nameTextField.placeholder = Resources.Placeholders.textFieldPlaceholder
+        nameTextField.delegate = self
         
         createTaskButton.setImage(UIImage(systemName: Resources.Images.createTaskButtonImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
         createTaskButton.tintColor = .gray
@@ -107,5 +107,29 @@ extension CreateTaskBaseController {
     
     @objc private func projectButtonTapped(_ sender:UIButton) {
         
+    }
+}
+
+extension CreateTaskBaseController:UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.placeholderText {
+            textView.text = nil
+            textView.textColor = UIColor(named: Resources.Titles.labelAndTintColor)
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = Resources.Placeholders.textViewPlaceholder
+            textView.textColor = UIColor.placeholderText
+        }
+    }
+}
+
+extension CreateTaskBaseController:UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text, text.isEmpty != true && text != " " else {return}
+            createTaskButton.tintColor = .systemOrange
+            createTaskButton.isEnabled = true
     }
 }

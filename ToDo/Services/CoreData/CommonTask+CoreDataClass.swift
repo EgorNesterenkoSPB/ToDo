@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(CommonTask)
+@objc(CommonTaskCoreData)
 public class CommonTaskCoreData: NSManagedObject {
 
 }

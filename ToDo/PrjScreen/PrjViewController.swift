@@ -3,6 +3,7 @@ import UIKit
 final class PrjViewController:BaseViewController {
     
     let categoryTasksTableView = UITableView()
+    var commonTasksTableHeight:NSLayoutConstraint?
     let commonTasksTableView = UITableView()
     var presenter:(ViewToPresenterPrjProtocol & InteractorToPresenterPrjProtocol)?
     var project:ProjectCoreData
@@ -17,7 +18,13 @@ final class PrjViewController:BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        presenter?.getCommonTasks(project: self.project)
         presenter?.getCategories(project: self.project)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.updateViewConstraints()
+        self.commonTasksTableHeight?.constant = self.commonTasksTableView.contentSize.height
     }
 }
 
@@ -48,12 +55,16 @@ extension PrjViewController {
     
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            categoryTasksTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,constant: 10),
+            commonTasksTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            commonTasksTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
+            commonTasksTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
+            categoryTasksTableView.topAnchor.constraint(equalTo: commonTasksTableView.bottomAnchor,constant: 10),
             categoryTasksTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             categoryTasksTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             categoryTasksTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor)
         ])
-        
+        commonTasksTableHeight = commonTasksTableView.heightAnchor.constraint(equalToConstant: 100)
+        commonTasksTableHeight?.isActive = true
     }
 }
 
@@ -68,7 +79,7 @@ extension PrjViewController {
 
 extension PrjViewController {
     @objc private func addButtonTapped(_ sender:UIButton) {
-        presenter?.showCreateCommonTaskScreen(project: project)
+        presenter?.showCreateCommonTaskScreen(project: project, prjViewController: self)
     }
     
     @objc private func editButtonTapped(_ sender:UIButton) {
@@ -78,6 +89,12 @@ extension PrjViewController {
 
 //MARK: - PresenterToView
 extension PrjViewController:PresenterToViewPrjProtocol {
+    func onUpdateCommonTasksTableView() {
+        DispatchQueue.main.async {
+            self.commonTasksTableView.reloadData()
+        }
+    }
+    
     func onUpdateSection(section: Int) {
         DispatchQueue.main.async {
             self.categoryTasksTableView.reloadSections(IndexSet(integer: section), with: .none)
@@ -133,31 +150,78 @@ extension PrjViewController:PresenterToViewPrjProtocol {
 extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        presenter?.numberOfSections() ?? 0
+        switch tableView {
+        case categoryTasksTableView:
+            return presenter?.numberOfSections() ?? 0
+        case commonTasksTableView:
+            return 1
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.numberOfRowsInSection(section: section) ?? 0
+        switch tableView {
+        case categoryTasksTableView:
+            return presenter?.numberOfRowsInSection(section: section) ?? 0
+        case commonTasksTableView:
+            return presenter?.numberOfRowsInCommonTasksTable() ?? 0
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        presenter?.cellForRowAt(tableView: tableView, indexPath: indexPath) ?? UITableViewCell()
+        switch tableView {
+        case categoryTasksTableView:
+            return presenter?.cellForRowAt(tableView: tableView, indexPath: indexPath) ?? UITableViewCell()
+        case commonTasksTableView:
+            return presenter?.cellForRowAtCommonTasksTable(tableView: tableView, indexPath: indexPath) ?? UITableViewCell()
+        default:
+            return UITableViewCell()
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        presenter?.trailingSwipeActionsConfigurationForRowAt(tableView: tableView, indexPath: indexPath)
+        switch tableView {
+        case categoryTasksTableView:
+            return presenter?.trailingSwipeActionsConfigurationForRowAt(tableView: tableView, indexPath: indexPath)
+        case commonTasksTableView:
+            return presenter?.trailingSwipeActionsConfigurationForRowAtCommonTasksTable(tableView: tableView, indexPath: indexPath)
+        default:
+            return nil
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        presenter?.viewForHeaderInSection(prjViewController: self, tableView: tableView, section: section)
+        switch tableView {
+        case categoryTasksTableView:
+            return presenter?.viewForHeaderInSection(prjViewController: self, tableView: tableView, section: section)
+        default:
+            return nil
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        presenter?.heightForHeaderInSection() ?? 0
+        switch tableView {
+        case categoryTasksTableView:
+            return presenter?.heightForHeaderInSection() ?? 0
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        presenter?.heightForFooterInSection() ?? 0
+        switch tableView {
+        case categoryTasksTableView:
+            return presenter?.heightForFooterInSection() ?? 0
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.viewWillLayoutSubviews()
     }
     
 }
@@ -167,4 +231,12 @@ extension PrjViewController:CreateTaskViewControllerProtocol {
     func refreshView(category: CategoryCoreData, section: Int) {
         presenter?.updateSection(category: category, section: section)
     }
+}
+
+extension PrjViewController:CreateCommonTaskViewControllerProtocol {
+    func updateCommonTasksTableView() {
+        presenter?.getCommonTasks(project: self.project)
+    }
+    
+    
 }

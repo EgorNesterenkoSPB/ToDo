@@ -13,7 +13,7 @@ import CoreData
 extension CommonTaskCoreData {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CommonTaskCoreData> {
-        return NSFetchRequest<CommonTaskCoreData>(entityName: "CommonTask")
+        return NSFetchRequest<CommonTaskCoreData>(entityName: "CommonTaskCoreData")
     }
 
     @NSManaged public var name: String?

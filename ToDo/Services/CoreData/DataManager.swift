@@ -61,21 +61,21 @@ class DataManager {
         return category
     }
     
-    func task(name: String, description:String, priority:PriorityTask, time:Date,category:CategoryCoreData) -> TaskCoreData {
+    func task(name: String, description:String?, priority:PriorityTask?, time:Date?,category:CategoryCoreData) -> TaskCoreData {
         let task = TaskCoreData(context: persistentContainer.viewContext)
         task.name = name
         task.descriptionTask = description
-        task.priority = priority.rawValue
+        task.priority = priority?.rawValue
         task.time = time
         category.addToTasks(task)
         return task
     }
     
-    func commonTask(name: String, description:String, priority:PriorityTask, time:Date,project:ProjectCoreData) -> CommonTaskCoreData {
+    func commonTask(name: String, description:String?, priority:PriorityTask?, time:Date?,project:ProjectCoreData) -> CommonTaskCoreData {
         let commonTask = CommonTaskCoreData(context: persistentContainer.viewContext)
         commonTask.name = name
         commonTask.descriptionTask = description
-        commonTask.priority = priority.rawValue
+        commonTask.priority = priority?.rawValue
         commonTask.time = time
         project.addToCommonTasks(commonTask)
         return commonTask

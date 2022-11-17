@@ -6,8 +6,9 @@ protocol ViewToPresenterPrjProtocol {
     var router: PresenterToRouterPrjProtocol? {get set}
     var interactor: PresenterToInteractorPrjProtocol? {get set}
     func getCategories(project:ProjectCoreData)
+    func getCommonTasks(project:ProjectCoreData)
     func showCreateCategoryAlert(project:ProjectCoreData) -> UIAlertController
-    func showCreateCommonTaskScreen(project: ProjectCoreData)
+    func showCreateCommonTaskScreen(project: ProjectCoreData,prjViewController:PrjViewController)
     func numberOfRowsInSection(section:Int) -> Int
     func numberOfSections() -> Int
     func cellForRowAt(tableView:UITableView,indexPath:IndexPath) -> UITableViewCell
@@ -17,11 +18,15 @@ protocol ViewToPresenterPrjProtocol {
     func heightForFooterInSection() -> CGFloat
     func viewForHeaderInSection(prjViewController:PrjViewController,tableView: UITableView, section: Int) -> UIView?
     func updateSection(category:CategoryCoreData,section:Int)
+    func numberOfRowsInCommonTasksTable() -> Int
+    func cellForRowAtCommonTasksTable(tableView:UITableView,indexPath:IndexPath) -> UITableViewCell
+    func trailingSwipeActionsConfigurationForRowAtCommonTasksTable(tableView:UITableView,indexPath:IndexPath) -> UISwipeActionsConfiguration?
 }
 
 //MARK: - View Output (Presenter -> View)
 protocol PresenterToViewPrjProtocol {
     func updateTableView()
+    func onUpdateCommonTasksTableView()
     func failedGetCoreData(errorText:String)
     func onFailedCreateCategory(errorText:String)
     func onFailedDeleteProject(errorText:String)
@@ -61,4 +66,5 @@ protocol InteractorToPresenterPrjProtocol {
 //MARK: - Router Input (Presenter -> Router)
 protocol PresenterToRouterPrjProtocol {
     static func createModule(project:ProjectCoreData) -> PrjViewController
+    func onShowCreateCommonTaskViewController(project:ProjectCoreData,prjViewController:PrjViewController)
 }

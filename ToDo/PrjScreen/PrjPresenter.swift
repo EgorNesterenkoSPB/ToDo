@@ -1,12 +1,13 @@
 import UIKit
 
 final class PrjPresenter:ViewToPresenterPrjProtocol {
-    
+
     var view: PresenterToViewPrjProtocol?
     var router: PresenterToRouterPrjProtocol?
     var interactor: PresenterToInteractorPrjProtocol?
     private var sectionsData = [CategorySection]()
     private var categories = [CategoryCoreData]()
+    var commonTasks = [CommonTaskCoreData]()
     
     func getCategories(project: ProjectCoreData) {
         do {
@@ -27,6 +28,32 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         }
     }
     
+    func getCommonTasks(project: ProjectCoreData) {
+        do {
+            let _commonTasks = try DataManager.shared.commonTasks(project: project)
+            self.commonTasks = _commonTasks
+            view?.onUpdateCommonTasksTableView()
+        } catch let error {
+            view?.failedGetCoreData(errorText: "\(error)")
+        }
+    }
+    
+    func numberOfRowsInCommonTasksTable() -> Int {
+        return commonTasks.count
+    }
+    
+    func cellForRowAtCommonTasksTable(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.commonTaskCellIdentefier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
+        let commonTask = commonTasks[indexPath.row]
+        cell.nameTitle.text = commonTask.name
+        cell.descriptionTitle.text = commonTask.descriptionTask
+        return cell
+    }
+    
+    func trailingSwipeActionsConfigurationForRowAtCommonTasksTable(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return nil
+    }
+    
     func updateSection(category: CategoryCoreData,section:Int) {
         do {
             let tasks = try DataManager.shared.tasks(category: category)
@@ -41,23 +68,31 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         
     }
     
-    func showCreateCommonTaskScreen(project: ProjectCoreData) {
-        
+    func showCreateCommonTaskScreen(project: ProjectCoreData,prjViewController:PrjViewController) {
+        router?.onShowCreateCommonTaskViewController(project: project,prjViewController:prjViewController)
     }
     
     
     func showEditAlert(project: ProjectCoreData,prjViewController:PrjViewController) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    
+        alertController.addAction(UIAlertAction(title: Resources.Titles.renameProject, style: .default, handler: {[weak self] _ in
+            
+        }))
+        
         alertController.addAction(UIAlertAction(title: Resources.Titles.createCategory, style: .default, handler: { [weak self] _ in
             guard let alert = self?.showCreateCategoryAlert(project: project) else {return}
             prjViewController.present(alert,animated: true)
         }))
+        
         alertController.addAction(UIAlertAction(title: Resources.Titles.deleteProject, style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
             self?.interactor?.deleteProject(project: project)
         }))
+        
         alertController.addAction(UIAlertAction(title: Resources.Titles.deleteAllProjects, style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
             self?.interactor?.deleteAllCategories(project: project)
         }))
+        
         alertController.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
         
         prjViewController.present(alertController,animated: true)
@@ -65,6 +100,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     
     func showCreateCategoryAlert(project:ProjectCoreData) -> UIAlertController {
         let createAlertController = UIAlertController(title: Resources.Titles.createCategory, message: Resources.Titles.writeName, preferredStyle: .alert)
+        
         createAlertController.addTextField(configurationHandler: { (textField:UITextField) -> Void in
             textField.placeholder = Resources.Titles.name
         })
@@ -74,7 +110,9 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             guard let text = textField.text, text != " ", text != "" else {return}
             self?.interactor?.createCategory(name: text, project: project)
         }))
+        
         createAlertController.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
+        
         return createAlertController
     }
     

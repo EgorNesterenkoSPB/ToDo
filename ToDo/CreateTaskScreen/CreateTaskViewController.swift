@@ -33,10 +33,8 @@ extension CreateTaskViewController {
         
         projectButton.setTitle(self.projectName, for: .normal)
         projectButton.isEnabled = false
-        projectButton.tintColor = .gray
+        projectButton.setTitleColor(.placeholderText, for: .normal)
         
-        nameTextField.delegate = self
-        descriptionTextView.delegate = self
         createTaskButton.addTarget(self, action: #selector(createTaskButtonTapped), for: .touchUpInside)
     }
     
@@ -51,19 +49,21 @@ extension CreateTaskViewController {
     }
 }
 
-extension CreateTaskViewController:UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        presenter?.textViewDidBeginEditing(textView: textView)
+extension CreateTaskViewController {
+    override func textViewDidBeginEditing(_ textView: UITextView) {
+        super.textViewDidBeginEditing(textView)
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
+    override func textViewDidEndEditing(_ textView: UITextView) {
+        super.textViewDidEndEditing(textView)
         presenter?.textViewDidEndEditing(textView: textView)
     }
 }
 
-extension CreateTaskViewController:UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        presenter?.textFieldDidEndEditing(textField: textField, createTaskButton: createTaskButton)
+extension CreateTaskViewController {
+    override func textFieldDidEndEditing(_ textField: UITextField) {
+        super.textFieldDidEndEditing(textField)
+        presenter?.textFieldDidEndEditing(textField: textField)
     }
 }
 

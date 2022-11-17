@@ -5,9 +5,8 @@ protocol ViewToPresenterCreateTaskProtocol {
     var view: PresenterToViewCreateTaskProtocol? {get set}
     var router: PresenterToRouterCreateTaskProtocol? {get set}
     var interactor: PresenterToInteractorCreateTaskProtocol? {get set}
-    func textViewDidBeginEditing(textView:UITextView)
     func textViewDidEndEditing(textView:UITextView)
-    func textFieldDidEndEditing(textField:UITextField,createTaskButton:UIButton)
+    func textFieldDidEndEditing(textField:UITextField)
     func createTask(category:CategoryCoreData)
 }
 
@@ -20,7 +19,7 @@ protocol PresenterToViewCreateTaskProtocol {
 //MARK: -  Interactor Input (Presenter -> Interactor)
 protocol PresenterToInteractorCreateTaskProtocol {
     var presenter:InteractorToPresenterCreateTaskProtocol? {get set}
-    func onCreateTask(name:String,description:String,category:CategoryCoreData)
+    func onCreateTask(name:String,description:String?,category:CategoryCoreData)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)

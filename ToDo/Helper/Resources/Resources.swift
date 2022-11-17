@@ -64,6 +64,7 @@ enum Resources {
         static let changePincode = "Change pincode:"
         static let deleteAccount = "Delete account"
         static let confirmAction = "Are you sure ?"
+        static let renameProject = "Rename project"
     }
     enum Placeholders {
         static let textViewPlaceholder = "Description"
