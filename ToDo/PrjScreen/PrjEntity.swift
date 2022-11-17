@@ -5,3 +5,5 @@ struct CategorySection {
     var data:[TaskCoreData]
     var expandable:Bool
 }
+
+

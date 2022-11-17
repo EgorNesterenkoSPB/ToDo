@@ -2,7 +2,7 @@
 //  ProjectCoreData+CoreDataProperties.swift
 //  
 //
-//  Created by no name on 07.11.2022.
+//  Created by no name on 17.11.2022.
 //
 //
 
@@ -16,10 +16,11 @@ extension ProjectCoreData {
         return NSFetchRequest<ProjectCoreData>(entityName: "ProjectCoreData")
     }
 
-    @NSManaged public var name: String?
     @NSManaged public var hexColor: String?
-    @NSManaged @objc public var isFavorite: Bool
+    @NSManaged public var isFavorite: Bool
+    @NSManaged public var name: String?
     @NSManaged public var categories: NSSet?
+    @NSManaged public var commonTasks: NSSet?
 
 }
 
@@ -37,5 +38,22 @@ extension ProjectCoreData {
 
     @objc(removeCategories:)
     @NSManaged public func removeFromCategories(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for commonTasks
+extension ProjectCoreData {
+
+    @objc(addCommonTasksObject:)
+    @NSManaged public func addToCommonTasks(_ value: CommonTaskCoreData)
+
+    @objc(removeCommonTasksObject:)
+    @NSManaged public func removeFromCommonTasks(_ value: CommonTaskCoreData)
+
+    @objc(addCommonTasks:)
+    @NSManaged public func addToCommonTasks(_ values: NSSet)
+
+    @objc(removeCommonTasks:)
+    @NSManaged public func removeFromCommonTasks(_ values: NSSet)
 
 }

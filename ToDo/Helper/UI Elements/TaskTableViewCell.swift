@@ -6,7 +6,6 @@ class TaskTableViewCell: BaseTableViewCell {
     let nameTitle = UILabel()
     let projectTitle = UILabel()
     let descriptionTitle = UILabel()
-    let bottomDividerView = UIView()
 }
 
 extension TaskTableViewCell {
@@ -15,13 +14,11 @@ extension TaskTableViewCell {
         contentView.addView(nameTitle)
         contentView.addView(projectTitle)
         contentView.addView(descriptionTitle)
-        contentView.addView(bottomDividerView)
     }
     
     override func configure() {
         self.selectionStyle = .none
         self.backgroundColor = .clear
-        bottomDividerView.backgroundColor = .lightGray
         
         circleButton.setImage(UIImage(systemName: isSelected ? Resources.Images.circleFill : Resources.Images.circle,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
         circleButton.tintColor = isSelected ? .systemOrange : UIColor(named: Resources.Titles.labelAndTintColor)
@@ -46,14 +43,10 @@ extension TaskTableViewCell {
             nameTitle.rightAnchor.constraint(lessThanOrEqualTo: contentView.rightAnchor, constant: -10),
             descriptionTitle.topAnchor.constraint(equalTo: nameTitle.bottomAnchor, constant: 5),
             descriptionTitle.leftAnchor.constraint(equalTo: nameTitle.leftAnchor),
-            descriptionTitle.bottomAnchor.constraint(equalTo: bottomDividerView.topAnchor, constant: -5),
+            descriptionTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             descriptionTitle.rightAnchor.constraint(lessThanOrEqualTo: contentView.rightAnchor, constant: -5),
-            projectTitle.bottomAnchor.constraint(equalTo: bottomDividerView.topAnchor,constant: -5),
+            projectTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
             projectTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
-            bottomDividerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            bottomDividerView.heightAnchor.constraint(equalToConstant: 1),
-            bottomDividerView.leftAnchor.constraint(equalTo: circleButton.leftAnchor),
-            bottomDividerView.rightAnchor.constraint(equalTo: projectTitle.rightAnchor)
         ])
     }
 }

@@ -2,9 +2,8 @@ import UIKit
 
 final class PrjViewController:BaseViewController {
     
-    let tasksTableView = UITableView()
-    let topTitle = UILabel()
-    let editButton = UIButton()
+    let categoryTasksTableView = UITableView()
+    let commonTasksTableView = UITableView()
     var presenter:(ViewToPresenterPrjProtocol & InteractorToPresenterPrjProtocol)?
     var project:ProjectCoreData
     
@@ -24,9 +23,8 @@ final class PrjViewController:BaseViewController {
 
 extension PrjViewController {
     override func addViews() {
-        self.view.addView(topTitle)
-        self.view.addView(editButton)
-        self.view.addView(tasksTableView)
+        self.view.addView(commonTasksTableView)
+        self.view.addView(categoryTasksTableView)
     }
     
     override func configure() {
@@ -35,47 +33,46 @@ extension PrjViewController {
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: Resources.Titles.projectsSection, style: .plain, target: nil, action: nil)
         title = project.name
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped(_:)))
-        navigationItem.rightBarButtonItems = [addButton]
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
+        navigationItem.rightBarButtonItems = [addButton,editButton]
     
-        tasksTableView.delegate = self
-        tasksTableView.dataSource = self
-        tasksTableView.register(TaskTableViewCell.self, forCellReuseIdentifier: Resources.Cells.taskCellIdentefier)
-        tasksTableView.separatorStyle = .none
-        tasksTableView.tableFooterView = UIView()
+        self.setupTableView(tableView: categoryTasksTableView)
+        categoryTasksTableView.register(TaskTableViewCell.self, forCellReuseIdentifier: Resources.Cells.taskCellIdentefier)
         
-        topTitle.font = .boldSystemFont(ofSize: 23)
-        topTitle.text = Resources.Titles.categoriesTitle
         
-        editButton.setImage(UIImage(systemName: Resources.Images.edite,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-        editButton.tintColor = .gray
-        editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
+        self.setupTableView(tableView: commonTasksTableView)
+        commonTasksTableView.register(TaskTableViewCell.self, forCellReuseIdentifier: Resources.Cells.commonTaskCellIdentefier)
+        
     }
     
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            topTitle.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            topTitle.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 15),
-            editButton.centerYAnchor.constraint(equalTo: topTitle.centerYAnchor),
-            editButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor,constant: -20),
-            tasksTableView.topAnchor.constraint(equalTo: topTitle.bottomAnchor,constant: 10),
-            tasksTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            tasksTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            tasksTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor)
+            categoryTasksTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,constant: 10),
+            categoryTasksTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            categoryTasksTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
+            categoryTasksTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor)
         ])
         
     }
 }
 
 extension PrjViewController {
+    private func setupTableView(tableView:UITableView) {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView()
+    }
+}
+
+extension PrjViewController {
     @objc private func addButtonTapped(_ sender:UIButton) {
-        guard let alert = presenter?.showCreateCategoryAlert(project: project) else {return}
-        self.present(alert,animated: true)
+        presenter?.showCreateCommonTaskScreen(project: project)
     }
     
     @objc private func editButtonTapped(_ sender:UIButton) {
-        guard let alert = presenter?.showEditAlert(project: self.project) else {return}
-        self.present(alert,animated: true)
+        presenter?.showEditAlert(project: self.project,prjViewController: self) 
     }
 }
 
@@ -83,7 +80,7 @@ extension PrjViewController {
 extension PrjViewController:PresenterToViewPrjProtocol {
     func onUpdateSection(section: Int) {
         DispatchQueue.main.async {
-            self.tasksTableView.reloadSections(IndexSet(integer: section), with: .none)
+            self.categoryTasksTableView.reloadSections(IndexSet(integer: section), with: .none)
         }
     }
     
@@ -125,7 +122,7 @@ extension PrjViewController:PresenterToViewPrjProtocol {
     
     func updateTableView() {
         DispatchQueue.main.async {
-            self.tasksTableView.reloadData()
+            self.categoryTasksTableView.reloadData()
         }
     }
     

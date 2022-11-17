@@ -1,6 +1,7 @@
 import UIKit
 
 final class PrjPresenter:ViewToPresenterPrjProtocol {
+    
     var view: PresenterToViewPrjProtocol?
     var router: PresenterToRouterPrjProtocol?
     var interactor: PresenterToInteractorPrjProtocol?
@@ -40,9 +41,17 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         
     }
     
+    func showCreateCommonTaskScreen(project: ProjectCoreData) {
+        
+    }
     
-    func showEditAlert(project: ProjectCoreData) -> UIAlertController {
+    
+    func showEditAlert(project: ProjectCoreData,prjViewController:PrjViewController) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: Resources.Titles.createCategory, style: .default, handler: { [weak self] _ in
+            guard let alert = self?.showCreateCategoryAlert(project: project) else {return}
+            prjViewController.present(alert,animated: true)
+        }))
         alertController.addAction(UIAlertAction(title: Resources.Titles.deleteProject, style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
             self?.interactor?.deleteProject(project: project)
         }))
@@ -50,7 +59,8 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             self?.interactor?.deleteAllCategories(project: project)
         }))
         alertController.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
-        return alertController
+        
+        prjViewController.present(alertController,animated: true)
     }
     
     func showCreateCategoryAlert(project:ProjectCoreData) -> UIAlertController {

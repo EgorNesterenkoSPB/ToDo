@@ -12,7 +12,10 @@ enum Resources {
     static let textFieldBackColor = "textFieldBackground"
     static let numberOfPincodeDigit = 4
     static let pincodeErrorText = "The pincode is wrong, try again!"
+    
     static let colorsData = [Color(hex: "b8256f", name: "Berry red"),Color(hex: "db4035", name: "Red"),Color(hex: "ff9933", name: "Orange"),Color(hex: "fad000", name: "Yellow"),Color(hex: "afb83b", name: "Olive green"),Color(hex: "7ecc49", name: "Lime green"),Color(hex: "299438", name: "Green"),Color(hex: "6accbc", name: "Mint green"),Color(hex: "158fad", name: "Teal"),Color(hex: "14aaf5", name: "Sky blue"),Color(hex: "96c3eb", name: "Light blue"),Color(hex: "4073ff", name: "Blue"),Color(hex: "884dff", name: "Grape"),Color(hex: "af38eb", name: "Violet"),Color(hex: "eb96eb", name: "Lavender"),Color(hex: "e05194", name: "Magenta"),Color(hex: "ff8d85", name: "Salmon"),Color(hex: "808080", name: "Charcoal"),Color(hex: "b8b8b8", name: "Grey"),Color(hex: "ccac93", name: "Taupe")]
+    
+    static let projectsModels:[Section] = [Section(title: "", options: [CommonCellOption(title: "Incoming", icon: UIImage(systemName: Resources.Images.incoming,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.blue, handler: {}), CommonCellOption(title: "Upcoming", icon: UIImage(systemName: Resources.Images.calendar,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.purple, handler: {})])]
     
     enum Links {
         static let PostRequestURL = "http://127.0.0.1:8000/user"
@@ -60,6 +63,7 @@ enum Resources {
         static let pincode = "Pincode:"
         static let changePincode = "Change pincode:"
         static let deleteAccount = "Delete account"
+        static let confirmAction = "Are you sure ?"
     }
     enum Placeholders {
         static let textViewPlaceholder = "Description"
@@ -87,6 +91,8 @@ enum Resources {
         static let globe = "globe"
         static let profileImageFill = "person.crop.circle.fill"
         static let user = "user"
+        static let incoming = "tray.fill"
+        static let calendar = "calendar"
     }
     enum Cells {
         static let taskCellIdentefier = "taskCell"
@@ -94,6 +100,9 @@ enum Resources {
         static let colorCellIdentefier = "colorCell"
         static let projectTaskIdentefier = "projectTaskCell"
         static let categoryIdentefier = "categoryCell"
+        static let calendarIdentefier = "calendarCell"
+        static let commonTableCellIdentefier = "common cell"
+        static let commonTaskCellIdentefier = "commonTask cell"
     }
 }
 

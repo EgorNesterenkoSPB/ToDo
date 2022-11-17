@@ -22,6 +22,7 @@ class BaseViewController:UIViewController {
     func layoutViews() {}
     func configure() {
         self.view.backgroundColor = .systemBackground
+        
     }
     
     func configureTextField(textField:UITextField,placeholderText:String, isSecury:Bool = false) {

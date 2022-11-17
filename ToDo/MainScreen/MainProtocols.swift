@@ -15,6 +15,7 @@ protocol ViewToPresenterMainProtocol {
     func viewForHeaderInSection(tableView: UITableView, section: Int) -> UIView?
     func userTapProjectsButton(navigationController:UINavigationController?)
     func userTapSettingsButton(navigationController:UINavigationController?)
+    func heightForRowAt() -> CGFloat
 }
 
 //MARK: - View Output (Presenter -> View)

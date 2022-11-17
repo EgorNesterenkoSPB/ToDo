@@ -1,6 +1,7 @@
 import UIKit
 
 final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
+
     var view: PresenterToViewProjectsProtocol?
     var router: PresenterToRouterProjectsProtocol?
     var interactor: PresenterToInteractorProjectsProtocol?
@@ -67,6 +68,13 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         return cell
     }
     
+    func cellForRowAtTopTableView(tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = Resources.projectsModels[indexPath.section].options[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.commonTableCellIdentefier, for: indexPath) as? CommonTableViewCell else {return UITableViewCell()}
+        cell.setup(with: model)
+        return cell
+    }
+    
     private func countOfProjectTasks(project:ProjectCoreData) throws -> Int {
         var count:Int = 0
         do {
@@ -101,6 +109,7 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         case 0:
             let headerView = BaseTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable)
             headerView.delegate = self
+            headerView.addButton.isHidden = true
             return headerView
         default:
             let headerView = ProjectsTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable, projectsViewController: projectsViewController)
@@ -117,11 +126,21 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         router?.showProjectScreen(projectsViewController:projectsViewController,project: project)
     }
     
-    func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func didSelectRowAtTopTableView(tableView: UITableView, indexPath: IndexPath) {
+        let model = Resources.projectsModels[indexPath.section].options[indexPath.row]
+        model.handler()
+    }
+    
+    func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath,projectsViewController:ProjectsViewController) -> UISwipeActionsConfiguration? {
         guard let cell = tableView.cellForRow(at: indexPath) as? ProjectTableViewCell else {return nil}
         guard let project = cell.project else {return nil}
         let delete = UIContextualAction(style: .destructive, title: nil, handler: {[weak self] (action,swipeButtonView,completion) in
-            self?.interactor?.deleteProject(project: project)
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: Resources.Titles.confirmAction, style: .destructive, handler: { [weak self] _ in
+                self?.interactor?.deleteProject(project: project)
+            }))
+            alert.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
+            projectsViewController.present(alert,animated: true)
             completion(true)
         })
         delete.image = UIImage(systemName: Resources.Images.trash,withConfiguration: Resources.Configurations.largeConfiguration)

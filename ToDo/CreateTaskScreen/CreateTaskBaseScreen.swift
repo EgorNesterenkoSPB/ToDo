@@ -62,6 +62,7 @@ extension CreateTaskBaseController {
         calendarButton.layer.borderColor = UIColor.gray.cgColor
         calendarButton.layer.borderWidth = 1
         calendarButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        calendarButton.addTarget(self, action: #selector(calendarButtonTapped(_:)), for: .touchUpInside)
         
         projectButton.setTitle("Project", for: .normal)
         projectButton.setTitleColor(UIColor(named: Resources.Titles.labelAndTintColor), for: .normal)
@@ -69,6 +70,7 @@ extension CreateTaskBaseController {
         projectButton.layer.borderColor = UIColor.gray.cgColor
         projectButton.layer.borderWidth = 1
         projectButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        projectButton.addTarget(self, action: #selector(projectButtonTapped(_:)), for: .touchUpInside)
         
         
     }
@@ -94,5 +96,16 @@ extension CreateTaskBaseController {
             projectButton.leftAnchor.constraint(equalTo: calendarButton.rightAnchor, constant: 10),
             projectButton.rightAnchor.constraint(lessThanOrEqualTo: createTaskButton.leftAnchor, constant: -10)
         ])
+    }
+}
+
+extension CreateTaskBaseController {
+    @objc private func calendarButtonTapped(_ sender:UIButton) {
+        let calendarViewController = CalendarRouter.createModule()
+        self.present(calendarViewController,animated: true)
+    }
+    
+    @objc private func projectButtonTapped(_ sender:UIButton) {
+        
     }
 }

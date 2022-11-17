@@ -39,7 +39,7 @@ extension MainViewController {
         navigationController?.navigationBar.isHidden = true
         
         topTitle.text = Resources.Titles.today
-        topTitle.font = .boldSystemFont(ofSize: 30)
+        topTitle.font = .systemFont(ofSize: 25)
         
         circleButton.backgroundColor = .systemOrange
         circleButton.setImage(UIImage(systemName: Resources.Images.plusImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
@@ -147,6 +147,10 @@ extension MainViewController:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         presenter?.heightForFooterInSection() ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        presenter?.heightForRowAt() ?? 0
     }
     
 }

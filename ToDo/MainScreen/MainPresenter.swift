@@ -5,10 +5,16 @@ final class MainPresenter: ViewToPresenterMainProtocol {
     var router: PresenterToRouterMainProtocol?
     var interactor: PresenterToInteractorMainProtocol?
     var todayProject = Project(name: "Today", categories: [Category(name: "", tasks: [Task(name: "FastAPI", description: "test description", priority: "high", time: "test time", isOverdue: false),Task(name: "2 videos OOP", description: "watch it", priority: "medium", time: "test time", isOverdue: false),Task(name: "Oruel", description: "read book", priority: "low", time: "test time", isOverdue: false)])], hexColor: "644AFF").self
+    var countOfSections = 2
     
     private enum UIConstants {
-        static let heightHeader = 60.0
+        static let heightHeader = 40.0
         static let heightFooter = 2.0
+        static let heightForRow = 45.0
+    }
+    
+    func heightForRowAt() -> CGFloat {
+        UIConstants.heightForRow
     }
     
     func userTapSettingsButton(navigationController: UINavigationController?) {
@@ -24,7 +30,7 @@ final class MainPresenter: ViewToPresenterMainProtocol {
     }
     
     func numberOfSections() -> Int {
-        2
+        self.countOfSections
     }
     
     func numberOfRowsInSection(section: Int) -> Int {
@@ -34,6 +40,10 @@ final class MainPresenter: ViewToPresenterMainProtocol {
                 if task.isOverdue {
                     countOverdueTasks += 1
                 }
+            }
+            if countOverdueTasks == 0 {
+                countOfSections = 1
+                return todayProject.categories[0].tasks.count
             }
             return countOverdueTasks
         }
@@ -61,8 +71,8 @@ final class MainPresenter: ViewToPresenterMainProtocol {
         
         let title:UILabel = {
            let label = UILabel()
-            label.font = .boldSystemFont(ofSize: 24)
-            label.text = section == 0 ? "Overdue" : "\(day).\(month) \u{2022} Today"
+            label.font = .systemFont(ofSize: 24)
+            label.text = countOfSections == 1 ? "\(day).\(month) \u{2022} Today" : "Overdue"
             return label
         }()
         headerView.addView(title)
@@ -82,6 +92,7 @@ final class MainPresenter: ViewToPresenterMainProtocol {
     func heightForFooterInSection() -> CGFloat {
         UIConstants.heightFooter
     }
+    
     
 }
 

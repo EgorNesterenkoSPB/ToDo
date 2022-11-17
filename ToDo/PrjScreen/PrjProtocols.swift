@@ -7,10 +7,11 @@ protocol ViewToPresenterPrjProtocol {
     var interactor: PresenterToInteractorPrjProtocol? {get set}
     func getCategories(project:ProjectCoreData)
     func showCreateCategoryAlert(project:ProjectCoreData) -> UIAlertController
+    func showCreateCommonTaskScreen(project: ProjectCoreData)
     func numberOfRowsInSection(section:Int) -> Int
     func numberOfSections() -> Int
     func cellForRowAt(tableView:UITableView,indexPath:IndexPath) -> UITableViewCell
-    func showEditAlert(project:ProjectCoreData) -> UIAlertController
+    func showEditAlert(project:ProjectCoreData,prjViewController:PrjViewController)
     func trailingSwipeActionsConfigurationForRowAt(tableView:UITableView,indexPath:IndexPath) -> UISwipeActionsConfiguration?
     func heightForHeaderInSection() -> CGFloat
     func heightForFooterInSection() -> CGFloat

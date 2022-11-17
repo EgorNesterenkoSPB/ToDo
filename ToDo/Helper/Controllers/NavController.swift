@@ -11,6 +11,6 @@ class NavController:UINavigationController {
 extension NavController {
     private func configure() {
         view.backgroundColor = .white
-        navigationBar.standardAppearance.titleTextAttributes = [.font:UIFont.boldSystemFont(ofSize: 28)]
+        navigationBar.standardAppearance.titleTextAttributes = [.font:UIFont.systemFont(ofSize: 23)]
     }
 }

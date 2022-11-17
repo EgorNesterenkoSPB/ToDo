@@ -30,8 +30,11 @@ extension CreateTaskViewController {
     
     override func configure() {
         super.configure()
+        
         projectButton.setTitle(self.projectName, for: .normal)
         projectButton.isEnabled = false
+        projectButton.tintColor = .gray
+        
         nameTextField.delegate = self
         descriptionTextView.delegate = self
         createTaskButton.addTarget(self, action: #selector(createTaskButtonTapped), for: .touchUpInside)

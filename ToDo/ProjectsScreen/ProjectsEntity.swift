@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 struct ProjectsSection {
     let sectionTitle:String
@@ -14,4 +15,17 @@ struct Color {
 struct ColorSection {
     let data:[Color]
     var expandable:Bool
+}
+
+
+struct CommonCellOption {
+    let title:String
+    let icon:UIImage?
+    let iconBackgroundColor:UIColor?
+    let handler: (() -> Void)
+}
+
+struct Section {
+    let title:String
+    let options:[CommonCellOption]
 }

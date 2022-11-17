@@ -15,6 +15,8 @@ enum CoreManagerError:Error {
     case failedDeleteProject(text:String)
     case failedDeleteCategory(text:String)
     case failedDeleteTask(text:String)
+    case failedFetchCommonTasks(text:String)
+    case failedDeleteCommonTask(text:String)
 }
 
 class DataManager {
@@ -69,6 +71,16 @@ class DataManager {
         return task
     }
     
+    func commonTask(name: String, description:String, priority:PriorityTask, time:Date,project:ProjectCoreData) -> CommonTaskCoreData {
+        let commonTask = CommonTaskCoreData(context: persistentContainer.viewContext)
+        commonTask.name = name
+        commonTask.descriptionTask = description
+        commonTask.priority = priority.rawValue
+        commonTask.time = time
+        project.addToCommonTasks(commonTask)
+        return commonTask
+    }
+    
     func projects() throws -> [ProjectCoreData] {
         let request:NSFetchRequest<ProjectCoreData> = ProjectCoreData.fetchRequest()
         var fetchedProjects:[ProjectCoreData] = []
@@ -79,6 +91,20 @@ class DataManager {
             throw CoreManagerError.failedFetchProjects(text: "Error fetching projects \(error)")
         }
         return fetchedProjects
+    }
+    
+    func commonTasks(project:ProjectCoreData) throws -> [CommonTaskCoreData] {
+        let request:NSFetchRequest<CommonTaskCoreData> = CommonTaskCoreData.fetchRequest()
+        request.predicate = NSPredicate(format: "project = %@", project)
+        
+        var fetchedCommonTasks:[CommonTaskCoreData] = []
+        
+        do {
+            fetchedCommonTasks = try persistentContainer.viewContext.fetch(request)
+        } catch let error {
+            throw CoreManagerError.failedFetchCommonTasks(text: "Error fetching tasks \(error)")
+        }
+        return fetchedCommonTasks
     }
     
     func categories(project:ProjectCoreData) throws -> [CategoryCoreData] {
@@ -118,6 +144,16 @@ class DataManager {
             try save()
         } catch let error {
             throw CoreManagerError.failedDeleteProject(text: "\(error)")
+        }
+    }
+    
+    func deleteCommonTask(commonTask:CommonTaskCoreData) throws {
+        let context = persistentContainer.viewContext
+        context.delete(commonTask)
+        do {
+            try save()
+        } catch let error {
+            throw CoreManagerError.failedDeleteCommonTask(text: "\(error)")
         }
     }
     
