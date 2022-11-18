@@ -199,7 +199,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
 extension PrjPresenter:BaseTableSectionHeaderViewProtocol {
     func updateExpandable(sectionIndex: Int) {
         sectionsData[sectionIndex].expandable.toggle()
-        view?.updateTableView()
+        view?.onUpdateSection(section: sectionIndex)
     }
 }
 

@@ -112,8 +112,4 @@ enum Resources {
     }
 }
 
-enum ErrorType {
-    case login
-    case mail
-    case password
-}
+

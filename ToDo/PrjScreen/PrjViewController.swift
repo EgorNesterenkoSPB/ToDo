@@ -248,6 +248,13 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         self.viewWillLayoutSubviews()
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.75, animations: {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
+        })
     }
     
 }

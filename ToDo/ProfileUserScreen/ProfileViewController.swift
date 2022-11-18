@@ -72,6 +72,10 @@ extension ProfileViewController {
         pincodeTextField.keyboardType = .asciiCapableNumberPad
         pincodeTextField.delegate = self
         
+        passwordTextField.textContentType = .password
+        mailTextField.keyboardType = .emailAddress
+        loginTextField.textContentType = .username
+        
         let loginHorizontalStackView = self.createHorizontalStackView(subviews: [loginLabel,loginTextField])
         let mailHorizontalStackView = self.createHorizontalStackView(subviews: [mailLabel,mailTextField])
         let passwordHorizontalStackView = self.createHorizontalStackView(subviews: [passwordLabel,passwordTextField])

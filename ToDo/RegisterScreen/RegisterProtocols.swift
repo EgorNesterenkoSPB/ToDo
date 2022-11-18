@@ -16,9 +16,9 @@ protocol ViewToPresenterRegisterProtocol {
 //MARK: - View Output (Presenter -> View)
 protocol PresenterToViewRegisterProtocol {
     func errorRegister(errorText:String,errorType:ErrorType)
-    func errorSimilarPassword()
     func enableConfirmButton()
     func onFailureRegistered(errorText:String)
+    func validField(field:RegisterField)
 }
 
 //MARK: -  Interactor Input (Presenter -> Interactor)

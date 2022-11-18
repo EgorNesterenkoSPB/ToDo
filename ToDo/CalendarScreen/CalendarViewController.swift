@@ -1,5 +1,10 @@
 import UIKit
 
+
+protocol CalendarViewControllerProtocol {
+    func getDeadlineTime(time:Date)
+}
+
 class CalendarViewController: BaseViewController {
     
     let backButton = UIButton()
@@ -22,6 +27,7 @@ class CalendarViewController: BaseViewController {
     var leapYearCounter = 2
     var dayCounter = 0
     var presenter:(ViewToPresenterCalendarProtocol & InteractorToPresenterCalendarProtocol)?
+    var calendarDelegate:CalendarViewControllerProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -281,6 +287,45 @@ extension CalendarViewController:UICollectionViewDelegateFlowLayout,UICollection
                 return
             }
             cell.numberLabel.textColor = .red
+            guard let cellDay = cell.numberLabel.text else {return}
+            guard let correctDay = Int(cellDay) else {return}
+//            correctDay += 1
+            let cellDate = "\(currentYear)-\(currentMonth + 1)-\(correctDay)"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let cellDateConverted = dateFormatter.date(from: cellDate)!
+            print(cellDateConverted)
+            calendarDelegate?.getDeadlineTime(time: cellDateConverted)
+            let todayDate = Date()
+            print(todayDate)
+            
+            let calendar = NSCalendar.current
+            let todayDay = calendar.component(.day, from: todayDate)
+            let todayMonth = calendar.component(.month, from: todayDate)
+            let todayYear = calendar.component(.year, from: todayDate)
+            let cellDayCalendar = calendar.component(.day, from: cellDateConverted)
+            let cellMonth = calendar.component(.month, from: cellDateConverted)
+            let cellYear = calendar.component(.year, from: cellDateConverted)
+            print(todayDay)
+            print(cellDayCalendar)
+            print(todayMonth)
+            print(cellMonth)
+            print(todayYear)
+            print(cellYear)
+            print(todayDay == cellDayCalendar && todayMonth == cellMonth && todayYear == cellYear)
+            
+            let todayDateFormatter = DateFormatter()
+            todayDateFormatter.dateStyle = .short
+            let today = todayDateFormatter.string(from: todayDate)
+            print(today)
+            let test = todayDateFormatter.string(from: cellDateConverted)
+            print(test)
+            print(today == test)
+            
+            
+            
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }

@@ -34,7 +34,7 @@ extension RegisterViewController {
         scrollView.addSubview(confirmPasswordLabel)
         scrollView.addSubview(confirmPasswordTextField)
         scrollView.addSubview(confirmButton)
-
+        self.scrollView.addSubview(errorLabel)
     }
     
     override func configure() {
@@ -61,6 +61,16 @@ extension RegisterViewController {
                 
         self.configureConfirmButton(confirmButton: confirmButton)
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        
+        loginTextField.textContentType = .username
+        mailTextField.keyboardType = .emailAddress
+        passwordTextField.textContentType = .password
+        confirmPasswordTextField.textContentType = .password
+        
+        errorLabel.textColor = .red
+        errorLabel.font = .systemFont(ofSize: 15)
+        errorLabel.isHidden = true
+        
     }
     
     override func layoutViews() {
@@ -73,7 +83,7 @@ extension RegisterViewController {
             loginTextField.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor,constant: -10),
             loginTextField.heightAnchor.constraint(equalToConstant: 30),
            loginTextField.leftAnchor.constraint(equalTo: loginLabel.rightAnchor, constant: 10),
-            loginTextField.widthAnchor.constraint(equalToConstant: 200),
+            loginTextField.widthAnchor.constraint(equalToConstant: self.view.frame.width / 2),
             loginLabel.centerYAnchor.constraint(equalTo: loginTextField.centerYAnchor),
             loginLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor,constant: 20),
             mailTextField.rightAnchor.constraint(equalTo: loginTextField.rightAnchor),
@@ -96,8 +106,11 @@ extension RegisterViewController {
             confirmPasswordTextField.heightAnchor.constraint(equalTo: loginTextField.heightAnchor),
             confirmPasswordLabel.centerYAnchor.constraint(equalTo: confirmPasswordTextField.centerYAnchor),
             confirmPasswordLabel.leftAnchor.constraint(equalTo: loginLabel.leftAnchor),
+            confirmPasswordLabel.rightAnchor.constraint(equalTo: confirmPasswordTextField.leftAnchor, constant: -5),
             confirmButton.topAnchor.constraint(equalTo: confirmPasswordTextField.bottomAnchor,constant: 20),
-            confirmButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
+            confirmButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            errorLabel.centerXAnchor.constraint(equalTo: self.confirmButton.centerXAnchor),
+            errorLabel.bottomAnchor.constraint(equalTo: loginTextField.topAnchor, constant: -10)
         ])
     }
 }
@@ -105,7 +118,7 @@ extension RegisterViewController {
 
 extension RegisterViewController {
     @objc private func confirmButtonTapped(_ sender:UIButton) {
-        self.removeErrorState()
+        errorLabel.isHidden = true
         confirmButton.isLoading = true
         presenter?.userTapConfirmButton()
     }
@@ -139,6 +152,22 @@ extension RegisterViewController:UITextFieldDelegate {
 
 //MARK: - PresenterToView
 extension RegisterViewController:PresenterToViewRegisterProtocol {
+    func validField(field: RegisterField) {
+        switch field {
+        case .login:
+            loginTextField.layer.borderColor = UIColor.black.cgColor
+        case .mail:
+            mailTextField.layer.borderColor = UIColor.black.cgColor
+        case .password:
+            passwordTextField.layer.borderColor = UIColor.black.cgColor
+        case .confirmPassword:
+            confirmPasswordTextField.layer.borderColor = UIColor.black.cgColor
+        }
+        errorLabel.isHidden = true
+    }
+    
+
+    
     func onFailureRegistered(errorText: String) {
         confirmButton.isLoading = false
         present(createErrorAlert(errorText: errorText),animated: true)
@@ -147,49 +176,32 @@ extension RegisterViewController:PresenterToViewRegisterProtocol {
     func enableConfirmButton() {
         self.confirmButton.isEnabled = true
         self.confirmButton.backgroundColor = .systemOrange
+        self.confirmPasswordTextField.layer.borderColor = UIColor.black.cgColor
+        self.errorLabel.isHidden = true
     }
     
     func errorRegister(errorText: String,errorType:ErrorType) {
         switch errorType {
         case .login:
             loginTextField.shake()
+            loginTextField.layer.borderColor = UIColor.red.cgColor
         case .mail:
             mailTextField.shake()
+            mailTextField.layer.borderColor = UIColor.red.cgColor
         case .password:
             passwordTextField.shake()
+            passwordTextField.layer.borderColor = UIColor.red.cgColor
+        case .conflictPasswords:
+            confirmPasswordTextField.shake()
+            confirmPasswordTextField.layer.borderColor = UIColor.red.cgColor
         }
-        
-        self.setupErrorLabel(errorText: errorText)
-        self.disableConfirmButton()
-    }
-    
-    func errorSimilarPassword() {
-        self.confirmPasswordTextField.layer.borderColor = UIColor.red.cgColor
-        self.confirmPasswordTextField.shake()
+        errorLabel.text = errorText
+        errorLabel.isHidden = false
         self.disableConfirmButton()
     }
 }
 
 extension RegisterViewController {
-    private func setupErrorLabel(errorText:String) {
-        errorLabel.translatesAutoresizingMaskIntoConstraints = false
-        errorLabel.text = errorText
-        errorLabel.textColor = .red
-        errorLabel.font = .systemFont(ofSize: 15)
-        self.scrollView.addSubview(errorLabel)
-        
-        NSLayoutConstraint.activate([
-            errorLabel.centerXAnchor.constraint(equalTo: self.confirmButton.centerXAnchor),
-            errorLabel.topAnchor.constraint(equalTo: self.confirmButton.bottomAnchor, constant: 15)
-        ])
-    }
-    
-    private func removeErrorState() {
-        self.errorLabel.removeFromSuperview()
-        self.confirmPasswordTextField.layer.borderColor = UIColor.black.cgColor
-        self.confirmPasswordTextField.placeholder = Resources.Placeholders.passwordTextField
-    }
-    
     private func disableConfirmButton() {
         confirmButton.isEnabled = false
         confirmButton.backgroundColor = .gray

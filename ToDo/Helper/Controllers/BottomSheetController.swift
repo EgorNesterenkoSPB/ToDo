@@ -41,6 +41,8 @@ extension BottomSheetController {
         containerView.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
         containerView.clipsToBounds = true
         
+        self.view.backgroundColor = .clear
+        dimmedView.isOpaque = false
         dimmedView.backgroundColor = .black
         dimmedView.alpha = UIConstans.maxDimmedAlpha
         

@@ -12,38 +12,49 @@ final class RegisterPresenter:ViewToPresenterRegisterProtocol {
     }
     
     func setLogin(login: String?) {
-        guard let login = login, login != "" && login != " " else {
-            view?.errorRegister(errorText: "Login isnt correct", errorType: .login)
-            user.login = ""
+        guard let login = login, !login.isEmpty else {
+            view?.errorRegister(errorText: "login field is empty!", errorType: .login)
             return
         }
+        guard login.count > 5 else {
+            view?.errorRegister(errorText: "login must be more 5 symbols", errorType: .login)
+            return
+        }
+        view?.validField(field: .login)
         self.user.login = login
     }
     
     func setMail(mail: String?) {
-        guard let mail = mail, mail != "" && mail != " " else {
-            view?.errorRegister(errorText: "Mail isnt correct", errorType: .mail)
-            user.mail = ""
+        guard let mail = mail, !mail.isEmpty else {
+            view?.errorRegister(errorText: "mail field is empty!", errorType: .mail)
             return
         }
+        //TODO: - logic to check valid mail
+        
+        view?.validField(field: .mail)
         self.user.mail = mail
     }
     
     func setPassword(password: String?) {
-        guard let password = password, password != "" && password != " " else {
-            view?.errorRegister(errorText: "Password isnt correct", errorType: .password)
-            user.password = ""
+        guard let password = password, !password.isEmpty else {
+            view?.errorRegister(errorText: "password field is empty!", errorType: .password)
             return
         }
+        guard password.count > 6 else {
+            view?.errorRegister(errorText: "password must be more 6 symbols!", errorType: .password)
+            return
+        }
+        view?.validField(field: .password)
         self.user.password = password
     }
     
     
     func checkConfirmPassword(confirmPassword: String?) {
-        guard let confirmPassword = confirmPassword,confirmPassword != "" && confirmPassword != " " && confirmPassword == self.user.password else {
-            view?.errorSimilarPassword()
+        guard let confirmPassword = confirmPassword, confirmPassword == self.user.password else {
+            view?.errorRegister(errorText: "passwords dont match", errorType: .conflictPasswords)
             return
         }
+        view?.validField(field: .confirmPassword)
         view?.enableConfirmButton()
     }
     

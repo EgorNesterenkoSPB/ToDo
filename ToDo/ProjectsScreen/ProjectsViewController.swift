@@ -183,6 +183,23 @@ extension ProjectsViewController:UITableViewDelegate,UITableViewDataSource {
             return 0
         }
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.viewWillLayoutSubviews()
+        switch tableView {
+        case projectsTableView:
+            guard indexPath.section == 1 else {return}
+            let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, -50, 10)
+            cell.layer.transform = rotationTransform
+            cell.alpha = 0
+            UIView.animate(withDuration: 0.75, animations: {
+                cell.layer.transform = CATransform3DIdentity
+                cell.alpha = 1.0
+            })
+        default:
+            break
+        }
+    }
 }
 
 extension ProjectsViewController:CreateProjectViewControllerProtocol {

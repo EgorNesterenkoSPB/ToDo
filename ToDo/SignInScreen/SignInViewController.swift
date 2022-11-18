@@ -60,6 +60,10 @@ extension SignInViewController {
         self.configureLabel(label: passwordLabel, text: Resources.Titles.passwordLabel)
         
         self.configureConfirmButton(confirmButton: confirmButton)
+        
+        loginOrMailTextField.textContentType = .username
+        passwordTextField.textContentType = .password
+        
     }
 }
 
