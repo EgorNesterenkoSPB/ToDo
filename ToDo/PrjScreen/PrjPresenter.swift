@@ -50,9 +50,6 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         return cell
     }
     
-    func trailingSwipeActionsConfigurationForRowAtCommonTasksTable(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return nil
-    }
     
     func updateSection(category: CategoryCoreData,section:Int) {
         do {
@@ -84,7 +81,6 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         }))
         
         alertController.addAction(UIAlertAction(title: Resources.Titles.createCategory, style: .default, handler: { [weak self] _ in
-//            guard let alert = self?.showCreateCategoryAlert(project: project) else {return}
             guard let createCategoryAlert = self?.showActionAlert(title: Resources.Titles.createCategory, message: Resources.Titles.writeName, with: { text in
                 self?.interactor?.createCategory(name: text, project: project)
             }) else {return}
@@ -142,16 +138,31 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         return cell
     }
     
-    func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: nil, handler: {[weak self] (action,swipeButtonView,completion) in
-            guard let task = self?.sectionsData[indexPath.section].data[indexPath.row], let category = task.category else {return}
-            self?.interactor?.deleteTask(task: task, category: category , section: indexPath.section)
-            completion(true)
+    private func createDeleteTaskContextualAction(indexPath:IndexPath,with completion: @escaping() -> Void) -> UIContextualAction {
+        let delete = UIContextualAction(style: .destructive, title: nil, handler: { _,_,_  in
+            completion()
         })
         delete.image = UIImage(systemName: Resources.Images.trash,withConfiguration: Resources.Configurations.largeConfiguration)
         delete.image?.withTintColor(.white)
         delete.backgroundColor = .red
-
+        return delete
+    }
+    
+    func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = createDeleteTaskContextualAction(indexPath: indexPath) {
+            let task = self.sectionsData[indexPath.section].data[indexPath.row]
+            guard let category = task.category else {return}
+            self.interactor?.deleteTask(task: task, category: category , section: indexPath.section)
+        }
+        let configuration = UISwipeActionsConfiguration(actions: [delete])
+        return configuration
+    }
+    
+    func trailingSwipeActionsConfigurationForRowAtCommonTasksTable(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = createDeleteTaskContextualAction(indexPath: indexPath) {
+            let task = self.commonTasks[indexPath.row]
+            self.interactor?.deleteCommonTask(commonTask: task)
+        }
         let configuration = UISwipeActionsConfiguration(actions: [delete])
         return configuration
     }
@@ -210,6 +221,14 @@ extension PrjPresenter:CategoryTableSectionHeaderViewProtocol {
 
 
 extension PrjPresenter:InteractorToPresenterPrjProtocol {
+    func failedDeleteCommonTask(errorText: String) {
+        view?.onFailedDeleteCommonTask(errorText: errorText)
+    }
+    
+    func successfulyDeleteCommonTask() {
+        view?.updateCommonTasksTable()
+    }
+    
     func failedRenameCategory(errorText: String) {
         view?.onFailedRenameCategory(errorText: errorText)
     }

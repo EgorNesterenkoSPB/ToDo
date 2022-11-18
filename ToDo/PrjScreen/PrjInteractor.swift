@@ -1,8 +1,8 @@
 import Foundation
 
 final class PrjInteractor:PresenterToInteractorPrjProtocol {
-    
     var presenter: InteractorToPresenterPrjProtocol?
+    
     
     func onRenameCategory(category: CategoryCoreData,sectionsData:[CategorySection],newName:String) {
         category.setValue(newName, forKey: Resources.categoryNameKey)
@@ -46,6 +46,16 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
             presenter?.failedDeleteTask(errorText: "\(error)")
         }
     }
+    
+    func deleteCommonTask(commonTask: CommonTaskCoreData) {
+        do {
+            try DataManager.shared.deleteCommonTask(commonTask: commonTask)
+            presenter?.successfulyDeleteCommonTask()
+        } catch let error {
+            presenter?.failedDeleteCommonTask(errorText: "\(error)")
+        }
+    }
+    
     
     func deleteProject(project: ProjectCoreData) {
         do {

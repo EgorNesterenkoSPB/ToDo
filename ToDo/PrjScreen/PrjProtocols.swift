@@ -40,6 +40,8 @@ protocol PresenterToViewPrjProtocol {
     func onSuccessfulyRenameProject()
     func onFailedRenameCategory(errorText:String)
     func showRenameCategoryAlert(alert:UIAlertController)
+    func onFailedDeleteCommonTask(errorText:String)
+    func updateCommonTasksTable()
 }
 
 //MARK: -  Interactor Input (Presenter -> Interactor)
@@ -52,6 +54,7 @@ protocol PresenterToInteractorPrjProtocol {
     func deleteTask(task:TaskCoreData,category:CategoryCoreData,section:Int)
     func renameProject(project:ProjectCoreData,newName:String)
     func onRenameCategory(category:CategoryCoreData,sectionsData:[CategorySection],newName:String)
+    func deleteCommonTask(commonTask:CommonTaskCoreData)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
@@ -70,6 +73,8 @@ protocol InteractorToPresenterPrjProtocol {
     func successfulyRenameProject()
     func failedRenameCategory(errorText:String)
     func successfulyRenamedCategory(section:Int,newName:String)
+    func failedDeleteCommonTask(errorText:String)
+    func successfulyDeleteCommonTask()
 }
 
 //MARK: - Router Input (Presenter -> Router)

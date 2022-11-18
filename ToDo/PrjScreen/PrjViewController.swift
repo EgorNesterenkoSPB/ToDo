@@ -89,6 +89,14 @@ extension PrjViewController {
 
 //MARK: - PresenterToView
 extension PrjViewController:PresenterToViewPrjProtocol {
+    func onFailedDeleteCommonTask(errorText: String) {
+        self.present(createErrorAlert(errorText: errorText),animated: true)
+    }
+    
+    func updateCommonTasksTable() {
+        presenter?.getCommonTasks(project: self.project)
+    }
+    
     
     func showRenameCategoryAlert(alert: UIAlertController) {
         self.present(alert,animated: true)
