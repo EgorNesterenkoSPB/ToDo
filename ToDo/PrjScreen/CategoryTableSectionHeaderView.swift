@@ -1,5 +1,9 @@
 import UIKit
 
+protocol CategoryTableSectionHeaderViewProtocol {
+    func renameSection(category:CategoryCoreData)
+    func deleteSection(category:CategoryCoreData)
+}
 
 class CategoryTableSectionHeaderView: BaseTableSectionHeaderView {
 
@@ -7,7 +11,7 @@ class CategoryTableSectionHeaderView: BaseTableSectionHeaderView {
     let prjViewController:PrjViewController
     let category:CategoryCoreData
     let projectName:String
-    private var bottomSheetTransitioningDelegate:UIViewControllerTransitioningDelegate?
+    var categoryDelegate:CategoryTableSectionHeaderViewProtocol?
     
     init(titleText: String, section: Int, expandable: Bool,prjViewController:PrjViewController,category:CategoryCoreData,projectName:String) {
         self.prjViewController = prjViewController
@@ -54,11 +58,13 @@ extension CategoryTableSectionHeaderView {
             createTaskViewController.delegate = self.prjViewController
             self.prjViewController.present(createTaskViewController,animated: false)
         }))
-        alert.addAction(UIAlertAction(title: "Rename section", style: .default, handler: { [weak self] _ in
-            
+        alert.addAction(UIAlertAction(title: Resources.Titles.renameSection, style: .default, handler: { [weak self] _ in
+            guard let category = self?.category else {return}
+            self?.categoryDelegate?.renameSection(category: category)
         }))
-        alert.addAction(UIAlertAction(title: "Delete section", style: .destructive, handler: { [weak self] _ in
-            
+        alert.addAction(UIAlertAction(title: Resources.Titles.deleteSection, style: .destructive, handler: { [weak self] _ in
+            guard let category = self?.category else {return}
+            self?.categoryDelegate?.deleteSection(category: category)
         }))
         alert.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
         prjViewController.present(alert,animated: true)

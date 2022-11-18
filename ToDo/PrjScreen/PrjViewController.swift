@@ -89,6 +89,24 @@ extension PrjViewController {
 
 //MARK: - PresenterToView
 extension PrjViewController:PresenterToViewPrjProtocol {
+    
+    func showRenameCategoryAlert(alert: UIAlertController) {
+        self.present(alert,animated: true)
+    }
+    
+    func onFailedRenameCategory(errorText: String) {
+        self.present(createErrorAlert(errorText: errorText),animated: true)
+    }
+
+    
+    func onFailedRenameProject(errorText: String) {
+        self.present(createErrorAlert(errorText: errorText),animated: true)
+    }
+    
+    func onSuccessfulyRenameProject() {
+        self.configure()
+    }
+    
     func onUpdateCommonTasksTableView() {
         DispatchQueue.main.async {
             self.commonTasksTableView.reloadData()

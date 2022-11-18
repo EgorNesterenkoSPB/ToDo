@@ -1,7 +1,7 @@
 import UIKit
 
 final class PrjPresenter:ViewToPresenterPrjProtocol {
-
+    
     var view: PresenterToViewPrjProtocol?
     var router: PresenterToRouterPrjProtocol?
     var interactor: PresenterToInteractorPrjProtocol?
@@ -18,7 +18,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
                 var tasks = [TaskCoreData]()
                 let savedTasks = try DataManager.shared.tasks(category: category)
                 tasks = savedTasks
-                let section = CategorySection(sectionTitle: category.name ?? "error get name", data: tasks, expandable: false)
+                let section = CategorySection(sectionTitle: category.name ?? "error get name", objectID: category.objectID, data: tasks, expandable: false)
                 newSectionsData.append(section)
             }
             self.sectionsData = newSectionsData
@@ -57,7 +57,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     func updateSection(category: CategoryCoreData,section:Int) {
         do {
             let tasks = try DataManager.shared.tasks(category: category)
-            if let row = self.sectionsData.firstIndex(where: {$0.sectionTitle == category.name}) {
+            if let row = self.sectionsData.firstIndex(where: {$0.objectID == category.objectID}) {
                 sectionsData[row].data = tasks
                 sectionsData[row].expandable = true
                 view?.onUpdateSection(section: section)
@@ -77,12 +77,18 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
         alertController.addAction(UIAlertAction(title: Resources.Titles.renameProject, style: .default, handler: {[weak self] _ in
-            
+            guard let renameProjectAlert = self?.showActionAlert(title: Resources.Titles.newName, message: Resources.Titles.writeName, with: { text in
+                self?.interactor?.renameProject(project: project, newName: text)
+            }) else {return}
+            prjViewController.present(renameProjectAlert,animated: true)
         }))
         
         alertController.addAction(UIAlertAction(title: Resources.Titles.createCategory, style: .default, handler: { [weak self] _ in
-            guard let alert = self?.showCreateCategoryAlert(project: project) else {return}
-            prjViewController.present(alert,animated: true)
+//            guard let alert = self?.showCreateCategoryAlert(project: project) else {return}
+            guard let createCategoryAlert = self?.showActionAlert(title: Resources.Titles.createCategory, message: Resources.Titles.writeName, with: { text in
+                self?.interactor?.createCategory(name: text, project: project)
+            }) else {return}
+            prjViewController.present(createCategoryAlert,animated: true)
         }))
         
         alertController.addAction(UIAlertAction(title: Resources.Titles.deleteProject, style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
@@ -98,22 +104,21 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         prjViewController.present(alertController,animated: true)
     }
     
-    func showCreateCategoryAlert(project:ProjectCoreData) -> UIAlertController {
-        let createAlertController = UIAlertController(title: Resources.Titles.createCategory, message: Resources.Titles.writeName, preferredStyle: .alert)
+    private func showActionAlert(title:String,message:String,with completion: @escaping (_ text:String) -> Void) -> UIAlertController{
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        createAlertController.addTextField(configurationHandler: { (textField:UITextField) -> Void in
+        alertController.addTextField(configurationHandler: { (textField:UITextField) -> Void in
             textField.placeholder = Resources.Titles.name
         })
         
-        createAlertController.addAction(UIAlertAction(title: Resources.Titles.create, style: .default, handler: {[weak self] (action:UIAlertAction) -> Void in
-            let textField = createAlertController.textFields![0] as UITextField
+        alertController.addAction(UIAlertAction(title: Resources.Titles.confirmButtonTitle, style: .default, handler: { _ in
+            let textField = alertController.textFields![0] as UITextField
             guard let text = textField.text, text != " ", text != "" else {return}
-            self?.interactor?.createCategory(name: text, project: project)
+            completion(text)
         }))
+        alertController.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
         
-        createAlertController.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
-        
-        return createAlertController
+        return alertController
     }
     
     func numberOfRowsInSection(section:Int) -> Int {
@@ -160,20 +165,21 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     }
     
     func viewForHeaderInSection(prjViewController:PrjViewController, tableView: UITableView, section: Int) -> UIView? {
-        let titleText = sectionsData[section].sectionTitle
+        let objectID = sectionsData[section].objectID
         let expandable = sectionsData[section].expandable
         var currentCategory:CategoryCoreData?
         
         for category in categories {
-            if category.name == titleText {
+            if category.objectID == objectID {
                 currentCategory = category
             }
         }
         guard let currentCategory = currentCategory else {
             return nil
         }
-        let headerView = CategoryTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable, prjViewController: prjViewController, category:currentCategory, projectName: prjViewController.title ?? Resources.Titles.errorTitle)
+        let headerView = CategoryTableSectionHeaderView(titleText: sectionsData[section].sectionTitle, section: section, expandable: expandable, prjViewController: prjViewController, category:currentCategory, projectName: prjViewController.title ?? Resources.Titles.errorTitle)
         headerView.delegate = self
+        headerView.categoryDelegate = self
         return headerView
     }
     
@@ -184,12 +190,43 @@ extension PrjPresenter:BaseTableSectionHeaderViewProtocol {
         sectionsData[sectionIndex].expandable.toggle()
         view?.updateTableView()
     }
+}
+
+extension PrjPresenter:CategoryTableSectionHeaderViewProtocol {
+    func renameSection(category: CategoryCoreData) {
+        let alert = showActionAlert(title: Resources.Titles.newName, message: Resources.Titles.writeName, with: { [weak self] text in
+            guard let self = self else {return}
+            self.interactor?.onRenameCategory(category: category,sectionsData: self.sectionsData, newName: text)
+        })
+        view?.showRenameCategoryAlert(alert: alert)
+    }
+    
+    func deleteSection(category: CategoryCoreData) {
+        interactor?.deleteCategory(category: category)
+    }
     
     
 }
 
 
 extension PrjPresenter:InteractorToPresenterPrjProtocol {
+    func failedRenameCategory(errorText: String) {
+        view?.onFailedRenameCategory(errorText: errorText)
+    }
+    
+    func successfulyRenamedCategory(section:Int,newName:String) {
+        self.sectionsData[section].sectionTitle = newName
+        view?.onUpdateSection(section: section)
+    }
+    
+    func failedRenameProject(errorText: String) {
+        view?.onFailedRenameProject(errorText: errorText)
+    }
+    
+    func successfulyRenameProject() {
+        view?.onSuccessfulyRenameProject()
+    }
+    
     func failedDeleteTask(errorText: String) {
         view?.onFailedDeleteTask(errorText: errorText)
     }

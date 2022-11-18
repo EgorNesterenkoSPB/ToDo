@@ -1,7 +1,30 @@
 import Foundation
 
 final class PrjInteractor:PresenterToInteractorPrjProtocol {
+    
     var presenter: InteractorToPresenterPrjProtocol?
+    
+    func onRenameCategory(category: CategoryCoreData,sectionsData:[CategorySection],newName:String) {
+        category.setValue(newName, forKey: Resources.categoryNameKey)
+        do {
+            try DataManager.shared.save()
+            if let section = sectionsData.firstIndex(where: {$0.objectID == category.objectID}) {
+                presenter?.successfulyRenamedCategory(section: section,newName: newName)
+            }
+        } catch let error {
+            presenter?.failedRenameCategory(errorText: "\(error)")
+        }
+    }
+    
+    func renameProject(project: ProjectCoreData,newName:String) {
+        project.setValue(newName, forKey: Resources.projectNameKey)
+        do {
+            try DataManager.shared.save()
+            presenter?.successfulyRenameProject()
+        } catch let error {
+            presenter?.failedRenameProject(errorText: "\(error)")
+        }
+    }
     
     func createCategory(name:String,project: ProjectCoreData) {
         let newCategory = DataManager.shared.category(name: name, project: project)

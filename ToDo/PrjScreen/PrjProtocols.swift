@@ -7,7 +7,6 @@ protocol ViewToPresenterPrjProtocol {
     var interactor: PresenterToInteractorPrjProtocol? {get set}
     func getCategories(project:ProjectCoreData)
     func getCommonTasks(project:ProjectCoreData)
-    func showCreateCategoryAlert(project:ProjectCoreData) -> UIAlertController
     func showCreateCommonTaskScreen(project: ProjectCoreData,prjViewController:PrjViewController)
     func numberOfRowsInSection(section:Int) -> Int
     func numberOfSections() -> Int
@@ -37,6 +36,10 @@ protocol PresenterToViewPrjProtocol {
     func onFailedDeleteTask(errorText:String)
     func onSuccessefulyDeleteTask()
     func onUpdateSection(section:Int)
+    func onFailedRenameProject(errorText:String)
+    func onSuccessfulyRenameProject()
+    func onFailedRenameCategory(errorText:String)
+    func showRenameCategoryAlert(alert:UIAlertController)
 }
 
 //MARK: -  Interactor Input (Presenter -> Interactor)
@@ -47,6 +50,8 @@ protocol PresenterToInteractorPrjProtocol {
     func deleteAllCategories(project:ProjectCoreData)
     func deleteCategory(category:CategoryCoreData)
     func deleteTask(task:TaskCoreData,category:CategoryCoreData,section:Int)
+    func renameProject(project:ProjectCoreData,newName:String)
+    func onRenameCategory(category:CategoryCoreData,sectionsData:[CategorySection],newName:String)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
@@ -61,6 +66,10 @@ protocol InteractorToPresenterPrjProtocol {
     func failedDeleteCategory(errorText:String)
     func failedDeleteTask(errorText:String)
     func successfulyDeleteTask(category:CategoryCoreData,section:Int)
+    func failedRenameProject(errorText:String)
+    func successfulyRenameProject()
+    func failedRenameCategory(errorText:String)
+    func successfulyRenamedCategory(section:Int,newName:String)
 }
 
 //MARK: - Router Input (Presenter -> Router)
