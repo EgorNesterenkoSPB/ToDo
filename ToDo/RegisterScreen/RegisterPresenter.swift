@@ -29,10 +29,19 @@ final class RegisterPresenter:ViewToPresenterRegisterProtocol {
             view?.errorRegister(errorText: "mail field is empty!", errorType: .mail)
             return
         }
-        //TODO: - logic to check valid mail
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         
+        if !isValidRegEx(regexStr: emailRegEx, object: mail) {
+            view?.errorRegister(errorText: "mail isnt valid", errorType: .mail)
+            return
+        }
         view?.validField(field: .mail)
         self.user.mail = mail
+    }
+    
+    private func isValidRegEx(regexStr:String,object:String) -> Bool{
+        let predicate = NSPredicate(format: "SELF MATCHES %@",regexStr)
+        return predicate.evaluate(with: object)
     }
     
     func setPassword(password: String?) {
@@ -40,8 +49,9 @@ final class RegisterPresenter:ViewToPresenterRegisterProtocol {
             view?.errorRegister(errorText: "password field is empty!", errorType: .password)
             return
         }
-        guard password.count > 6 else {
-            view?.errorRegister(errorText: "password must be more 6 symbols!", errorType: .password)
+        let passRegEx = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+        if !isValidRegEx(regexStr: passRegEx, object: password) {
+            view?.errorRegister(errorText: "password must be minimum 8 characters, at least 1 Alphabet and 1 Number!", errorType: .password)
             return
         }
         view?.validField(field: .password)

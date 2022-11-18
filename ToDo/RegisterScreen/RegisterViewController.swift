@@ -68,8 +68,10 @@ extension RegisterViewController {
         confirmPasswordTextField.textContentType = .password
         
         errorLabel.textColor = .red
-        errorLabel.font = .systemFont(ofSize: 15)
+        errorLabel.font = .systemFont(ofSize: 12)
         errorLabel.isHidden = true
+        errorLabel.numberOfLines = 0
+        errorLabel.textAlignment = .center
         
     }
     
@@ -109,8 +111,9 @@ extension RegisterViewController {
             confirmPasswordLabel.rightAnchor.constraint(equalTo: confirmPasswordTextField.leftAnchor, constant: -5),
             confirmButton.topAnchor.constraint(equalTo: confirmPasswordTextField.bottomAnchor,constant: 20),
             confirmButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            errorLabel.centerXAnchor.constraint(equalTo: self.confirmButton.centerXAnchor),
-            errorLabel.bottomAnchor.constraint(equalTo: loginTextField.topAnchor, constant: -10)
+            errorLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            errorLabel.bottomAnchor.constraint(equalTo: loginTextField.topAnchor, constant: -10),
+            errorLabel.widthAnchor.constraint(equalToConstant: self.view.frame.width - 10)
         ])
     }
 }
