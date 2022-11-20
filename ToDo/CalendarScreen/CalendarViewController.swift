@@ -288,8 +288,8 @@ extension CalendarViewController:UICollectionViewDelegateFlowLayout,UICollection
             }
             cell.numberLabel.textColor = .red
             guard let cellDay = cell.numberLabel.text else {return}
-            guard let correctDay = Int(cellDay) else {return}
-//            correctDay += 1
+            guard var correctDay = Int(cellDay) else {return}
+            correctDay += 1
             let cellDate = "\(currentYear)-\(currentMonth + 1)-\(correctDay)"
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .short

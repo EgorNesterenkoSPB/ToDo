@@ -21,6 +21,8 @@ enum Resources {
     
     static let projectsModels:[Section] = [Section(title: "", options: [CommonCellOption(title: "Incoming", icon: UIImage(systemName: Resources.Images.incoming,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.blue, handler: {}), CommonCellOption(title: "Upcoming", icon: UIImage(systemName: Resources.Images.calendar,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.purple, handler: {})])]
     
+    static let settingsContent:[Section] = [Section(title: "", options: [CommonCellOption(title: Resources.Titles.account, icon: UIImage(systemName: Resources.Images.profileImage), iconBackgroundColor: .gray, handler: {}),CommonCellOption(title: Resources.Titles.website, icon: UIImage(systemName: Resources.Images.globe), iconBackgroundColor: .systemIndigo, handler: {}),CommonCellOption(title: Resources.Titles.support, icon: UIImage(systemName: Resources.Images.question), iconBackgroundColor: .magenta, handler: {})])]
+    
     enum Links {
         static let PostRequestURL = "http://127.0.0.1:8003/main/user"
     }

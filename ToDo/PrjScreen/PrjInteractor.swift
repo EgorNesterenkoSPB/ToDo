@@ -8,8 +8,9 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
         
     func setFinishTask<T>(task:T,indexPath:IndexPath? = nil) where T:NSManagedObject {
         task.setValue(true, forKey: Resources.isFinishedTaskKey)
-        //TODO: - set current time
         
+        let currentDate = Date()
+        task.setValue(currentDate, forKey: Resources.timeFinishedTaskKey)
         do {
             try DataManager.shared.save()
             switch task {
@@ -30,8 +31,6 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
     
     func onRenameCategory(category: CategoryCoreData,sectionsData:[CategorySection],newName:String) {
         category.setValue(newName, forKey: Resources.categoryNameKey)
-        //TODO: - set current time
-        
         do {
             try DataManager.shared.save()
             if let section = sectionsData.firstIndex(where: {$0.objectID == category.objectID}) {

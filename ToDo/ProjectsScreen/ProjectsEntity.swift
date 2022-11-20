@@ -22,7 +22,7 @@ struct CommonCellOption {
     let title:String
     let icon:UIImage?
     let iconBackgroundColor:UIColor?
-    let handler: (() -> Void)
+    var handler: (() -> Void)
 }
 
 struct Section {

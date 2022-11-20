@@ -39,10 +39,24 @@ extension CommonTableViewCell {
         contentView.clipsToBounds = true
         accessoryType = .disclosureIndicator
         backgroundColor = .clear
+        selectionStyle = .none
     }
     
     override func layoutViews() {
-        
+        NSLayoutConstraint.activate([
+            iconContainer.widthAnchor.constraint(equalToConstant: contentView.frame.size.height - 12),
+            iconContainer.heightAnchor.constraint(equalTo: iconContainer.widthAnchor),
+            iconImageView.widthAnchor.constraint(equalToConstant: (contentView.frame.size.height - 12) / 1.5),
+            iconImageView.heightAnchor.constraint(equalTo: iconImageView.widthAnchor),
+            label.widthAnchor.constraint(equalToConstant: contentView.frame.size.width - UIConstans.labelXOffset - iconContainer.frame.size.width),
+            label.heightAnchor.constraint(equalToConstant: contentView.frame.size.height),
+            iconContainer.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            iconContainer.leftAnchor.constraint(equalTo: contentView.leftAnchor,constant: 10),
+            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            label.leftAnchor.constraint(equalTo: iconContainer.rightAnchor, constant: 10),
+            iconImageView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor),
+            iconImageView.centerXAnchor.constraint(equalTo: iconContainer.centerXAnchor)
+        ])
     }
 }
 
@@ -60,17 +74,5 @@ extension CommonTableViewCell {
         iconImageView.image = nil
         label.text = nil
         iconContainer.backgroundColor = nil
-    }
-    
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let size:CGFloat = contentView.frame.size.height - 12 // 6 from top and bottom
-        iconContainer.frame = CGRect(x: 15, y: 6, width: size, height: size)
-        
-        let imageSize:CGFloat = size / 1.5
-        iconImageView.frame = CGRect(x: (size - imageSize) / 2, y: (size - imageSize) / 2, width: imageSize, height: imageSize)
-        
-        label.frame = CGRect(x: UIConstans.labelXOffset + iconContainer.frame.self.width, y: 0, width: contentView.frame.size.width - UIConstans.labelXOffset - iconContainer.frame.size.width, height: contentView.frame.size.height)
     }
 }
