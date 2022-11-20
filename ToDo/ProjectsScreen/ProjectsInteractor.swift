@@ -6,7 +6,7 @@ final class ProjectsInteractor:PresenterToInteractorProjectsProtocol {
             try DataManager.shared.deleteProject(project: project)
             presenter?.successfulyDeleteProject()
         } catch let error {
-            presenter?.failedDeleteProject(errorText: "\(error)")
+            presenter?.failedCoreData(errorText: "\(error)")
         }
     }
 

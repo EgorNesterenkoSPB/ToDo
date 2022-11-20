@@ -19,6 +19,8 @@ enum CoreManagerError:Error {
     case failedDeleteCommonTask(text:String)
 }
 
+
+
 class DataManager {
     static let shared = DataManager()
     
@@ -67,6 +69,8 @@ class DataManager {
         task.descriptionTask = description
         task.priority = priority?.rawValue
         task.time = time
+        task.isFinished = false
+        task.timeFinished = nil
         category.addToTasks(task)
         return task
     }
@@ -77,6 +81,8 @@ class DataManager {
         commonTask.descriptionTask = description
         commonTask.priority = priority?.rawValue
         commonTask.time = time
+        commonTask.isFinished = false
+        commonTask.timeFinished = nil
         project.addToCommonTasks(commonTask)
         return commonTask
     }

@@ -1,18 +1,44 @@
+import UIKit
 import Foundation
+import CoreData
 
 final class PrjInteractor:PresenterToInteractorPrjProtocol {
-    var presenter: InteractorToPresenterPrjProtocol?
     
+    var presenter: InteractorToPresenterPrjProtocol?
+        
+    func setFinishTask<T>(task:T,indexPath:IndexPath? = nil) where T:NSManagedObject {
+        task.setValue(true, forKey: Resources.isFinishedTaskKey)
+        //TODO: - set current time
+        
+        do {
+            try DataManager.shared.save()
+            switch task {
+            case is TaskCoreData:
+                guard let task = task as? TaskCoreData else {return}
+                guard let section = indexPath?.section else {return}
+                presenter?.successfulyFinishedCatagoryTask(category: task.category, section: section)
+            case is CommonTaskCoreData:
+                guard let task = task as? CommonTaskCoreData else {return}
+                presenter?.successfultFinishedCommonTask(project: task.project)
+            default:
+                break
+            }
+        } catch let error {
+            presenter?.onfailedCoreData(errorText: error.localizedDescription)
+        }
+    }
     
     func onRenameCategory(category: CategoryCoreData,sectionsData:[CategorySection],newName:String) {
         category.setValue(newName, forKey: Resources.categoryNameKey)
+        //TODO: - set current time
+        
         do {
             try DataManager.shared.save()
             if let section = sectionsData.firstIndex(where: {$0.objectID == category.objectID}) {
                 presenter?.successfulyRenamedCategory(section: section,newName: newName)
             }
         } catch let error {
-            presenter?.failedRenameCategory(errorText: "\(error)")
+            presenter?.onfailedCoreData(errorText: error.localizedDescription)
         }
     }
     
@@ -22,7 +48,7 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
             try DataManager.shared.save()
             presenter?.successfulyRenameProject()
         } catch let error {
-            presenter?.failedRenameProject(errorText: "\(error)")
+            presenter?.onfailedCoreData(errorText: error.localizedDescription)
         }
     }
     
@@ -34,7 +60,7 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
             try DataManager.shared.save()
             presenter?.successfulyCreateCategory(project: project)
         } catch let error {
-            presenter?.failedCreateCategory(errorText: "\(error)")
+            presenter?.onfailedCoreData(errorText: error.localizedDescription)
         }
     }
     
@@ -43,7 +69,7 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
             try DataManager.shared.deleteTask(task: task)
             presenter?.successfulyDeleteTask(category: category, section: section)
         } catch let error {
-            presenter?.failedDeleteTask(errorText: "\(error)")
+            presenter?.onfailedCoreData(errorText: error.localizedDescription)
         }
     }
     
@@ -52,7 +78,7 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
             try DataManager.shared.deleteCommonTask(commonTask: commonTask)
             presenter?.successfulyDeleteCommonTask()
         } catch let error {
-            presenter?.failedDeleteCommonTask(errorText: "\(error)")
+            presenter?.onfailedCoreData(errorText: error.localizedDescription)
         }
     }
     
@@ -63,7 +89,7 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
             try DataManager.shared.save()
             presenter?.successfulyDeleteProject()
         } catch let error {
-            presenter?.failedDeleteProject(errorText: "\(error)")
+            presenter?.onfailedCoreData(errorText: error.localizedDescription)
         }
     }
     
@@ -73,7 +99,7 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
             try DataManager.shared.save()
             presenter?.successfulyDeleteAllCategories(project:project)
         } catch let error {
-            presenter?.failedDeleteAllCategories(errorText: "\(error)")
+            presenter?.onfailedCoreData(errorText: error.localizedDescription)
         }
     }
     
@@ -82,7 +108,7 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
             try DataManager.shared.deleteCategory(category: category)
             presenter?.successfulyDeleteCategory()
         } catch let error {
-            presenter?.failedDeleteCategory(errorText: "\(error)")
+            presenter?.onfailedCoreData(errorText: error.localizedDescription)
         }
     }
     

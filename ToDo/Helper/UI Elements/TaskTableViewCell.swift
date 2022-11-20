@@ -6,6 +6,7 @@ class TaskTableViewCell: BaseTableViewCell {
     let nameTitle = UILabel()
     let projectTitle = UILabel()
     let descriptionTitle = UILabel()
+    var handleFinishTask: (() -> Void)?
 }
 
 extension TaskTableViewCell {
@@ -56,8 +57,8 @@ extension TaskTableViewCell {
 extension TaskTableViewCell {
     @objc private func userTapFinishTask(_ sender:UIButton) {
         sender.setImage(UIImage(systemName: Resources.Images.circleFill,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-        sender.tintColor = .systemOrange
-        //TODO: - Logic to remove the task
+        sender.tintColor = .orange
+        self.handleFinishTask?()
     }
 
 }

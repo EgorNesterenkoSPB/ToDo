@@ -62,7 +62,7 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
             let countOfTasks = try countOfProjectTasks(project: project)
             cell.countOfTasksLabel.text = "\(countOfTasks)"
         } catch let error {
-            view?.failedGetCoreData(errorText: "\(error)")
+            view?.onFailedCoreData(errorText: "\(error)")
         }
         cell.circleImageView.tintColor = UIColor(hexString: project.hexColor ?? Resources.defaultHexColor)
         return cell
@@ -157,13 +157,13 @@ extension ProjectsPresenter:InteractorToPresenterProjectsProtocol {
         do {
             try self.getData()
         } catch let error {
-            view?.failedGetCoreData(errorText: "\(error)")
+            view?.onFailedCoreData(errorText: "\(error)")
         }
         view?.updateTableView()
     }
     
-    func failedDeleteProject(errorText: String) {
-        view?.onfailedDeleteProject(errorText: errorText)
+    func failedCoreData(errorText: String) {
+        view?.onFailedCoreData(errorText: errorText)
     }
         
     

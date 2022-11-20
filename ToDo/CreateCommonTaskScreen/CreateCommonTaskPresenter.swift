@@ -14,7 +14,7 @@ final class CreateCommonTaskPresenter:ViewToPresenterCreateCommonTaskProtocol {
     }
     
     func textViewDidEndEditing(textView: UITextView) {
-        guard !textView.text.isEmpty else {return}
+        guard textView.text != Resources.Placeholders.textViewPlaceholder, textView.textColor != UIColor.placeholderText else { return}
         self.description = textView.text
     }
     

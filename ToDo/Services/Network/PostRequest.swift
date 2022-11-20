@@ -18,9 +18,7 @@ final class RegisterRequest {
         
         do {
             // convert parameters to Data and assign dictionary to httpBody of request
-            //TODO: - Mock data, for test api
-            let mockData:[String:Any] = ["id":0,"name":"testName","password":"testPassword","description":"testDescription"]
-            request.httpBody = try JSONSerialization.data(withJSONObject: mockData, options: .prettyPrinted)
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
         } catch let error {
             withCompletion(nil,error.localizedDescription)
         }

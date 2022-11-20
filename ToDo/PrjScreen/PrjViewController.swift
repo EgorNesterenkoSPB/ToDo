@@ -89,11 +89,8 @@ extension PrjViewController {
 
 //MARK: - PresenterToView
 extension PrjViewController:PresenterToViewPrjProtocol {
-    func onFailedDeleteCommonTask(errorText: String) {
-        self.present(createErrorAlert(errorText: errorText),animated: true)
-    }
     
-    func updateCommonTasksTable() {
+    func updateDataCommonTasksTable() {
         presenter?.getCommonTasks(project: self.project)
     }
     
@@ -115,9 +112,10 @@ extension PrjViewController:PresenterToViewPrjProtocol {
         self.configure()
     }
     
-    func onUpdateCommonTasksTableView() {
+    func reloadCommonTasksTableView() {
         DispatchQueue.main.async {
             self.commonTasksTableView.reloadData()
+            self.viewWillLayoutSubviews()
         }
     }
     
@@ -125,10 +123,6 @@ extension PrjViewController:PresenterToViewPrjProtocol {
         DispatchQueue.main.async {
             self.categoryTasksTableView.reloadSections(IndexSet(integer: section), with: .none)
         }
-    }
-    
-    func onFailedDeleteTask(errorText: String) {
-        self.present(createErrorAlert(errorText: errorText),animated: true)
     }
     
     func onSuccessefulyDeleteTask() {
@@ -139,33 +133,18 @@ extension PrjViewController:PresenterToViewPrjProtocol {
         self.presenter?.getCategories(project: self.project)
     }
     
-    func onFailedDeleteCategory(errorText: String) {
-        self.present(createErrorAlert(errorText: errorText),animated: true)
-    }
-    
     func hideViewController() {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func onFailedDeleteProject(errorText: String) {
-        self.present(createErrorAlert(errorText: errorText),animated: true)
-    }
-    
-    func onFailedDeleteAllCategories(errorText: String) {
-        self.present(createErrorAlert(errorText: errorText),animated: true)
-    }
-    
-    func onFailedCreateCategory(errorText: String) {
-        self.present(createErrorAlert(errorText: errorText),animated: true)
-    }
-    
-    func failedGetCoreData(errorText: String) {
+    func failedCoreData(errorText: String) {
         self.present(createErrorAlert(errorText: errorText),animated: true)
     }
     
     func updateTableView() {
         DispatchQueue.main.async {
             self.categoryTasksTableView.reloadData()
+            self.viewWillLayoutSubviews()
         }
     }
     
@@ -208,6 +187,17 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch tableView {
+        case commonTasksTableView:
+            presenter?.didSelectRowAtCommonTask(tableView: tableView, indexPath: indexPath)
+        case categoryTasksTableView:
+            presenter?.didSelectRowAtCategoryTask(tableView: tableView, indexPath: indexPath)
+        default:
+            break
+        }
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         switch tableView {
         case categoryTasksTableView:
@@ -246,16 +236,21 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        self.viewWillLayoutSubviews()
-        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
-        cell.layer.transform = rotationTransform
-        cell.alpha = 0
-        UIView.animate(withDuration: 0.75, animations: {
-            cell.layer.transform = CATransform3DIdentity
-            cell.alpha = 1.0
-        })
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        self.viewWillLayoutSubviews()
+//        switch tableView {
+//        case categoryTasksTableView:
+//            let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
+//            cell.layer.transform = rotationTransform
+//            cell.alpha = 0
+//            UIView.animate(withDuration: 0.75, animations: {
+//                cell.layer.transform = CATransform3DIdentity
+//                cell.alpha = 1.0
+//            })
+//        default:
+//            break
+//        }
+//    }
     
 }
 
@@ -270,6 +265,4 @@ extension PrjViewController:CreateCommonTaskViewControllerProtocol {
     func updateCommonTasksTableView() {
         presenter?.getCommonTasks(project: self.project)
     }
-    
-    
 }

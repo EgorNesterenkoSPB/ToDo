@@ -62,11 +62,35 @@ extension SignInViewController {
         self.configureConfirmButton(confirmButton: confirmButton)
         
         loginOrMailTextField.textContentType = .username
+        loginOrMailTextField.delegate = self
+        loginOrMailTextField.returnKeyType = .next
+        passwordTextField.delegate = self
         passwordTextField.textContentType = .password
+        passwordTextField.returnKeyType = .done
         
     }
 }
 
 extension SignInViewController:PresenterToViewSignInProtocol {
     
+}
+
+extension SignInViewController:UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case loginOrMailTextField:
+            passwordTextField.becomeFirstResponder()
+        case passwordTextField:
+            passwordTextField.resignFirstResponder()
+        default:
+            break
+        }
+        
+        return true
+    }
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+    }
 }

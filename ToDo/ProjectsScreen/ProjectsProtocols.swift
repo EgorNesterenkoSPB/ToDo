@@ -23,8 +23,7 @@ protocol ViewToPresenterProjectsProtocol {
 //MARK: - View Output (Presenter -> View)
 protocol PresenterToViewProjectsProtocol {
     func updateTableView()
-    func failedGetCoreData(errorText:String)
-    func onfailedDeleteProject(errorText:String)
+    func onFailedCoreData(errorText:String)
 }
 
 //MARK: -  Interactor Input (Presenter -> Interactor)
@@ -36,7 +35,7 @@ protocol PresenterToInteractorProjectsProtocol {
 //MARK: - Interactor Output (Interactor -> Presenter)
 protocol InteractorToPresenterProjectsProtocol {
     func successfulyDeleteProject()
-    func failedDeleteProject(errorText:String)
+    func failedCoreData(errorText:String)
 }
 
 //MARK: - Router Input (Presenter -> Router)

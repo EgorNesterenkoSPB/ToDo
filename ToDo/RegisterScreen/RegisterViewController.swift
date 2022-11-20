@@ -52,7 +52,7 @@ extension RegisterViewController {
         self.configureTextField(textField: loginTextField, placeholderText: Resources.Titles.loginTitle)
         self.configureTextField(textField: mailTextField, placeholderText: Resources.Placeholders.mailTextField)
         self.configureTextField(textField: passwordTextField, placeholderText: Resources.Placeholders.passwordTextField,isSecury: true)
-        self.configureTextField(textField: confirmPasswordTextField, placeholderText: Resources.Placeholders.passwordTextField,isSecury: true)
+        self.configureTextField(textField: confirmPasswordTextField, placeholderText: Resources.Placeholders.confirmPassword,isSecury: true)
         
         self.loginTextField.delegate = self
         self.mailTextField.delegate = self
@@ -63,9 +63,13 @@ extension RegisterViewController {
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         
         loginTextField.textContentType = .username
+        loginTextField.returnKeyType = .next
         mailTextField.keyboardType = .emailAddress
+        mailTextField.returnKeyType = .next
+        passwordTextField.returnKeyType = .next
         passwordTextField.textContentType = .password
         confirmPasswordTextField.textContentType = .password
+        confirmPasswordTextField.returnKeyType = .done
         
         errorLabel.textColor = .red
         errorLabel.font = .systemFont(ofSize: 12)
@@ -132,7 +136,18 @@ extension RegisterViewController {
 extension RegisterViewController:UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        switch textField {
+        case loginTextField:
+            mailTextField.becomeFirstResponder()
+        case mailTextField:
+            passwordTextField.becomeFirstResponder()
+        case passwordTextField:
+            confirmPasswordTextField.becomeFirstResponder()
+        case confirmPasswordTextField:
+            confirmPasswordTextField.resignFirstResponder()
+        default:
+            break
+        }
         return true
     }
     

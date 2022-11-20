@@ -1,13 +1,14 @@
 import UIKit
 
 final class PrjPresenter:ViewToPresenterPrjProtocol {
-    
+
     var view: PresenterToViewPrjProtocol?
     var router: PresenterToRouterPrjProtocol?
     var interactor: PresenterToInteractorPrjProtocol?
     private var sectionsData = [CategorySection]()
     private var categories = [CategoryCoreData]()
     var commonTasks = [CommonTaskCoreData]()
+    var isHiddedFinishedTasks:Bool = true
     
     func getCategories(project: ProjectCoreData) {
         do {
@@ -15,26 +16,60 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             let categories = try DataManager.shared.categories(project: project)
             self.categories = categories
             for category in categories {
-                var tasks = [TaskCoreData]()
                 let savedTasks = try DataManager.shared.tasks(category: category)
-                tasks = savedTasks
-                let section = CategorySection(sectionTitle: category.name ?? "error get name", objectID: category.objectID, data: tasks, expandable: false)
+                let filteredArray = self.filteredTasks(inputTasks: savedTasks)
+        
+                let section = CategorySection(sectionTitle: category.name ?? "error get name", objectID: category.objectID, data: filteredArray, expandable: false)
                 newSectionsData.append(section)
             }
             self.sectionsData = newSectionsData
             view?.updateTableView()
         } catch let error {
-            view?.failedGetCoreData(errorText: "\(error)")
+            view?.failedCoreData(errorText: "\(error)")
         }
+    }
+    
+    private func filteredTasks(inputTasks:[TaskCoreData]) -> [TaskCoreData] {
+        var outputTasks = [TaskCoreData]()
+        outputTasks = inputTasks
+        
+        if isHiddedFinishedTasks {
+            outputTasks = outputTasks.filter({$0.isFinished == false})
+        } else {
+            for task in outputTasks{
+                if task.isFinished {
+                    outputTasks = outputTasks.filter({$0 != task})
+                    outputTasks.append(task)
+                }
+            }
+        }
+        return outputTasks
+    }
+    
+    private func filteredCommonTasks(inputTasks:[CommonTaskCoreData]) -> [CommonTaskCoreData] {
+        var outputCommonTasks = [CommonTaskCoreData]()
+        outputCommonTasks = inputTasks
+        if isHiddedFinishedTasks {
+            outputCommonTasks = outputCommonTasks.filter({$0.isFinished == false})
+        } else {
+            for task in outputCommonTasks{
+                if task.isFinished {
+                    outputCommonTasks = outputCommonTasks.filter({$0 != task})
+                    outputCommonTasks.append(task)
+                }
+            }
+        }
+        return outputCommonTasks
     }
     
     func getCommonTasks(project: ProjectCoreData) {
         do {
             let _commonTasks = try DataManager.shared.commonTasks(project: project)
-            self.commonTasks = _commonTasks
-            view?.onUpdateCommonTasksTableView()
+            let filteredCommonTasks = self.filteredCommonTasks(inputTasks: _commonTasks)
+            self.commonTasks = filteredCommonTasks
+            view?.reloadCommonTasksTableView()
         } catch let error {
-            view?.failedGetCoreData(errorText: "\(error)")
+            view?.failedCoreData(errorText: "\(error)")
         }
     }
     
@@ -42,27 +77,45 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         return commonTasks.count
     }
     
+    private func configureCell(cell:TaskTableViewCell) {
+        cell.circleButton.setImage(UIImage(systemName: Resources.Images.circle,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
+        cell.circleButton.tintColor = UIColor(named: Resources.Titles.labelAndTintColor)
+        cell.nameTitle.attributedText = nil
+        cell.nameTitle.textColor = UIColor(named: Resources.Titles.labelAndTintColor)
+        cell.handleFinishTask = nil
+    }
+    
     func cellForRowAtCommonTasksTable(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.commonTaskCellIdentefier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
         let commonTask = commonTasks[indexPath.row]
+        self.configureCell(cell: cell)
         cell.nameTitle.text = commonTask.name
         cell.descriptionTitle.text = commonTask.descriptionTask
+        cell.handleFinishTask = { [weak self] in
+            self?.interactor?.setFinishTask(task: commonTask, indexPath: nil)
+        }
+        
+        if !isHiddedFinishedTasks && commonTask.isFinished {
+            throughLineCell(cell: cell, indexPath: indexPath)
+        }
+
         return cell
     }
     
     
     func updateSection(category: CategoryCoreData,section:Int) {
         do {
-            let tasks = try DataManager.shared.tasks(category: category)
+            let savedTasks = try DataManager.shared.tasks(category: category)
+            let filteredTasks = self.filteredTasks(inputTasks: savedTasks)
+
             if let row = self.sectionsData.firstIndex(where: {$0.objectID == category.objectID}) {
-                sectionsData[row].data = tasks
+                sectionsData[row].data = filteredTasks
                 sectionsData[row].expandable = true
                 view?.onUpdateSection(section: section)
             }
         } catch let error {
-            view?.failedGetCoreData(errorText: "\(error)")
+            view?.failedCoreData(errorText: "\(error)")
         }
-        
     }
     
     func showCreateCommonTaskScreen(project: ProjectCoreData,prjViewController:PrjViewController) {
@@ -85,6 +138,12 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
                 self?.interactor?.createCategory(name: text, project: project)
             }) else {return}
             prjViewController.present(createCategoryAlert,animated: true)
+        }))
+        
+        alertController.addAction(UIAlertAction(title: isHiddedFinishedTasks ? Resources.Titles.showFinishedTasks : Resources.Titles.hideFinishedTasks, style: .default, handler: { [weak self] _ in
+            self?.isHiddedFinishedTasks.toggle()
+            self?.getCategories(project: project)
+            self?.getCommonTasks(project: project)
         }))
         
         alertController.addAction(UIAlertAction(title: Resources.Titles.deleteProject, style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
@@ -133,9 +192,28 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.taskCellIdentefier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
         let task = sectionsData[indexPath.section].data[indexPath.row]
+        self.configureCell(cell: cell)
         cell.nameTitle.text = task.name
         cell.descriptionTitle.text = task.descriptionTask
+        cell.handleFinishTask = { [weak self] in
+            self?.interactor?.setFinishTask(task: task, indexPath: indexPath)
+        }
+        if !isHiddedFinishedTasks && task.isFinished {
+            throughLineCell(cell: cell, indexPath: indexPath)
+        }
+
         return cell
+    }
+
+    
+    func didSelectRowAtCommonTask(tableView: UITableView, indexPath: IndexPath) {
+
+        //TODO: - Show redaction view
+    }
+    
+    func didSelectRowAtCategoryTask(tableView: UITableView, indexPath: IndexPath) {
+
+        //TODO: - Show redaction view
     }
     
     private func createDeleteTaskContextualAction(indexPath:IndexPath,with completion: @escaping() -> Void) -> UIContextualAction {
@@ -193,7 +271,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         headerView.categoryDelegate = self
         return headerView
     }
-    
+
 }
 
 extension PrjPresenter:BaseTableSectionHeaderViewProtocol {
@@ -221,33 +299,37 @@ extension PrjPresenter:CategoryTableSectionHeaderViewProtocol {
 
 
 extension PrjPresenter:InteractorToPresenterPrjProtocol {
-    func failedDeleteCommonTask(errorText: String) {
-        view?.onFailedDeleteCommonTask(errorText: errorText)
+    func onfailedCoreData(errorText: String) {
+        view?.failedCoreData(errorText: errorText)
     }
+    
+    func successfulyFinishedCatagoryTask(category:CategoryCoreData?,section:Int) {
+        guard let category = category else {
+            return
+        }
+        self.updateSection(category: category, section: section)
+    }
+    
+    func successfultFinishedCommonTask(project:ProjectCoreData?) {
+        guard let project = project else {
+            return
+        }
+        self.getCommonTasks(project: project)
+    }
+    
     
     func successfulyDeleteCommonTask() {
-        view?.updateCommonTasksTable()
+        view?.updateDataCommonTasksTable()
     }
-    
-    func failedRenameCategory(errorText: String) {
-        view?.onFailedRenameCategory(errorText: errorText)
-    }
+
     
     func successfulyRenamedCategory(section:Int,newName:String) {
         self.sectionsData[section].sectionTitle = newName
         view?.onUpdateSection(section: section)
     }
     
-    func failedRenameProject(errorText: String) {
-        view?.onFailedRenameProject(errorText: errorText)
-    }
-    
     func successfulyRenameProject() {
         view?.onSuccessfulyRenameProject()
-    }
-    
-    func failedDeleteTask(errorText: String) {
-        view?.onFailedDeleteTask(errorText: errorText)
     }
     
     func successfulyDeleteTask(category:CategoryCoreData,section:Int) {
@@ -258,28 +340,12 @@ extension PrjPresenter:InteractorToPresenterPrjProtocol {
         view?.onSuccessfulyDeleteCategory()
     }
     
-    func failedDeleteCategory(errorText: String) {
-        view?.onFailedDeleteCategory(errorText: errorText)
-    }
-    
-    func failedDeleteProject(errorText: String) {
-        view?.onFailedDeleteProject(errorText: errorText)
-    }
-    
-    func failedDeleteAllCategories(errorText: String) {
-        view?.onFailedDeleteAllCategories(errorText: errorText)
-    }
-    
     func successfulyDeleteProject() {
         view?.hideViewController()
     }
     
     func successfulyDeleteAllCategories(project:ProjectCoreData) {
         self.getCategories(project: project)
-    }
-    
-    func failedCreateCategory(errorText: String) {
-        view?.onFailedCreateCategory(errorText: errorText)
     }
     
     func successfulyCreateCategory(project:ProjectCoreData) {

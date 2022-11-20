@@ -80,15 +80,8 @@ extension ProjectsViewController {
 
 //MARK: - PresenterToViewProtocol
 extension ProjectsViewController:PresenterToViewProjectsProtocol {
-    func onfailedDeleteProject(errorText: String) {
-        presenter?.showErrorAlert(errorText: errorText, projectsViewController: self)
-    }
     
-    func failedGetCoreData(errorText: String) {
-        presenter?.showErrorAlert(errorText: errorText, projectsViewController: self)
-    }
-    
-    func onFailureCreateProject(errorText: String) {
+    func onFailedCoreData(errorText: String) {
         presenter?.showErrorAlert(errorText: errorText, projectsViewController: self)
     }
     

@@ -1,4 +1,5 @@
 import UIKit
+import CoreData
 
 //MARK: - View Input (View -> Presenter)
 protocol ViewToPresenterPrjProtocol {
@@ -20,28 +21,22 @@ protocol ViewToPresenterPrjProtocol {
     func numberOfRowsInCommonTasksTable() -> Int
     func cellForRowAtCommonTasksTable(tableView:UITableView,indexPath:IndexPath) -> UITableViewCell
     func trailingSwipeActionsConfigurationForRowAtCommonTasksTable(tableView:UITableView,indexPath:IndexPath) -> UISwipeActionsConfiguration?
+    func didSelectRowAtCommonTask(tableView:UITableView, indexPath:IndexPath)
+    func didSelectRowAtCategoryTask(tableView:UITableView, indexPath:IndexPath)
 }
 
 //MARK: - View Output (Presenter -> View)
 protocol PresenterToViewPrjProtocol {
     func updateTableView()
-    func onUpdateCommonTasksTableView()
-    func failedGetCoreData(errorText:String)
-    func onFailedCreateCategory(errorText:String)
-    func onFailedDeleteProject(errorText:String)
-    func onFailedDeleteAllCategories(errorText:String)
+    func reloadCommonTasksTableView()
+    func failedCoreData(errorText:String)
     func hideViewController()
     func onSuccessfulyDeleteCategory()
-    func onFailedDeleteCategory(errorText:String)
-    func onFailedDeleteTask(errorText:String)
     func onSuccessefulyDeleteTask()
     func onUpdateSection(section:Int)
-    func onFailedRenameProject(errorText:String)
     func onSuccessfulyRenameProject()
-    func onFailedRenameCategory(errorText:String)
     func showRenameCategoryAlert(alert:UIAlertController)
-    func onFailedDeleteCommonTask(errorText:String)
-    func updateCommonTasksTable()
+    func updateDataCommonTasksTable()
 }
 
 //MARK: -  Interactor Input (Presenter -> Interactor)
@@ -55,26 +50,22 @@ protocol PresenterToInteractorPrjProtocol {
     func renameProject(project:ProjectCoreData,newName:String)
     func onRenameCategory(category:CategoryCoreData,sectionsData:[CategorySection],newName:String)
     func deleteCommonTask(commonTask:CommonTaskCoreData)
+    func setFinishTask<T>(task:T,indexPath:IndexPath?) where T:NSManagedObject
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
 protocol InteractorToPresenterPrjProtocol {
-    func failedCreateCategory(errorText:String)
+    func onfailedCoreData(errorText:String)
     func successfulyCreateCategory(project:ProjectCoreData)
-    func failedDeleteProject(errorText:String)
-    func failedDeleteAllCategories(errorText:String)
     func successfulyDeleteProject()
     func successfulyDeleteAllCategories(project:ProjectCoreData)
     func successfulyDeleteCategory()
-    func failedDeleteCategory(errorText:String)
-    func failedDeleteTask(errorText:String)
     func successfulyDeleteTask(category:CategoryCoreData,section:Int)
-    func failedRenameProject(errorText:String)
     func successfulyRenameProject()
-    func failedRenameCategory(errorText:String)
     func successfulyRenamedCategory(section:Int,newName:String)
-    func failedDeleteCommonTask(errorText:String)
     func successfulyDeleteCommonTask()
+    func successfulyFinishedCatagoryTask(category:CategoryCoreData?,section:Int)
+    func successfultFinishedCommonTask(project:ProjectCoreData?)
 }
 
 //MARK: - Router Input (Presenter -> Router)
