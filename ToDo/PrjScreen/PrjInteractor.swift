@@ -3,8 +3,17 @@ import Foundation
 import CoreData
 
 final class PrjInteractor:PresenterToInteractorPrjProtocol {
-    
+
     var presenter: InteractorToPresenterPrjProtocol?
+    
+    func changeProjectColor(hexColor: String, project: ProjectCoreData) {
+        project.setValue(hexColor, forKey: Resources.hexColorProjectKey)
+        do {
+            try DataManager.shared.save()
+        } catch let error {
+            presenter?.onfailedCoreData(errorText: "\(error)")
+        }
+    }
         
     func setFinishTask<T>(task:T,indexPath:IndexPath? = nil) where T:NSManagedObject {
         task.setValue(true, forKey: Resources.isFinishedTaskKey)

@@ -51,6 +51,7 @@ protocol PresenterToInteractorPrjProtocol {
     func onRenameCategory(category:CategoryCoreData,sectionsData:[CategorySection],newName:String)
     func deleteCommonTask(commonTask:CommonTaskCoreData)
     func setFinishTask<T>(task:T,indexPath:IndexPath?) where T:NSManagedObject
+    func changeProjectColor(hexColor:String,project:ProjectCoreData)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)

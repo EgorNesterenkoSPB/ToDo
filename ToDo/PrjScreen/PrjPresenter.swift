@@ -133,6 +133,12 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             prjViewController.present(renameProjectAlert,animated: true)
         }))
         
+        alertController.addAction(UIAlertAction(title: Resources.Titles.changeProjectColor, style: .default, handler: { _ in
+            let colorPopOverViewController = ColorsViewController(project: project)
+            colorPopOverViewController.delegate = self
+            prjViewController.present(colorPopOverViewController,animated: true)
+        }))
+        
         alertController.addAction(UIAlertAction(title: Resources.Titles.createCategory, style: .default, handler: { [weak self] _ in
             guard let createCategoryAlert = self?.showActionAlert(title: Resources.Titles.createCategory, message: Resources.Titles.writeName, with: { text in
                 self?.interactor?.createCategory(name: text, project: project)
@@ -293,8 +299,12 @@ extension PrjPresenter:CategoryTableSectionHeaderViewProtocol {
     func deleteSection(category: CategoryCoreData) {
         interactor?.deleteCategory(category: category)
     }
-    
-    
+}
+
+extension PrjPresenter:ColorsViewControllerProtocol {
+    func getColor(hexColor: String,project:ProjectCoreData) {
+        self.interactor?.changeProjectColor(hexColor: hexColor, project: project)
+    }
 }
 
 
