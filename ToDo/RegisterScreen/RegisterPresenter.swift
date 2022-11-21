@@ -1,10 +1,10 @@
-import Foundation
+import UIKit
 
 final class RegisterPresenter:ViewToPresenterRegisterProtocol {
     var view: PresenterToViewRegisterProtocol?
     var router: PresenterToRouterRegisterProtocol?
     var interactor: PresenterToInteractorRegisterProtocol?
-    var user = RegisterUser(login: "", mail: "", password: "")
+    var user = RegisterBody(username: "", email: "", password: "")
     let registerViewController:RegisterViewController
     
     init(registerViewController:RegisterViewController) {
@@ -21,7 +21,7 @@ final class RegisterPresenter:ViewToPresenterRegisterProtocol {
             return
         }
         view?.validField(field: .login)
-        self.user.login = login
+        self.user.username = login
     }
     
     func setMail(mail: String?) {
@@ -36,7 +36,7 @@ final class RegisterPresenter:ViewToPresenterRegisterProtocol {
             return
         }
         view?.validField(field: .mail)
-        self.user.mail = mail
+        self.user.email = mail
     }
     
     private func isValidRegEx(regexStr:String,object:String) -> Bool{

@@ -24,7 +24,7 @@ protocol PresenterToViewRegisterProtocol {
 //MARK: -  Interactor Input (Presenter -> Interactor)
 protocol PresenterToInteractorRegisterProtocol {
     var presenter:InteractorToPresenterRegisterProtocol? {get set}
-    func registeringUser(user:RegisterUser)
+    func registeringUser(user:RegisterBody)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)

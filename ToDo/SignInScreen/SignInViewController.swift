@@ -60,6 +60,7 @@ extension SignInViewController {
         self.configureLabel(label: passwordLabel, text: Resources.Titles.passwordLabel)
         
         self.configureConfirmButton(confirmButton: confirmButton)
+        confirmButton.addTarget(self, action: #selector(confirmButtonTapped(_:)), for: .touchUpInside)
         
         loginOrMailTextField.textContentType = .username
         loginOrMailTextField.delegate = self
@@ -71,10 +72,32 @@ extension SignInViewController {
     }
 }
 
+extension SignInViewController {
+    @objc private func  confirmButtonTapped(_ sender:UIButton) {
+        presenter?.userTapConfirmButton(navigationController: navigationController)
+    }
+}
+
+//MARK: - PresenterToViewSign
 extension SignInViewController:PresenterToViewSignInProtocol {
+    func unableConfirmButton() {
+        confirmButton.isEnabled = true
+        confirmButton.backgroundColor = .systemOrange
+    }
+    
+    func disableConfirmButton() {
+        confirmButton.isEnabled = false
+        confirmButton.backgroundColor = .gray
+    }
+    
+    func onFailedLogin(errorText: String) {
+        self.present(createErrorAlert(errorText: errorText),animated: true)
+    }
+    
     
 }
 
+//MARK: - UITextFieldDelegate
 extension SignInViewController:UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
@@ -91,6 +114,14 @@ extension SignInViewController:UITextFieldDelegate {
     
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
+        switch textField {
+        case loginOrMailTextField:
+            presenter?.setLogin(login: textField.text)
+        case passwordTextField:
+            presenter?.setPassword(password: textField.text)
+        default:
+            break
+        }
+        presenter?.checkFields()
     }
 }

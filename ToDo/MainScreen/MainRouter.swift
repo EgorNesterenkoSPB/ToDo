@@ -7,8 +7,9 @@ final class MainRouter:PresenterToRouterMainProtocol {
     }
     
 
-    static func createModule() -> MainViewController {
+    static func createModule(token:Token?) -> MainViewController {
         let mainViewController = MainViewController()
+        mainViewController.token = token
         
         let mainPresenter: (ViewToPresenterMainProtocol & InteractorToPresenterMainProtocol) = MainPresenter()
         

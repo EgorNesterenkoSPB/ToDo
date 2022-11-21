@@ -33,7 +33,8 @@ extension PincodeViewController:OTPViewProtocol {
     }
     
     func showMainViewController() {
-        let mainViewController = MainRouter.createModule()
+        //TODO: - Get saved token from userdef
+        let mainViewController = MainRouter.createModule(token: nil)
         navigationController?.setViewControllers([mainViewController], animated: true)
     }
 }

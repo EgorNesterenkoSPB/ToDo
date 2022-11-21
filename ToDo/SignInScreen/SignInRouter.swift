@@ -1,6 +1,11 @@
-import Foundation
+import UIKit
 
 final class SignInRouter:PresenterToRouterSignInProtocol {
+    func openMainScreen(navigationController: UINavigationController?,token: Token) {
+        let mainViewController = MainRouter.createModule(token: token)
+        navigationController?.setViewControllers([mainViewController], animated: true)
+    }
+    
     static func createModule() -> SignInViewController {
         let signInViewController = SignInViewController()
         

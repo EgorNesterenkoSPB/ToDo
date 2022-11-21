@@ -9,6 +9,7 @@ final class MainViewController:BaseViewController {
     let topTitle = UILabel()
     let projectsButton = UIButton()
     let settingsButton = UIButton()
+    var token:Token?
     
     override func viewDidLayoutSubviews() {
         circleButton.clipsToBounds = true

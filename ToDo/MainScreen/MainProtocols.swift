@@ -36,7 +36,7 @@ protocol InteractorToPresenterMainProtocol {
 
 //MARK: - Router Input (Presenter -> Router)
 protocol PresenterToRouterMainProtocol {
-    static func createModule() -> MainViewController
+    static func createModule(token:Token?) -> MainViewController
     func showProjectsScreen(navigationController:UINavigationController?)
     func showCreateTaskViewController(mainViewController:MainViewController)
     func showSettingsScreen(navigationController:UINavigationController?)

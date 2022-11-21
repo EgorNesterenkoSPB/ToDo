@@ -5,7 +5,20 @@ class CreateTaskBaseController:BottomSheetController {
     lazy var descriptionTextView = UITextView()
     var nameTextField = UITextField()
     var createTaskButton = UIButton()
-    let calendarButton = UIButton()
+    let dateTextField = UITextField()
+    let timeTextField = UITextField()
+    let dateFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        formatter.locale = .current
+        return formatter
+    }()
+    let timeFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
+    
     let projectButton = UIButton()
     
     private enum UIConstants {
@@ -22,6 +35,7 @@ class CreateTaskBaseController:BottomSheetController {
         static let descriptionTextFieldRightAnchor = -5.0
         static let descriptionHeightAnchor = 100.0
         static let createTaskButtonTopAnchor = 20.0
+        static let projectButtonWidth = 100.0
     }
 
 }
@@ -33,7 +47,8 @@ extension CreateTaskBaseController {
         containerView.addView(descriptionTextView)
         containerView.addView(nameTextField)
         containerView.addView(createTaskButton)
-        containerView.addView(calendarButton)
+        containerView.addView(dateTextField)
+        containerView.addView(timeTextField)
         containerView.addView(projectButton)
     }
     
@@ -56,14 +71,6 @@ extension CreateTaskBaseController {
         createTaskButton.tintColor = .gray
         createTaskButton.isEnabled = false
         
-        calendarButton.setTitle("Date", for: .normal)
-        calendarButton.setTitleColor(UIColor(named: Resources.Titles.labelAndTintColor), for: .normal)
-        calendarButton.layer.cornerRadius = 10
-        calendarButton.layer.borderColor = UIColor.gray.cgColor
-        calendarButton.layer.borderWidth = 1
-        calendarButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-        calendarButton.addTarget(self, action: #selector(calendarButtonTapped(_:)), for: .touchUpInside)
-        
         projectButton.setTitle("Project", for: .normal)
         projectButton.setTitleColor(UIColor(named: Resources.Titles.labelAndTintColor), for: .normal)
         projectButton.layer.cornerRadius = 10
@@ -72,7 +79,26 @@ extension CreateTaskBaseController {
         projectButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         projectButton.addTarget(self, action: #selector(projectButtonTapped(_:)), for: .touchUpInside)
         
+//        let date = Date()
+        dateTextField.text = "Set date"
+//        dateTextField.text = dateFormatter.string(from: date)
+        dateTextField.textColor = .link
+        dateTextField.tintColor = .clear //to remove cursor when tapped
         
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        dateTextField.inputView = datePicker
+        
+        timeTextField.text = "Set time"
+//        timeTextField.text = timeFormatter.string(from: date)
+        timeTextField.textColor = .link
+        timeTextField.tintColor = .clear
+        
+        let timePicker = UIDatePicker()
+        timePicker.datePickerMode = .time
+        timePicker.addTarget(self, action: #selector(timeChanged(_:)), for: .valueChanged)
+        timeTextField.inputView = timePicker
     }
     
     override func layoutViews() {
@@ -90,23 +116,29 @@ extension CreateTaskBaseController {
             descriptionTextView.heightAnchor.constraint(equalToConstant: UIConstants.descriptionHeightAnchor),
             createTaskButton.rightAnchor.constraint(equalTo: descriptionTextView.rightAnchor),
             createTaskButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor,constant: UIConstants.createTaskButtonTopAnchor),
-            calendarButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 10),
-            calendarButton.leftAnchor.constraint(equalTo: descriptionTextView.leftAnchor),
-            projectButton.centerYAnchor.constraint(equalTo: calendarButton.centerYAnchor),
-            projectButton.leftAnchor.constraint(equalTo: calendarButton.rightAnchor, constant: 10),
-            projectButton.rightAnchor.constraint(lessThanOrEqualTo: createTaskButton.leftAnchor, constant: -10)
+            dateTextField.centerYAnchor.constraint(equalTo: projectButton.centerYAnchor),
+            dateTextField.leftAnchor.constraint(equalTo: projectButton.rightAnchor,constant: 20),
+            projectButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor,constant: 10),
+            projectButton.leftAnchor.constraint(equalTo: descriptionTextView.leftAnchor),
+            projectButton.widthAnchor.constraint(equalToConstant: UIConstants.projectButtonWidth),
+            timeTextField.centerYAnchor.constraint(equalTo: projectButton.centerYAnchor),
+            timeTextField.leftAnchor.constraint(equalTo: dateTextField.rightAnchor,constant: 20)
         ])
     }
 }
 
 extension CreateTaskBaseController {
-    @objc private func calendarButtonTapped(_ sender:UIButton) {
-        let calendarViewController = CalendarRouter.createModule()
-        self.present(calendarViewController,animated: true)
-    }
     
     @objc private func projectButtonTapped(_ sender:UIButton) {
-        
+
+    }
+    
+    @objc private func dateChanged(_ sender: UIDatePicker) {
+        self.dateTextField.text = dateFormatter.string(from: sender.date)
+    }
+    
+    @objc private func timeChanged(_ sender: UIDatePicker) {
+        self.timeTextField.text = timeFormatter.string(from: sender.date)
     }
 }
 

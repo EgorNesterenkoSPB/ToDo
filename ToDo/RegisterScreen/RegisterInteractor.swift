@@ -4,23 +4,21 @@ final class RegisterIneractor:PresenterToInteractorRegisterProtocol {
     
     var presenter: InteractorToPresenterRegisterProtocol?
     
-    func registeringUser(user: RegisterUser) {
-        let url = URL(string: Resources.Links.PostRequestURL)!
-        let registerRequest = RegisterRequest()
-        registerRequest.postRequest(parameters: ["username":user.login,"email":user.mail,"password":user.password], url: url) {statusCode,errorText in
-            print(registerRequest)
-            if let errorText = errorText {
-                DispatchQueue.main.async {
-                    self.presenter?.failureRegistered(errorText: errorText)
+    func registeringUser(user: RegisterBody) {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            Requester.shared.register(authBody: user, onResult: {[weak self] result in
+                switch result {
+                case .success(_):
+                    self?.presenter?.successfulyRegistered()
+                case .serverError(let err):
+                    self?.presenter?.failureRegistered(errorText: Errors.messageFor(err: err.message))
+                case .authError(let err):
+                    self?.presenter?.failureRegistered(errorText: Errors.messageFor(err: err.message))
+                case .networkError(let err):
+                    self?.presenter?.failureRegistered(errorText: Errors.messageFor(err: err))
                 }
-                return
-            }
-            else if statusCode != nil {
-                DispatchQueue.main.async {
-                    self.presenter?.successfulyRegistered()
-                }
-                return
-            }
+            })
         }
     }
 }

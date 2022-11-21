@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 window?.rootViewController = NavController(rootViewController: PincodeViewController())
             }
             else {
-                window?.rootViewController = NavController(rootViewController: MainRouter.createModule())
+                window?.rootViewController = NavController(rootViewController: MainRouter.createModule(token: nil))
             }
         case false:
             window?.rootViewController = NavController(rootViewController: LoginRouter.createModule())

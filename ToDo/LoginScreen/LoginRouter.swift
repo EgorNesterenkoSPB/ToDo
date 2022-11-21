@@ -2,7 +2,7 @@ import UIKit
 
 final class LoginRouter:PresenterToRouterLoginProtocol {
     func openMainScreen(navigationController: UINavigationController?) {
-        let mainViewController = MainRouter.createModule()
+        let mainViewController = MainRouter.createModule(token: nil)
         navigationController?.setViewControllers([mainViewController], animated: true)
     }
     

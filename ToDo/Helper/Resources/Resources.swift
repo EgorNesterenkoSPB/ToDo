@@ -23,6 +23,31 @@ enum Resources {
     
     static let settingsContent:[Section] = [Section(title: "", options: [CommonCellOption(title: Resources.Titles.account, icon: UIImage(systemName: Resources.Images.profileImage), iconBackgroundColor: .gray, handler: {}),CommonCellOption(title: Resources.Titles.website, icon: UIImage(systemName: Resources.Images.globe), iconBackgroundColor: .systemIndigo, handler: {}),CommonCellOption(title: Resources.Titles.support, icon: UIImage(systemName: Resources.Images.question), iconBackgroundColor: .magenta, handler: {})])]
     
+    enum Endpoint {
+        static let baseURL: String = "http://127.0.0.1:8003/main/"
+        case register
+        case login
+        case refreshTokens
+        case getInfo
+
+        func path() -> String {
+            switch self {
+            case .register:
+                return "user"
+            case .login:
+                return "token"
+            case .refreshTokens:
+                return "refresh_tokens"
+            case .getInfo:
+                return "user"
+        }
+    }
+
+        var absoluteURL: URL {
+    URL(string: Endpoint.baseURL + self.path())!
+        }
+    }
+    
     enum Links {
         static let PostRequestURL = "http://127.0.0.1:8003/main/user"
     }
