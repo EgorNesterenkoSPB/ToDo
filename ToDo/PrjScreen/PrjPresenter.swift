@@ -92,7 +92,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         cell.nameTitle.text = commonTask.name
         cell.descriptionTitle.text = commonTask.descriptionTask
         cell.handleFinishTask = { [weak self] in
-            self?.interactor?.setFinishTask(task: commonTask, indexPath: nil)
+            self?.interactor?.setFinishTask(task:commonTask, indexPath: nil, unfinished: commonTask.isFinished ? true : false)
         }
         
         if !isHiddedFinishedTasks && commonTask.isFinished {
@@ -202,7 +202,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         cell.nameTitle.text = task.name
         cell.descriptionTitle.text = task.descriptionTask
         cell.handleFinishTask = { [weak self] in
-            self?.interactor?.setFinishTask(task: task, indexPath: indexPath)
+            self?.interactor?.setFinishTask(task: task, indexPath: indexPath, unfinished: task.isFinished ? true : false)
         }
         if !isHiddedFinishedTasks && task.isFinished {
             throughLineCell(cell: cell, indexPath: indexPath)
@@ -320,7 +320,7 @@ extension PrjPresenter:InteractorToPresenterPrjProtocol {
         self.updateSection(category: category, section: section)
     }
     
-    func successfultFinishedCommonTask(project:ProjectCoreData?) {
+    func successfulyFinishedCommonTask(project:ProjectCoreData?) {
         guard let project = project else {
             return
         }

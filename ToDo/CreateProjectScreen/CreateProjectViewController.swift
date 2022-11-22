@@ -189,7 +189,7 @@ extension CreateProjectViewController:ColorHeaderViewProtocol {
 
 extension CreateProjectViewController:PresenterToViewCreateProjectProtocol {
     func onFailureCreateProject(errorText: String) {
-        present(createErrorAlert(errorText: errorText),animated: true)
+        present(createInfoAlert(messageText: errorText, titleText: Resources.Titles.errorTitle),animated: true)
     }
     
     func onSuccessulyCreateProject() {

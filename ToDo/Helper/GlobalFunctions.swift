@@ -1,8 +1,8 @@
 import UIKit
 
-func createErrorAlert(errorText:String) -> UIAlertController {
-    let alert = UIAlertController(title: Resources.Titles.errorTitle, message: errorText, preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: Resources.Titles.errorActionTitle, style: .default, handler: nil))
+func createInfoAlert(messageText:String,titleText:String) -> UIAlertController {
+    let alert = UIAlertController(title: titleText, message: messageText, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: Resources.Titles.okActionTitle, style: .default, handler: nil))
     return alert
 }
 
@@ -18,6 +18,6 @@ func throughLineCell(cell:TaskTableViewCell,indexPath:IndexPath) {
     
     cell.nameTitle.attributedText = attributeString
     cell.nameTitle.textColor = .gray
-    cell.circleButton.setImage(UIImage(systemName: Resources.Images.circleFill,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
+    cell.circleButton.setImage(UIImage(systemName: Resources.Images.checkmarkCircleFill,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
     cell.circleButton.tintColor = .systemOrange
 }

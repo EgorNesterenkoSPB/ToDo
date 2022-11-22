@@ -3,7 +3,7 @@ import UIKit
 final class ProjectsRouter:PresenterToRouterProjectsProtocol {
     
     func onShowErrorAlert(errorText: String, projectsViewController: ProjectsViewController) {
-        let alertController = createErrorAlert(errorText: errorText)
+        let alertController = createInfoAlert(messageText: errorText, titleText: Resources.Titles.errorTitle)
         projectsViewController.present(alertController,animated: true)
     }
     

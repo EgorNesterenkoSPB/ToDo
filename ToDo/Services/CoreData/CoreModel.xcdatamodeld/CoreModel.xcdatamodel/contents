@@ -9,7 +9,7 @@
         <attribute name="descriptionTask" optional="YES" attributeType="String"/>
         <attribute name="isFinished" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="priority" optional="YES" attributeType="String"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="timeFinished" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectCoreData" inverseName="commonTasks" inverseEntity="ProjectCoreData"/>
@@ -25,7 +25,7 @@
         <attribute name="descriptionTask" optional="YES" attributeType="String"/>
         <attribute name="isFinished" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
-        <attribute name="priority" optional="YES" attributeType="String"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="timeFinished" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryCoreData" inverseName="tasks" inverseEntity="CategoryCoreData"/>

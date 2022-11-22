@@ -50,7 +50,7 @@ protocol PresenterToInteractorPrjProtocol {
     func renameProject(project:ProjectCoreData,newName:String)
     func onRenameCategory(category:CategoryCoreData,sectionsData:[CategorySection],newName:String)
     func deleteCommonTask(commonTask:CommonTaskCoreData)
-    func setFinishTask<T>(task:T,indexPath:IndexPath?) where T:NSManagedObject
+    func setFinishTask<T>(task:T,indexPath:IndexPath?,unfinished:Bool) where T:NSManagedObject
     func changeProjectColor(hexColor:String,project:ProjectCoreData)
 }
 
@@ -66,7 +66,7 @@ protocol InteractorToPresenterPrjProtocol {
     func successfulyRenamedCategory(section:Int,newName:String)
     func successfulyDeleteCommonTask()
     func successfulyFinishedCatagoryTask(category:CategoryCoreData?,section:Int)
-    func successfultFinishedCommonTask(project:ProjectCoreData?)
+    func successfulyFinishedCommonTask(project:ProjectCoreData?)
 }
 
 //MARK: - Router Input (Presenter -> Router)

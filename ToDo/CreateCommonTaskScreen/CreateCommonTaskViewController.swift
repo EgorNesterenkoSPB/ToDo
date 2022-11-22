@@ -49,7 +49,7 @@ extension CreateCommonTaskViewController {
 
 extension CreateCommonTaskViewController:PresenterToViewCreateCommonTaskProtocol {
     func onFailedCreateTask(errorText: String) {
-        self.present(createErrorAlert(errorText: errorText),animated: true)
+        self.present(createInfoAlert(messageText: errorText, titleText: Resources.Titles.errorTitle),animated: true)
     }
     
     func onSuccessfulyCreateTask() {

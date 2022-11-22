@@ -6,7 +6,7 @@ class CreateTaskBaseController:BottomSheetController {
     var nameTextField = UITextField()
     var createTaskButton = UIButton()
     let dateTextField = UITextField()
-    let timeTextField = UITextField()
+    var timeTextField = UITextField()
     let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
@@ -18,7 +18,14 @@ class CreateTaskBaseController:BottomSheetController {
         formatter.dateFormat = "HH:mm"
         return formatter
     }()
-    
+    var date:Date? {
+        willSet {
+            if newValue == nil {
+                self.disableTextField(textField: timeTextField)
+            }
+        }
+    }
+    var timeDate:Date?
     let projectButton = UIButton()
     
     private enum UIConstants {
@@ -36,6 +43,7 @@ class CreateTaskBaseController:BottomSheetController {
         static let descriptionHeightAnchor = 100.0
         static let createTaskButtonTopAnchor = 20.0
         static let projectButtonWidth = 100.0
+        static let toolBarHeight = 44.0
     }
 
 }
@@ -79,20 +87,35 @@ extension CreateTaskBaseController {
         projectButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         projectButton.addTarget(self, action: #selector(projectButtonTapped(_:)), for: .touchUpInside)
         
-//        let date = Date()
-        dateTextField.text = "Set date"
-//        dateTextField.text = dateFormatter.string(from: date)
+        dateTextField.text = Resources.Titles.setDate
         dateTextField.textColor = .link
         dateTextField.tintColor = .clear //to remove cursor when tapped
+        
+        let dateToolBar = self.createToolBar()
+
+        let flexsibleSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        
+        let clearDateButton: UIBarButtonItem = UIBarButtonItem(title: Resources.Titles.deleteDate, style: .done, target: self, action: #selector(clearDateButtonTapped(_:)))
+
+        let doneDateButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(doneDateButtonTapped(_:)))
+        
+        dateToolBar.items = [flexsibleSpace,clearDateButton, doneDateButton]
+        dateTextField.inputAccessoryView = dateToolBar
         
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         dateTextField.inputView = datePicker
         
-        timeTextField.text = "Set time"
-//        timeTextField.text = timeFormatter.string(from: date)
-        timeTextField.textColor = .link
+        let timeToolBar = self.createToolBar()
+        
+        let clearTimeButton: UIBarButtonItem = UIBarButtonItem(title: Resources.Titles.deleteDate, style: .done, target: self, action: #selector(clearTimeButtonTapped(_:)))
+
+        let doneTimeButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(doneTimeButtonTapped(_:)))
+        
+        timeToolBar.items = [flexsibleSpace,clearTimeButton,doneTimeButton]
+        timeTextField.inputAccessoryView = timeToolBar
+        self.disableTextField(textField: timeTextField)
         timeTextField.tintColor = .clear
         
         let timePicker = UIDatePicker()
@@ -128,6 +151,21 @@ extension CreateTaskBaseController {
 }
 
 extension CreateTaskBaseController {
+    private func disableTextField(textField:UITextField) {
+        textField.text = Resources.Titles.setTime
+        textField.isEnabled = false
+        textField.textColor = .gray
+    }
+    
+    private func createToolBar() -> UIToolbar {
+        let toolBar: UIToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIConstants.toolBarHeight))
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = false
+        return toolBar
+    }
+}
+
+extension CreateTaskBaseController {
     
     @objc private func projectButtonTapped(_ sender:UIButton) {
 
@@ -135,11 +173,36 @@ extension CreateTaskBaseController {
     
     @objc private func dateChanged(_ sender: UIDatePicker) {
         self.dateTextField.text = dateFormatter.string(from: sender.date)
+        self.date = sender.date
+        timeTextField.isEnabled = true
+        timeTextField.textColor = .link
     }
     
     @objc private func timeChanged(_ sender: UIDatePicker) {
         self.timeTextField.text = timeFormatter.string(from: sender.date)
+        self.date = sender.date
     }
+    
+    @objc private func doneDateButtonTapped(_ sender:UIButton) {
+        dateTextField.resignFirstResponder()
+    }
+    
+    @objc private func clearDateButtonTapped(_ sender:UIButton) {
+        self.date = nil
+        self.dateTextField.text = Resources.Titles.setDate
+        dateTextField.resignFirstResponder()
+    }
+    
+    @objc private func doneTimeButtonTapped(_ sender:UIButton) {
+        timeTextField.resignFirstResponder()
+    }
+    
+    @objc private func clearTimeButtonTapped(_ sender:UIButton) {
+        self.timeDate = nil
+        self.timeTextField.text = Resources.Titles.setTime
+        timeTextField.resignFirstResponder()
+    }
+    
 }
 
 extension CreateTaskBaseController:UITextViewDelegate {

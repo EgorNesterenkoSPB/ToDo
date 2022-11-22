@@ -188,7 +188,7 @@ extension RegisterViewController:PresenterToViewRegisterProtocol {
     
     func onFailureRegistered(errorText: String) {
         confirmButton.isLoading = false
-        present(createErrorAlert(errorText: errorText),animated: true)
+        present(createInfoAlert(messageText: errorText, titleText: Resources.Titles.errorTitle),animated: true)
     }
     
     func enableConfirmButton() {

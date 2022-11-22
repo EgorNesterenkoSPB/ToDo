@@ -1,11 +1,6 @@
 import Foundation
 import CoreData
 
-enum PriorityTask:String {
-    case high
-    case medium
-    case low
-}
 
 enum CoreManagerError:Error {
     case failedSaveContext(text:String)
@@ -63,11 +58,11 @@ class DataManager {
         return category
     }
     
-    func task(name: String, description:String?, priority:PriorityTask?, time:Date?,category:CategoryCoreData) -> TaskCoreData {
+    func task(name: String, description:String?, priority:Int64?, time:Date?,category:CategoryCoreData) -> TaskCoreData {
         let task = TaskCoreData(context: persistentContainer.viewContext)
         task.name = name
         task.descriptionTask = description
-        task.priority = priority?.rawValue
+        task.priority = priority ?? 0
         task.time = time
         task.isFinished = false
         task.timeFinished = nil
@@ -75,11 +70,11 @@ class DataManager {
         return task
     }
     
-    func commonTask(name: String, description:String?, priority:PriorityTask?, time:Date?,project:ProjectCoreData) -> CommonTaskCoreData {
+    func commonTask(name: String, description:String?, priority:Int64?, time:Date?,project:ProjectCoreData) -> CommonTaskCoreData {
         let commonTask = CommonTaskCoreData(context: persistentContainer.viewContext)
         commonTask.name = name
         commonTask.descriptionTask = description
-        commonTask.priority = priority?.rawValue
+        commonTask.priority = priority ?? 0
         commonTask.time = time
         commonTask.isFinished = false
         commonTask.timeFinished = nil

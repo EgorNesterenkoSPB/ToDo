@@ -1,4 +1,4 @@
-import Foundation
+import MessageUI
 import UIKit
 
 //MARK: - View Input (View -> Presenter)
@@ -8,7 +8,9 @@ protocol ViewToPresenterSettingsProtocol {
     var interactor: PresenterToInteractorSettingsProtocol? {get set}
     func switchTheme(isOn:Bool)
     func viewDidLoad(themeSwitcher:UISwitch)
-    func userTapProfileView(navigationController:UINavigationController?)
+    func cellForRowAt(tableView:UITableView,indexPath:IndexPath) -> UITableViewCell
+    func didSelectRowAt(indexPath:IndexPath,settingsViewController:SettingsViewController)
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?)
 }
 
 //MARK: - View Output (Presenter -> View)

@@ -5,7 +5,7 @@ final class CreateTaskInteractor:PresenterToInteractorCreateTaskProtocol {
     
     func onCreateTask(name: String, description: String?, category: CategoryCoreData) {
         //FIXME: - mock data time and priority
-        let task = DataManager.shared.task(name: name, description: description, priority: PriorityTask.high, time: Date(), category: category)
+        let task = DataManager.shared.task(name: name, description: description, priority: nil, time: Date(), category: category)
         do {
             var tasks = try DataManager.shared.tasks(category: category)
             tasks.append(task)

@@ -29,7 +29,7 @@ extension PincodeViewController {
 
 extension PincodeViewController:OTPViewProtocol {
     func showErrorAlert(errorText: String) {
-        self.present(createErrorAlert(errorText: errorText),animated: true)
+        self.present(createInfoAlert(messageText: errorText, titleText: Resources.Titles.errorTitle),animated: true)
     }
     
     func showMainViewController() {

@@ -100,12 +100,12 @@ extension PrjViewController:PresenterToViewPrjProtocol {
     }
     
     func onFailedRenameCategory(errorText: String) {
-        self.present(createErrorAlert(errorText: errorText),animated: true)
+        self.present(createInfoAlert(messageText: errorText, titleText: Resources.Titles.errorTitle),animated: true)
     }
 
     
     func onFailedRenameProject(errorText: String) {
-        self.present(createErrorAlert(errorText: errorText),animated: true)
+        self.present(createInfoAlert(messageText: errorText, titleText: Resources.Titles.errorTitle),animated: true)
     }
     
     func onSuccessfulyRenameProject() {
@@ -138,7 +138,7 @@ extension PrjViewController:PresenterToViewPrjProtocol {
     }
     
     func failedCoreData(errorText: String) {
-        self.present(createErrorAlert(errorText: errorText),animated: true)
+        self.present(createInfoAlert(messageText: errorText, titleText: Resources.Titles.errorTitle),animated: true)
     }
     
     func updateTableView() {
@@ -235,22 +235,6 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
             return 0
         }
     }
-    
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        self.viewWillLayoutSubviews()
-//        switch tableView {
-//        case categoryTasksTableView:
-//            let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
-//            cell.layer.transform = rotationTransform
-//            cell.alpha = 0
-//            UIView.animate(withDuration: 0.75, animations: {
-//                cell.layer.transform = CATransform3DIdentity
-//                cell.alpha = 1.0
-//            })
-//        default:
-//            break
-//        }
-//    }
     
 }
 

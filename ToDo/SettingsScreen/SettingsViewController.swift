@@ -1,4 +1,5 @@
 import UIKit
+import MessageUI
 
 final class SettingsViewController:BaseViewController {
 
@@ -71,24 +72,11 @@ extension SettingsViewController:UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = Resources.settingsContent[indexPath.section].options[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.commonTableCellIdentefier, for: indexPath) as? CommonTableViewCell else {return UITableViewCell()}
-        cell.setup(with: model)
-        return cell
+        presenter?.cellForRowAt(tableView: tableView, indexPath: indexPath) ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var model = Resources.settingsContent[indexPath.section].options[indexPath.row]
-        
-        switch model.title {
-        case Resources.Titles.account:
-            model.handler = { [weak self] in
-                self?.presenter?.userTapProfileView(navigationController:self?.navigationController)
-            }
-        default:
-            break
-        }
-        model.handler()
+        presenter?.didSelectRowAt(indexPath: indexPath, settingsViewController: self)
     }
     
 }
@@ -96,6 +84,12 @@ extension SettingsViewController:UITableViewDataSource,UITableViewDelegate {
 extension SettingsViewController {
     @objc private func themeSwitcherTapped(_ sender:UISwitch) {
         presenter?.switchTheme(isOn: sender.isOn)
+    }
+}
+
+extension SettingsViewController:MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        presenter?.mailComposeController(controller, didFinishWith: result, error: error)
     }
 }
 

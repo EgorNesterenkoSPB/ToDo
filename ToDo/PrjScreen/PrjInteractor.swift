@@ -14,12 +14,14 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
             presenter?.onfailedCoreData(errorText: "\(error)")
         }
     }
+    
+    
         
-    func setFinishTask<T>(task:T,indexPath:IndexPath? = nil) where T:NSManagedObject {
-        task.setValue(true, forKey: Resources.isFinishedTaskKey)
+    func setFinishTask<T>(task:T,indexPath:IndexPath? = nil,unfinished:Bool) where T:NSManagedObject {
         
+        task.setValue(unfinished ? false : true, forKey: Resources.isFinishedTaskKey)
         let currentDate = Date()
-        task.setValue(currentDate, forKey: Resources.timeFinishedTaskKey)
+        task.setValue(unfinished ? nil : currentDate, forKey: Resources.timeFinishedTaskKey)
         do {
             try DataManager.shared.save()
             switch task {
@@ -29,7 +31,7 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
                 presenter?.successfulyFinishedCatagoryTask(category: task.category, section: section)
             case is CommonTaskCoreData:
                 guard let task = task as? CommonTaskCoreData else {return}
-                presenter?.successfultFinishedCommonTask(project: task.project)
+                presenter?.successfulyFinishedCommonTask(project: task.project)
             default:
                 break
             }

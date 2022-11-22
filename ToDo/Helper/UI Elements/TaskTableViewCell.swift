@@ -56,8 +56,6 @@ extension TaskTableViewCell {
 
 extension TaskTableViewCell {
     @objc private func userTapFinishTask(_ sender:UIButton) {
-        sender.setImage(UIImage(systemName: Resources.Images.circleFill,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-        sender.tintColor = .orange
         self.handleFinishTask?()
     }
 
