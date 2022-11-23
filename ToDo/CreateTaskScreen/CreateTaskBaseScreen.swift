@@ -16,6 +16,7 @@ class CreateTaskBaseController:BottomSheetController {
     let timeFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss"
+        formatter.locale = .current
         return formatter
     }()
     var date:Date? {
@@ -181,7 +182,7 @@ extension CreateTaskBaseController {
     
     @objc private func timeChanged(_ sender: UIDatePicker) {
         self.timeTextField.text = timeFormatter.string(from: sender.date)
-        self.date = sender.date
+        self.timeDate = sender.date
     }
     
     @objc private func doneDateButtonTapped(_ sender:UIButton) {

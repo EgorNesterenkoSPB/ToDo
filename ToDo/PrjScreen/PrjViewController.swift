@@ -15,9 +15,16 @@ final class PrjViewController:BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidLoad() {
+        super.viewDidLoad()
         presenter?.getCommonTasks(project: self.project)
         presenter?.getCategories(project: self.project)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.reloadCommonTasksSection()
+        self.reloadCommonTasksSection()
     }
 }
 
@@ -91,7 +98,6 @@ extension PrjViewController:PresenterToViewPrjProtocol {
     
     func reloadCommonTasksSection() {
         DispatchQueue.main.async {
-            self.viewWillLayoutSubviews()
             self.tasksTableView.reloadSections(IndexSet(integer: 0), with: .none)
         }
     }
@@ -121,7 +127,6 @@ extension PrjViewController:PresenterToViewPrjProtocol {
     func updateTableView() {
         DispatchQueue.main.async {
             self.tasksTableView.reloadData()
-            self.viewWillLayoutSubviews()
         }
     }
     

@@ -43,7 +43,7 @@ extension CreateCommonTaskViewController {
 
 extension CreateCommonTaskViewController {
     @objc private func createTaskButtonTapped(_ sender:UIButton) {
-        presenter?.createTask(project: project)
+        presenter?.createTask(project: project,date: self.date,time: self.timeDate)
     }
 }
 

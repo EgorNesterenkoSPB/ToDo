@@ -223,8 +223,9 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             let taskContent = TaskContent(name: taskName, description: commonTask.descriptionTask, priority: commonTask.priority, path: "\(projectName)/\(taskName)", isFinished: commonTask.isFinished, time: commonTask.time)
             self.router?.showTaskScreen(task: commonTask, taskContent: taskContent, navigationController: navigationController)
         default:
-            
-            break
+            guard let task = sectionsData[indexPath.section].categoryData?[indexPath.row],let category = task.category,let taskName = task.name,let projectName = category.project?.name, let cateogyName = category.name else {return}
+            let taskContent = TaskContent(name: taskName, description: task.descriptionTask, priority: task.priority, path: "\(projectName)/\(cateogyName)/", isFinished: task.isFinished, time: task.time)
+            self.router?.showTaskScreen(task: task, taskContent: taskContent, navigationController: navigationController)
         }
         
     }

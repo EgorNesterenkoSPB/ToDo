@@ -116,17 +116,17 @@ extension ProjectsViewController:UITableViewDelegate,UITableViewDataSource {
         presenter?.heightForFooterInSection() ?? 0
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        self.viewWillLayoutSubviews()
-        guard indexPath.section == 2 else {return} //dont show update animate at top static cells and favorite section
-        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, -50, 10)
-        cell.layer.transform = rotationTransform
-        cell.alpha = 0
-        UIView.animate(withDuration: 0.75, animations: {
-            cell.layer.transform = CATransform3DIdentity
-            cell.alpha = 1.0
-        })
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        self.viewWillLayoutSubviews()
+//        guard indexPath.section == 2 else {return} //dont show update animate at top static cells and favorite section
+//        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, -50, 10)
+//        cell.layer.transform = rotationTransform
+//        cell.alpha = 0
+//        UIView.animate(withDuration: 0.75, animations: {
+//            cell.layer.transform = CATransform3DIdentity
+//            cell.alpha = 1.0
+//        })
+//    }
 }
 
 extension ProjectsViewController:CreateProjectViewControllerProtocol {

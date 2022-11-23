@@ -5,7 +5,7 @@ protocol ViewToPresenterCreateCommonTaskProtocol {
     var view: PresenterToViewCreateCommonTaskProtocol? {get set}
     var router: PresenterToRouterCreateCommonTaskProtocol? {get set}
     var interactor: PresenterToInteractorCreateCommonTaskProtocol? {get set}
-    func createTask(project:ProjectCoreData)
+    func createTask(project:ProjectCoreData,date:Date?, time:Date?)
     func textViewDidEndEditing(textView:UITextView)
     func textFieldDidEndEditing(textField:UITextField)
 }
@@ -19,7 +19,7 @@ protocol PresenterToViewCreateCommonTaskProtocol {
 //MARK: -  Interactor Input (Presenter -> Interactor)
 protocol PresenterToInteractorCreateCommonTaskProtocol {
     var presenter:InteractorToPresenterCreateCommonTaskProtocol? {get set}
-    func onCreateTask(project:ProjectCoreData,name:String,description:String?)
+    func onCreateTask(project:ProjectCoreData,name:String,description:String?,settedDate:Date?)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)

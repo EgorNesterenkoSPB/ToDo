@@ -8,7 +8,7 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
     var sectionsData = [
         ProjectsSection(sectionTitle: nil, projectsData: nil, expandable: nil, modelsData: Resources.projectsModels),
         ProjectsSection(sectionTitle: Resources.Titles.favoriteSection, projectsData: [], expandable: false, modelsData: nil),
-        ProjectsSection(sectionTitle: Resources.Titles.projectsSection, projectsData: [], expandable: false, modelsData: nil)
+        ProjectsSection(sectionTitle: Resources.Titles.projectsSection, projectsData: [], expandable: true, modelsData: nil)
     ]
     
     func getData() throws {
