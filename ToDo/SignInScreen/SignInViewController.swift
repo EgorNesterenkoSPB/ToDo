@@ -8,7 +8,7 @@ final class SignInViewController:BaseViewController {
     let passwordTextField = UITextField()
     let confirmButton = UIButton()
     let scrollView = UIScrollView()
-    
+    let questionButton = UIButton()
 }
 
 extension SignInViewController {
@@ -20,6 +20,7 @@ extension SignInViewController {
         scrollView.addSubview(passwordLabel)
         scrollView.addSubview(passwordTextField)
         scrollView.addSubview(confirmButton)
+        self.view.addView(questionButton)
     }
     
     override func layoutViews() {
@@ -42,7 +43,9 @@ extension SignInViewController {
             passwordLabel.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor),
             passwordLabel.leftAnchor.constraint(equalTo: loginOrMailLabel.leftAnchor),
             confirmButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor,constant: 20),
-            confirmButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
+            confirmButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            questionButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -20),
+            questionButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
         ])
     }
     
@@ -69,6 +72,11 @@ extension SignInViewController {
         passwordTextField.textContentType = .password
         passwordTextField.returnKeyType = .done
         
+        questionButton.setImage(UIImage(systemName: Resources.Images.questionFill,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
+        questionButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
+        questionButton.tintColor = .gray
+        questionButton.addTarget(self, action: #selector(questionButtonTapped(_:)), for: .touchUpInside)
+        
     }
 }
 
@@ -76,6 +84,22 @@ extension SignInViewController {
     @objc private func  confirmButtonTapped(_ sender:UIButton) {
         presenter?.userTapConfirmButton(navigationController: navigationController)
     }
+    
+    @objc private func questionButtonTapped(_ sender:UIButton) {
+        presenter?.userTapQuestionButton(questionButton: questionButton, signinViewController: self, presentedViewController: presentedViewController)
+    }
+}
+
+//MARK: - PopoverPresentation
+extension SignInViewController:UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        .none
+    }
+    
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        false
+    }
+    
 }
 
 //MARK: - PresenterToViewSign

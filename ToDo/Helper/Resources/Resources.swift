@@ -22,7 +22,7 @@ enum Resources {
     
     static let colorsData = [Color(hex: "b8256f", name: "Berry red"),Color(hex: "db4035", name: "Red"),Color(hex: "ff9933", name: "Orange"),Color(hex: "fad000", name: "Yellow"),Color(hex: "afb83b", name: "Olive green"),Color(hex: "7ecc49", name: "Lime green"),Color(hex: "299438", name: "Green"),Color(hex: "6accbc", name: "Mint green"),Color(hex: "158fad", name: "Teal"),Color(hex: "14aaf5", name: "Sky blue"),Color(hex: "96c3eb", name: "Light blue"),Color(hex: "4073ff", name: "Blue"),Color(hex: "884dff", name: "Grape"),Color(hex: "af38eb", name: "Violet"),Color(hex: "eb96eb", name: "Lavender"),Color(hex: "e05194", name: "Magenta"),Color(hex: "ff8d85", name: "Salmon"),Color(hex: "808080", name: "Charcoal"),Color(hex: "b8b8b8", name: "Grey"),Color(hex: "ccac93", name: "Taupe")]
     
-    static let projectsModels:[Section] = [Section(title: "", options: [CommonCellOption(title: "Incoming", icon: UIImage(systemName: Resources.Images.incoming,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.blue, handler: {}), CommonCellOption(title: "Upcoming", icon: UIImage(systemName: Resources.Images.calendar,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.purple, handler: {})])]
+    static let projectsModels:[CommonCellOption] = [CommonCellOption(title: "Incoming", icon: UIImage(systemName: Resources.Images.incoming,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.blue, handler: {}), CommonCellOption(title: "Upcoming", icon: UIImage(systemName: Resources.Images.calendar,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.purple, handler: {})]
     
     static let settingsContent:[Section] = [Section(title: "", options: [CommonCellOption(title: Resources.Titles.account, icon: UIImage(systemName: Resources.Images.profileImage), iconBackgroundColor: .gray, handler: {}),CommonCellOption(title: Resources.Titles.writeInSupport, icon: UIImage(systemName: Resources.Images.mail), iconBackgroundColor: .systemIndigo, handler: {})])]
     
@@ -113,6 +113,7 @@ enum Resources {
         static let successSendLetter =  "The letter was sent!"
         static let failedSendLetter = "Failed to send the letter,try again!"
         static let unknownError = "Unknown feature"
+        static let forgotPassword = "Forgot password"
     }
     enum Placeholders {
         static let textViewPlaceholder = "Description"
@@ -139,12 +140,14 @@ enum Resources {
         static let plusSquare = "plus.square"
         static let edite = "ellipsis"
         static let question = "questionmark.circle"
+        static let questionFill = "questionmark.circle.fill"
         static let profileImageFill = "person.crop.circle.fill"
         static let user = "user"
         static let incoming = "tray.fill"
         static let calendar = "calendar"
         static let mail = "envelope.fill"
         static let checkmarkCircleFill = "checkmark.circle.fill"
+        static let xCircleFill = "x.circle.fill"
     }
     enum Cells {
         static let taskCellIdentefier = "taskCell"
@@ -155,6 +158,7 @@ enum Resources {
         static let calendarIdentefier = "calendarCell"
         static let commonTableCellIdentefier = "common cell"
         static let commonTaskCellIdentefier = "commonTask cell"
+        static let popOverCellIdentegfier = "popOver"
     }
 }
 

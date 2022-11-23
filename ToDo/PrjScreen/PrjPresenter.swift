@@ -13,13 +13,17 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     func getCategories(project: ProjectCoreData) {
         do {
             var newSectionsData = [CategorySection]()
+            
+            let zeroSection = CategorySection(sectionTitle: nil, objectID: nil, categoryData: nil, commonTasks: self.commonTasks, expandable: nil)
+            newSectionsData.append(zeroSection) // first section must be common tasks
+            
             let categories = try DataManager.shared.categories(project: project)
             self.categories = categories
             for category in categories {
                 let savedTasks = try DataManager.shared.tasks(category: category)
                 let filteredArray = self.filteredTasks(inputTasks: savedTasks)
         
-                let section = CategorySection(sectionTitle: category.name ?? "error get name", objectID: category.objectID, data: filteredArray, expandable: false)
+                let section = CategorySection(sectionTitle: category.name, objectID: category.objectID, categoryData: filteredArray, commonTasks: nil, expandable: false)
                 newSectionsData.append(section)
             }
             self.sectionsData = newSectionsData
@@ -67,14 +71,10 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             let _commonTasks = try DataManager.shared.commonTasks(project: project)
             let filteredCommonTasks = self.filteredCommonTasks(inputTasks: _commonTasks)
             self.commonTasks = filteredCommonTasks
-            view?.reloadCommonTasksTableView()
+            view?.reloadCommonTasksSection()
         } catch let error {
             view?.failedCoreData(errorText: "\(error)")
         }
-    }
-    
-    func numberOfRowsInCommonTasksTable() -> Int {
-        return commonTasks.count
     }
     
     private func configureCell(cell:TaskTableViewCell) {
@@ -85,23 +85,6 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         cell.handleFinishTask = nil
     }
     
-    func cellForRowAtCommonTasksTable(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.commonTaskCellIdentefier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
-        let commonTask = commonTasks[indexPath.row]
-        self.configureCell(cell: cell)
-        cell.nameTitle.text = commonTask.name
-        cell.descriptionTitle.text = commonTask.descriptionTask
-        cell.handleFinishTask = { [weak self] in
-            self?.interactor?.setFinishTask(task:commonTask, indexPath: nil, unfinished: commonTask.isFinished ? true : false)
-        }
-        
-        if !isHiddedFinishedTasks && commonTask.isFinished {
-            throughLineCell(cell: cell, indexPath: indexPath)
-        }
-
-        return cell
-    }
-    
     
     func updateSection(category: CategoryCoreData,section:Int) {
         do {
@@ -109,7 +92,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             let filteredTasks = self.filteredTasks(inputTasks: savedTasks)
 
             if let row = self.sectionsData.firstIndex(where: {$0.objectID == category.objectID}) {
-                sectionsData[row].data = filteredTasks
+                sectionsData[row].categoryData = filteredTasks
                 sectionsData[row].expandable = true
                 view?.onUpdateSection(section: section)
             }
@@ -183,11 +166,18 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     }
     
     func numberOfRowsInSection(section:Int) -> Int {
-        if sectionsData[section].expandable {
-            return sectionsData[section].data.count
-        }
-        else {
-            return 0
+        
+        switch section {
+        case 0:
+            return commonTasks.count
+        default:
+            guard let expandable = sectionsData[section].expandable else {return 0}
+            if expandable{
+                return sectionsData[section].categoryData?.count ?? 0
+            }
+            else {
+                return 0
+            }
         }
     }
     
@@ -197,29 +187,46 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     
     func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.taskCellIdentefier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
-        let task = sectionsData[indexPath.section].data[indexPath.row]
         self.configureCell(cell: cell)
-        cell.nameTitle.text = task.name
-        cell.descriptionTitle.text = task.descriptionTask
-        cell.handleFinishTask = { [weak self] in
-            self?.interactor?.setFinishTask(task: task, indexPath: indexPath, unfinished: task.isFinished ? true : false)
+        if indexPath.section == 0 {
+            let commonTask = commonTasks[indexPath.row]
+            cell.nameTitle.text = commonTask.name
+            cell.descriptionTitle.text = commonTask.descriptionTask
+            cell.handleFinishTask = { [weak self] in
+                self?.interactor?.setFinishTask(task:commonTask, indexPath: nil, unfinished: commonTask.isFinished ? true : false)
+            }
+            
+            if !isHiddedFinishedTasks && commonTask.isFinished {
+                throughLineCell(cell: cell, indexPath: indexPath)
+            }
+        } else {
+            guard let task = sectionsData[indexPath.section].categoryData?[indexPath.row] else {return UITableViewCell()}
+            cell.nameTitle.text = task.name
+            cell.descriptionTitle.text = task.descriptionTask
+            cell.handleFinishTask = { [weak self] in
+                self?.interactor?.setFinishTask(task: task, indexPath: indexPath, unfinished: task.isFinished ? true : false)
+            }
+            if !isHiddedFinishedTasks && task.isFinished {
+                throughLineCell(cell: cell, indexPath: indexPath)
+            }
         }
-        if !isHiddedFinishedTasks && task.isFinished {
-            throughLineCell(cell: cell, indexPath: indexPath)
-        }
-
         return cell
     }
 
     
-    func didSelectRowAtCommonTask(tableView: UITableView, indexPath: IndexPath) {
-
-        //TODO: - Show redaction view
-    }
-    
-    func didSelectRowAtCategoryTask(tableView: UITableView, indexPath: IndexPath) {
-
-        //TODO: - Show redaction view
+    func didSelectRowAt(tableView: UITableView, indexPath: IndexPath,navigationController:UINavigationController?) {
+        switch indexPath.section {
+        case 0:
+            let commonTask = commonTasks[indexPath.row]
+            guard let taskName = commonTask.name, let projectName = commonTask.project?.name else {return}
+            
+            let taskContent = TaskContent(name: taskName, description: commonTask.descriptionTask, priority: commonTask.priority, path: "\(projectName)/\(taskName)", isFinished: commonTask.isFinished, time: commonTask.time)
+            self.router?.showTaskScreen(task: commonTask, taskContent: taskContent, navigationController: navigationController)
+        default:
+            
+            break
+        }
+        
     }
     
     private func createDeleteTaskContextualAction(indexPath:IndexPath,with completion: @escaping() -> Void) -> UIContextualAction {
@@ -234,25 +241,27 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     
     func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = createDeleteTaskContextualAction(indexPath: indexPath) {
-            let task = self.sectionsData[indexPath.section].data[indexPath.row]
-            guard let category = task.category else {return}
-            self.interactor?.deleteTask(task: task, category: category , section: indexPath.section)
+            
+            if indexPath.section == 0 {
+                let task = self.commonTasks[indexPath.row]
+                self.interactor?.deleteCommonTask(commonTask: task)
+            } else {
+                guard let task = self.sectionsData[indexPath.section].categoryData?[indexPath.row] else {return}
+                guard let category = task.category else {return}
+                self.interactor?.deleteTask(task: task, category: category , section: indexPath.section)
+            }
         }
         let configuration = UISwipeActionsConfiguration(actions: [delete])
         return configuration
     }
-    
-    func trailingSwipeActionsConfigurationForRowAtCommonTasksTable(tableView: UITableView, indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = createDeleteTaskContextualAction(indexPath: indexPath) {
-            let task = self.commonTasks[indexPath.row]
-            self.interactor?.deleteCommonTask(commonTask: task)
+
+    func heightForHeaderInSection(section:Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        } else {
+            return 60
         }
-        let configuration = UISwipeActionsConfiguration(actions: [delete])
-        return configuration
-    }
-    
-    func heightForHeaderInSection() -> CGFloat {
-        60
+        
     }
     
     func heightForFooterInSection() -> CGFloat {
@@ -260,8 +269,13 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     }
     
     func viewForHeaderInSection(prjViewController:PrjViewController, tableView: UITableView, section: Int) -> UIView? {
-        let objectID = sectionsData[section].objectID
-        let expandable = sectionsData[section].expandable
+        
+        if section == 0 {
+            return UIView()
+        }
+        
+        guard let objectID = sectionsData[section].objectID, let expandable = sectionsData[section].expandable, let title =  sectionsData[section].sectionTitle else {return nil}
+        
         var currentCategory:CategoryCoreData?
         
         for category in categories {
@@ -272,7 +286,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         guard let currentCategory = currentCategory else {
             return nil
         }
-        let headerView = CategoryTableSectionHeaderView(titleText: sectionsData[section].sectionTitle, section: section, expandable: expandable, prjViewController: prjViewController, category:currentCategory, projectName: prjViewController.title ?? Resources.Titles.errorTitle)
+        let headerView = CategoryTableSectionHeaderView(titleText: title, section: section, expandable: expandable, prjViewController: prjViewController, category:currentCategory, projectName: prjViewController.title ?? Resources.Titles.errorTitle)
         headerView.delegate = self
         headerView.categoryDelegate = self
         return headerView
@@ -282,7 +296,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
 
 extension PrjPresenter:BaseTableSectionHeaderViewProtocol {
     func updateExpandable(sectionIndex: Int) {
-        sectionsData[sectionIndex].expandable.toggle()
+        sectionsData[sectionIndex].expandable?.toggle()
         view?.onUpdateSection(section: sectionIndex)
     }
 }
@@ -329,7 +343,7 @@ extension PrjPresenter:InteractorToPresenterPrjProtocol {
     
     
     func successfulyDeleteCommonTask() {
-        view?.updateDataCommonTasksTable()
+        view?.updateDataCommonTasks()
     }
 
     

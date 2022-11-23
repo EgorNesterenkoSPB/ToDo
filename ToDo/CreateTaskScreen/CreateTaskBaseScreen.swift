@@ -15,7 +15,7 @@ class CreateTaskBaseController:BottomSheetController {
     }()
     let timeFormatter:DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+        formatter.dateFormat = "HH:mm:ss"
         return formatter
     }()
     var date:Date? {
@@ -76,6 +76,7 @@ extension CreateTaskBaseController {
         nameTextField.delegate = self
         
         createTaskButton.setImage(UIImage(systemName: Resources.Images.createTaskButtonImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
+        createTaskButton.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
         createTaskButton.tintColor = .gray
         createTaskButton.isEnabled = false
         
@@ -137,7 +138,7 @@ extension CreateTaskBaseController {
             descriptionTextView.rightAnchor.constraint(equalTo: containerView.rightAnchor,constant: UIConstants.descriptionTextFieldRightAnchor),
             descriptionTextView.leftAnchor.constraint(equalTo: containerView.leftAnchor,constant: UIConstants.descriptionTextFieldLeftAnchor),
             descriptionTextView.heightAnchor.constraint(equalToConstant: UIConstants.descriptionHeightAnchor),
-            createTaskButton.rightAnchor.constraint(equalTo: descriptionTextView.rightAnchor),
+            createTaskButton.rightAnchor.constraint(equalTo: descriptionTextView.rightAnchor,constant: -10),
             createTaskButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor,constant: UIConstants.createTaskButtonTopAnchor),
             dateTextField.centerYAnchor.constraint(equalTo: projectButton.centerYAnchor),
             dateTextField.leftAnchor.constraint(equalTo: projectButton.rightAnchor,constant: 20),

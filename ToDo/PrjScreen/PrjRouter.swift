@@ -1,6 +1,12 @@
 import UIKit
+import CoreData
 
 final class PrjRouter:PresenterToRouterPrjProtocol {
+    func showTaskScreen(task: NSManagedObject, taskContent: TaskContent, navigationController: UINavigationController?) {
+        let taskViewController = TaskRouter.createModule(task: task, taskContent: taskContent)
+        navigationController?.pushViewController(taskViewController, animated: true)
+    }
+    
     func onShowCreateCommonTaskViewController(project: ProjectCoreData,prjViewController:PrjViewController) {
         let createCommonTaskViewController = CreateCommonTaskRouter.createModule(project: project)
         createCommonTaskViewController.modalPresentationStyle = .overCurrentContext

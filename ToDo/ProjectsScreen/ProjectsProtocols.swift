@@ -9,14 +9,12 @@ protocol ViewToPresenterProjectsProtocol {
     func numberOfSections() -> Int
     func numberOfRowsInSection(section:Int) -> Int
     func cellForRowAt(tableView:UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell
-    func cellForRowAtTopTableView(tableView:UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell
-    func heightForHeaderInSection() -> CGFloat
+    func heightForHeaderInSection(section:Int) -> CGFloat
     func heightForFooterInSection() -> CGFloat
     func viewForHeaderInSection(projectsViewController:ProjectsViewController,tableView: UITableView, section: Int) -> UIView?
     func getData() throws
     func showErrorAlert(errorText:String,projectsViewController:ProjectsViewController)
     func didSelectRowAt(tableView:UITableView,indexPath:IndexPath,projectsViewController:ProjectsViewController)
-    func didSelectRowAtTopTableView(tableView:UITableView,indexPath:IndexPath)
     func trailingSwipeActionsConfigurationForRowAt(tableView:UITableView,indexPath:IndexPath,projectsViewController:ProjectsViewController) -> UISwipeActionsConfiguration?
 }
 

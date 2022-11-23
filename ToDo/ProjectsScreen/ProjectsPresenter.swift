@@ -6,19 +6,16 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
     var router: PresenterToRouterProjectsProtocol?
     var interactor: PresenterToInteractorProjectsProtocol?
     var sectionsData = [
-        ProjectsSection(sectionTitle: Resources.Titles.favoriteSection,
-                        data: [],
-                        expandable: false),
-        ProjectsSection(sectionTitle: Resources.Titles.projectsSection,
-                        data: [],
-                        expandable: false)
+        ProjectsSection(sectionTitle: nil, projectsData: nil, expandable: nil, modelsData: Resources.projectsModels),
+        ProjectsSection(sectionTitle: Resources.Titles.favoriteSection, projectsData: [], expandable: false, modelsData: nil),
+        ProjectsSection(sectionTitle: Resources.Titles.projectsSection, projectsData: [], expandable: false, modelsData: nil)
     ]
     
     func getData() throws {
         do {
             let projects = try DataManager.shared.projects()
-            sectionsData[1].data = projects
-            sectionsData[0].data = getFavoriteProjects(projects: projects)
+            sectionsData[1].projectsData = getFavoriteProjects(projects: projects) // second section must be favorite
+            sectionsData[2].projectsData = projects // third section must be projects
         } catch let error {
             throw CoreManagerError.failedFetchProjects(text: "\(error)")
         }
@@ -43,11 +40,19 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
     }
     
     func numberOfRowsInSection(section: Int) -> Int {
-        if sectionsData[section].expandable {
-            return sectionsData[section].data.count
-        }
-        else {
-            return 0
+        
+        switch section{
+        case 0:
+            guard let modelsData = sectionsData[section].modelsData else {return 0}
+            return modelsData.count
+        default:
+            guard let expandable = sectionsData[section].expandable, let projectsData = sectionsData[section].projectsData else {return 0}
+            if expandable {
+                return projectsData.count
+            }
+            else {
+                return 0
+            }
         }
     }
     
@@ -55,24 +60,28 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.projectCellIdentefier,for: indexPath) as? ProjectTableViewCell else {
             return UITableViewCell()
         }
-        let project = sectionsData[indexPath.section].data[indexPath.row]
-        cell.project = project
-        cell.nameTitle.text = project.name
-        do {
-            let countOfTasks = try countOfProjectTasks(project: project)
-            cell.countOfTasksLabel.text = "\(countOfTasks)"
-        } catch let error {
-            view?.onFailedCoreData(errorText: "\(error)")
+        
+        switch indexPath.section {
+        case 0:
+            guard let modelsData = sectionsData[indexPath.section].modelsData else {return UITableViewCell()}
+            let model = modelsData[indexPath.row]
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.commonTableCellIdentefier, for: indexPath) as? CommonTableViewCell else {return UITableViewCell()}
+            cell.setup(with: model)
+            return cell
+        default:
+            guard let projectsData = sectionsData[indexPath.section].projectsData else {return UITableViewCell()}
+            let project = projectsData[indexPath.row]
+            cell.project = project
+            cell.nameTitle.text = project.name
+            do {
+                let countOfTasks = try countOfProjectTasks(project: project)
+                cell.countOfTasksLabel.text = "\(countOfTasks)"
+            } catch let error {
+                view?.onFailedCoreData(errorText: "\(error)")
+            }
+            cell.circleImageView.tintColor = UIColor(hexString: project.hexColor ?? Resources.defaultHexColor)
+            return cell
         }
-        cell.circleImageView.tintColor = UIColor(hexString: project.hexColor ?? Resources.defaultHexColor)
-        return cell
-    }
-    
-    func cellForRowAtTopTableView(tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = Resources.projectsModels[indexPath.section].options[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.commonTableCellIdentefier, for: indexPath) as? CommonTableViewCell else {return UITableViewCell()}
-        cell.setup(with: model)
-        return cell
     }
     
     private func countOfProjectTasks(project:ProjectCoreData) throws -> Int {
@@ -82,19 +91,26 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
             for category in categories {
                 do {
                     let tasks = try DataManager.shared.tasks(category: category)
-                    count += tasks.count
+                    count += tasks.filter({$0.isFinished == false}).count
                 } catch let error {
                     throw CoreManagerError.failedFetchTasks(text: "\(error)")
                 }
             }
+            let commonTasks = try DataManager.shared.commonTasks(project: project)
+            count += commonTasks.filter({$0.isFinished == false}).count
         } catch let error {
             throw CoreManagerError.failedFetchCategories(text: "\(error)")
         }
         return count
     }
     
-    func heightForHeaderInSection() -> CGFloat {
-        60
+    func heightForHeaderInSection(section:Int) -> CGFloat {
+        switch section {
+        case 0:
+            return 0
+        default:
+            return 60
+        }
     }
     
     func heightForFooterInSection() -> CGFloat {
@@ -103,33 +119,42 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
     
     
     func viewForHeaderInSection(projectsViewController:ProjectsViewController,tableView: UITableView, section: Int) -> UIView? {
-        let titleText = sectionsData[section].sectionTitle
-        let expandable = sectionsData[section].expandable
+        
         switch section {
         case 0:
-            let headerView = BaseTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable)
-            headerView.delegate = self
-            headerView.addButton.isHidden = true
-            return headerView
+            return UIView()
         default:
-            let headerView = ProjectsTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable, projectsViewController: projectsViewController)
-            headerView.delegate = self
-            return headerView
+            guard let titleText = sectionsData[section].sectionTitle, let expandable = sectionsData[section].expandable else {return nil}
+            
+            switch section {
+            case 1:
+                let headerView = BaseTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable)
+                headerView.delegate = self
+                headerView.addButton.isHidden = true
+                return headerView
+            default:
+                let headerView = ProjectsTableSectionHeaderView(titleText: titleText, section: section, expandable: expandable, projectsViewController: projectsViewController)
+                headerView.delegate = self
+                return headerView
+            }
         }
-        
     }
     
     
     func didSelectRowAt(tableView: UITableView, indexPath: IndexPath,projectsViewController:ProjectsViewController) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? ProjectTableViewCell else {return}
-        guard let project = cell.project else {return}
-        router?.showProjectScreen(projectsViewController:projectsViewController,project: project)
+        
+        switch indexPath.section {
+        case 0:
+            guard let modelsData = sectionsData[indexPath.section].modelsData else {return}
+            let model = modelsData[indexPath.row]
+            model.handler()
+        default:
+            guard let cell = tableView.cellForRow(at: indexPath) as? ProjectTableViewCell else {return}
+            guard let project = cell.project else {return}
+            router?.showProjectScreen(projectsViewController:projectsViewController,project: project)
+        }
     }
     
-    func didSelectRowAtTopTableView(tableView: UITableView, indexPath: IndexPath) {
-        let model = Resources.projectsModels[indexPath.section].options[indexPath.row]
-        model.handler()
-    }
     
     func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath,projectsViewController:ProjectsViewController) -> UISwipeActionsConfiguration? {
         guard let cell = tableView.cellForRow(at: indexPath) as? ProjectTableViewCell else {return nil}
@@ -165,14 +190,12 @@ extension ProjectsPresenter:InteractorToPresenterProjectsProtocol {
     func failedCoreData(errorText: String) {
         view?.onFailedCoreData(errorText: errorText)
     }
-        
-    
 }
 
 extension ProjectsPresenter:BaseTableSectionHeaderViewProtocol {
     
     func updateExpandable(sectionIndex: Int) {
-        sectionsData[sectionIndex].expandable.toggle()
+        sectionsData[sectionIndex].expandable?.toggle()
         view?.updateTableView()
     }
 }

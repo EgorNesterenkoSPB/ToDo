@@ -2,9 +2,7 @@ import UIKit
 
 final class PrjViewController:BaseViewController {
     
-    let categoryTasksTableView = UITableView()
-    var commonTasksTableHeight:NSLayoutConstraint?
-    let commonTasksTableView = UITableView()
+    let tasksTableView = UITableView()
     var presenter:(ViewToPresenterPrjProtocol & InteractorToPresenterPrjProtocol)?
     var project:ProjectCoreData
     
@@ -21,17 +19,11 @@ final class PrjViewController:BaseViewController {
         presenter?.getCommonTasks(project: self.project)
         presenter?.getCategories(project: self.project)
     }
-    
-    override func viewWillLayoutSubviews() {
-        super.updateViewConstraints()
-        self.commonTasksTableHeight?.constant = self.commonTasksTableView.contentSize.height
-    }
 }
 
 extension PrjViewController {
     override func addViews() {
-        self.view.addView(commonTasksTableView)
-        self.view.addView(categoryTasksTableView)
+        self.view.addView(tasksTableView)
     }
     
     override func configure() {
@@ -44,36 +36,21 @@ extension PrjViewController {
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
         navigationItem.rightBarButtonItems = [addButton,editButton]
     
-        self.setupTableView(tableView: categoryTasksTableView)
-        categoryTasksTableView.register(TaskTableViewCell.self, forCellReuseIdentifier: Resources.Cells.taskCellIdentefier)
-        
-        
-        self.setupTableView(tableView: commonTasksTableView)
-        commonTasksTableView.register(TaskTableViewCell.self, forCellReuseIdentifier: Resources.Cells.commonTaskCellIdentefier)
-        
+        tasksTableView.delegate = self
+        tasksTableView.dataSource = self
+        tasksTableView.separatorStyle = .none
+        tasksTableView.isScrollEnabled = true
+        tasksTableView.tableFooterView = UIView()
+        tasksTableView.register(TaskTableViewCell.self, forCellReuseIdentifier: Resources.Cells.taskCellIdentefier)
     }
     
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            commonTasksTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            commonTasksTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
-            commonTasksTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            categoryTasksTableView.topAnchor.constraint(equalTo: commonTasksTableView.bottomAnchor,constant: 10),
-            categoryTasksTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            categoryTasksTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            categoryTasksTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor)
+            tasksTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tasksTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
+            tasksTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
+            tasksTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        commonTasksTableHeight = commonTasksTableView.heightAnchor.constraint(equalToConstant: 100)
-        commonTasksTableHeight?.isActive = true
-    }
-}
-
-extension PrjViewController {
-    private func setupTableView(tableView:UITableView) {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
-        tableView.tableFooterView = UIView()
     }
 }
 
@@ -90,7 +67,7 @@ extension PrjViewController {
 //MARK: - PresenterToView
 extension PrjViewController:PresenterToViewPrjProtocol {
     
-    func updateDataCommonTasksTable() {
+    func updateDataCommonTasks() {
         presenter?.getCommonTasks(project: self.project)
     }
     
@@ -112,16 +89,16 @@ extension PrjViewController:PresenterToViewPrjProtocol {
         self.configure()
     }
     
-    func reloadCommonTasksTableView() {
+    func reloadCommonTasksSection() {
         DispatchQueue.main.async {
-            self.commonTasksTableView.reloadData()
             self.viewWillLayoutSubviews()
+            self.tasksTableView.reloadSections(IndexSet(integer: 0), with: .none)
         }
     }
     
     func onUpdateSection(section: Int) {
         DispatchQueue.main.async {
-            self.categoryTasksTableView.reloadSections(IndexSet(integer: section), with: .none)
+            self.tasksTableView.reloadSections(IndexSet(integer: section), with: .none)
         }
     }
     
@@ -143,7 +120,7 @@ extension PrjViewController:PresenterToViewPrjProtocol {
     
     func updateTableView() {
         DispatchQueue.main.async {
-            self.categoryTasksTableView.reloadData()
+            self.tasksTableView.reloadData()
             self.viewWillLayoutSubviews()
         }
     }
@@ -156,85 +133,41 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         switch tableView {
-        case categoryTasksTableView:
+        case tasksTableView:
             return presenter?.numberOfSections() ?? 0
-        case commonTasksTableView:
-            return 1
+//        case commonTasksTableView:
+//            return 1
         default:
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case categoryTasksTableView:
-            return presenter?.numberOfRowsInSection(section: section) ?? 0
-        case commonTasksTableView:
-            return presenter?.numberOfRowsInCommonTasksTable() ?? 0
-        default:
-            return 0
-        }
+            presenter?.numberOfRowsInSection(section: section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch tableView {
-        case categoryTasksTableView:
-            return presenter?.cellForRowAt(tableView: tableView, indexPath: indexPath) ?? UITableViewCell()
-        case commonTasksTableView:
-            return presenter?.cellForRowAtCommonTasksTable(tableView: tableView, indexPath: indexPath) ?? UITableViewCell()
-        default:
-            return UITableViewCell()
-        }
+            presenter?.cellForRowAt(tableView: tableView, indexPath: indexPath) ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch tableView {
-        case commonTasksTableView:
-            presenter?.didSelectRowAtCommonTask(tableView: tableView, indexPath: indexPath)
-        case categoryTasksTableView:
-            presenter?.didSelectRowAtCategoryTask(tableView: tableView, indexPath: indexPath)
-        default:
-            break
-        }
+        presenter?.didSelectRowAt(tableView: tableView, indexPath: indexPath, navigationController: navigationController)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        switch tableView {
-        case categoryTasksTableView:
-            return presenter?.trailingSwipeActionsConfigurationForRowAt(tableView: tableView, indexPath: indexPath)
-        case commonTasksTableView:
-            return presenter?.trailingSwipeActionsConfigurationForRowAtCommonTasksTable(tableView: tableView, indexPath: indexPath)
-        default:
-            return nil
-        }
+        presenter?.trailingSwipeActionsConfigurationForRowAt(tableView: tableView, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch tableView {
-        case categoryTasksTableView:
-            return presenter?.viewForHeaderInSection(prjViewController: self, tableView: tableView, section: section)
-        default:
-            return nil
-        }
+        presenter?.viewForHeaderInSection(prjViewController: self, tableView: tableView, section: section)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch tableView {
-        case categoryTasksTableView:
-            return presenter?.heightForHeaderInSection() ?? 0
-        default:
-            return 0
-        }
+        presenter?.heightForHeaderInSection(section:section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        switch tableView {
-        case categoryTasksTableView:
-            return presenter?.heightForFooterInSection() ?? 0
-        default:
-            return 0
-        }
-    }
+        presenter?.heightForFooterInSection() ?? 0    }
     
 }
 

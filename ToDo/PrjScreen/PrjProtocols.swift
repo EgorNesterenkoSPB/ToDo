@@ -14,21 +14,17 @@ protocol ViewToPresenterPrjProtocol {
     func cellForRowAt(tableView:UITableView,indexPath:IndexPath) -> UITableViewCell
     func showEditAlert(project:ProjectCoreData,prjViewController:PrjViewController)
     func trailingSwipeActionsConfigurationForRowAt(tableView:UITableView,indexPath:IndexPath) -> UISwipeActionsConfiguration?
-    func heightForHeaderInSection() -> CGFloat
+    func heightForHeaderInSection(section:Int) -> CGFloat
     func heightForFooterInSection() -> CGFloat
     func viewForHeaderInSection(prjViewController:PrjViewController,tableView: UITableView, section: Int) -> UIView?
     func updateSection(category:CategoryCoreData,section:Int)
-    func numberOfRowsInCommonTasksTable() -> Int
-    func cellForRowAtCommonTasksTable(tableView:UITableView,indexPath:IndexPath) -> UITableViewCell
-    func trailingSwipeActionsConfigurationForRowAtCommonTasksTable(tableView:UITableView,indexPath:IndexPath) -> UISwipeActionsConfiguration?
-    func didSelectRowAtCommonTask(tableView:UITableView, indexPath:IndexPath)
-    func didSelectRowAtCategoryTask(tableView:UITableView, indexPath:IndexPath)
+    func didSelectRowAt(tableView:UITableView, indexPath:IndexPath,navigationController:UINavigationController?)
 }
 
 //MARK: - View Output (Presenter -> View)
 protocol PresenterToViewPrjProtocol {
     func updateTableView()
-    func reloadCommonTasksTableView()
+    func reloadCommonTasksSection()
     func failedCoreData(errorText:String)
     func hideViewController()
     func onSuccessfulyDeleteCategory()
@@ -36,7 +32,7 @@ protocol PresenterToViewPrjProtocol {
     func onUpdateSection(section:Int)
     func onSuccessfulyRenameProject()
     func showRenameCategoryAlert(alert:UIAlertController)
-    func updateDataCommonTasksTable()
+    func updateDataCommonTasks()
 }
 
 //MARK: -  Interactor Input (Presenter -> Interactor)
@@ -73,4 +69,5 @@ protocol InteractorToPresenterPrjProtocol {
 protocol PresenterToRouterPrjProtocol {
     static func createModule(project:ProjectCoreData) -> PrjViewController
     func onShowCreateCommonTaskViewController(project:ProjectCoreData,prjViewController:PrjViewController)
+    func showTaskScreen(task:NSManagedObject,taskContent:TaskContent,navigationController:UINavigationController?)
 }

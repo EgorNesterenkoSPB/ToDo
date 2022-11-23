@@ -7,6 +7,10 @@ class TaskTableViewCell: BaseTableViewCell {
     let projectTitle = UILabel()
     let descriptionTitle = UILabel()
     var handleFinishTask: (() -> Void)?
+    
+    private enum UIConstants {
+        static let circleWidth = 30.0
+    }
 }
 
 extension TaskTableViewCell {
@@ -39,6 +43,7 @@ extension TaskTableViewCell {
         NSLayoutConstraint.activate([
             circleButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             circleButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
+            circleButton.widthAnchor.constraint(equalToConstant: UIConstants.circleWidth),
             nameTitle.centerYAnchor.constraint(equalTo: circleButton.centerYAnchor),
             nameTitle.leftAnchor.constraint(equalTo: circleButton.rightAnchor, constant: 10),
             nameTitle.rightAnchor.constraint(lessThanOrEqualTo: contentView.rightAnchor, constant: -10),

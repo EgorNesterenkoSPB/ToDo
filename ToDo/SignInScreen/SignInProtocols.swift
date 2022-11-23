@@ -10,6 +10,7 @@ protocol ViewToPresenterSignInProtocol {
     func setPassword(password:String?)
     func checkFields()
     func userTapConfirmButton(navigationController: UINavigationController?)
+    func userTapQuestionButton(questionButton:UIButton,signinViewController:SignInViewController,presentedViewController:UIViewController?)
 }
 
 //MARK: - View Output (Presenter -> View)

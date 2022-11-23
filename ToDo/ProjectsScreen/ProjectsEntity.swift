@@ -2,9 +2,10 @@ import Foundation
 import UIKit
 
 struct ProjectsSection {
-    let sectionTitle:String
-    var data:[ProjectCoreData]
-    var expandable:Bool
+    let sectionTitle:String?
+    var projectsData:[ProjectCoreData]?
+    var expandable:Bool?
+    var modelsData:[CommonCellOption]?
 }
 
 struct Color {

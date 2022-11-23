@@ -4,13 +4,8 @@ import UIKit
 final class ProjectsViewController:BaseViewController {
     
     let projectsTableView = UITableView()
-    let topTableView = UITableView()
     var presenter:(InteractorToPresenterProjectsProtocol & ViewToPresenterProjectsProtocol)?
-    
-    private enum UIConstants {
-        static let topTableViewHeight = 100.0
-    }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         do {
@@ -34,7 +29,6 @@ final class ProjectsViewController:BaseViewController {
 
 extension ProjectsViewController {
     override func addViews() {
-        self.view.addView(topTableView)
         self.view.addView(projectsTableView)
     }
     
@@ -45,20 +39,13 @@ extension ProjectsViewController {
         title = Resources.Titles.projectsSection
         
         projectsTableView.register(ProjectTableViewCell.self, forCellReuseIdentifier: Resources.Cells.projectCellIdentefier)
+        projectsTableView.register(CommonTableViewCell.self, forCellReuseIdentifier: Resources.Cells.commonTableCellIdentefier)
         self.configureTableView(tableView: projectsTableView)
-        
-        topTableView.isScrollEnabled = false
-        topTableView.register(CommonTableViewCell.self, forCellReuseIdentifier: Resources.Cells.commonTableCellIdentefier)
-        self.configureTableView(tableView: topTableView)
     }
     
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            topTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,constant: 15),
-            topTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor,constant: 0),
-            topTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor,constant: 0),
-            topTableView.heightAnchor.constraint(equalToConstant: UIConstants.topTableViewHeight),
-            projectsTableView.topAnchor.constraint(equalTo: topTableView.bottomAnchor,constant: 10),
+            projectsTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             projectsTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             projectsTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             projectsTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
@@ -97,101 +84,48 @@ extension ProjectsViewController:PresenterToViewProjectsProtocol {
 extension ProjectsViewController:UITableViewDelegate,UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        switch tableView {
-        case topTableView:
-            return Resources.projectsModels.count
-        case projectsTableView:
-            return presenter?.numberOfSections() ?? 0
-        default:
-            return 0
-        }
+        presenter?.numberOfSections() ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case topTableView:
-            return Resources.projectsModels[section].options.count
-        case projectsTableView:
-            return presenter?.numberOfRowsInSection(section: section) ?? 0
-        default:
-            return 0
-        }
+        presenter?.numberOfRowsInSection(section: section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch tableView {
-        case topTableView:
-            return presenter?.cellForRowAtTopTableView(tableView: tableView, cellForRowAt: indexPath) ?? UITableViewCell()
-        case projectsTableView:
-            return presenter?.cellForRowAt(tableView: tableView, cellForRowAt: indexPath) ?? UITableViewCell()
-        default:
-            return UITableViewCell()
-        }
+        presenter?.cellForRowAt(tableView: tableView, cellForRowAt: indexPath) ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        switch tableView {
-        case topTableView:
-            presenter?.didSelectRowAtTopTableView(tableView: tableView, indexPath: indexPath)
-        case projectsTableView:
-            presenter?.didSelectRowAt(tableView: tableView, indexPath: indexPath, projectsViewController: self)
-        default:
-            break
-        }
+        presenter?.didSelectRowAt(tableView: tableView, indexPath: indexPath, projectsViewController: self)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        switch tableView {
-        case projectsTableView:
-            return presenter?.trailingSwipeActionsConfigurationForRowAt(tableView: tableView, indexPath: indexPath, projectsViewController: self)
-        default:
-            return nil
-        }
+        presenter?.trailingSwipeActionsConfigurationForRowAt(tableView: tableView, indexPath: indexPath, projectsViewController: self)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch tableView {
-        case projectsTableView:
-            return presenter?.viewForHeaderInSection(projectsViewController: self, tableView: tableView, section: section)
-        default:
-            return nil
-        }
+        presenter?.viewForHeaderInSection(projectsViewController: self, tableView: tableView, section: section)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch tableView {
-        case projectsTableView:
-            return presenter?.heightForHeaderInSection() ?? 0
-        default:
-            return 0
-        }
+        presenter?.heightForHeaderInSection(section: section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        switch tableView {
-        case projectsTableView:
-            return presenter?.heightForFooterInSection() ?? 0
-        default:
-            return 0
-        }
+        presenter?.heightForFooterInSection() ?? 0
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         self.viewWillLayoutSubviews()
-        switch tableView {
-        case projectsTableView:
-            guard indexPath.section == 1 else {return}
-            let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, -50, 10)
-            cell.layer.transform = rotationTransform
-            cell.alpha = 0
-            UIView.animate(withDuration: 0.75, animations: {
-                cell.layer.transform = CATransform3DIdentity
-                cell.alpha = 1.0
-            })
-        default:
-            break
-        }
+        guard indexPath.section == 2 else {return} //dont show update animate at top static cells and favorite section
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, -50, 10)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.75, animations: {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
+        })
     }
 }
 

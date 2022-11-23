@@ -6,6 +6,12 @@ final class CreateTaskPresenter:ViewToPresenterCreateTaskProtocol {
     var interactor: PresenterToInteractorCreateTaskProtocol?
     var name:String?
     var description:String?
+    var time:Date?
+    let dateFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
 
     
     func textViewDidEndEditing(textView: UITextView) {
@@ -20,9 +26,19 @@ final class CreateTaskPresenter:ViewToPresenterCreateTaskProtocol {
         }
     }
     
-    func createTask(category: CategoryCoreData) {
+    func createTask(category: CategoryCoreData,date:Date?,time:Date?) {
         guard let name = name,name != "" && name != " " else {return}
-        interactor?.onCreateTask(name: name, description: description, category: category)
+        var settedDate:Date?
+        if let date = date {
+            if let time = time {
+                settedDate = combineDateWithTime(date: date, time: time)
+            } else {
+                let calendar = Calendar.current
+                guard let endTime = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: date) else {return}
+                settedDate = combineDateWithTime(date: date, time: endTime)
+            }
+        }
+        interactor?.onCreateTask(name: name, description: description, category: category,settedDate: settedDate)
     }
     
 }

@@ -45,7 +45,7 @@ extension CreateTaskViewController {
 
 extension CreateTaskViewController {
     @objc private func createTaskButtonTapped(_ sender: UIButton) {
-        presenter?.createTask(category: self.category)
+        presenter?.createTask(category: self.category, date: self.date, time: self.timeDate)
     }
 }
 

@@ -1,10 +1,10 @@
 import Foundation
 
-protocol TaskContent {
-    var name:String {get set}
-    var description:String? {get set}
-    var priority:Int64? {get set}
-    var path:String {get set}
-    var isFinished:Bool {get set}
-    var time:Date? {get set}
+struct TaskContent {
+    var name:String
+    var description:String?
+    var priority:Int64?
+    var path:String
+    var isFinished:Bool
+    var time:Date?
 }
