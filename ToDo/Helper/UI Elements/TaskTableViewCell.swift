@@ -47,16 +47,28 @@ extension TaskTableViewCell {
             nameTitle.centerYAnchor.constraint(equalTo: circleButton.centerYAnchor),
             nameTitle.leftAnchor.constraint(equalTo: circleButton.rightAnchor, constant: 10),
             nameTitle.rightAnchor.constraint(lessThanOrEqualTo: contentView.rightAnchor, constant: -10),
+            projectTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
+            projectTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
             descriptionTitle.topAnchor.constraint(equalTo: nameTitle.bottomAnchor, constant: 5),
             descriptionTitle.leftAnchor.constraint(equalTo: nameTitle.leftAnchor),
             descriptionTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            descriptionTitle.rightAnchor.constraint(lessThanOrEqualTo: contentView.rightAnchor, constant: -5),
-            projectTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
-            projectTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
+            descriptionTitle.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5)
         ])
     }
 }
 
+extension TaskTableViewCell {
+    public func setup(nameTitle:String?,descriptionTitle:String?,projectTitle:String?) {
+        self.circleButton.setImage(UIImage(systemName: Resources.Images.circle,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
+        self.circleButton.tintColor = UIColor(named: Resources.Titles.labelAndTintColor)
+        self.nameTitle.attributedText = nil
+        self.nameTitle.textColor = UIColor(named: Resources.Titles.labelAndTintColor)
+        self.projectTitle.text = projectTitle
+        self.handleFinishTask = nil
+        self.nameTitle.text = nameTitle
+        self.descriptionTitle.text = descriptionTitle
+    }
+}
 
 
 extension TaskTableViewCell {

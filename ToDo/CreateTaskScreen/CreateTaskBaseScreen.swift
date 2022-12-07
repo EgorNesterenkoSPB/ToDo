@@ -1,4 +1,5 @@
 import UIKit
+import CoreData
 
 class CreateTaskBaseController:BottomSheetController {
     private lazy var mainLabel = UILabel()
@@ -49,6 +50,7 @@ class CreateTaskBaseController:BottomSheetController {
 
 }
 
+//MARK: - Setup view
 extension CreateTaskBaseController {
     override func addViews() {
         super.addViews()
@@ -170,7 +172,17 @@ extension CreateTaskBaseController {
 extension CreateTaskBaseController {
     
     @objc private func projectButtonTapped(_ sender:UIButton) {
-
+        let popOverViewController = ProjectsPopOverViewController()
+        popOverViewController.modalPresentationStyle = .popover
+        popOverViewController.delegate = self
+        
+        guard let presentationViewController = popOverViewController.popoverPresentationController else {return}
+        presentationViewController.delegate = self
+        presentationViewController.sourceView = projectButton
+        presentationViewController.permittedArrowDirections = .down
+        presentationViewController.sourceRect = CGRect(x: projectButton.bounds.midX, y: projectButton.bounds.minY - 5, width: 0, height: 0)
+        presentationViewController.passthroughViews = [projectButton]
+        self.present(popOverViewController, animated: true, completion: nil)
     }
     
     @objc private func dateChanged(_ sender: UIDatePicker) {
@@ -207,6 +219,7 @@ extension CreateTaskBaseController {
     
 }
 
+//MARK: - UITextViewDelegate
 extension CreateTaskBaseController:UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.placeholderText {
@@ -223,10 +236,30 @@ extension CreateTaskBaseController:UITextViewDelegate {
     }
 }
 
+//MARK: - UITextFieldDelegate
 extension CreateTaskBaseController:UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text, text.isEmpty != true && text != " " else {return}
             createTaskButton.tintColor = .systemOrange
             createTaskButton.isEnabled = true
+    }
+}
+
+//MARK: - PopoverPresentation
+extension CreateTaskBaseController:UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        .none
+    }
+    
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        true
+    }
+    
+}
+
+//MARK: - ProjectsPopOverDelegate
+extension CreateTaskBaseController:ProjectsPopOverViewControllerProtocol {
+    func passTappedProject(id: NSManagedObjectID, name: String) {
+        self.projectButton.setTitle(name, for: .normal)
     }
 }

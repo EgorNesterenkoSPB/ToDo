@@ -66,7 +66,7 @@ extension TaskViewController {
         descriptionTitle.textColor = .lightGray
         descriptionTitle.font = .boldSystemFont(ofSize: 16)
         
-        descriptionTextView.text = Resources.Placeholders.textViewPlaceholder
+        descriptionTextView.text = taskContent.description == nil ? Resources.Placeholders.textViewPlaceholder : taskContent.description
         descriptionTextView.textColor = UIColor.placeholderText
         descriptionTextView.font = .systemFont(ofSize: 18)
         descriptionTextView.delegate = self
@@ -107,7 +107,7 @@ extension TaskViewController:UITextFieldDelegate {
 //MARK: - TextViewDelegate
 extension TaskViewController:UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.placeholderText {
+        if textView.text == Resources.Placeholders.textViewPlaceholder {
             textView.text = nil
             textView.textColor = UIColor(named: Resources.Titles.labelAndTintColor)
         }

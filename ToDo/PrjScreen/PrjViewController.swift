@@ -98,13 +98,13 @@ extension PrjViewController:PresenterToViewPrjProtocol {
     
     func reloadCommonTasksSection() {
         DispatchQueue.main.async {
-            self.tasksTableView.reloadSections(IndexSet(integer: 0), with: .none)
+            self.tasksTableView.reloadSections(IndexSet(integer: 0), with: .fade)
         }
     }
     
     func onUpdateSection(section: Int) {
         DispatchQueue.main.async {
-            self.tasksTableView.reloadSections(IndexSet(integer: section), with: .none)
+            self.tasksTableView.reloadSections(IndexSet(integer: section), with: .fade)
         }
     }
     
@@ -140,8 +140,6 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
         switch tableView {
         case tasksTableView:
             return presenter?.numberOfSections() ?? 0
-//        case commonTasksTableView:
-//            return 1
         default:
             return 0
         }
@@ -172,7 +170,8 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        presenter?.heightForFooterInSection() ?? 0    }
+        presenter?.heightForFooterInSection() ?? 0
+    }
     
 }
 

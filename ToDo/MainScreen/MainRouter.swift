@@ -1,6 +1,12 @@
 import UIKit
+import CoreData
 
 final class MainRouter:PresenterToRouterMainProtocol {
+    func showTaskScreen(task: NSManagedObject, taskContent: TaskContent, navigationController: UINavigationController?) {
+        let taskViewController = TaskRouter.createModule(task: task, taskContent: taskContent)
+        navigationController?.pushViewController(taskViewController, animated: true)
+    }
+    
     func showSettingsScreen(navigationController: UINavigationController?) {
         let settingsViewController = SettingsRouter.createModule()
         navigationController?.pushViewController(settingsViewController, animated: true)

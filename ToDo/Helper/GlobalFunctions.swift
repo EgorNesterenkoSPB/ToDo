@@ -38,3 +38,9 @@ func combineDateWithTime(date: Date, time: Date) -> Date? {
         
         return calendar.date(from: mergedComponents)
     }
+
+func isOverdue(taskDate:Date) -> Bool {
+    let today = Date()
+    return taskDate < today
+}
+

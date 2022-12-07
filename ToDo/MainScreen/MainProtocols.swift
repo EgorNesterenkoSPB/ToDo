@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import CoreData
 
 //MARK: - View Input (View -> Presenter)
 protocol ViewToPresenterMainProtocol {
@@ -15,23 +16,26 @@ protocol ViewToPresenterMainProtocol {
     func viewForHeaderInSection(tableView: UITableView, section: Int) -> UIView?
     func userTapProjectsButton(navigationController:UINavigationController?)
     func userTapSettingsButton(navigationController:UINavigationController?)
-    func heightForRowAt() -> CGFloat
+    func getData()
+    func didSelectRowAt(tableView:UITableView, indexPath:IndexPath,navigationController:UINavigationController?)
 }
 
 //MARK: - View Output (Presenter -> View)
 protocol PresenterToViewMainProtocol {
     func updateTableView()
+    func errorGetCoreData(errorText:String)
 }
 
 //MARK: -  Interactor Input (Presenter -> Interactor)
 protocol PresenterToInteractorMainProtocol {
     var presenter:InteractorToPresenterMainProtocol? {get set}
-
+    func setFinishTask(task:NSManagedObject)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
 protocol InteractorToPresenterMainProtocol {
-
+    func successfulyFinishedTask()
+    func failureFinishedTask(errorText:String)
 }
 
 //MARK: - Router Input (Presenter -> Router)
@@ -40,4 +44,5 @@ protocol PresenterToRouterMainProtocol {
     func showProjectsScreen(navigationController:UINavigationController?)
     func showCreateTaskViewController(mainViewController:MainViewController)
     func showSettingsScreen(navigationController:UINavigationController?)
+    func showTaskScreen(task:NSManagedObject,taskContent:TaskContent,navigationController:UINavigationController?)
 }

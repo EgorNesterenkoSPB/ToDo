@@ -6,7 +6,6 @@ final class MainViewController:BaseViewController {
     let tableView = UITableView()
     let bottomBackgroundView = CustomizedShapeView()
     let circleButton = UIButton()
-    let topTitle = UILabel()
     let projectsButton = UIButton()
     let settingsButton = UIButton()
     var token:Token?
@@ -20,7 +19,13 @@ final class MainViewController:BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter?.getData()
     }
 }
 
@@ -30,17 +35,12 @@ extension MainViewController {
         self.view.addView(bottomBackgroundView)
         self.view.addView(circleButton)
         self.view.addView(tableView)
-        self.view.addView(topTitle)
         bottomBackgroundView.addView(projectsButton)
         bottomBackgroundView.addView(settingsButton)
     }
     
     override func configure() {
         super.configure()
-        navigationController?.navigationBar.isHidden = true
-        
-        topTitle.text = Resources.Titles.today
-        topTitle.font = .systemFont(ofSize: 25)
         
         circleButton.backgroundColor = .systemOrange
         circleButton.setImage(UIImage(systemName: Resources.Images.plusImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
@@ -69,14 +69,12 @@ extension MainViewController {
     
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            topTitle.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,constant: 10),
-            topTitle.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor,constant: 15),
             bottomBackgroundView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             bottomBackgroundView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             bottomBackgroundView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             bottomBackgroundView.heightAnchor.constraint(equalToConstant: 55),
-            tableView.topAnchor.constraint(equalTo: topTitle.bottomAnchor,constant: 10),
-            tableView.bottomAnchor.constraint(equalTo: circleButton.topAnchor),
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,constant: 10),
+            tableView.bottomAnchor.constraint(equalTo: bottomBackgroundView.topAnchor),
             tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor,constant: -10),
             tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor,constant: 10),
             circleButton.centerXAnchor.constraint(equalTo: bottomBackgroundView.centerXAnchor),
@@ -116,6 +114,10 @@ extension MainViewController {
 
 //MARK: - PresenterToViewMethods
 extension MainViewController:PresenterToViewMainProtocol {
+    func errorGetCoreData(errorText: String) {
+        self.present(createInfoAlert(messageText: Resources.Titles.errorTitle, titleText: errorText), animated: true)
+    }
+    
     func updateTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -150,9 +152,8 @@ extension MainViewController:UITableViewDelegate,UITableViewDataSource {
         presenter?.heightForFooterInSection() ?? 0
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        presenter?.heightForRowAt() ?? 0
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.didSelectRowAt(tableView: tableView, indexPath: indexPath, navigationController: navigationController)
     }
-    
 }
 

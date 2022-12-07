@@ -77,14 +77,6 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         }
     }
     
-    private func configureCell(cell:TaskTableViewCell) {
-        cell.circleButton.setImage(UIImage(systemName: Resources.Images.circle,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-        cell.circleButton.tintColor = UIColor(named: Resources.Titles.labelAndTintColor)
-        cell.nameTitle.attributedText = nil
-        cell.nameTitle.textColor = UIColor(named: Resources.Titles.labelAndTintColor)
-        cell.handleFinishTask = nil
-    }
-    
     
     func updateSection(category: CategoryCoreData,section:Int) {
         do {
@@ -187,11 +179,10 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     
     func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.taskCellIdentefier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
-        self.configureCell(cell: cell)
+        
         if indexPath.section == 0 {
             let commonTask = commonTasks[indexPath.row]
-            cell.nameTitle.text = commonTask.name
-            cell.descriptionTitle.text = commonTask.descriptionTask
+            cell.setup(nameTitle: commonTask.name, descriptionTitle: commonTask.descriptionTask, projectTitle: nil)
             cell.handleFinishTask = { [weak self] in
                 self?.interactor?.setFinishTask(task:commonTask, indexPath: nil, unfinished: commonTask.isFinished ? true : false)
             }
@@ -201,8 +192,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             }
         } else {
             guard let task = sectionsData[indexPath.section].categoryData?[indexPath.row] else {return UITableViewCell()}
-            cell.nameTitle.text = task.name
-            cell.descriptionTitle.text = task.descriptionTask
+            cell.setup(nameTitle: task.name, descriptionTitle: task.descriptionTask, projectTitle: nil)
             cell.handleFinishTask = { [weak self] in
                 self?.interactor?.setFinishTask(task: task, indexPath: indexPath, unfinished: task.isFinished ? true : false)
             }
@@ -223,8 +213,8 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             let taskContent = TaskContent(name: taskName, description: commonTask.descriptionTask, priority: commonTask.priority, path: "\(projectName)/\(taskName)", isFinished: commonTask.isFinished, time: commonTask.time)
             self.router?.showTaskScreen(task: commonTask, taskContent: taskContent, navigationController: navigationController)
         default:
-            guard let task = sectionsData[indexPath.section].categoryData?[indexPath.row],let category = task.category,let taskName = task.name,let projectName = category.project?.name, let cateogyName = category.name else {return}
-            let taskContent = TaskContent(name: taskName, description: task.descriptionTask, priority: task.priority, path: "\(projectName)/\(cateogyName)/", isFinished: task.isFinished, time: task.time)
+            guard let task = sectionsData[indexPath.section].categoryData?[indexPath.row],let category = task.category,let taskName = task.name,let projectName = category.project?.name, let categoryName = category.name else {return}
+            let taskContent = TaskContent(name: taskName, description: task.descriptionTask, priority: task.priority, path: "\(projectName)/\(categoryName)/", isFinished: task.isFinished, time: task.time)
             self.router?.showTaskScreen(task: task, taskContent: taskContent, navigationController: navigationController)
         }
         
