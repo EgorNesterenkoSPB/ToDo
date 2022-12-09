@@ -122,6 +122,10 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             prjViewController.present(createCategoryAlert,animated: true)
         }))
         
+        alertController.addAction(UIAlertAction(title: project.isFavorite ? Resources.Titles.removeFromFavorites : Resources.Titles.addToFavorite, style: .default, handler: { [weak self] _ in
+            self?.interactor?.changeProjectIsFavorite(project: project)
+        }))
+        
         alertController.addAction(UIAlertAction(title: isHiddedFinishedTasks ? Resources.Titles.showFinishedTasks : Resources.Titles.hideFinishedTasks, style: .default, handler: { [weak self] _ in
             self?.isHiddedFinishedTasks.toggle()
             self?.getCategories(project: project)

@@ -48,6 +48,7 @@ protocol PresenterToInteractorPrjProtocol {
     func deleteCommonTask(commonTask:CommonTaskCoreData)
     func setFinishTask<T>(task:T,indexPath:IndexPath?,unfinished:Bool) where T:NSManagedObject
     func changeProjectColor(hexColor:String,project:ProjectCoreData)
+    func changeProjectIsFavorite(project:ProjectCoreData)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)

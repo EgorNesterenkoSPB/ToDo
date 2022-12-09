@@ -16,6 +16,7 @@ enum Resources {
     static let categoryNameKey = "name"
     static let isFinishedTaskKey = "isFinished"
     static let timeFinishedTaskKey = "timeFinished"
+    static let favoriteProjectKey = "isFavorite"
     static let hexColorProjectKey = "hexColor"
     static let supportMail = "nesterenkoegorbussines@gmail.com"
     static let mailSubject = "HELP!"
@@ -115,6 +116,7 @@ enum Resources {
         static let failedSendLetter = "Failed to send the letter,try again!"
         static let unknownError = "Unknown feature"
         static let forgotPassword = "Forgot password"
+        static let removeFromFavorites = "Remove from favorites"
     }
     enum Placeholders {
         static let textViewPlaceholder = "Description"

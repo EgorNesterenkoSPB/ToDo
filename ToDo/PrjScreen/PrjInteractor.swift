@@ -1,9 +1,8 @@
 import UIKit
-import Foundation
 import CoreData
 
 final class PrjInteractor:PresenterToInteractorPrjProtocol {
-
+    
     var presenter: InteractorToPresenterPrjProtocol?
     
     func changeProjectColor(hexColor: String, project: ProjectCoreData) {
@@ -15,8 +14,15 @@ final class PrjInteractor:PresenterToInteractorPrjProtocol {
         }
     }
     
+    func changeProjectIsFavorite(project: ProjectCoreData) {
+        project.setValue(!project.isFavorite, forKey: Resources.favoriteProjectKey)
+        do {
+            try DataManager.shared.save()
+        } catch let error {
+            self.presenter?.onfailedCoreData(errorText: error.localizedDescription)
+        }
+    }
     
-        
     func setFinishTask<T>(task:T,indexPath:IndexPath? = nil,unfinished:Bool) where T:NSManagedObject {
         
         task.setValue(unfinished ? false : true, forKey: Resources.isFinishedTaskKey)
