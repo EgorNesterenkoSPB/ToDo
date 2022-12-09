@@ -6,6 +6,8 @@ protocol ViewToPresenterTaskProtocol {
     var view: PresenterToViewTaskProtocol? {get set}
     var router: PresenterToRouterTaskProtocol? {get set}
     var interactor: PresenterToInteractorTaskProtocol? {get set}
+    func textViewDidBeginEditing(textView: UITextView)
+    func textViewDidEndEditing(textView: UITextView)
 
 }
 

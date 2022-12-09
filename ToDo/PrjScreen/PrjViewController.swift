@@ -177,13 +177,11 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
 
 
 extension PrjViewController:CreateTaskViewControllerProtocol {
+    func refreshCommonTasksTable() {
+        self.presenter?.getCommonTasks(project: self.project)
+    }
+    
     func refreshView(category: CategoryCoreData, section: Int) {
         presenter?.updateSection(category: category, section: section)
-    }
-}
-
-extension PrjViewController:CreateCommonTaskViewControllerProtocol {
-    func updateCommonTasksTableView() {
-        presenter?.getCommonTasks(project: self.project)
     }
 }

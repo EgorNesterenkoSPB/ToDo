@@ -2,16 +2,17 @@ import UIKit
 
 protocol CreateTaskViewControllerProtocol {
     func refreshView(category:CategoryCoreData,section:Int)
+    func refreshCommonTasksTable()
 }
 
 final class CreateTaskViewController:CreateTaskBaseController {
     var presenter:(InteractorToPresenterCreateTaskProtocol & ViewToPresenterCreateTaskProtocol)?
-    let category:CategoryCoreData
+    var category:CategoryCoreData?
     var delegate:CreateTaskViewControllerProtocol?
-    let section:Int
-    let projectName:String
+    var section:Int?
+    var projectName:String?
     
-    init(section:Int,category:CategoryCoreData,projectName:String) {
+    init(projectName:String? = nil,section:Int? = nil,category:CategoryCoreData? = nil) {
         self.category = category
         self.section = section
         self.projectName = projectName
@@ -31,9 +32,9 @@ extension CreateTaskViewController {
     override func configure() {
         super.configure()
         
-        projectButton.setTitle(self.projectName, for: .normal)
-        projectButton.isEnabled = false
-        projectButton.setTitleColor(.placeholderText, for: .normal)
+        projectButton.setTitle(self.projectName ?? "Project", for: .normal)
+        projectButton.isEnabled = self.projectName == nil ? true : false
+        projectButton.setTitleColor(projectButton.isEnabled ? UIColor(named: Resources.Titles.labelAndTintColor) : .placeholderText, for: .normal)
         
         createTaskButton.addTarget(self, action: #selector(createTaskButtonTapped), for: .touchUpInside)
     }
@@ -45,7 +46,7 @@ extension CreateTaskViewController {
 
 extension CreateTaskViewController {
     @objc private func createTaskButtonTapped(_ sender: UIButton) {
-        presenter?.createTask(category: self.category, date: self.date, time: self.timeDate)
+        presenter?.createTask(category: self.category, date: self.date, time: self.timeDate,projectID: self.projectID)
     }
 }
 
@@ -73,7 +74,11 @@ extension CreateTaskViewController:PresenterToViewCreateTaskProtocol {
     }
     
     func onSuccessfulyCreateTask() {
-        self.delegate?.refreshView(category: self.category, section: self.section)
+        if let category = self.category,let section = self.section{
+            self.delegate?.refreshView(category: category, section: section)
+        } else if projectID != nil {
+            self.delegate?.refreshCommonTasksTable()
+        }
         super.animateDismissView()
     }
 }

@@ -1,6 +1,5 @@
 import UIKit
 import CoreData
-import Foundation
 
 final class MainPresenter: ViewToPresenterMainProtocol {
 
@@ -10,6 +9,7 @@ final class MainPresenter: ViewToPresenterMainProtocol {
     var countOfSections = 2
     var todayTasks = [NSManagedObject]()
     var overdueTasks = [NSManagedObject]()
+    var currentProjectID:NSManagedObjectID?
     
     private enum UIConstants {
         static let heightHeader = 40.0
@@ -73,8 +73,9 @@ final class MainPresenter: ViewToPresenterMainProtocol {
     }
     
     func userTapCreateTask(mainViewController: MainViewController) {
-        router?.showCreateTaskViewController(mainViewController: mainViewController)
+        self.router?.showCreateTaskViewController(mainViewController: mainViewController)
     }
+    
     
     func numberOfSections() -> Int {
         self.countOfSections
@@ -168,6 +169,44 @@ final class MainPresenter: ViewToPresenterMainProtocol {
         }
     }
     
+    func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath, mainViewController: MainViewController) -> UISwipeActionsConfiguration? {
+        var completionHandler:((_ task:NSManagedObject) -> Void)
+        
+        guard let interactor = self.interactor else {return nil }
+        completionHandler = interactor.deleteTask
+        
+        var currentTask = NSManagedObject()
+
+        switch indexPath.section {
+        case 0:
+            if let commonTask = overdueTasks[indexPath.row] as? CommonTaskCoreData {
+                currentTask = commonTask
+            }
+            
+            if let categoryTask = overdueTasks[indexPath.row] as? TaskCoreData {
+                currentTask = categoryTask
+            }
+            
+        case 1:
+            if let commonTask = overdueTasks[indexPath.row] as? CommonTaskCoreData {
+                currentTask = commonTask
+            }
+            
+            if let categoryTask = overdueTasks[indexPath.row] as? TaskCoreData {
+                currentTask = categoryTask
+            }
+        default:
+            return nil
+        }
+        
+        let delete = createDeleteTaskContextualAction(title: Resources.Titles.confirmAction, viewController: mainViewController, with: {
+            completionHandler(currentTask)
+        })
+        
+        let configuration = UISwipeActionsConfiguration(actions: [delete])
+        return configuration
+    }
+    
     private func pushToTaskScreen(name:String,description:String?,priority:Int64?,path:String,isFinished:Bool,time:Date?,navigationController:UINavigationController?,task:NSManagedObject) {
         let taskContent = TaskContent(name: name, description: description, priority: priority, path: path, isFinished: isFinished, time: time)
         self.router?.showTaskScreen(task: task, taskContent: taskContent, navigationController: navigationController)
@@ -210,6 +249,22 @@ final class MainPresenter: ViewToPresenterMainProtocol {
 }
 
 extension MainPresenter:InteractorToPresenterMainProtocol {
+    func successfulyCreateTask() {
+        self.getData()
+    }
+    
+    func failureCreateTask(errorText: String) {
+        self.view?.errorGetCoreData(errorText: errorText)
+    }
+    
+    func successfulyDeleteTask() {
+        self.getData()
+    }
+    
+    func failureDeleteTask(errorText:String) {
+        self.view?.errorGetCoreData(errorText: errorText)
+    }
+    
     func successfulyFinishedTask() {
         self.getData()
     }

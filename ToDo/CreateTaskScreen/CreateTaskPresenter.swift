@@ -1,4 +1,5 @@
 import UIKit
+import CoreData
 
 final class CreateTaskPresenter:ViewToPresenterCreateTaskProtocol {
     var view: PresenterToViewCreateTaskProtocol?
@@ -26,7 +27,7 @@ final class CreateTaskPresenter:ViewToPresenterCreateTaskProtocol {
         }
     }
     
-    func createTask(category: CategoryCoreData,date:Date?,time:Date?) {
+    func createTask(category: CategoryCoreData?,date:Date?,time:Date?,projectID:NSManagedObjectID?) {
         guard let name = name,name != "" && name != " " else {return}
         var settedDate:Date?
         if let date = date {
@@ -38,7 +39,12 @@ final class CreateTaskPresenter:ViewToPresenterCreateTaskProtocol {
                 settedDate = combineDateWithTime(date: date, time: endTime)
             }
         }
-        interactor?.onCreateTask(name: name, description: description, category: category,settedDate: settedDate)
+        if let category = category {
+            self.interactor?.onCreateTask(name: name, description: description, category: category,settedDate: settedDate)
+        }
+        if let projectID = projectID {
+            self.interactor?.onCreateCommonTask(name: name, description: description, settedData: settedDate, projectID: projectID)
+        }
     }
     
 }

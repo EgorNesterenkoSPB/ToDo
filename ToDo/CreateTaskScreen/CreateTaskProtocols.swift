@@ -1,4 +1,5 @@
 import UIKit
+import CoreData
 
 //MARK: - View Input (View -> Presenter)
 protocol ViewToPresenterCreateTaskProtocol {
@@ -7,7 +8,7 @@ protocol ViewToPresenterCreateTaskProtocol {
     var interactor: PresenterToInteractorCreateTaskProtocol? {get set}
     func textViewDidEndEditing(textView:UITextView)
     func textFieldDidEndEditing(textField:UITextField)
-    func createTask(category:CategoryCoreData,date:Date?,time:Date?)
+    func createTask(category:CategoryCoreData?,date:Date?,time:Date?,projectID:NSManagedObjectID?)
 }
 
 //MARK: - View Output (Presenter -> View)
@@ -20,6 +21,7 @@ protocol PresenterToViewCreateTaskProtocol {
 protocol PresenterToInteractorCreateTaskProtocol {
     var presenter:InteractorToPresenterCreateTaskProtocol? {get set}
     func onCreateTask(name:String,description:String?,category:CategoryCoreData,settedDate:Date?)
+    func onCreateCommonTask(name:String,description:String?,settedData:Date?,projectID:NSManagedObjectID)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
@@ -30,5 +32,5 @@ protocol InteractorToPresenterCreateTaskProtocol {
 
 //MARK: - Router Input (Presenter -> Router)
 protocol PresenterToRouterCreateTaskProtocol {
-    static func createModule(category:CategoryCoreData,section:Int,projectName:String) -> CreateTaskViewController
+    static func createModule(category:CategoryCoreData?,section:Int?,projectName:String?) -> CreateTaskViewController
 }

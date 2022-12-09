@@ -1,4 +1,5 @@
 import UIKit
+import CoreData
 
 func createInfoAlert(messageText:String,titleText:String) -> UIAlertController {
     let alert = UIAlertController(title: titleText, message: messageText, preferredStyle: .alert)
@@ -44,3 +45,19 @@ func isOverdue(taskDate:Date) -> Bool {
     return taskDate < today
 }
 
+func createDeleteTaskContextualAction(title:String,viewController:UIViewController,with completionHandler: @escaping () -> Void) -> UIContextualAction{
+    let delete = UIContextualAction(style: .destructive, title: nil, handler: { (action,swipeButtonView,completion) in
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: title, style: .destructive, handler: { _ in
+            completionHandler()
+//            self?.interactor?.deleteProject(project: project)
+        }))
+        alert.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
+        viewController.present(alert,animated: true)
+        completion(true)
+    })
+    delete.image = UIImage(systemName: Resources.Images.trash,withConfiguration: Resources.Configurations.largeConfiguration)
+    delete.image?.withTintColor(.white)
+    delete.backgroundColor = .red
+    return delete
+}

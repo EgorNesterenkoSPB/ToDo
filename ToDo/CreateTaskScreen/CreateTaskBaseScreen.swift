@@ -29,6 +29,7 @@ class CreateTaskBaseController:BottomSheetController {
     }
     var timeDate:Date?
     let projectButton = UIButton()
+    var projectID:NSManagedObjectID?
     
     private enum UIConstants {
         static let mainLabelFont = 24.0
@@ -83,8 +84,6 @@ extension CreateTaskBaseController {
         createTaskButton.tintColor = .gray
         createTaskButton.isEnabled = false
         
-        projectButton.setTitle("Project", for: .normal)
-        projectButton.setTitleColor(UIColor(named: Resources.Titles.labelAndTintColor), for: .normal)
         projectButton.layer.cornerRadius = 10
         projectButton.layer.borderColor = UIColor.gray.cgColor
         projectButton.layer.borderWidth = 1
@@ -261,5 +260,6 @@ extension CreateTaskBaseController:UIPopoverPresentationControllerDelegate {
 extension CreateTaskBaseController:ProjectsPopOverViewControllerProtocol {
     func passTappedProject(id: NSManagedObjectID, name: String) {
         self.projectButton.setTitle(name, for: .normal)
+        self.projectID = id
     }
 }

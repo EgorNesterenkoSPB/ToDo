@@ -1,8 +1,8 @@
 import UIKit
 
 final class CreateTaskRouter:PresenterToRouterCreateTaskProtocol {
-    static func createModule(category:CategoryCoreData,section:Int,projectName:String) -> CreateTaskViewController {
-        let createTaskViewController = CreateTaskViewController(section: section, category: category, projectName: projectName)
+    static func createModule(category:CategoryCoreData?,section:Int?,projectName:String?) -> CreateTaskViewController {
+        let createTaskViewController = CreateTaskViewController(projectName: projectName, section: section, category: category)
         
         let createTaskPresenter: (ViewToPresenterCreateTaskProtocol & InteractorToPresenterCreateTaskProtocol) = CreateTaskPresenter()
         

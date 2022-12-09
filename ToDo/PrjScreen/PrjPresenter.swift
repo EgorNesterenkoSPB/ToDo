@@ -94,7 +94,8 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     }
     
     func showCreateCommonTaskScreen(project: ProjectCoreData,prjViewController:PrjViewController) {
-        router?.onShowCreateCommonTaskViewController(project: project,prjViewController:prjViewController)
+        guard let projectName = project.name else {return}
+        router?.onShowCreateTaskViewController(projectName: projectName,projectID:project.objectID ,prjViewController: prjViewController)
     }
     
     
@@ -190,6 +191,12 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             if !isHiddedFinishedTasks && commonTask.isFinished {
                 throughLineCell(cell: cell, indexPath: indexPath)
             }
+            
+            if let time = commonTask.time {
+                if isOverdue(taskDate: time) {
+                    cell.nameTitle.textColor = .red
+                }
+            }
         } else {
             guard let task = sectionsData[indexPath.section].categoryData?[indexPath.row] else {return UITableViewCell()}
             cell.setup(nameTitle: task.name, descriptionTitle: task.descriptionTask, projectTitle: nil)
@@ -198,6 +205,12 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             }
             if !isHiddedFinishedTasks && task.isFinished {
                 throughLineCell(cell: cell, indexPath: indexPath)
+            }
+            
+            if let time = task.time {
+                if isOverdue(taskDate: time) {
+                    cell.nameTitle.textColor = .red
+                }
             }
         }
         return cell

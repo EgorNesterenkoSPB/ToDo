@@ -68,6 +68,6 @@ protocol InteractorToPresenterPrjProtocol {
 //MARK: - Router Input (Presenter -> Router)
 protocol PresenterToRouterPrjProtocol {
     static func createModule(project:ProjectCoreData) -> PrjViewController
-    func onShowCreateCommonTaskViewController(project:ProjectCoreData,prjViewController:PrjViewController)
+    func onShowCreateTaskViewController(projectName:String,projectID:NSManagedObjectID,prjViewController:PrjViewController)
     func showTaskScreen(task:NSManagedObject,taskContent:TaskContent,navigationController:UINavigationController?)
 }

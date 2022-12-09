@@ -55,6 +55,7 @@ extension TaskViewController {
         nameTextField.font = .boldSystemFont(ofSize: 23)
         nameTextField.textAlignment = .center
         
+        dateTextField.isEnabled = false
         dateTextField.textColor = .gray
         dateTextField.tintColor = .clear
         if let time = taskContent.time {
@@ -107,17 +108,11 @@ extension TaskViewController:UITextFieldDelegate {
 //MARK: - TextViewDelegate
 extension TaskViewController:UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == Resources.Placeholders.textViewPlaceholder {
-            textView.text = nil
-            textView.textColor = UIColor(named: Resources.Titles.labelAndTintColor)
-        }
+        presenter?.textViewDidBeginEditing(textView: textView)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = Resources.Placeholders.textViewPlaceholder
-            textView.textColor = UIColor.placeholderText
-        }
+        presenter?.textViewDidEndEditing(textView: textView)
     }
 }
 

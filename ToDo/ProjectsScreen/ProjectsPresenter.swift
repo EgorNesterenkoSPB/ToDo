@@ -159,18 +159,10 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
     func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath,projectsViewController:ProjectsViewController) -> UISwipeActionsConfiguration? {
         guard let cell = tableView.cellForRow(at: indexPath) as? ProjectTableViewCell else {return nil}
         guard let project = cell.project else {return nil}
-        let delete = UIContextualAction(style: .destructive, title: nil, handler: {[weak self] (action,swipeButtonView,completion) in
-            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: Resources.Titles.confirmAction, style: .destructive, handler: { [weak self] _ in
-                self?.interactor?.deleteProject(project: project)
-            }))
-            alert.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
-            projectsViewController.present(alert,animated: true)
-            completion(true)
+        
+        let delete = createDeleteTaskContextualAction(title: Resources.Titles.confirmAction, viewController: projectsViewController, with: { [weak self] in
+            self?.interactor?.deleteProject(project: project)
         })
-        delete.image = UIImage(systemName: Resources.Images.trash,withConfiguration: Resources.Configurations.largeConfiguration)
-        delete.image?.withTintColor(.white)
-        delete.backgroundColor = .red
 
         let configuration = UISwipeActionsConfiguration(actions: [delete])
         return configuration
