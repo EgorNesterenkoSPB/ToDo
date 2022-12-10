@@ -22,6 +22,11 @@ enum Resources {
     static let mailSubject = "HELP!"
     static let lozalizedKey = "Localizable"
     static let launchColorName = "launchColor"
+    static let isOnBoardingKey = "onBoarding"
+    static let firstMainOnBoardingText = "Thank you for downloading and welcome to Zero notebook!"
+    static let firstSecondOnBoardingText = "Create,save tasks, write your personal blog"
+    static let secondMainOnBoardingText = "Management your tasks offline or from account"
+    static let secondSecondOnBoardingText = "Login in account or skip without registration"
     
     static let colorsData = [Color(hex: "b8256f", name: "Berry red"),Color(hex: "db4035", name: "Red"),Color(hex: "ff9933", name: "Orange"),Color(hex: "fad000", name: "Yellow"),Color(hex: "afb83b", name: "Olive green"),Color(hex: "7ecc49", name: "Lime green"),Color(hex: "299438", name: "Green"),Color(hex: "6accbc", name: "Mint green"),Color(hex: "158fad", name: "Teal"),Color(hex: "14aaf5", name: "Sky blue"),Color(hex: "96c3eb", name: "Light blue"),Color(hex: "4073ff", name: "Blue"),Color(hex: "884dff", name: "Grape"),Color(hex: "af38eb", name: "Violet"),Color(hex: "eb96eb", name: "Lavender"),Color(hex: "e05194", name: "Magenta"),Color(hex: "ff8d85", name: "Salmon"),Color(hex: "808080", name: "Charcoal"),Color(hex: "b8b8b8", name: "Grey"),Color(hex: "ccac93", name: "Taupe")]
     
@@ -119,6 +124,10 @@ enum Resources {
         static let unknownError = "Unknown feature"
         static let forgotPassword = "Forgot password"
         static let removeFromFavorites = "Remove from favorites"
+        static let skip = "Skip"
+        static let back = "Back"
+        static let next = "Next"
+        static let getStarted = "Get started"
     }
     enum Placeholders {
         static let textViewPlaceholder = "Description"
@@ -155,6 +164,9 @@ enum Resources {
         static let xCircleFill = "x.circle.fill"
         static let createNote = "square.and.pencil"
         static let folderFill = "folder.fill"
+        static let managements = "managements"
+        static let blog = "blog"
+        static let errorImage = "errorImage"
     }
     enum Cells {
         static let taskCellIdentefier = "taskCell"
@@ -166,8 +178,6 @@ enum Resources {
         static let commonTableCellIdentefier = "common cell"
         static let commonTaskCellIdentefier = "commonTask cell"
         static let popOverCellIdentegfier = "popOver"
-        static let managements = "managements"
-        static let blog = "blog"
     }
 }
 

@@ -1,6 +1,6 @@
 import UIKit
 
-class LaunchViewController: UIViewController {
+class LaunchViewController: BaseViewController {
     
     let label = UILabel()
     lazy var shadowView: UIView = {
@@ -14,7 +14,6 @@ class LaunchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureView()
         presenter?.configureShadow(label: label, shadowView: shadowView, navigationController: navigationController)
     }
     
@@ -22,11 +21,15 @@ class LaunchViewController: UIViewController {
 
 extension LaunchViewController {
     
-    private func configureView() {
+    override func addViews() {
+        self.view.addView(shadowView)
+        self.view.addView(label)
+    }
+    
+    override func configure() {
+        super.configure()
         self.view.backgroundColor = UIColor(named: Resources.launchColorName)
         self.navigationController?.navigationBar.isHidden = true
-        
-        view.addView(shadowView)
         view.bringSubviewToFront(shadowView)
         
         label.text = Resources.Titles.applicationName
@@ -37,8 +40,9 @@ extension LaunchViewController {
         label.layer.shadowRadius = 5
         label.layer.shadowOpacity = 1
         label.layer.shadowOffset = CGSize(width: 10, height: 0) // x offset shadow (center of shadow)
-        self.view.addView(label)
-        
+    }
+    
+    override func layoutViews() {
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
             label.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor)

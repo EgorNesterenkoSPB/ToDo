@@ -6,6 +6,15 @@ final class LaunchInteractor:PresenterToInteractorLaunchProtocol {
     let defaults = UserDefaults.standard
     
     func viewDidLoad(navigationController:UINavigationController?) {
+        let isOnBoarding = defaults.bool(forKey: Resources.isOnBoardingKey)
+        switch isOnBoarding {
+        case true:
+            break
+        case false:
+            self.presenter?.showOnBoardingViewController(navigationController: navigationController)
+            return
+        }
+        
         let isEntered = defaults.bool(forKey: Resources.isEnteredApplication)
         switch isEntered {
         case true:

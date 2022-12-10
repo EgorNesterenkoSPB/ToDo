@@ -25,6 +25,7 @@ protocol InteractorToPresenterLaunchProtocol {
     func showPincodeViewController(navigationController:UINavigationController?)
     func showLoginViewController(navigationController:UINavigationController?)
     func showMainViewController(navigationController:UINavigationController?)
+    func showOnBoardingViewController(navigationController:UINavigationController?)
 }
 
 //MARK: - Router Input (Presenter -> Router)
@@ -33,4 +34,5 @@ protocol PresenterToRouterLaunchProtocol {
     func onShowPincodeViewController(navigationController:UINavigationController?)
     func onShowLoginViewController(navigationController:UINavigationController?)
     func onShowMainViewController(navigationController:UINavigationController?)
+    func onShowOnBoardingViewConroller(navigationController:UINavigationController?)
 }

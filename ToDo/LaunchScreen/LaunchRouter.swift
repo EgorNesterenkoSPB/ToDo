@@ -1,6 +1,10 @@
 import UIKit
 
 final class LaunchRouter:PresenterToRouterLaunchProtocol {
+    func onShowOnBoardingViewConroller(navigationController: UINavigationController?) {
+        navigationController?.setViewControllers([OnBoardingRouter.createModule()], animated: false)
+    }
+    
     func onShowPincodeViewController(navigationController: UINavigationController?) {
         navigationController?.setViewControllers([PincodeViewController()], animated: false)
     }

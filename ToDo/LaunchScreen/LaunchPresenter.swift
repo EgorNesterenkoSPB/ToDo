@@ -111,6 +111,10 @@ extension LaunchPresenter {
 }
 
 extension LaunchPresenter:InteractorToPresenterLaunchProtocol {
+    func showOnBoardingViewController(navigationController: UINavigationController?) {
+        self.router?.onShowOnBoardingViewConroller(navigationController: navigationController)
+    }
+    
     func showPincodeViewController(navigationController: UINavigationController?) {
         self.router?.onShowPincodeViewController(navigationController: navigationController)
     }
