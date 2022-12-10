@@ -1,6 +1,10 @@
 import UIKit
 
 final class ProjectsRouter:PresenterToRouterProjectsProtocol {
+    func showIncomingProject(project: ProjectCoreData, projectsViewController: ProjectsViewController) {
+        let incomingProjectViewController = PrjRouter.createModule(project: project)
+        projectsViewController.navigationController?.pushViewController(incomingProjectViewController, animated: true)
+    }
     
     func onShowErrorAlert(errorText: String, projectsViewController: ProjectsViewController) {
         let alertController = createInfoAlert(messageText: errorText, titleText: Resources.Titles.errorTitle)

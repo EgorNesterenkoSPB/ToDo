@@ -1,4 +1,4 @@
-import Foundation
+import CoreData
 import UIKit
 
 //MARK: - View Input (View -> Presenter)
@@ -22,18 +22,22 @@ protocol ViewToPresenterProjectsProtocol {
 protocol PresenterToViewProjectsProtocol {
     func updateTableView()
     func onFailedCoreData(errorText:String)
+    func onFailedGetIncomingProject(errorText:String)
 }
 
 //MARK: -  Interactor Input (Presenter -> Interactor)
 protocol PresenterToInteractorProjectsProtocol {
     var presenter:InteractorToPresenterProjectsProtocol? {get set}
     func deleteProject(project:ProjectCoreData)
+    func getIncomingProject(projectsViewController:ProjectsViewController)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
 protocol InteractorToPresenterProjectsProtocol {
     func successfulyDeleteProject()
     func failedCoreData(errorText:String)
+    func successfulyGetIncomingProject(project:ProjectCoreData,projectsViewController:ProjectsViewController)
+    func failedGetIncomingProject(errorText:String)
 }
 
 //MARK: - Router Input (Presenter -> Router)
@@ -41,4 +45,5 @@ protocol PresenterToRouterProjectsProtocol {
     static func createModule() -> ProjectsViewController
     func onShowErrorAlert(errorText:String,projectsViewController:ProjectsViewController)
     func showProjectScreen(projectsViewController:ProjectsViewController,project:ProjectCoreData)
+    func showIncomingProject(project:ProjectCoreData,projectsViewController:ProjectsViewController)
 }

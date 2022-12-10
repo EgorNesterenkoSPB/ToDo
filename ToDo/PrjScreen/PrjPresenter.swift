@@ -101,19 +101,6 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     
     func showEditAlert(project: ProjectCoreData,prjViewController:PrjViewController) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    
-        alertController.addAction(UIAlertAction(title: Resources.Titles.renameProject, style: .default, handler: {[weak self] _ in
-            guard let renameProjectAlert = self?.showActionAlert(title: Resources.Titles.newName, message: Resources.Titles.writeName, with: { text in
-                self?.interactor?.renameProject(project: project, newName: text)
-            }) else {return}
-            prjViewController.present(renameProjectAlert,animated: true)
-        }))
-        
-        alertController.addAction(UIAlertAction(title: Resources.Titles.changeProjectColor, style: .default, handler: { _ in
-            let colorPopOverViewController = ColorsViewController(project: project)
-            colorPopOverViewController.delegate = self
-            prjViewController.present(colorPopOverViewController,animated: true)
-        }))
         
         alertController.addAction(UIAlertAction(title: Resources.Titles.createCategory, style: .default, handler: { [weak self] _ in
             guard let createCategoryAlert = self?.showActionAlert(title: Resources.Titles.createCategory, message: Resources.Titles.writeName, with: { text in
@@ -122,21 +109,37 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
             prjViewController.present(createCategoryAlert,animated: true)
         }))
         
-        alertController.addAction(UIAlertAction(title: project.isFavorite ? Resources.Titles.removeFromFavorites : Resources.Titles.addToFavorite, style: .default, handler: { [weak self] _ in
-            self?.interactor?.changeProjectIsFavorite(project: project)
-        }))
-        
         alertController.addAction(UIAlertAction(title: isHiddedFinishedTasks ? Resources.Titles.showFinishedTasks : Resources.Titles.hideFinishedTasks, style: .default, handler: { [weak self] _ in
             self?.isHiddedFinishedTasks.toggle()
             self?.getCategories(project: project)
             self?.getCommonTasks(project: project)
         }))
         
-        alertController.addAction(UIAlertAction(title: Resources.Titles.deleteProject, style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
-            self?.interactor?.deleteProject(project: project)
-        }))
+        if project.name != Resources.incomingProjectName {
+            
+            alertController.addAction(UIAlertAction(title: Resources.Titles.renameProject, style: .default, handler: {[weak self] _ in
+                guard let renameProjectAlert = self?.showActionAlert(title: Resources.Titles.newName, message: Resources.Titles.writeName, with: { text in
+                    self?.interactor?.renameProject(project: project, newName: text)
+                }) else {return}
+                prjViewController.present(renameProjectAlert,animated: true)
+            }))
+            
+            alertController.addAction(UIAlertAction(title: Resources.Titles.changeProjectColor, style: .default, handler: { _ in
+                let colorPopOverViewController = ColorsViewController(project: project)
+                colorPopOverViewController.delegate = self
+                prjViewController.present(colorPopOverViewController,animated: true)
+            }))
+            
+            alertController.addAction(UIAlertAction(title: project.isFavorite ? Resources.Titles.removeFromFavorites : Resources.Titles.addToFavorite, style: .default, handler: { [weak self] _ in
+                self?.interactor?.changeProjectIsFavorite(project: project)
+            }))
+            
+            alertController.addAction(UIAlertAction(title: Resources.Titles.deleteProject, style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
+                self?.interactor?.deleteProject(project: project)
+            }))
+        }
         
-        alertController.addAction(UIAlertAction(title: Resources.Titles.deleteAllProjects, style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
+        alertController.addAction(UIAlertAction(title: Resources.Titles.deleteAllCategories, style: .destructive, handler: {[weak self] (action:UIAlertAction) -> Void in
             self?.interactor?.deleteAllCategories(project: project)
         }))
         

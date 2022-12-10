@@ -146,8 +146,17 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         switch indexPath.section {
         case 0:
             guard let modelsData = sectionsData[indexPath.section].modelsData else {return}
-            let model = modelsData[indexPath.row]
-            model.handler()
+            var model = modelsData[indexPath.row]
+            switch model.title {
+            case Resources.incomingProjectName:
+                self.interactor?.getIncomingProject(projectsViewController:projectsViewController)
+//            case Resources.Titles.upcoming:
+//
+//            case Resources.Titles.myBlog:
+//
+            default:
+                break
+            }
         default:
             guard let cell = tableView.cellForRow(at: indexPath) as? ProjectTableViewCell else {return}
             guard let project = cell.project else {return}
@@ -170,6 +179,14 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
 }
 
 extension ProjectsPresenter:InteractorToPresenterProjectsProtocol {
+    func successfulyGetIncomingProject(project: ProjectCoreData, projectsViewController: ProjectsViewController) {
+        self.router?.showIncomingProject(project: project, projectsViewController: projectsViewController)
+    }
+    
+    func failedGetIncomingProject(errorText: String) {
+        self.view?.onFailedGetIncomingProject(errorText: errorText)
+    }
+    
     func successfulyDeleteProject() {
         do {
             try self.getData()
