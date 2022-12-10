@@ -10,9 +10,10 @@ final class PrjRouter:PresenterToRouterPrjProtocol {
         prjViewController.present(createTaskViewController,animated: false)
     }
     
-    func showTaskScreen(task: NSManagedObject, taskContent: TaskContent, navigationController: UINavigationController?) {
+    func showTaskScreen(task: NSManagedObject, taskContent: TaskContent, prjViewController:PrjViewController) {
         let taskViewController = TaskRouter.createModule(task: task, taskContent: taskContent)
-        navigationController?.pushViewController(taskViewController, animated: true)
+        taskViewController.delegate = prjViewController
+        prjViewController.navigationController?.pushViewController(taskViewController, animated: true)
     }
     
     

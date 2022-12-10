@@ -24,7 +24,6 @@ final class PrjViewController:BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reloadCommonTasksSection()
-        self.reloadCommonTasksSection()
     }
 }
 
@@ -154,7 +153,7 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.didSelectRowAt(tableView: tableView, indexPath: indexPath, navigationController: navigationController)
+        presenter?.didSelectRowAt(tableView: tableView, indexPath: indexPath, prjViewController:self)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -183,5 +182,12 @@ extension PrjViewController:CreateTaskViewControllerProtocol {
     
     func refreshView(category: CategoryCoreData, section: Int) {
         presenter?.updateSection(category: category, section: section)
+    }
+}
+
+extension PrjViewController:TaskViewControllerProtocol {
+    func refreshView() {
+        self.presenter?.getCommonTasks(project: self.project)
+        self.presenter?.getCategories(project: self.project)
     }
 }

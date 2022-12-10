@@ -46,7 +46,6 @@ class CreateTaskBaseController:BottomSheetController {
         static let descriptionHeightAnchor = 100.0
         static let createTaskButtonTopAnchor = 20.0
         static let projectButtonWidth = 100.0
-        static let toolBarHeight = 44.0
     }
 
 }
@@ -94,7 +93,7 @@ extension CreateTaskBaseController {
         dateTextField.textColor = .link
         dateTextField.tintColor = .clear //to remove cursor when tapped
         
-        let dateToolBar = self.createToolBar()
+        let dateToolBar = createToolBar()
 
         let flexsibleSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         
@@ -110,7 +109,7 @@ extension CreateTaskBaseController {
         datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         dateTextField.inputView = datePicker
         
-        let timeToolBar = self.createToolBar()
+        let timeToolBar = createToolBar()
         
         let clearTimeButton: UIBarButtonItem = UIBarButtonItem(title: Resources.Titles.deleteDate, style: .done, target: self, action: #selector(clearTimeButtonTapped(_:)))
 
@@ -154,17 +153,21 @@ extension CreateTaskBaseController {
 }
 
 extension CreateTaskBaseController {
+    
+    private func enableCreateTaskButton() {
+        createTaskButton.tintColor = .systemOrange
+        createTaskButton.isEnabled = true
+    }
+    
+    private func disableCreateTaskButton() {
+        createTaskButton.tintColor = .gray
+        createTaskButton.isEnabled = false
+    }
+    
     private func disableTextField(textField:UITextField) {
         textField.text = Resources.Titles.setTime
         textField.isEnabled = false
         textField.textColor = .gray
-    }
-    
-    private func createToolBar() -> UIToolbar {
-        let toolBar: UIToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIConstants.toolBarHeight))
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = false
-        return toolBar
     }
 }
 
@@ -238,9 +241,13 @@ extension CreateTaskBaseController:UITextViewDelegate {
 //MARK: - UITextFieldDelegate
 extension CreateTaskBaseController:UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text, text.isEmpty != true && text != " " else {return}
-            createTaskButton.tintColor = .systemOrange
-            createTaskButton.isEnabled = true
+        guard let text = textField.text, text.isEmpty != true && text != " " else {
+            self.disableCreateTaskButton()
+            return
+        }
+        if projectID == nil {
+            self.enableCreateTaskButton()
+        }
     }
 }
 
@@ -261,5 +268,6 @@ extension CreateTaskBaseController:ProjectsPopOverViewControllerProtocol {
     func passTappedProject(id: NSManagedObjectID, name: String) {
         self.projectButton.setTitle(name, for: .normal)
         self.projectID = id
+        self.enableCreateTaskButton()
     }
 }

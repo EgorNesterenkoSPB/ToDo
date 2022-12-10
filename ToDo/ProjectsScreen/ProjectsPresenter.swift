@@ -15,7 +15,7 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         do {
             let projects = try DataManager.shared.projects()
             sectionsData[1].projectsData = getFavoriteProjects(projects: projects) // second section must be favorite
-            sectionsData[2].projectsData = projects // third section must be projects
+            sectionsData[2].projectsData = projects.filter({$0.name != Resources.incomingProjectName}) // third section must be projects
         } catch let error {
             throw CoreManagerError.failedFetchProjects(text: "\(error)")
         }

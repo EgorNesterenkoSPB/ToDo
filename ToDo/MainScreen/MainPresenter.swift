@@ -16,6 +16,10 @@ final class MainPresenter: ViewToPresenterMainProtocol {
         static let heightFooter = 2.0
     }
     
+    func creatyIncomingProject() {
+        interactor?.onCreateIncomingProject()
+    }
+    
     func getData() {
         do {
             let projects = try DataManager.shared.projects()
@@ -135,32 +139,32 @@ final class MainPresenter: ViewToPresenterMainProtocol {
         }
     }
     
-    func didSelectRowAt(tableView: UITableView, indexPath: IndexPath, navigationController: UINavigationController?) {
+    func didSelectRowAt(tableView: UITableView, indexPath: IndexPath, mainViewController:MainViewController) {
         
         switch indexPath.section {
         case 0:
             if let commonTask = overdueTasks[indexPath.row] as? CommonTaskCoreData {
                 if let taskName = commonTask.name, let projectName = commonTask.project?.name {
-                    self.pushToTaskScreen(name: taskName, description: commonTask.descriptionTask, priority: commonTask.priority, path: "\(projectName)/\(taskName)", isFinished: commonTask.isFinished, time: commonTask.time, navigationController: navigationController, task: commonTask)
+                    self.pushToTaskScreen(name: taskName, description: commonTask.descriptionTask, priority: commonTask.priority, path: "\(projectName)/\(taskName)", isFinished: commonTask.isFinished, time: commonTask.time, mainViewController:mainViewController, task: commonTask)
                 }
             }
             
             if let categoryTask = overdueTasks[indexPath.row] as? TaskCoreData {
                 if let name = categoryTask.name, let category = categoryTask.category, let projectName = category.project?.name, let categoryName = category.name {
-                    self.pushToTaskScreen(name: name, description: categoryTask.descriptionTask, priority: categoryTask.priority, path:  "\(projectName)/\(categoryName)/", isFinished: categoryTask.isFinished, time: categoryTask.time, navigationController: navigationController, task: categoryTask)
+                    self.pushToTaskScreen(name: name, description: categoryTask.descriptionTask, priority: categoryTask.priority, path:  "\(projectName)/\(categoryName)/", isFinished: categoryTask.isFinished, time: categoryTask.time, mainViewController:mainViewController, task: categoryTask)
                 }
             }
         case 1:
             
             if let commonTask = todayTasks[indexPath.row] as? CommonTaskCoreData {
                 if let taskName = commonTask.name, let projectName = commonTask.project?.name {
-                    self.pushToTaskScreen(name: taskName, description: commonTask.descriptionTask, priority: commonTask.priority, path: "\(projectName)/\(taskName)", isFinished: commonTask.isFinished, time: commonTask.time, navigationController: navigationController, task: commonTask)
+                    self.pushToTaskScreen(name: taskName, description: commonTask.descriptionTask, priority: commonTask.priority, path: "\(projectName)/\(taskName)", isFinished: commonTask.isFinished, time: commonTask.time, mainViewController:mainViewController, task: commonTask)
                 }
             }
             
             if let categoryTask = todayTasks[indexPath.row] as? TaskCoreData {
                 if let name = categoryTask.name, let category = categoryTask.category, let projectName = category.project?.name, let categoryName = category.name {
-                    self.pushToTaskScreen(name: name, description: categoryTask.descriptionTask, priority: categoryTask.priority, path:  "\(projectName)/\(categoryName)/", isFinished: categoryTask.isFinished, time: categoryTask.time, navigationController: navigationController, task: categoryTask)
+                    self.pushToTaskScreen(name: name, description: categoryTask.descriptionTask, priority: categoryTask.priority, path:  "\(projectName)/\(categoryName)/", isFinished: categoryTask.isFinished, time: categoryTask.time, mainViewController:mainViewController, task: categoryTask)
                 }
             }
             
@@ -207,9 +211,9 @@ final class MainPresenter: ViewToPresenterMainProtocol {
         return configuration
     }
     
-    private func pushToTaskScreen(name:String,description:String?,priority:Int64?,path:String,isFinished:Bool,time:Date?,navigationController:UINavigationController?,task:NSManagedObject) {
+    private func pushToTaskScreen(name:String,description:String?,priority:Int64?,path:String,isFinished:Bool,time:Date?,mainViewController:MainViewController,task:NSManagedObject) {
         let taskContent = TaskContent(name: name, description: description, priority: priority, path: path, isFinished: isFinished, time: time)
-        self.router?.showTaskScreen(task: task, taskContent: taskContent, navigationController: navigationController)
+        self.router?.showTaskScreen(task: task, taskContent: taskContent, mainViewController:mainViewController)
     }
     
     func viewForHeaderInSection(tableView: UITableView, section: Int) -> UIView? {
@@ -249,6 +253,10 @@ final class MainPresenter: ViewToPresenterMainProtocol {
 }
 
 extension MainPresenter:InteractorToPresenterMainProtocol {
+    func failureCreateIncomingProject(errorText: String) {
+        self.view?.errorGetCoreData(errorText: errorText)
+    }
+    
     func successfulyCreateTask() {
         self.getData()
     }

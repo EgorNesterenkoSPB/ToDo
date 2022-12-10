@@ -50,7 +50,6 @@ func createDeleteTaskContextualAction(title:String,viewController:UIViewControll
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: title, style: .destructive, handler: { _ in
             completionHandler()
-//            self?.interactor?.deleteProject(project: project)
         }))
         alert.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))
         viewController.present(alert,animated: true)
@@ -60,4 +59,11 @@ func createDeleteTaskContextualAction(title:String,viewController:UIViewControll
     delete.image?.withTintColor(.white)
     delete.backgroundColor = .red
     return delete
+}
+
+ func createToolBar() -> UIToolbar {
+    let toolBar: UIToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44.0))
+    toolBar.barStyle = UIBarStyle.default
+    toolBar.isTranslucent = false
+    return toolBar
 }

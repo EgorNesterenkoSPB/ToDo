@@ -2,9 +2,10 @@ import UIKit
 import CoreData
 
 final class MainRouter:PresenterToRouterMainProtocol {
-    func showTaskScreen(task: NSManagedObject, taskContent: TaskContent, navigationController: UINavigationController?) {
+    func showTaskScreen(task: NSManagedObject, taskContent: TaskContent, mainViewController:MainViewController) {
         let taskViewController = TaskRouter.createModule(task: task, taskContent: taskContent)
-        navigationController?.pushViewController(taskViewController, animated: true)
+        taskViewController.delegate = mainViewController
+        mainViewController.navigationController?.pushViewController(taskViewController, animated: true)
     }
     
     func showSettingsScreen(navigationController: UINavigationController?) {
@@ -35,6 +36,7 @@ final class MainRouter:PresenterToRouterMainProtocol {
     func showCreateTaskViewController(mainViewController: MainViewController) {
         let createTaskViewController = CreateTaskRouter.createModule(category: nil, section: nil, projectName: nil)
         createTaskViewController.modalPresentationStyle = .overCurrentContext
+        createTaskViewController.delegate = mainViewController
         mainViewController.present(createTaskViewController,animated: false)
     }
 

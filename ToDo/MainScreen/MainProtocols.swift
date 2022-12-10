@@ -17,8 +17,9 @@ protocol ViewToPresenterMainProtocol {
     func userTapProjectsButton(navigationController:UINavigationController?)
     func userTapSettingsButton(navigationController:UINavigationController?)
     func getData()
-    func didSelectRowAt(tableView:UITableView, indexPath:IndexPath,navigationController:UINavigationController?)
+    func didSelectRowAt(tableView:UITableView, indexPath:IndexPath,mainViewController:MainViewController)
     func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath,mainViewController:MainViewController) -> UISwipeActionsConfiguration?
+    func creatyIncomingProject()
 }
 
 //MARK: - View Output (Presenter -> View)
@@ -33,6 +34,7 @@ protocol PresenterToInteractorMainProtocol {
     func setFinishTask(task:NSManagedObject)
     func deleteTask<T>(task:T) where T:NSManagedObject
     func createTask(projectID:NSManagedObjectID)
+    func onCreateIncomingProject()
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
@@ -43,6 +45,7 @@ protocol InteractorToPresenterMainProtocol {
     func failureDeleteTask(errorText:String)
     func successfulyCreateTask()
     func failureCreateTask(errorText:String)
+    func failureCreateIncomingProject(errorText:String)
 }
 
 //MARK: - Router Input (Presenter -> Router)
@@ -51,5 +54,5 @@ protocol PresenterToRouterMainProtocol {
     func showProjectsScreen(navigationController:UINavigationController?)
     func showCreateTaskViewController(mainViewController: MainViewController)
     func showSettingsScreen(navigationController:UINavigationController?)
-    func showTaskScreen(task:NSManagedObject,taskContent:TaskContent,navigationController:UINavigationController?)
+    func showTaskScreen(task:NSManagedObject,taskContent:TaskContent,mainViewController:MainViewController)
 }

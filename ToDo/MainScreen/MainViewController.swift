@@ -10,6 +10,11 @@ final class MainViewController:BaseViewController {
     let settingsButton = UIButton()
     var token:Token?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        presenter?.creatyIncomingProject()
+    }
+    
     override func viewDidLayoutSubviews() {
         circleButton.clipsToBounds = true
         circleButton.layer.cornerRadius = circleButton.frame.width / 2
@@ -153,7 +158,7 @@ extension MainViewController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.didSelectRowAt(tableView: tableView, indexPath: indexPath, navigationController: navigationController)
+        presenter?.didSelectRowAt(tableView: tableView, indexPath: indexPath, mainViewController:self)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -161,3 +166,16 @@ extension MainViewController:UITableViewDelegate,UITableViewDataSource {
     }
 }
 
+extension MainViewController:CreateTaskViewControllerProtocol {
+    func refreshView(category: CategoryCoreData, section: Int) {return}
+    
+    func refreshCommonTasksTable() {
+        self.presenter?.getData()
+    }
+}
+
+extension MainViewController:TaskViewControllerProtocol {
+    func refreshView() {
+        self.presenter?.getData()
+    }
+}

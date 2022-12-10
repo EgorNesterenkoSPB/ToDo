@@ -1,8 +1,32 @@
 import CoreData
+import Foundation
 
 final class MainInteractor:PresenterToInteractorMainProtocol {
-
     var presenter: InteractorToPresenterMainProtocol?
+    let defaults = UserDefaults.standard
+    
+    func onCreateIncomingProject() {
+        let isIncoming = defaults.bool(forKey: Resources.isIncomingKey)
+        switch isIncoming {
+        case true:
+            return
+        case false:
+            self.addIncomgProject()
+        }
+    }
+    
+    private func addIncomgProject() {
+        
+        do {
+            var projects = try DataManager.shared.projects()
+            let project = DataManager.shared.project(name: Resources.incomingProjectName, hexColor: "171717", isFavorite: false)
+            projects.append(project)
+            try DataManager.shared.save()
+            defaults.setValue(true, forKey: Resources.isIncomingKey)
+        } catch let error {
+            self.presenter?.failureCreateIncomingProject(errorText: error.localizedDescription)
+        }
+    }
     
     func setFinishTask(task: NSManagedObject) {
         task.setValue(true, forKey: Resources.isFinishedTaskKey)

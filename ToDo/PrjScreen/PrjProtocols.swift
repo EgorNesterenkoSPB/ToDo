@@ -18,7 +18,7 @@ protocol ViewToPresenterPrjProtocol {
     func heightForFooterInSection() -> CGFloat
     func viewForHeaderInSection(prjViewController:PrjViewController,tableView: UITableView, section: Int) -> UIView?
     func updateSection(category:CategoryCoreData,section:Int)
-    func didSelectRowAt(tableView:UITableView, indexPath:IndexPath,navigationController:UINavigationController?)
+    func didSelectRowAt(tableView:UITableView, indexPath:IndexPath,prjViewController:PrjViewController)
 }
 
 //MARK: - View Output (Presenter -> View)
@@ -70,5 +70,5 @@ protocol InteractorToPresenterPrjProtocol {
 protocol PresenterToRouterPrjProtocol {
     static func createModule(project:ProjectCoreData) -> PrjViewController
     func onShowCreateTaskViewController(projectName:String,projectID:NSManagedObjectID,prjViewController:PrjViewController)
-    func showTaskScreen(task:NSManagedObject,taskContent:TaskContent,navigationController:UINavigationController?)
+    func showTaskScreen(task:NSManagedObject,taskContent:TaskContent,prjViewController:PrjViewController)
 }

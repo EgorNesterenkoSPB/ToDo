@@ -221,18 +221,18 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
     }
 
     
-    func didSelectRowAt(tableView: UITableView, indexPath: IndexPath,navigationController:UINavigationController?) {
+    func didSelectRowAt(tableView: UITableView, indexPath: IndexPath,prjViewController:PrjViewController) {
         switch indexPath.section {
         case 0:
             let commonTask = commonTasks[indexPath.row]
             guard let taskName = commonTask.name, let projectName = commonTask.project?.name else {return}
             
             let taskContent = TaskContent(name: taskName, description: commonTask.descriptionTask, priority: commonTask.priority, path: "\(projectName)/\(taskName)", isFinished: commonTask.isFinished, time: commonTask.time)
-            self.router?.showTaskScreen(task: commonTask, taskContent: taskContent, navigationController: navigationController)
+            self.router?.showTaskScreen(task: commonTask, taskContent: taskContent, prjViewController:prjViewController)
         default:
             guard let task = sectionsData[indexPath.section].categoryData?[indexPath.row],let category = task.category,let taskName = task.name,let projectName = category.project?.name, let categoryName = category.name else {return}
             let taskContent = TaskContent(name: taskName, description: task.descriptionTask, priority: task.priority, path: "\(projectName)/\(categoryName)/", isFinished: task.isFinished, time: task.time)
-            self.router?.showTaskScreen(task: task, taskContent: taskContent, navigationController: navigationController)
+            self.router?.showTaskScreen(task: task, taskContent: taskContent, prjViewController:prjViewController)
         }
         
     }

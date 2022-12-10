@@ -1,6 +1,10 @@
 import UIKit
 import CoreData
 
+protocol TaskViewControllerProtocol {
+    func refreshView()
+}
+
 final class TaskViewController:BaseViewController {
     
     let nameTextField = UITextField()
@@ -8,7 +12,7 @@ final class TaskViewController:BaseViewController {
     let dateTextField = UITextField()
     let pathLabel = UILabel()
     let descriptionTitle = UILabel()
-    
+    var delegate:TaskViewControllerProtocol?
     var presenter:(ViewToPresenterTaskProtocol & InteractorToPresenterTaskProtocol)?
     let task:NSManagedObject
     let taskContent:TaskContent
@@ -55,8 +59,22 @@ extension TaskViewController {
         nameTextField.font = .boldSystemFont(ofSize: 23)
         nameTextField.textAlignment = .center
         
-        dateTextField.isEnabled = false
-        dateTextField.textColor = .gray
+        let dateToolBar = createToolBar()
+
+        let flexsibleSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        
+        let clearDateButton: UIBarButtonItem = UIBarButtonItem(title: Resources.Titles.deleteDate, style: .done, target: self, action: #selector(clearDateButtonTapped(_:)))
+
+        let doneDateButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(doneDateButtonTapped(_:)))
+        
+        dateToolBar.items = [flexsibleSpace,clearDateButton, doneDateButton]
+        dateTextField.inputAccessoryView = dateToolBar
+        
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .dateAndTime
+        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        dateTextField.inputView = datePicker
+        dateTextField.textColor = .link
         dateTextField.tintColor = .clear
         if let time = taskContent.time {
             dateTextField.text = formatter.string(from: time)
@@ -68,7 +86,6 @@ extension TaskViewController {
         descriptionTitle.font = .boldSystemFont(ofSize: 16)
         
         descriptionTextView.text = taskContent.description == nil ? Resources.Placeholders.textViewPlaceholder : taskContent.description
-        descriptionTextView.textColor = UIColor.placeholderText
         descriptionTextView.font = .systemFont(ofSize: 18)
         descriptionTextView.delegate = self
         
@@ -96,13 +113,34 @@ extension TaskViewController {
 
 extension TaskViewController {
     @objc private func editButtonTapped(_ sender:UIButton) {
-        
+        self.presenter?.userTapEditButton(task: self.task, taskViewController: self)
+    }
+    
+    @objc private func dateChanged(_ sender: UIDatePicker) {
+        self.presenter?.editDate(task: self.task, newDate: sender.date)
+    }
+    
+    @objc private func doneDateButtonTapped(_ sender:UIButton) {
+        dateTextField.resignFirstResponder()
+    }
+    
+    @objc private func clearDateButtonTapped(_ sender:UIButton) {
+        self.presenter?.deleteDate(task: self.task)
+//        self.date = nil
+        dateTextField.resignFirstResponder()
     }
 }
 
 //MARK: - TextFieldDelegate
 extension TaskViewController:UITextFieldDelegate {
-    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case nameTextField:
+            self.presenter?.renameTask(name: textField.text,task:self.task)
+        default:
+            break
+        }
+    }
 }
 
 //MARK: - TextViewDelegate
@@ -112,12 +150,27 @@ extension TaskViewController:UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        presenter?.textViewDidEndEditing(textView: textView)
+        presenter?.textViewDidEndEditing(textView: textView,task:self.task)
     }
 }
 
 
 //MARK: - PresenterToView
 extension TaskViewController:PresenterToViewTaskProtocol {
+    func onSuccessfulyChangeDate(date: Date) {
+        self.dateTextField.text = formatter.string(from: date)
+    }
     
+    func onSuccessfulyDeleteDate() {
+        self.dateTextField.text = nil
+    }
+    
+    func failureCoreData(errorText: String) {
+        self.present(createInfoAlert(messageText: Resources.Titles.errorTitle, titleText: errorText), animated: true)
+    }
+    
+    func onSuccessfulyDeleteTask() {
+        self.delegate?.refreshView()
+        self.navigationController?.popViewController(animated: true)
+    }
 }
