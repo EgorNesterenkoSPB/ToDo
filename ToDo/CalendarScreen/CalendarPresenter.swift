@@ -8,12 +8,20 @@ final class CalendarPresenter:ViewToPresenterCalendarProtocol {
     var router: PresenterToRouterCalendarProtocol?
     var interactor: PresenterToInteractorCalendarProtocol?
     var tasks = [NSManagedObject]()
+    var currentDate:Date?
     
     func updateTasksDay(date: Date) {
+        self.currentDate = date
         interactor?.onGetTasks(date: date)
     }
     
+    func getCurrentDateTasks() {
+        guard let currentDate = currentDate else {return}
+        interactor?.onGetTasks(date: currentDate)
+    }
+    
     func getTasks(date: Date) {
+        self.currentDate = date // hold it to update data at table view when user delete task
         interactor?.onGetTasks(date: date)
     }
     
@@ -53,16 +61,52 @@ final class CalendarPresenter:ViewToPresenterCalendarProtocol {
     }
     
     func didSelectRowAt(tableView: UITableView, indexPath: IndexPath, calendarViewController: CalendarViewController) {
+        let currentTask = tasks[indexPath.row]
         
+        if let commonTask = currentTask as? CommonTaskCoreData {
+            if let taskName = commonTask.name, let projectName = commonTask.project?.name {
+                self.pushToTaskScreen(name: taskName, description: commonTask.descriptionTask, priority: commonTask.priority, path: "\(projectName)/\(taskName)", isFinished: commonTask.isFinished, time: commonTask.time, calendarViewController:calendarViewController, task: commonTask)
+            }
+        } else if let categoryTask = currentTask as? TaskCoreData {
+            if let name = categoryTask.name, let category = categoryTask.category, let projectName = category.project?.name, let categoryName = category.name {
+                self.pushToTaskScreen(name: name, description: categoryTask.descriptionTask, priority: categoryTask.priority, path:  "\(projectName)/\(categoryName)/", isFinished: categoryTask.isFinished, time: categoryTask.time, calendarViewController:calendarViewController, task: categoryTask)
+            }
+        }
+    }
+    
+    private func pushToTaskScreen(name:String,description:String?,priority:Int64?,path:String,isFinished:Bool,time:Date?,calendarViewController:CalendarViewController,task:NSManagedObject) {
+        let taskContent = TaskContent(name: name, description: description, priority: priority, path: path, isFinished: isFinished, time: time)
+        self.router?.showTaskScreen(task: task, taskContent: taskContent, calendarViewController:calendarViewController)
     }
     
     func trailingSwipeActionsConfigurationForRowAt(tableView: UITableView, indexPath: IndexPath, calendarViewController: CalendarViewController) -> UISwipeActionsConfiguration?{
-        nil
+        var completionHandler:((_ task:NSManagedObject) -> Void)
+        
+        guard let interactor = interactor else {return nil}
+
+        completionHandler = interactor.deleteTask
+        let currentTask = tasks[indexPath.row]
+        
+        let delete = createDeleteTaskContextualAction(title: Resources.Titles.confirmAction, viewController: calendarViewController, with: {
+            completionHandler(currentTask)
+        })
+        
+        let configuration = UISwipeActionsConfiguration(actions: [delete])
+        return configuration
     }
     
 }
 
 extension CalendarPresenter:InteractorToPresenterCalendarProtocol {
+    func successfulyDeleteTask() {
+        guard let currentDate = currentDate else {return}
+        interactor?.onGetTasks(date: currentDate)
+    }
+    
+    func failureCoreData(errorText: String) {
+        self.view?.onFailureCoreData(errorText: errorText)
+    }
+    
     func failureGetTasks(errorText: String) {
         self.view?.onFailureGetTasks(errorText: errorText)
     }

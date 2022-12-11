@@ -1,4 +1,12 @@
+import CoreData
+
 final class CalendarRouter:PresenterToRouterCalendarProtocol {
+    func showTaskScreen(task: NSManagedObject, taskContent: TaskContent, calendarViewController: CalendarViewController) {
+        let taskViewController = TaskRouter.createModule(task: task, taskContent: taskContent)
+        taskViewController.delegate = calendarViewController
+        calendarViewController.navigationController?.pushViewController(taskViewController, animated: true)
+    }
+    
     static func createModule() -> CalendarViewController {
         let calendarViewController = CalendarViewController()
         

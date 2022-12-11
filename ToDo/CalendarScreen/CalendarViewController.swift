@@ -17,6 +17,11 @@ class CalendarViewController: BaseViewController {
         super.viewDidLoad()
         presenter?.getTasks(date: Date())
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?.getCurrentDateTasks()
+    }
 }
 
 extension CalendarViewController {
@@ -144,6 +149,13 @@ extension CalendarViewController:PresenterToViewCalendarProtocol {
     func updateTableView() {
         DispatchQueue.main.async {
             self.tasksTableView.reloadData()
+            self.calendar.reloadData()
         }
+    }
+}
+
+extension CalendarViewController:TaskViewControllerProtocol {
+    func refreshView() {
+        self.presenter?.getCurrentDateTasks()
     }
 }

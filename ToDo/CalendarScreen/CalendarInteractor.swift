@@ -2,7 +2,6 @@ import Foundation
 import CoreData
 
 final class CalendarInteractor:PresenterToInteractorCalendarProtocol {
-    
     var presenter: InteractorToPresenterCalendarProtocol?
     
     func getNumberOfDateEvents(date: Date) -> Int {
@@ -12,6 +11,19 @@ final class CalendarInteractor:PresenterToInteractorCalendarProtocol {
         } catch let error {
             self.presenter?.failureGetTasks(errorText: "Failed get tasks at day \(date): \(error.localizedDescription)")
             return 0
+        }
+    }
+    
+    func deleteTask(task: NSManagedObject) {
+        do {
+            if let commonTask = task as? CommonTaskCoreData {
+                try DataManager.shared.deleteCommonTask(commonTask: commonTask)
+            } else if let categoryTask = task as? TaskCoreData {
+                try DataManager.shared.deleteTask(task: categoryTask)
+            }
+            self.presenter?.successfulyDeleteTask()
+        } catch let error {
+            self.presenter?.failureCoreData(errorText: error.localizedDescription)
         }
     }
     

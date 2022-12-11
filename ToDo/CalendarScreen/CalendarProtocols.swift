@@ -16,6 +16,7 @@ protocol ViewToPresenterCalendarProtocol {
     func updateTasksDay(date:Date)
     func numberOfEvents(date:Date) -> Int
     func getTasks(date:Date)
+    func getCurrentDateTasks()
 }
 
 //MARK: - View Output (Presenter -> View)
@@ -30,15 +31,19 @@ protocol PresenterToInteractorCalendarProtocol {
     var presenter:InteractorToPresenterCalendarProtocol? {get set}
     func onGetTasks(date:Date)
     func getNumberOfDateEvents(date:Date) -> Int
+    func deleteTask(task:NSManagedObject)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
 protocol InteractorToPresenterCalendarProtocol {
     func successfulyGetTasks(tasks:[NSManagedObject])
     func failureGetTasks(errorText:String)
+    func successfulyDeleteTask()
+    func failureCoreData(errorText:String)
 }
 
 //MARK: - Router Input (Presenter -> Router)
 protocol PresenterToRouterCalendarProtocol {
     static func createModule() -> CalendarViewController
+    func showTaskScreen(task:NSManagedObject,taskContent:TaskContent,calendarViewController:CalendarViewController)
 }
