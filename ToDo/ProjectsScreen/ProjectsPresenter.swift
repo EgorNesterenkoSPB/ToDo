@@ -146,12 +146,12 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
         switch indexPath.section {
         case 0:
             guard let modelsData = sectionsData[indexPath.section].modelsData else {return}
-            var model = modelsData[indexPath.row]
+            let model = modelsData[indexPath.row]
             switch model.title {
             case Resources.incomingProjectName:
                 self.interactor?.getIncomingProject(projectsViewController:projectsViewController)
-//            case Resources.Titles.upcoming:
-//
+            case Resources.Titles.calendar:
+                self.router?.showCalendarScreen(projectsViewController:projectsViewController)
 //            case Resources.Titles.myBlog:
 //
             default:

@@ -1,6 +1,11 @@
 import UIKit
 
 final class ProjectsRouter:PresenterToRouterProjectsProtocol {
+    func showCalendarScreen(projectsViewController:ProjectsViewController) {
+        let calendarViewController = CalendarRouter.createModule()
+        projectsViewController.navigationController?.pushViewController(calendarViewController, animated: true)
+    }
+    
     func showIncomingProject(project: ProjectCoreData, projectsViewController: ProjectsViewController) {
         let incomingProjectViewController = PrjRouter.createModule(project: project)
         projectsViewController.navigationController?.pushViewController(incomingProjectViewController, animated: true)
