@@ -40,6 +40,11 @@
 		543330A62914203700B1EA44 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543330A52914203700B1EA44 /* DataManager.swift */; };
 		543D8F8B290C1597008396B0 /* Extensions+ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543D8F8A290C1597008396B0 /* Extensions+ScrollView.swift */; };
 		544855D0293FEBD200F067DE /* ProjectsPopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544855CF293FEBD200F067DE /* ProjectsPopOverViewController.swift */; };
+		544E818F29465C06001A7C33 /* ProductivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E818E29465C06001A7C33 /* ProductivityViewController.swift */; };
+		544E819129465C25001A7C33 /* ProductivityPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E819029465C25001A7C33 /* ProductivityPresenter.swift */; };
+		544E819329465C2F001A7C33 /* ProductivityRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E819229465C2F001A7C33 /* ProductivityRouter.swift */; };
+		544E819529465C3C001A7C33 /* ProductivityInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E819429465C3C001A7C33 /* ProductivityInteractor.swift */; };
+		544E819729465C46001A7C33 /* ProductivityProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E819629465C46001A7C33 /* ProductivityProtocols.swift */; };
 		5461889E2912E68000279FE3 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5461889D2912E68000279FE3 /* SignInViewController.swift */; };
 		546188A02912E6B500279FE3 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5461889F2912E6B500279FE3 /* SignInPresenter.swift */; };
 		546188A22912E6CC00279FE3 /* SignInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188A12912E6CC00279FE3 /* SignInRouter.swift */; };
@@ -109,6 +114,7 @@
 		54BF85B0290C0ED0002DAB62 /* RegisterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF85AF290C0ED0002DAB62 /* RegisterInteractor.swift */; };
 		54BF85B2290C0EE7002DAB62 /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF85B1290C0EE7002DAB62 /* RegisterPresenter.swift */; };
 		54C8D364291BD1840003A958 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C8D363291BD1840003A958 /* GlobalFunctions.swift */; };
+		54CDA8D229469D95004D546E /* ProductivityEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CDA8D129469D95004D546E /* ProductivityEntity.swift */; };
 		54D46598292BA533006FA8BC /* NetworkEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D46597292BA533006FA8BC /* NetworkEntity.swift */; };
 		54D4659A292BAF40006FA8BC /* UserDefaultsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D46599292BAF40006FA8BC /* UserDefaultsWorker.swift */; };
 		54D4659C292BB2B5006FA8BC /* Requester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D4659B292BB2B5006FA8BC /* Requester.swift */; };
@@ -193,6 +199,11 @@
 		543330A52914203700B1EA44 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		543D8F8A290C1597008396B0 /* Extensions+ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+ScrollView.swift"; sourceTree = "<group>"; };
 		544855CF293FEBD200F067DE /* ProjectsPopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsPopOverViewController.swift; sourceTree = "<group>"; };
+		544E818E29465C06001A7C33 /* ProductivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductivityViewController.swift; sourceTree = "<group>"; };
+		544E819029465C25001A7C33 /* ProductivityPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductivityPresenter.swift; sourceTree = "<group>"; };
+		544E819229465C2F001A7C33 /* ProductivityRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductivityRouter.swift; sourceTree = "<group>"; };
+		544E819429465C3C001A7C33 /* ProductivityInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductivityInteractor.swift; sourceTree = "<group>"; };
+		544E819629465C46001A7C33 /* ProductivityProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductivityProtocols.swift; sourceTree = "<group>"; };
 		5461889D2912E68000279FE3 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		5461889F2912E6B500279FE3 /* SignInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
 		546188A12912E6CC00279FE3 /* SignInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRouter.swift; sourceTree = "<group>"; };
@@ -264,6 +275,7 @@
 		54BF85AF290C0ED0002DAB62 /* RegisterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInteractor.swift; sourceTree = "<group>"; };
 		54BF85B1290C0EE7002DAB62 /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
 		54C8D363291BD1840003A958 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		54CDA8D129469D95004D546E /* ProductivityEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductivityEntity.swift; sourceTree = "<group>"; };
 		54D46597292BA533006FA8BC /* NetworkEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEntity.swift; sourceTree = "<group>"; };
 		54D46599292BAF40006FA8BC /* UserDefaultsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWorker.swift; sourceTree = "<group>"; };
 		54D4659B292BB2B5006FA8BC /* Requester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requester.swift; sourceTree = "<group>"; };
@@ -386,6 +398,19 @@
 				543330A52914203700B1EA44 /* DataManager.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		544E818D29465B9E001A7C33 /* ProductivityScreen */ = {
+			isa = PBXGroup;
+			children = (
+				544E818E29465C06001A7C33 /* ProductivityViewController.swift */,
+				544E819029465C25001A7C33 /* ProductivityPresenter.swift */,
+				544E819229465C2F001A7C33 /* ProductivityRouter.swift */,
+				544E819429465C3C001A7C33 /* ProductivityInteractor.swift */,
+				544E819629465C46001A7C33 /* ProductivityProtocols.swift */,
+				54CDA8D129469D95004D546E /* ProductivityEntity.swift */,
+			);
+			path = ProductivityScreen;
 			sourceTree = "<group>";
 		};
 		546188A92913179B00279FE3 /* MainScreen */ = {
@@ -525,6 +550,7 @@
 		54BF8576290BC2C2002DAB62 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
+				544E818D29465B9E001A7C33 /* ProductivityScreen */,
 				549CF3C329454D6000F399AA /* CalendarScreen */,
 				549722E22944080100BAD041 /* OnBoardingScreen */,
 				549722DF2943FF9A00BAD041 /* LaunchScreen */,
@@ -867,6 +893,7 @@
 			files = (
 				541CF21329268DF7003DC2BE /* CategoryCoreData+CoreDataClass.swift in Sources */,
 				54788978291976590089F254 /* CreateTaskProtocols.swift in Sources */,
+				544E819529465C3C001A7C33 /* ProductivityInteractor.swift in Sources */,
 				54E1195729448F6300677EF9 /* OnBoardingPresenter.swift in Sources */,
 				5461889E2912E68000279FE3 /* SignInViewController.swift in Sources */,
 				54C8D364291BD1840003A958 /* GlobalFunctions.swift in Sources */,
@@ -929,6 +956,7 @@
 				541CF20829267702003DC2BE /* CommonTableViewCell.swift in Sources */,
 				54788982291979EA0089F254 /* CreateProjectProtocols.swift in Sources */,
 				54BF85AE290C0EC0002DAB62 /* RegisterRouter.swift in Sources */,
+				544E819729465C46001A7C33 /* ProductivityProtocols.swift in Sources */,
 				54BF8592290BC406002DAB62 /* LoginProtocols.swift in Sources */,
 				54ED8E342916C44000A43C62 /* TaskTableViewCell.swift in Sources */,
 				5478897E291979CD0089F254 /* CreateProjectPresenter.swift in Sources */,
@@ -945,14 +973,17 @@
 				54195BA1292D0F1A00AAFF50 /* TaskEntity.swift in Sources */,
 				540A47C2292CFF0200CD8317 /* TaskRouter.swift in Sources */,
 				54BF8594290BC41B002DAB62 /* LoginRouter.swift in Sources */,
+				544E819129465C25001A7C33 /* ProductivityPresenter.swift in Sources */,
 				549AFFA5291E7B1D009924CC /* PrjEntity.swift in Sources */,
 				54ACFE3E2919C185002C806C /* PrjViewController.swift in Sources */,
 				54BF85A1290BC84B002DAB62 /* NavController.swift in Sources */,
 				54195BA9292D10D800AAFF50 /* TaskCoreData+CoreDataClass.swift in Sources */,
 				54BF859D290BC5C0002DAB62 /* BaseViewController.swift in Sources */,
+				544E819329465C2F001A7C33 /* ProductivityRouter.swift in Sources */,
 				540D778C29200C9900FEA371 /* SettingsPresenter.swift in Sources */,
 				54ED8E422916E34C00A43C62 /* ProjectsInteractor.swift in Sources */,
 				5479B6D82917F2130094B6F1 /* BottomSheetController.swift in Sources */,
+				544E818F29465C06001A7C33 /* ProductivityViewController.swift in Sources */,
 				54D8FC4A291B27EA007F7A39 /* ProfileViewController.swift in Sources */,
 				549491E9290C7D0100CA72AA /* APIResources.swift in Sources */,
 				540D778A29200C9000FEA371 /* SettingsProtocols.swift in Sources */,
@@ -979,6 +1010,7 @@
 				546188A62912E6EB00279FE3 /* SignInEntity.swift in Sources */,
 				549722E429440BB000BAD041 /* LaunchRouter.swift in Sources */,
 				54BF85B2290C0EE7002DAB62 /* RegisterPresenter.swift in Sources */,
+				54CDA8D229469D95004D546E /* ProductivityEntity.swift in Sources */,
 				540A47C6292CFF1500CD8317 /* TaskInteractor.swift in Sources */,
 				54D4659C292BB2B5006FA8BC /* Requester.swift in Sources */,
 				54ED8E4F29170F0A00A43C62 /* BaseTableSectionHeaderView.swift in Sources */,

@@ -47,4 +47,5 @@ protocol PresenterToRouterProjectsProtocol {
     func showProjectScreen(projectsViewController:ProjectsViewController,project:ProjectCoreData)
     func showIncomingProject(project:ProjectCoreData,projectsViewController:ProjectsViewController)
     func showCalendarScreen(projectsViewController:ProjectsViewController)
+    func showProductivityScreen(projectsViewController:ProjectsViewController)
 }

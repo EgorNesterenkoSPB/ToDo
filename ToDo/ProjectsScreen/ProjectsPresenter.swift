@@ -152,6 +152,8 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
                 self.interactor?.getIncomingProject(projectsViewController:projectsViewController)
             case Resources.Titles.calendar:
                 self.router?.showCalendarScreen(projectsViewController:projectsViewController)
+            case Resources.Titles.productivity:
+                self.router?.showProductivityScreen(projectsViewController: projectsViewController)
 //            case Resources.Titles.myBlog:
 //
             default:

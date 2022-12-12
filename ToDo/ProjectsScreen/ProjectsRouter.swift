@@ -1,6 +1,11 @@
 import UIKit
 
 final class ProjectsRouter:PresenterToRouterProjectsProtocol {
+    func showProductivityScreen(projectsViewController: ProjectsViewController) {
+        let productivityViewController = ProductivityRouter.createModule()
+        projectsViewController.navigationController?.pushViewController(productivityViewController, animated: true)
+    }
+    
     func showCalendarScreen(projectsViewController:ProjectsViewController) {
         let calendarViewController = CalendarRouter.createModule()
         projectsViewController.navigationController?.pushViewController(calendarViewController, animated: true)
