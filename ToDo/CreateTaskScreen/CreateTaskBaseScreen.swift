@@ -161,7 +161,7 @@ extension CreateTaskBaseController {
 
 extension CreateTaskBaseController {
     
-    private func enableCreateTaskButton() {
+    func enableCreateTaskButton() {
         createTaskButton.tintColor = .systemOrange
         createTaskButton.isEnabled = true
     }
