@@ -54,8 +54,14 @@ final class CalendarPresenter:ViewToPresenterCalendarProtocol {
         let task = tasks[indexPath.row]
         if let commonTask = task as? CommonTaskCoreData {
             cell.setup(nameTitle: commonTask.name, descriptionTitle: commonTask.descriptionTask, projectTitle: commonTask.project?.name)
+            cell.handleFinishTask = { [weak self] in
+                self?.interactor?.setFinishTask(task: commonTask)
+            }
         } else if let categoryTask = task as? TaskCoreData {
             cell.setup(nameTitle: categoryTask.name, descriptionTitle: categoryTask.descriptionTask, projectTitle: categoryTask.category?.project?.name)
+            cell.handleFinishTask = { [weak self] in
+                self?.interactor?.setFinishTask(task: categoryTask)
+            }
         }
         return cell
     }
@@ -98,6 +104,10 @@ final class CalendarPresenter:ViewToPresenterCalendarProtocol {
 }
 
 extension CalendarPresenter:InteractorToPresenterCalendarProtocol {
+    func successfulyFinishedTask() {
+        self.getCurrentDateTasks()
+    }
+    
     func successfulyDeleteTask() {
         guard let currentDate = currentDate else {return}
         interactor?.onGetTasks(date: currentDate)

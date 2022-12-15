@@ -32,6 +32,7 @@ protocol PresenterToInteractorCalendarProtocol {
     func onGetTasks(date:Date)
     func getNumberOfDateEvents(date:Date) -> Int
     func deleteTask(task:NSManagedObject)
+    func setFinishTask(task:NSManagedObject)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
@@ -40,6 +41,7 @@ protocol InteractorToPresenterCalendarProtocol {
     func failureGetTasks(errorText:String)
     func successfulyDeleteTask()
     func failureCoreData(errorText:String)
+    func successfulyFinishedTask()
 }
 
 //MARK: - Router Input (Presenter -> Router)

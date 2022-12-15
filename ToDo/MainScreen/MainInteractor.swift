@@ -30,6 +30,8 @@ final class MainInteractor:PresenterToInteractorMainProtocol {
     
     func setFinishTask(task: NSManagedObject) {
         task.setValue(true, forKey: Resources.isFinishedTaskKey)
+        let currentDate = Date()
+        task.setValue(currentDate, forKey: Resources.timeFinishedTaskKey)
         do {
             try DataManager.shared.save()
             presenter?.successfulyFinishedTask()

@@ -14,6 +14,18 @@ final class CalendarInteractor:PresenterToInteractorCalendarProtocol {
         }
     }
     
+    func setFinishTask(task: NSManagedObject) {
+        task.setValue(true, forKey: Resources.isFinishedTaskKey)
+        let currentDate = Date()
+        task.setValue(currentDate, forKey: Resources.timeFinishedTaskKey)
+        do {
+            try DataManager.shared.save()
+            presenter?.successfulyFinishedTask()
+        } catch let error {
+            presenter?.failureCoreData(errorText: error.localizedDescription)
+        }
+    }
+    
     func deleteTask(task: NSManagedObject) {
         do {
             if let commonTask = task as? CommonTaskCoreData {
@@ -43,7 +55,7 @@ final class CalendarInteractor:PresenterToInteractorCalendarProtocol {
            try projects.forEach({ project in
                 let commonTasks = try DataManager.shared.commonTasks(project: project)
                resultTasks += commonTasks.filter{ task in
-                   guard let taskTime = task.time else {return false}
+                   guard let taskTime = task.time, task.isFinished == false else {return false}
                    return isSameDate(firstDate: taskTime, secondDate: date)
                }
                
@@ -51,7 +63,7 @@ final class CalendarInteractor:PresenterToInteractorCalendarProtocol {
                try categories.forEach{ category in
                    let tasks = try DataManager.shared.tasks(category: category)
                    resultTasks += tasks.filter{ task in
-                       guard let taskTime = task.time else {return false}
+                       guard let taskTime = task.time, task.isFinished == false else {return false}
                        return isSameDate(firstDate: taskTime, secondDate: date)
                    }
                }
@@ -60,14 +72,6 @@ final class CalendarInteractor:PresenterToInteractorCalendarProtocol {
             throw error
         }
         return resultTasks
-    }
-    
-    private func isSameDate(firstDate:Date,secondDate:Date) -> Bool {
-        if (Calendar.current.compare(firstDate, to: secondDate, toGranularity: .year) == ComparisonResult.orderedSame && Calendar.current.compare(firstDate, to: secondDate, toGranularity: .month) == ComparisonResult.orderedSame && Calendar.current.compare(firstDate, to: secondDate, toGranularity: .day) == ComparisonResult.orderedSame) {
-            return true
-        } else {
-            return false
-        }
     }
     
 }

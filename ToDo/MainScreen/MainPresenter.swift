@@ -192,11 +192,11 @@ final class MainPresenter: ViewToPresenterMainProtocol {
             }
             
         case 1:
-            if let commonTask = overdueTasks[indexPath.row] as? CommonTaskCoreData {
+            if let commonTask = todayTasks[indexPath.row] as? CommonTaskCoreData {
                 currentTask = commonTask
             }
             
-            if let categoryTask = overdueTasks[indexPath.row] as? TaskCoreData {
+            if let categoryTask = todayTasks[indexPath.row] as? TaskCoreData {
                 currentTask = categoryTask
             }
         default:

@@ -1,6 +1,14 @@
 import UIKit
 import CoreData
 
+func isSameDate(firstDate:Date,secondDate:Date) -> Bool {
+    if (Calendar.current.compare(firstDate, to: secondDate, toGranularity: .year) == ComparisonResult.orderedSame && Calendar.current.compare(firstDate, to: secondDate, toGranularity: .month) == ComparisonResult.orderedSame && Calendar.current.compare(firstDate, to: secondDate, toGranularity: .day) == ComparisonResult.orderedSame) {
+        return true
+    } else {
+        return false
+    }
+}
+
 func createInfoAlert(messageText:String,titleText:String) -> UIAlertController {
     let alert = UIAlertController(title: titleText, message: messageText, preferredStyle: .alert)
     alert.addAction(UIAlertAction(title: Resources.Titles.okActionTitle, style: .default, handler: nil))

@@ -106,6 +106,10 @@ extension CreateTaskBaseController {
         
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
+        datePicker.calendar = Calendar.current
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+        }
         datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         dateTextField.inputView = datePicker
         
@@ -121,7 +125,10 @@ extension CreateTaskBaseController {
         timeTextField.tintColor = .clear
         
         let timePicker = UIDatePicker()
-        timePicker.datePickerMode = .time
+        if #available(iOS 13.4, *) {
+            timePicker.preferredDatePickerStyle = .wheels
+        }
+        timePicker.calendar = Calendar.current
         timePicker.addTarget(self, action: #selector(timeChanged(_:)), for: .valueChanged)
         timeTextField.inputView = timePicker
     }
@@ -240,12 +247,13 @@ extension CreateTaskBaseController:UITextViewDelegate {
 
 //MARK: - UITextFieldDelegate
 extension CreateTaskBaseController:UITextFieldDelegate {
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text, text.isEmpty != true && text != " " else {
             self.disableCreateTaskButton()
             return
         }
-        if projectID == nil {
+        if projectID != nil {
             self.enableCreateTaskButton()
         }
     }

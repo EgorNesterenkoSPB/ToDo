@@ -34,6 +34,8 @@ extension CalendarViewController {
     
     override func configure() {
         super.configure()
+        title = Resources.Titles.calendar
+        
         calendar.delegate = self
         calendar.dataSource = self
         calendar.scope = .week
@@ -41,6 +43,8 @@ extension CalendarViewController {
         calendar.appearance.headerTitleColor = UIColor(named: Resources.Titles.labelAndTintColor)
         calendar.appearance.weekdayTextColor = UIColor(named: Resources.Titles.labelAndTintColor)
         calendar.appearance.titleDefaultColor = UIColor(named: Resources.Titles.labelAndTintColor)
+        calendar.appearance.selectionColor = .systemOrange
+        calendar.appearance.todayColor = .systemOrange
         
         showHideCalendarButton.setTitle(Resources.Titles.openCalendar, for: .normal)
         showHideCalendarButton.setTitleColor(.gray, for: .normal)
@@ -102,6 +106,9 @@ extension CalendarViewController:FSCalendarDataSource,FSCalendarDelegate {
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        if calendar.today != nil {
+            calendar.today = nil
+        }
         self.presenter?.updateTasksDay(date: date)
     }
     
