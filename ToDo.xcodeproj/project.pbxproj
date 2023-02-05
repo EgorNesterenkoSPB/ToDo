@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		540448D929868B1F00ED4A1A /* MyBlogEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540448D829868B1F00ED4A1A /* MyBlogEntity.swift */; };
+		540448DB29868B3400ED4A1A /* MyBlogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540448DA29868B3400ED4A1A /* MyBlogPresenter.swift */; };
+		540448DD29868B4300ED4A1A /* MyBlogInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540448DC29868B4300ED4A1A /* MyBlogInteractor.swift */; };
+		540448DF29868B5200ED4A1A /* MyBlogRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540448DE29868B5200ED4A1A /* MyBlogRouter.swift */; };
+		540448E129868B6600ED4A1A /* MyBlogProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540448E029868B6600ED4A1A /* MyBlogProtocols.swift */; };
+		540448E329868B7500ED4A1A /* MyBlogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540448E229868B7500ED4A1A /* MyBlogViewController.swift */; };
 		540A47C0292CFEF800CD8317 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540A47BF292CFEF800CD8317 /* TaskViewController.swift */; };
 		540A47C2292CFF0200CD8317 /* TaskRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540A47C1292CFF0200CD8317 /* TaskRouter.swift */; };
 		540A47C4292CFF0C00CD8317 /* TaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540A47C3292CFF0C00CD8317 /* TaskPresenter.swift */; };
@@ -60,6 +66,25 @@
 		546188B92913225A00279FE3 /* LoaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188B82913225A00279FE3 /* LoaderButton.swift */; };
 		546188BC29132B0800279FE3 /* MainEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BB29132B0800279FE3 /* MainEntity.swift */; };
 		546188BE2913A14A00279FE3 /* CreateTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BD2913A14A00279FE3 /* CreateTaskViewController.swift */; };
+		5476C51A2987D69E00963A30 /* NoteListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5192987D69E00963A30 /* NoteListCollectionViewCell.swift */; };
+		5476C5272989212200963A30 /* NoteImage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5242989212100963A30 /* NoteImage+CoreDataProperties.swift */; };
+		5476C5282989212200963A30 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5262989212200963A30 /* Note+CoreDataProperties.swift */; };
+		5476C5292989212200963A30 /* NoteImage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5232989212100963A30 /* NoteImage+CoreDataClass.swift */; };
+		5476C52A2989212200963A30 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5252989212200963A30 /* Note+CoreDataClass.swift */; };
+		5476C52E298936B700963A30 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C52D298936B700963A30 /* CreateNoteViewController.swift */; };
+		5476C530298936CB00963A30 /* CreateNotePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C52F298936CA00963A30 /* CreateNotePresenter.swift */; };
+		5476C532298936E200963A30 /* CreateNoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C531298936E200963A30 /* CreateNoteRouter.swift */; };
+		5476C534298936ED00963A30 /* CreateNoteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C533298936ED00963A30 /* CreateNoteInteractor.swift */; };
+		5476C536298936F800963A30 /* CreateNoteProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C535298936F800963A30 /* CreateNoteProtocols.swift */; };
+		5476C5382989370500963A30 /* CreateNoteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5372989370500963A30 /* CreateNoteEntity.swift */; };
+		5476C53A2989372400963A30 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5392989372400963A30 /* NoteViewController.swift */; };
+		5476C53C2989372D00963A30 /* NotePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C53B2989372D00963A30 /* NotePresenter.swift */; };
+		5476C53E2989373800963A30 /* NoteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C53D2989373800963A30 /* NoteInteractor.swift */; };
+		5476C5402989374600963A30 /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C53F2989374600963A30 /* NoteRouter.swift */; };
+		5476C5422989375700963A30 /* NoteProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5412989375700963A30 /* NoteProtocols.swift */; };
+		5476C5462989382400963A30 /* BaseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5452989382400963A30 /* BaseNoteViewController.swift */; };
+		5476C54829893C4B00963A30 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C54729893C4B00963A30 /* PhotoCollectionViewCell.swift */; };
+		5476C54A29893CFF00963A30 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C54929893CFF00963A30 /* UITextView+Extensions.swift */; };
 		54788970291976260089F254 /* CreateTaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5478896F291976260089F254 /* CreateTaskEntity.swift */; };
 		54788972291976340089F254 /* CreateTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54788971291976340089F254 /* CreateTaskPresenter.swift */; };
 		54788974291976430089F254 /* CreateTaskInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54788973291976430089F254 /* CreateTaskInteractor.swift */; };
@@ -165,6 +190,12 @@
 /* Begin PBXFileReference section */
 		2ABDDF17572F31F32EFD3BA8 /* Pods_ToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53F3632286E011B7D3CFE2F3 /* Pods-ToDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.debug.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.debug.xcconfig"; sourceTree = "<group>"; };
+		540448D829868B1F00ED4A1A /* MyBlogEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogEntity.swift; sourceTree = "<group>"; };
+		540448DA29868B3400ED4A1A /* MyBlogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogPresenter.swift; sourceTree = "<group>"; };
+		540448DC29868B4300ED4A1A /* MyBlogInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogInteractor.swift; sourceTree = "<group>"; };
+		540448DE29868B5200ED4A1A /* MyBlogRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogRouter.swift; sourceTree = "<group>"; };
+		540448E029868B6600ED4A1A /* MyBlogProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogProtocols.swift; sourceTree = "<group>"; };
+		540448E229868B7500ED4A1A /* MyBlogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogViewController.swift; sourceTree = "<group>"; };
 		540A47BF292CFEF800CD8317 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		540A47C1292CFF0200CD8317 /* TaskRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRouter.swift; sourceTree = "<group>"; };
 		540A47C3292CFF0C00CD8317 /* TaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPresenter.swift; sourceTree = "<group>"; };
@@ -219,6 +250,25 @@
 		546188B82913225A00279FE3 /* LoaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderButton.swift; sourceTree = "<group>"; };
 		546188BB29132B0800279FE3 /* MainEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEntity.swift; sourceTree = "<group>"; };
 		546188BD2913A14A00279FE3 /* CreateTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskViewController.swift; sourceTree = "<group>"; };
+		5476C5192987D69E00963A30 /* NoteListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListCollectionViewCell.swift; sourceTree = "<group>"; };
+		5476C5232989212100963A30 /* NoteImage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NoteImage+CoreDataClass.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/NoteImage+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		5476C5242989212100963A30 /* NoteImage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NoteImage+CoreDataProperties.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/NoteImage+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		5476C5252989212200963A30 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataClass.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Note+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		5476C5262989212200963A30 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataProperties.swift"; path = "/Users/macbookair13retina2018/Desktop/projects/ToDo/ToDo/Services/CoreData/Note+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		5476C52D298936B700963A30 /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
+		5476C52F298936CA00963A30 /* CreateNotePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNotePresenter.swift; sourceTree = "<group>"; };
+		5476C531298936E200963A30 /* CreateNoteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteRouter.swift; sourceTree = "<group>"; };
+		5476C533298936ED00963A30 /* CreateNoteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteInteractor.swift; sourceTree = "<group>"; };
+		5476C535298936F800963A30 /* CreateNoteProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteProtocols.swift; sourceTree = "<group>"; };
+		5476C5372989370500963A30 /* CreateNoteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteEntity.swift; sourceTree = "<group>"; };
+		5476C5392989372400963A30 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
+		5476C53B2989372D00963A30 /* NotePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePresenter.swift; sourceTree = "<group>"; };
+		5476C53D2989373800963A30 /* NoteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteInteractor.swift; sourceTree = "<group>"; };
+		5476C53F2989374600963A30 /* NoteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRouter.swift; sourceTree = "<group>"; };
+		5476C5412989375700963A30 /* NoteProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteProtocols.swift; sourceTree = "<group>"; };
+		5476C5452989382400963A30 /* BaseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNoteViewController.swift; sourceTree = "<group>"; };
+		5476C54729893C4B00963A30 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		5476C54929893CFF00963A30 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		5478896F291976260089F254 /* CreateTaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskEntity.swift; sourceTree = "<group>"; };
 		54788971291976340089F254 /* CreateTaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskPresenter.swift; sourceTree = "<group>"; };
 		54788973291976430089F254 /* CreateTaskInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskInteractor.swift; sourceTree = "<group>"; };
@@ -342,6 +392,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		540448D729868AEB00ED4A1A /* MyBlogScreen */ = {
+			isa = PBXGroup;
+			children = (
+				540448D829868B1F00ED4A1A /* MyBlogEntity.swift */,
+				540448DA29868B3400ED4A1A /* MyBlogPresenter.swift */,
+				540448DC29868B4300ED4A1A /* MyBlogInteractor.swift */,
+				540448DE29868B5200ED4A1A /* MyBlogRouter.swift */,
+				540448E029868B6600ED4A1A /* MyBlogProtocols.swift */,
+				540448E229868B7500ED4A1A /* MyBlogViewController.swift */,
+			);
+			path = MyBlogScreen;
+			sourceTree = "<group>";
+		};
 		540A47BE292CF22B00CD8317 /* TaskScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,6 +449,10 @@
 		543330952914184700B1EA44 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				5476C5232989212100963A30 /* NoteImage+CoreDataClass.swift */,
+				5476C5242989212100963A30 /* NoteImage+CoreDataProperties.swift */,
+				5476C5252989212200963A30 /* Note+CoreDataClass.swift */,
+				5476C5262989212200963A30 /* Note+CoreDataProperties.swift */,
 				54195BA3292D10D800AAFF50 /* TaskCoreData+CoreDataClass.swift */,
 				54195BA2292D10D800AAFF50 /* TaskCoreData+CoreDataProperties.swift */,
 				54195BA5292D10D800AAFF50 /* CommonTaskCoreData+CoreDataClass.swift */,
@@ -438,6 +505,8 @@
 				540D779329218C4700FEA371 /* OTPTextField.swift */,
 				540D779529218CA200FEA371 /* OTPView.swift */,
 				541CF20729267702003DC2BE /* CommonTableViewCell.swift */,
+				5476C5192987D69E00963A30 /* NoteListCollectionViewCell.swift */,
+				5476C54729893C4B00963A30 /* PhotoCollectionViewCell.swift */,
 			);
 			path = "UI Elements";
 			sourceTree = "<group>";
@@ -447,6 +516,31 @@
 			children = (
 			);
 			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		5476C52B2989366800963A30 /* CreateNoteScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5476C52D298936B700963A30 /* CreateNoteViewController.swift */,
+				5476C52F298936CA00963A30 /* CreateNotePresenter.swift */,
+				5476C531298936E200963A30 /* CreateNoteRouter.swift */,
+				5476C533298936ED00963A30 /* CreateNoteInteractor.swift */,
+				5476C535298936F800963A30 /* CreateNoteProtocols.swift */,
+				5476C5372989370500963A30 /* CreateNoteEntity.swift */,
+			);
+			path = CreateNoteScreen;
+			sourceTree = "<group>";
+		};
+		5476C52C2989367600963A30 /* NoteScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5476C5392989372400963A30 /* NoteViewController.swift */,
+				5476C53B2989372D00963A30 /* NotePresenter.swift */,
+				5476C53D2989373800963A30 /* NoteInteractor.swift */,
+				5476C53F2989374600963A30 /* NoteRouter.swift */,
+				5476C5412989375700963A30 /* NoteProtocols.swift */,
+			);
+			path = NoteScreen;
 			sourceTree = "<group>";
 		};
 		5478896E2919760C0089F254 /* CreateTaskScreen */ = {
@@ -550,6 +644,9 @@
 		54BF8576290BC2C2002DAB62 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
+				5476C52C2989367600963A30 /* NoteScreen */,
+				5476C52B2989366800963A30 /* CreateNoteScreen */,
+				540448D729868AEB00ED4A1A /* MyBlogScreen */,
 				544E818D29465B9E001A7C33 /* ProductivityScreen */,
 				549CF3C329454D6000F399AA /* CalendarScreen */,
 				549722E22944080100BAD041 /* OnBoardingScreen */,
@@ -627,6 +724,7 @@
 				5479B6D72917F2130094B6F1 /* BottomSheetController.swift */,
 				54D465A3292C3168006FA8BC /* ColorsViewController.swift */,
 				544855CF293FEBD200F067DE /* ProjectsPopOverViewController.swift */,
+				5476C5452989382400963A30 /* BaseNoteViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -643,6 +741,7 @@
 				54D4659F292BB4B0006FA8BC /* Extensions+Date.swift */,
 				54D465A1292C239F006FA8BC /* Extensions+URLRequest.swift */,
 				54F240262932D4BE00CF8F25 /* Extensions+String.swift */,
+				5476C54929893CFF00963A30 /* UITextView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -907,6 +1006,7 @@
 				54BF8598290BC47E002DAB62 /* LoginPresenter.swift in Sources */,
 				549722E12943FFE600BAD041 /* LaunchViewController.swift in Sources */,
 				54788970291976260089F254 /* CreateTaskEntity.swift in Sources */,
+				5476C53C2989372D00963A30 /* NotePresenter.swift in Sources */,
 				54ACFE462919C292002C806C /* PrjProtocols.swift in Sources */,
 				54BF85AA290C0E87002DAB62 /* RegisterEntity.swift in Sources */,
 				546188B1291317E300279FE3 /* MainInteractor.swift in Sources */,
@@ -915,12 +1015,17 @@
 				540D779429218C4700FEA371 /* OTPTextField.swift in Sources */,
 				544855D0293FEBD200F067DE /* ProjectsPopOverViewController.swift in Sources */,
 				54788974291976430089F254 /* CreateTaskInteractor.swift in Sources */,
+				5476C51A2987D69E00963A30 /* NoteListCollectionViewCell.swift in Sources */,
 				54ACFE4D291AC930002C806C /* BaseCollectionViewCell.swift in Sources */,
 				546188AF291317D700279FE3 /* MainRouter.swift in Sources */,
 				543330982914190600B1EA44 /* CoreModel.xcdatamodeld in Sources */,
+				540448E329868B7500ED4A1A /* MyBlogViewController.swift in Sources */,
 				541CF20A2926811B003DC2BE /* SettingsEntity.swift in Sources */,
 				5478897C291979C40089F254 /* CreateProjectRouter.swift in Sources */,
+				5476C5272989212200963A30 /* NoteImage+CoreDataProperties.swift in Sources */,
+				5476C530298936CB00963A30 /* CreateNotePresenter.swift in Sources */,
 				54BF858D290BC382002DAB62 /* LoginViewController.swift in Sources */,
+				5476C5282989212200963A30 /* Note+CoreDataProperties.swift in Sources */,
 				54788980291979D90089F254 /* CreateProjectInteractor.swift in Sources */,
 				54BF85A4290BD234002DAB62 /* Extensions+UIView.swift in Sources */,
 				546188AB291317BA00279FE3 /* MainViewController.swift in Sources */,
@@ -929,8 +1034,10 @@
 				540D778629200C2700FEA371 /* SettingsViewController.swift in Sources */,
 				54D46598292BA533006FA8BC /* NetworkEntity.swift in Sources */,
 				547889762919764C0089F254 /* CreateTaskRouter.swift in Sources */,
+				540448D929868B1F00ED4A1A /* MyBlogEntity.swift in Sources */,
 				54D465A4292C3168006FA8BC /* ColorsViewController.swift in Sources */,
 				549722E629440BDA00BAD041 /* LaunchPresenter.swift in Sources */,
+				5476C5382989370500963A30 /* CreateNoteEntity.swift in Sources */,
 				546188A22912E6CC00279FE3 /* SignInRouter.swift in Sources */,
 				54ED8E4D29170EE600A43C62 /* ProjectsTableSectionHeaderView.swift in Sources */,
 				543D8F8B290C1597008396B0 /* Extensions+ScrollView.swift in Sources */,
@@ -947,17 +1054,22 @@
 				54ED8E462916E36000A43C62 /* ProjectsEntity.swift in Sources */,
 				546188A02912E6B500279FE3 /* SignInPresenter.swift in Sources */,
 				54ED8E402916E33F00A43C62 /* ProjectsPresenter.swift in Sources */,
+				5476C536298936F800963A30 /* CreateNoteProtocols.swift in Sources */,
 				54E1195529448F5800677EF9 /* OnBoardingViewController.swift in Sources */,
 				549722E829440BE700BAD041 /* LaunchInteractor.swift in Sources */,
 				5479B6DA291809DD0094B6F1 /* ColorTableViewCell.swift in Sources */,
 				540D77992921901900FEA371 /* PincodeViewController.swift in Sources */,
+				5476C5462989382400963A30 /* BaseNoteViewController.swift in Sources */,
+				5476C53A2989372400963A30 /* NoteViewController.swift in Sources */,
 				54D4659A292BAF40006FA8BC /* UserDefaultsWorker.swift in Sources */,
 				546188B529131BA600279FE3 /* ShakingTextField.swift in Sources */,
 				541CF20829267702003DC2BE /* CommonTableViewCell.swift in Sources */,
 				54788982291979EA0089F254 /* CreateProjectProtocols.swift in Sources */,
 				54BF85AE290C0EC0002DAB62 /* RegisterRouter.swift in Sources */,
 				544E819729465C46001A7C33 /* ProductivityProtocols.swift in Sources */,
+				5476C5292989212200963A30 /* NoteImage+CoreDataClass.swift in Sources */,
 				54BF8592290BC406002DAB62 /* LoginProtocols.swift in Sources */,
+				5476C534298936ED00963A30 /* CreateNoteInteractor.swift in Sources */,
 				54ED8E342916C44000A43C62 /* TaskTableViewCell.swift in Sources */,
 				5478897E291979CD0089F254 /* CreateProjectPresenter.swift in Sources */,
 				54ED8E262915EA7500A43C62 /* CustomizedShapeView.swift in Sources */,
@@ -965,6 +1077,7 @@
 				549CF3C729454D9C00F399AA /* CalendarPresenter.swift in Sources */,
 				54BF8596290BC46E002DAB62 /* LoginInteractor.swift in Sources */,
 				540A47C8292CFF2200CD8317 /* TaskProtocols.swift in Sources */,
+				5476C5422989375700963A30 /* NoteProtocols.swift in Sources */,
 				54ED8E3E2916E33100A43C62 /* ProjectsRouter.swift in Sources */,
 				540A47C4292CFF0C00CD8317 /* TaskPresenter.swift in Sources */,
 				546188B92913225A00279FE3 /* LoaderButton.swift in Sources */,
@@ -972,10 +1085,13 @@
 				54ED8E482917052F00A43C62 /* ProjectTableViewCell.swift in Sources */,
 				54195BA1292D0F1A00AAFF50 /* TaskEntity.swift in Sources */,
 				540A47C2292CFF0200CD8317 /* TaskRouter.swift in Sources */,
+				5476C54829893C4B00963A30 /* PhotoCollectionViewCell.swift in Sources */,
 				54BF8594290BC41B002DAB62 /* LoginRouter.swift in Sources */,
 				544E819129465C25001A7C33 /* ProductivityPresenter.swift in Sources */,
 				549AFFA5291E7B1D009924CC /* PrjEntity.swift in Sources */,
+				5476C54A29893CFF00963A30 /* UITextView+Extensions.swift in Sources */,
 				54ACFE3E2919C185002C806C /* PrjViewController.swift in Sources */,
+				540448DB29868B3400ED4A1A /* MyBlogPresenter.swift in Sources */,
 				54BF85A1290BC84B002DAB62 /* NavController.swift in Sources */,
 				54195BA9292D10D800AAFF50 /* TaskCoreData+CoreDataClass.swift in Sources */,
 				54BF859D290BC5C0002DAB62 /* BaseViewController.swift in Sources */,
@@ -996,10 +1112,13 @@
 				546188B3291317FA00279FE3 /* MainProtocols.swift in Sources */,
 				54D8FC4C291B27F6007F7A39 /* ProfileRouter.swift in Sources */,
 				54F240272932D4BE00CF8F25 /* Extensions+String.swift in Sources */,
+				5476C5402989374600963A30 /* NoteRouter.swift in Sources */,
+				5476C532298936E200963A30 /* CreateNoteRouter.swift in Sources */,
 				540A47C0292CFEF800CD8317 /* TaskViewController.swift in Sources */,
 				540D779629218CA200FEA371 /* OTPView.swift in Sources */,
 				54ED8E4A29170BF000A43C62 /* Extensions+UIColor.swift in Sources */,
 				54D8FC54291B281F007F7A39 /* ProfileEntity.swift in Sources */,
+				5476C52E298936B700963A30 /* CreateNoteViewController.swift in Sources */,
 				541CF21429268DF7003DC2BE /* ProjectCoreData+CoreDataClass.swift in Sources */,
 				54D465A0292BB4B0006FA8BC /* Extensions+Date.swift in Sources */,
 				549CF3CD29454DC400F399AA /* CalendarProtocols.swift in Sources */,
@@ -1011,10 +1130,12 @@
 				549722E429440BB000BAD041 /* LaunchRouter.swift in Sources */,
 				54BF85B2290C0EE7002DAB62 /* RegisterPresenter.swift in Sources */,
 				54CDA8D229469D95004D546E /* ProductivityEntity.swift in Sources */,
+				540448DD29868B4300ED4A1A /* MyBlogInteractor.swift in Sources */,
 				540A47C6292CFF1500CD8317 /* TaskInteractor.swift in Sources */,
 				54D4659C292BB2B5006FA8BC /* Requester.swift in Sources */,
 				54ED8E4F29170F0A00A43C62 /* BaseTableSectionHeaderView.swift in Sources */,
 				546188BC29132B0800279FE3 /* MainEntity.swift in Sources */,
+				540448DF29868B5200ED4A1A /* MyBlogRouter.swift in Sources */,
 				54ACFE442919C1EA002C806C /* PrjRouter.swift in Sources */,
 				546188A42912E6DD00279FE3 /* SignInInteractor.swift in Sources */,
 				5479B6D22917C3E70094B6F1 /* CreateProjectViewController.swift in Sources */,
@@ -1024,8 +1145,11 @@
 				546188AD291317CB00279FE3 /* MainPresenter.swift in Sources */,
 				549722EC29440C1100BAD041 /* LaunchEntity.swift in Sources */,
 				543330A62914203700B1EA44 /* DataManager.swift in Sources */,
+				540448E129868B6600ED4A1A /* MyBlogProtocols.swift in Sources */,
+				5476C53E2989373800963A30 /* NoteInteractor.swift in Sources */,
 				54D8FC4E291B2801007F7A39 /* ProfilePresenter.swift in Sources */,
 				54ED8E232915EA2F00A43C62 /* Extensions+CGFloat.swift in Sources */,
+				5476C52A2989212200963A30 /* Note+CoreDataClass.swift in Sources */,
 				54BF85A8290C0E3C002DAB62 /* RegisterViewController.swift in Sources */,
 				54BF857A290BC2C2002DAB62 /* SceneDelegate.swift in Sources */,
 			);
