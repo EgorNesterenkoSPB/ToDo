@@ -1,11 +1,14 @@
 import UIKit
 
 enum Resources {
+    static let noteTextKey = "text"
+    static let noteNameKey = "name"
     static let categoriesKeyCoreData = "categories"
     static let coreModelName = "CoreModel"
     static let headerColorIdentefier = "colorHeader"
     static let defaultHexColor = "b8b8b8"
     static let isDarkKeyTheme = "isDark"
+    static let exampleNoteKey = "exampleKey"
     static let pincodeKey = "pincodeKey"
     static let isEnteredApplication = "isEntered"
     static let imageProfilePathKey = "imagePath"
@@ -72,6 +75,14 @@ enum Resources {
         static let largeConfiguration = UIImage.SymbolConfiguration(scale: .large)
     }
     enum Titles {
+        static let createNote = "Create note"
+        static let done = "Done"
+        static let addPhoto = "Add photo"
+        static let close = "Close"
+        static let example = "Example"
+        static let select = "Select"
+        static let unselect = "Unselect"
+        static let myBlogTitle = "My Blog"
         static let applicationName = "Zero notebook"
         static let confirmButtonTitle = "Confirm"
         static let bottomSheetMainLabel = "New task"
@@ -150,7 +161,7 @@ enum Resources {
         static let confirmPassword = "Confirm password"
         static let loginOrMailTextField = "Write login or mail"
         static let pincodeTextField = "length is 4 symbol"
-        
+        static let noteTextViewPlaceholder = "Write anythink here"
     }
     enum Images {
         static let createTaskButtonImage = "arrow.up.circle.fill"
@@ -192,6 +203,8 @@ enum Resources {
         static let commonTableCellIdentefier = "common cell"
         static let commonTaskCellIdentefier = "commonTask cell"
         static let popOverCellIdentegfier = "popOver"
+        static let noteListCellIdentefier = "noteCell"
+        static let photoCellIdentefier = "photoCell"
     }
 }
 

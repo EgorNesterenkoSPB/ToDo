@@ -1,6 +1,11 @@
 import UIKit
 
 final class ProjectsRouter:PresenterToRouterProjectsProtocol {
+    func showMyBlogScreen(projectsViewController: ProjectsViewController) {
+        let myBlogViewController = MyBlogRouter.createModule()
+        projectsViewController.navigationController?.pushViewController(myBlogViewController, animated: true)
+    }
+    
     func showProductivityScreen(projectsViewController: ProjectsViewController) {
         let productivityViewController = ProductivityRouter.createModule()
         projectsViewController.navigationController?.pushViewController(productivityViewController, animated: true)

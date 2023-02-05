@@ -1,6 +1,6 @@
 import Foundation
 import CoreData
-
+import UIKit
 
 enum CoreManagerError:Error {
     case failedSaveContext(text:String)
@@ -12,6 +12,10 @@ enum CoreManagerError:Error {
     case failedDeleteTask(text:String)
     case failedFetchCommonTasks(text:String)
     case failedDeleteCommonTask(text:String)
+    case failedFetchNotes(text:String)
+    case failedDeleteNote(text:String)
+    case failedFetchImages(text:String)
+    case failedDeleteNoteImage(text:String)
 }
 
 
@@ -175,6 +179,66 @@ class DataManager {
             try save()
         } catch let error {
             throw CoreManagerError.failedDeleteTask(text: "\(error)")
+        }
+    }
+    
+    func note(name:String,text:String?) -> Note {
+        let note = Note(context: persistentContainer.viewContext)
+        note.name = name
+        note.text = text
+        return note
+    }
+    
+    func noteImage(image:UIImage,note:Note) -> NoteImage {
+        let noteImage = NoteImage(context: persistentContainer.viewContext)
+        noteImage.image = image.jpegData(compressionQuality: 1) as Data?
+        note.addToImages(noteImage)
+        return noteImage
+    }
+    
+    func notes() throws -> [Note] {
+            let request:NSFetchRequest<Note> = Note.fetchRequest()
+            var fetchedNotes:[Note] = []
+            
+            do {
+                fetchedNotes = try persistentContainer.viewContext.fetch(request)
+            } catch let error {
+                throw CoreManagerError.failedFetchNotes(text: "Error fetching notes \(error)")
+            }
+            return fetchedNotes
+        }
+    
+    func noteImages(note:Note) throws -> [NoteImage] {
+        let request:NSFetchRequest<NoteImage> = NoteImage.fetchRequest()
+        request.predicate = NSPredicate(format: "note = %@", note)
+        
+        var fetchedCategories:[NoteImage] = []
+        
+        do {
+            fetchedCategories = try persistentContainer.viewContext.fetch(request)
+        } catch let error {
+            throw CoreManagerError.failedFetchImages(text: "Error fetching the note images \(error)")
+        }
+        return fetchedCategories
+    }
+    
+    func deleteNote(note:Note) throws {
+            let context = persistentContainer.viewContext
+            context.delete(note)
+            do {
+                try save()
+            } catch let error {
+                throw CoreManagerError.failedDeleteNote(text: "\(error)")
+            }
+        }
+    
+    func deleteNoteImage(image:NoteImage) throws {
+        let context = persistentContainer.viewContext
+        context.delete(image)
+        do {
+            try save()
+        } catch let error {
+            throw CoreManagerError.failedDeleteNoteImage(text: "\(error)")
         }
     }
     
