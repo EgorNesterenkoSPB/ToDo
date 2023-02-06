@@ -5,6 +5,7 @@ protocol ViewToPresenterCreateNoteProtocol {
     var view: PresenterToViewCreateNoteProtocol? {get set}
     var router: PresenterToRouterCreateNoteProtocol? {get set}
     var interactor: PresenterToInteractorCreateNoteProtocol? {get set}
+    var images:[UIImage] {get set}
     func numberOfSections() -> Int
     func numberOfItemsInSection() -> Int
     func cellForItemAt(collectionView:UICollectionView, indexPath:IndexPath) -> UICollectionViewCell

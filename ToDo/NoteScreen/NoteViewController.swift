@@ -50,15 +50,21 @@ extension NoteViewController {
 extension NoteViewController: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        presenter?.numberOfSections() ?? 0
+        self.presenter?.numberOfSections() ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        presenter?.numberOfItemsInSection() ?? 0
+        self.presenter?.numberOfItemsInSection() ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         self.presenter?.cellForItemAt(collectionView: collectionView, indexPath: indexPath) ?? UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        super.newScrollView.delegate = self
+        super.newImageView.image = presenter?.getImage(indexPath: indexPath)
+        super.showPhoto()
     }
 }
 
@@ -111,5 +117,13 @@ extension NoteViewController: PresenterToViewNoteProtocol {
     func onSuccessfulyEditNote() {
         self.delegate?.successfulyEditNote()
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+
+//MARK: - UIScrollViewDelegate
+extension NoteViewController {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return super.newImageView
     }
 }

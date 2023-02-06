@@ -72,6 +72,12 @@ extension CreateNoteViewController: UICollectionViewDelegate,UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         presenter?.cellForItemAt(collectionView: collectionView, indexPath: indexPath) ?? UICollectionViewCell()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        super.newScrollView.delegate = self
+        super.newImageView.image = presenter?.images[indexPath.row]
+        super.showPhoto()
+    }
 }
 
 //MARK: - Private methods
@@ -100,5 +106,12 @@ extension CreateNoteViewController:PresenterToViewCreateNoteProtocol {
     
     func onFailedCoreData(errorText: String) {
         self.present(createInfoAlert(messageText: errorText, titleText: Resources.Titles.errorTitle),animated: true)
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+extension CreateNoteViewController {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return super.newImageView
     }
 }

@@ -8,6 +8,9 @@ class BaseNoteViewController: BaseViewController {
     let photosCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let closeButton = UIButton()
     let doneButton = UIButton()
+    let newScrollView = UIScrollView()
+    var newImageView = UIImageView()
+    let blackBackgroundView = UIView()
     
     private enum UIConstants {
         static let textViewCornerRadius = 12.0
@@ -118,8 +121,8 @@ extension BaseNoteViewController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Take photo", style: .default, handler: { (action:UIAlertAction) -> Void in
             // it will be crashed on simulator device, bc commented !!!
-//            picker.sourceType = .camera
-//            self.present(picker,animated: true)
+            picker.sourceType = .camera
+            self.present(picker,animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Choose from photo gallery", style: .default, handler: { (action:UIAlertAction) -> Void in
             self.present(picker,animated: true)
@@ -127,6 +130,10 @@ extension BaseNoteViewController {
         
         alert.addAction(UIAlertAction(title: Resources.Titles.close, style: .cancel, handler: nil))
         self.present(alert,animated: true)
+    }
+    
+    @objc private func dismissNewImageView(){
+        blackBackgroundView.removeFromSuperview()
     }
 }
 
@@ -202,4 +209,49 @@ extension BaseNoteViewController:UITextFieldDelegate {
 //MARK: - ImagePickerDelegate
 extension BaseNoteViewController:UINavigationControllerDelegate,UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {}
+}
+
+
+extension BaseNoteViewController {
+    func showPhoto() {
+        blackBackgroundView.frame = view.frame
+        blackBackgroundView.backgroundColor = .black
+        blackBackgroundView.alpha = 0
+        
+        newScrollView.frame = view.frame
+        newScrollView.minimumZoomScale = 1.0
+        newScrollView.maximumZoomScale = 6.0
+        newImageView.frame = view.frame
+        newImageView.backgroundColor = .black
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.alpha = 0
+        newImageView.isUserInteractionEnabled = true
+        
+        let closeButton = UIButton()
+        closeButton.setTitle("Close image", for: .normal)
+        closeButton.setTitleColor(.link, for: .normal)
+        closeButton.addTarget(self, action: #selector(dismissNewImageView), for: .touchUpInside)
+        blackBackgroundView.addView(closeButton)
+        
+        newScrollView.addSubview(newImageView)
+        blackBackgroundView.addView(newScrollView)
+        view.addSubview(blackBackgroundView)
+        
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: blackBackgroundView.topAnchor, constant: 10),
+            closeButton.leftAnchor.constraint(equalTo: blackBackgroundView.leftAnchor, constant: 10),
+            newScrollView.topAnchor.constraint(equalTo: closeButton.bottomAnchor),
+            newScrollView.leftAnchor.constraint(equalTo: blackBackgroundView.leftAnchor),
+            newScrollView.rightAnchor.constraint(equalTo: blackBackgroundView.rightAnchor),
+            newScrollView.bottomAnchor.constraint(equalTo: blackBackgroundView.bottomAnchor)
+        ])
+        
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            self?.blackBackgroundView.alpha = 1
+        }, completion: { (success) in
+            UIView.animate(withDuration: 0.2, animations: { [weak self] in
+                self?.newImageView.alpha = 1
+            })
+        })
+    }
 }
