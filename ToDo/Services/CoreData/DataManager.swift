@@ -242,7 +242,5 @@ class DataManager {
         }
     }
     
-    func loadCategory(with request:NSFetchRequest<CategoryCoreData> = CategoryCoreData.fetchRequest(),predicate:NSPredicate? = nil,categoryName:String) {
-        
-    }
+    func loadCategory(with request:NSFetchRequest<CategoryCoreData> = CategoryCoreData.fetchRequest(),predicate:NSPredicate? = nil,categoryName:String) {}
 }

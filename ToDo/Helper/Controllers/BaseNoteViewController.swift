@@ -11,6 +11,8 @@ class BaseNoteViewController: BaseViewController {
     let newScrollView = UIScrollView()
     var newImageView = UIImageView()
     let blackBackgroundView = UIView()
+    let selectPhotoButton = UIButton()
+    let trashButton = UIButton()
     
     private enum UIConstants {
         static let textViewCornerRadius = 12.0
@@ -33,6 +35,8 @@ extension BaseNoteViewController {
         self.view.addView(nameTextField)
         self.view.addView(mainTextView)
         self.view.addView(addPhotoButton)
+        self.view.addView(selectPhotoButton)
+        self.view.addView(trashButton)
         self.view.addView(photosCollectionView)
     }
     
@@ -77,6 +81,15 @@ extension BaseNoteViewController {
         addPhotoButton.setTitle(Resources.Titles.addPhoto, for: .normal)
         addPhotoButton.setTitleColor(.link, for: .normal)
         addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
+        
+        selectPhotoButton.setTitle(Resources.Titles.select, for: .normal)
+        selectPhotoButton.setTitleColor(.link, for: .normal)
+        selectPhotoButton.addTarget(self, action: #selector(selectButtonTapped(sender:)), for: .touchUpInside)
+        
+        trashButton.setImage(UIImage(systemName: Resources.Images.trash), for: .normal)
+        trashButton.isHidden = true
+        self.disableTrashButton()
+        trashButton.addTarget(self, action: #selector(trashButtonTapped(sender:)), for: .touchUpInside)
     }
     
     override func layoutViews() {
@@ -95,6 +108,10 @@ extension BaseNoteViewController {
             mainTextView.heightAnchor.constraint(equalToConstant: UIConstants.textViewHeight),
             addPhotoButton.topAnchor.constraint(equalTo: mainTextView.bottomAnchor,constant: UIConstants.addPhotoTopAnchor),
             addPhotoButton.leftAnchor.constraint(equalTo: mainTextView.leftAnchor),
+            selectPhotoButton.topAnchor.constraint(equalTo: addPhotoButton.topAnchor),
+            selectPhotoButton.rightAnchor.constraint(equalTo: mainTextView.rightAnchor),
+            trashButton.centerYAnchor.constraint(equalTo: addPhotoButton.centerYAnchor),
+            trashButton.rightAnchor.constraint(equalTo: selectPhotoButton.leftAnchor, constant: -10),
             photosCollectionView.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: UIConstants.photosCollectionTopAnchor),
             photosCollectionView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             photosCollectionView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
@@ -134,6 +151,30 @@ extension BaseNoteViewController {
     
     @objc private func dismissNewImageView(){
         blackBackgroundView.removeFromSuperview()
+    }
+    
+    @objc func selectButtonTapped(sender: UIButton) {
+        switch selectPhotoButton.titleLabel?.text {
+        case Resources.Titles.select:
+            selectPhotoButton.setTitle(Resources.Titles.unselect, for: .normal)
+            trashButton.isHidden = false
+        default:
+            selectPhotoButton.setTitle(Resources.Titles.select, for: .normal)
+            trashButton.isHidden = true
+            self.disableTrashButton()
+        }
+    }
+    
+    @objc func trashButtonTapped(sender:UIButton){}
+    
+    public func enableTrashButton() {
+        trashButton.tintColor = .red
+        trashButton.isEnabled = true
+    }
+    
+    public func disableTrashButton() {
+        trashButton.tintColor = .lightGray
+        trashButton.isEnabled = false
     }
 }
 

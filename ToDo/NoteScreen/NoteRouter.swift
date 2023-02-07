@@ -3,7 +3,6 @@ import UIKit
 final class NoteRouter:PresenterToRouterNoteProtocol {
     static func createModule(note:Note) -> NoteViewController {
         let noteViewController = NoteViewController()
-        
         let notePresenter: (ViewToPresenterNoteProtocol & InteractorToPresenterNoteProtocol) = NotePresenter(note: note)
         
         noteViewController.presenter = notePresenter

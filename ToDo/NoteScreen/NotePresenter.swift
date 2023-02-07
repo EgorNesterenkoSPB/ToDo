@@ -5,6 +5,7 @@ final class NotePresenter: ViewToPresenterNoteProtocol {
     var router: PresenterToRouterNoteProtocol?
     var interactor: PresenterToInteractorNoteProtocol?
     var note:Note
+    var selectedIndexImages = [IndexPath]()
     
     init(note:Note) {
         self.note = note
@@ -22,7 +23,8 @@ final class NotePresenter: ViewToPresenterNoteProtocol {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Resources.Cells.photoCellIdentefier, for: indexPath) as? PhotoCollectionViewCell else {return UICollectionViewCell()}
         let image = self.getImage(indexPath: indexPath)
         if let image = image {
-            cell.cellModel = PhotoCellModel(image: image)
+            let isSelected = self.selectedIndexImages.contains(indexPath)
+            cell.cellModel = PhotoCellModel(image: image, isSelected: isSelected)
         }
         return cell
     }
@@ -36,25 +38,54 @@ final class NotePresenter: ViewToPresenterNoteProtocol {
             view?.disableDoneButtonHandling()
             return
         }
-        note.setValue(text, forKey: Resources.noteNameKey)
+        self.note.setValue(text, forKey: Resources.noteNameKey)
         view?.enableDoneButtonHandling()
     }
     
     public func changeMainText(text: String) {
-        note.setValue(text, forKey: Resources.noteTextKey)
+        self.note.setValue(text, forKey: Resources.noteTextKey)
         view?.enableDoneButtonHandling()
     }
     
     public func addImage(image: UIImage) {
-        self.interactor?.onAddImage(image: image, note: note)
+        self.interactor?.onAddImage(image: image, note: self.note)
     }
     
     public func confirmButtonTapped() {
         self.interactor?.onConfirmButtonTapped()
     }
+    
+    public func didSelectItemAt(indexPath: IndexPath) {
+        if self.selectedIndexImages.contains(indexPath) {
+            self.selectedIndexImages.remove(at: indexPath.row)
+        } else {
+            self.selectedIndexImages.append(indexPath)
+        }
+            
+        self.view?.reloadPhotoCollection()
+        if  self.selectedIndexImages.count != 0 {
+            self.view?.onEnableTrashButton()
+        } else {
+            self.view?.onDisableTrashButton()
+        }
+    }
+    
+    public func unselectAllPhotos() {
+        self.selectedIndexImages.removeAll()
+        self.view?.reloadPhotoCollection()
+    }
+    
+    public func userTapTrashButton() {
+        self.interactor?.deleteImages(indexes: self.selectedIndexImages, note: self.note)
+    }
 }
 
 extension NotePresenter: InteractorToPresenterNoteProtocol {
+    func successfulyDeleteImages() {
+        self.view?.reloadPhotoCollection()
+        self.selectedIndexImages.removeAll()
+    }
+    
     func failedCoreData(errorText: String) {
         view?.onFailedCoreData(errorText: errorText)
     }

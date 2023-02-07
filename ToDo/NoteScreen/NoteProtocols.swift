@@ -14,6 +14,9 @@ protocol ViewToPresenterNoteProtocol {
     func addImage(image:UIImage)
     func confirmButtonTapped()
     func cellForItemAt(collectionView:UICollectionView, indexPath:IndexPath) -> UICollectionViewCell
+    func didSelectItemAt(indexPath:IndexPath)
+    func unselectAllPhotos()
+    func userTapTrashButton()
 }
 
 //MARK: - View Output (Presenter -> View)
@@ -22,6 +25,9 @@ protocol PresenterToViewNoteProtocol {
     func disableDoneButtonHandling()
     func enableDoneButtonHandling()
     func onSuccessfulyEditNote()
+    func reloadPhotoCollection()
+    func onEnableTrashButton()
+    func onDisableTrashButton()
 }
 
 //MARK: -  Interactor Input (Presenter -> Interactor)
@@ -30,12 +36,14 @@ protocol PresenterToInteractorNoteProtocol {
     func onGetImage(indexPath: IndexPath,note:Note) -> UIImage?
     func onAddImage(image: UIImage,note:Note)
     func onConfirmButtonTapped()
+    func deleteImages(indexes:[IndexPath],note:Note)
 }
 
 //MARK: - Interactor Output (Interactor -> Presenter)
 protocol InteractorToPresenterNoteProtocol {
     func failedCoreData(errorText:String)
     func successfulyEditNote()
+    func successfulyDeleteImages()
 }
 
 //MARK: - Router Input (Presenter -> Router)

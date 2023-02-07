@@ -33,4 +33,17 @@ final class NoteInteractor: PresenterToInteractorNoteProtocol {
             presenter?.failedCoreData(errorText: "Failed to change, error:\(error.localizedDescription)")
         }
     }
+    
+    func deleteImages(indexes:[IndexPath],note:Note) {
+        do {
+            let noteImages = try DataManager.shared.noteImages(note: note)
+            try indexes.forEach {
+                let image = noteImages[$0.row]
+                try DataManager.shared.deleteNoteImage(image: image)
+            }
+            self.presenter?.successfulyDeleteImages()
+        } catch let error {
+            presenter?.failedCoreData(errorText: "Failed to delete image: \(error.localizedDescription)")
+        }
+    }
 }

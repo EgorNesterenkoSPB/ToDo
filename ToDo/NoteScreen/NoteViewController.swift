@@ -35,6 +35,7 @@ extension NoteViewController {
         DispatchQueue.main.async {
             self.photosCollectionView.reloadData()
         }
+        super.selectPhotoButton.isHidden = self.presenter?.note.images?.count == 0 ? true : false
     }
 }
 
@@ -43,6 +44,25 @@ extension NoteViewController {
     @objc private func doneButtonTapped(_ sender:UIButton) {
         presenter?.confirmButtonTapped()
     }
+    
+    override func selectButtonTapped(sender: UIButton) {
+        super.selectButtonTapped(sender: sender)
+        switch super.selectPhotoButton.titleLabel?.text {
+        case Resources.Titles.select:
+            presenter?.unselectAllPhotos()
+        default:
+            break
+        }
+    }
+    
+    override func trashButtonTapped(sender: UIButton) {
+        super.trashButtonTapped(sender: sender)
+        self.presenter?.userTapTrashButton()
+        super.selectPhotoButton.setTitle(Resources.Titles.select, for: .normal)
+        super.disableTrashButton()
+        super.trashButton.isHidden = true
+    }
+    
 }
 
 
@@ -62,9 +82,14 @@ extension NoteViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        super.newScrollView.delegate = self
-        super.newImageView.image = presenter?.getImage(indexPath: indexPath)
-        super.showPhoto()
+        switch super.selectPhotoButton.titleLabel?.text {
+        case Resources.Titles.select:
+            super.newScrollView.delegate = self
+            super.newImageView.image = presenter?.getImage(indexPath: indexPath)
+            super.showPhoto()
+        default:
+            presenter?.didSelectItemAt(indexPath: indexPath)
+        }
     }
 }
 
@@ -102,6 +127,18 @@ extension NoteViewController {
 
 //MARK: - PresenterToViewProtocol
 extension NoteViewController: PresenterToViewNoteProtocol {
+    func reloadPhotoCollection() {
+        self.reloadPhotosCollectionView()
+    }
+    
+    func onEnableTrashButton() {
+        super.enableTrashButton()
+    }
+    
+    func onDisableTrashButton() {
+        super.disableTrashButton()
+    }
+    
     func onFailedCoreData(errorText: String) {
         self.present(createInfoAlert(messageText: errorText, titleText: Resources.Titles.errorTitle), animated: true)
     }

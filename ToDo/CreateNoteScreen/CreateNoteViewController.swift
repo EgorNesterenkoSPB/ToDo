@@ -20,6 +20,7 @@ extension CreateNoteViewController {
         
         photosCollectionView.delegate = self
         photosCollectionView.dataSource = self
+        super.selectPhotoButton.isHidden = true
     }
 }
 
@@ -27,6 +28,24 @@ extension CreateNoteViewController {
 extension CreateNoteViewController {
     @objc private func doneButtonTapped(_ sender:UIButton) {
         presenter?.createNote()
+    }
+    
+    override func selectButtonTapped(sender: UIButton) {
+        super.selectButtonTapped(sender: sender)
+        switch super.selectPhotoButton.titleLabel?.text {
+        case Resources.Titles.select:
+            presenter?.unselectAllPhotos()
+        default:
+            break
+        }
+    }
+    
+    override func trashButtonTapped(sender: UIButton) {
+        super.trashButtonTapped(sender: sender)
+        self.presenter?.userTapTrashButton()
+        super.selectPhotoButton.setTitle(Resources.Titles.select, for: .normal)
+        super.disableTrashButton()
+        super.trashButton.isHidden = true
     }
 }
 
@@ -74,23 +93,40 @@ extension CreateNoteViewController: UICollectionViewDelegate,UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        super.newScrollView.delegate = self
-        super.newImageView.image = presenter?.images[indexPath.row]
-        super.showPhoto()
+        switch super.selectPhotoButton.titleLabel?.text {
+        case Resources.Titles.select:
+            super.newScrollView.delegate = self
+            super.newImageView.image = presenter?.imagesData[indexPath.row].image
+            super.showPhoto()
+        default:
+            presenter?.didSelectItemAt(indexPath: indexPath)
+        }
     }
 }
-
 //MARK: - Private methods
 extension CreateNoteViewController {
     private func reloadPhotosCollectionView() {
         DispatchQueue.main.async {
             self.photosCollectionView.reloadData()
         }
+        super.selectPhotoButton.isHidden = self.presenter?.imagesData.count == 0 ? true : false
     }
 }
 
 //MARK: - PresenterToViewMethods
 extension CreateNoteViewController:PresenterToViewCreateNoteProtocol {
+    func onEnableTrashButton() {
+        super.enableTrashButton()
+    }
+    
+    func onDisableTrashButton() {
+        super.disableTrashButton()
+    }
+    
+    func reloadPhotoCollection() {
+        self.reloadPhotosCollectionView()
+    }
+    
     func onSuccessfulyCreateNote() {
         self.delegate?.successfulyCreateNote()
         self.dismiss(animated: true)

@@ -5,7 +5,7 @@ protocol ViewToPresenterCreateNoteProtocol {
     var view: PresenterToViewCreateNoteProtocol? {get set}
     var router: PresenterToRouterCreateNoteProtocol? {get set}
     var interactor: PresenterToInteractorCreateNoteProtocol? {get set}
-    var images:[UIImage] {get set}
+    var imagesData:[PhotoCellModel] {get set}
     func numberOfSections() -> Int
     func numberOfItemsInSection() -> Int
     func cellForItemAt(collectionView:UICollectionView, indexPath:IndexPath) -> UICollectionViewCell
@@ -13,6 +13,9 @@ protocol ViewToPresenterCreateNoteProtocol {
     func setName(text:String?)
     func setMainText(text:String)
     func setImage(image:UIImage)
+    func didSelectItemAt(indexPath:IndexPath)
+    func unselectAllPhotos()
+    func userTapTrashButton()
 }
 
 //MARK: - View Output (Presenter -> View)
@@ -21,6 +24,9 @@ protocol PresenterToViewCreateNoteProtocol {
     func onEnableDoneButtonHandling()
     func onFailedCoreData(errorText:String)
     func onSuccessfulyCreateNote()
+    func reloadPhotoCollection()
+    func onEnableTrashButton()
+    func onDisableTrashButton()
 }
 
 //MARK: -  Interactor Input (Presenter -> Interactor)

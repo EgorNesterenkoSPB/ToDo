@@ -85,6 +85,7 @@
 		5476C5462989382400963A30 /* BaseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5452989382400963A30 /* BaseNoteViewController.swift */; };
 		5476C54829893C4B00963A30 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C54729893C4B00963A30 /* PhotoCollectionViewCell.swift */; };
 		5476C54A29893CFF00963A30 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C54929893CFF00963A30 /* UITextView+Extensions.swift */; };
+		5476C54E29910A6B00963A30 /* NoteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C54D29910A6A00963A30 /* NoteEntity.swift */; };
 		54788970291976260089F254 /* CreateTaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5478896F291976260089F254 /* CreateTaskEntity.swift */; };
 		54788972291976340089F254 /* CreateTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54788971291976340089F254 /* CreateTaskPresenter.swift */; };
 		54788974291976430089F254 /* CreateTaskInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54788973291976430089F254 /* CreateTaskInteractor.swift */; };
@@ -269,6 +270,7 @@
 		5476C5452989382400963A30 /* BaseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNoteViewController.swift; sourceTree = "<group>"; };
 		5476C54729893C4B00963A30 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		5476C54929893CFF00963A30 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
+		5476C54D29910A6A00963A30 /* NoteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEntity.swift; sourceTree = "<group>"; };
 		5478896F291976260089F254 /* CreateTaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskEntity.swift; sourceTree = "<group>"; };
 		54788971291976340089F254 /* CreateTaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskPresenter.swift; sourceTree = "<group>"; };
 		54788973291976430089F254 /* CreateTaskInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskInteractor.swift; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 				5476C53D2989373800963A30 /* NoteInteractor.swift */,
 				5476C53F2989374600963A30 /* NoteRouter.swift */,
 				5476C5412989375700963A30 /* NoteProtocols.swift */,
+				5476C54D29910A6A00963A30 /* NoteEntity.swift */,
 			);
 			path = NoteScreen;
 			sourceTree = "<group>";
@@ -1129,6 +1132,7 @@
 				546188A62912E6EB00279FE3 /* SignInEntity.swift in Sources */,
 				549722E429440BB000BAD041 /* LaunchRouter.swift in Sources */,
 				54BF85B2290C0EE7002DAB62 /* RegisterPresenter.swift in Sources */,
+				5476C54E29910A6B00963A30 /* NoteEntity.swift in Sources */,
 				54CDA8D229469D95004D546E /* ProductivityEntity.swift in Sources */,
 				540448DD29868B4300ED4A1A /* MyBlogInteractor.swift in Sources */,
 				540A47C6292CFF1500CD8317 /* TaskInteractor.swift in Sources */,
