@@ -26,7 +26,8 @@ final class LaunchInteractor:PresenterToInteractorLaunchProtocol {
                 self.presenter?.showMainViewController(navigationController: navigationController)
             }
         case false:
-            self.presenter?.showLoginViewController(navigationController: navigationController)
+//            self.presenter?.showLoginViewController(navigationController: navigationController)
+            self.presenter?.showMainViewController(navigationController: navigationController)
         }
     }
 }

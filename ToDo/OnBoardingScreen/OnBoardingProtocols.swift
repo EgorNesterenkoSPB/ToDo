@@ -6,6 +6,7 @@ protocol ViewToPresenterOnBoardingProtocol {
     var router: PresenterToRouterOnBoardingProtocol? {get set}
     var interactor: PresenterToInteractorOnBoardingProtocol? {get set}
     func showLoginScreen(navigationController:UINavigationController?)
+    func showMainScreen(navigationController:UINavigationController?)
     func showNewViewData(currentPage:Int)
 }
 
@@ -31,4 +32,5 @@ protocol InteractorToPresenterOnBoardingProtocol {
 protocol PresenterToRouterOnBoardingProtocol {
     static func createModule() -> OnBoardingViewController
     func onShowLoginScreen(navigationController:UINavigationController?)
+    func onShowMainScreen(navigationController:UINavigationController?)
 }

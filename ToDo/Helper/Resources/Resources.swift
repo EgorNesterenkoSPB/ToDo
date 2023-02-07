@@ -41,7 +41,9 @@ enum Resources {
     
     static let projectsModels:[CommonCellOption] = [CommonCellOption(title: Resources.incomingProjectName, icon: UIImage(systemName: Resources.Images.incoming,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.blue, handler: {}), CommonCellOption(title: Resources.Titles.calendar, icon: UIImage(systemName: Resources.Images.calendar,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.purple, handler: {}),CommonCellOption(title: Resources.Titles.productivity, icon: UIImage(systemName: Resources.Images.chartBar,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.systemGreen, handler: {}) ,CommonCellOption(title: Resources.Titles.myBlog, icon: UIImage(systemName: Resources.Images.folderFill, withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.systemIndigo, handler: {})]
     
-    static let settingsContent:[Section] = [Section(title: "", options: [CommonCellOption(title: Resources.Titles.account, icon: UIImage(systemName: Resources.Images.profileImage), iconBackgroundColor: .gray, handler: {}),CommonCellOption(title: Resources.Titles.writeInSupport, icon: UIImage(systemName: Resources.Images.mail), iconBackgroundColor: .systemIndigo, handler: {})])]
+//    static let settingsContent:[Section] = [Section(title: "", options: [CommonCellOption(title: Resources.Titles.account, icon: UIImage(systemName: Resources.Images.profileImage), iconBackgroundColor: .gray, handler: {}),CommonCellOption(title: Resources.Titles.writeInSupport, icon: UIImage(systemName: Resources.Images.mail), iconBackgroundColor: .systemIndigo, handler: {})])]
+    
+    static let settingsContentDemo:[Section] = [Section(title: "", options: [CommonCellOption(title: Resources.Titles.writeInSupport, icon: UIImage(systemName: Resources.Images.mail), iconBackgroundColor: .systemIndigo, handler: {})])]
     
     enum Endpoint {
         static let baseURL: String = "http://127.0.0.1:8003/main/"

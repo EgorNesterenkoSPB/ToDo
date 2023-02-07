@@ -64,11 +64,11 @@ extension SettingsViewController {
 
 extension SettingsViewController:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Resources.settingsContent[section].options.count
+        Resources.settingsContentDemo[section].options.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        Resources.settingsContent.count
+        Resources.settingsContentDemo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

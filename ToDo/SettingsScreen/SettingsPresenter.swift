@@ -27,14 +27,14 @@ final class SettingsPresenter:ViewToPresenterSettingsProtocol {
     }
     
     func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let model = Resources.settingsContent[indexPath.section].options[indexPath.row]
+        let model = Resources.settingsContentDemo[indexPath.section].options[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Resources.Cells.commonTableCellIdentefier, for: indexPath) as? CommonTableViewCell else {return UITableViewCell()}
         cell.setup(with: model)
         return cell
     }
     
     func didSelectRowAt(indexPath: IndexPath,settingsViewController:SettingsViewController) {
-        var model = Resources.settingsContent[indexPath.section].options[indexPath.row]
+        var model = Resources.settingsContentDemo[indexPath.section].options[indexPath.row]
         
         switch model.title {
         case Resources.Titles.account:

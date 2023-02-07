@@ -1,6 +1,10 @@
 import UIKit
 
 final class OnBoardingRouter:PresenterToRouterOnBoardingProtocol {
+    func onShowMainScreen(navigationController: UINavigationController?) {
+        navigationController?.setViewControllers([MainRouter.createModule(token: nil)], animated: true)
+    }
+    
     func onShowLoginScreen(navigationController: UINavigationController?) {
         navigationController?.setViewControllers([LoginRouter.createModule()], animated: true)
     }

@@ -13,6 +13,10 @@ final class OnBoardingPresenter:ViewToPresenterOnBoardingProtocol {
         interactor?.setIsOnBoarding(navigationController: navigationController)
     }
     
+    func showMainScreen(navigationController: UINavigationController?) {
+        self.router?.onShowMainScreen(navigationController: navigationController)
+    }
+    
 }
 
 extension OnBoardingPresenter:InteractorToPresenterOnBoardingProtocol {

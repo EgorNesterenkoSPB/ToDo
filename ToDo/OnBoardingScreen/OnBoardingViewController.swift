@@ -139,7 +139,8 @@ extension OnBoardingViewController {
     
     @objc private func nextButtonTapped(_ sender:UIButton) {
         if currentPage == 1 {
-            presenter?.showLoginScreen(navigationController: navigationController)
+//            presenter?.showLoginScreen(navigationController: navigationController)
+            presenter?.showMainScreen(navigationController: navigationController)
             return
         }
         self.configureLastPage()
@@ -152,7 +153,8 @@ extension OnBoardingViewController {
     }
     
     @objc private func skipButtonTapped(_ sender:UIButton) {
-        presenter?.showLoginScreen(navigationController: navigationController)
+//        presenter?.showLoginScreen(navigationController: navigationController)
+        presenter?.showMainScreen(navigationController: navigationController)
     }
     
     @objc func handleSwipes(_ sender: UISwipeGestureRecognizer)
