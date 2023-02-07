@@ -166,6 +166,7 @@ enum Resources {
         static let noteTextViewPlaceholder = "Write anythink here"
     }
     enum Images {
+        static let noData = "noData"
         static let checkmark = "checkmark"
         static let createTaskButtonImage = "arrow.up.circle.fill"
         static let chevronDown = "chevron.down"

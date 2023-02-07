@@ -1,7 +1,6 @@
 import UIKit
 
 final class PrjPresenter:ViewToPresenterPrjProtocol {
-
     var view: PresenterToViewPrjProtocol?
     var router: PresenterToRouterPrjProtocol?
     var interactor: PresenterToInteractorPrjProtocol?

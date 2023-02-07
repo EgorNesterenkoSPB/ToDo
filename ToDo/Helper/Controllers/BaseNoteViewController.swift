@@ -58,6 +58,7 @@ extension BaseNoteViewController {
         
         nameTextField.placeholder = Resources.Titles.name
         nameTextField.borderStyle = UITextField.BorderStyle.roundedRect
+        nameTextField.backgroundColor = .secondarySystemBackground
         nameTextField.autocorrectionType = UITextAutocorrectionType.no
         nameTextField.keyboardType = .default
         nameTextField.returnKeyType = UIReturnKeyType.done

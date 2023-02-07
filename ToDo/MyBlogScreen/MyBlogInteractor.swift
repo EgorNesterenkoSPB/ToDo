@@ -7,9 +7,9 @@ class MyBlogInteractor:PresenterToInteractorMyBlogProtocol {
     
     func onDeleteNote(note: Note) {
         do {
+            let noteName = note.name
             try DataManager.shared.deleteNote(note: note)
-            
-            if note.name == Resources.Titles.example {
+            if noteName == Resources.Titles.example { // dont show example note again
                 defaults.set(true, forKey: Resources.exampleNoteKey)
             }
         } catch let error {
@@ -23,7 +23,6 @@ class MyBlogInteractor:PresenterToInteractorMyBlogProtocol {
             notes = try DataManager.shared.notes()
             
             if isViewDidLoad {
-                // In tech task we have creating example note
                 let isExampleNoteDeleted = defaults.bool(forKey: Resources.exampleNoteKey)
                 if !isExampleNoteDeleted {
                     if notes.isEmpty {

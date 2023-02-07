@@ -3,6 +3,7 @@ import UIKit
 final class PrjViewController:BaseViewController {
     
     let tasksTableView = UITableView()
+    let backImageView = UIImageView()
     var presenter:(ViewToPresenterPrjProtocol & InteractorToPresenterPrjProtocol)?
     var project:ProjectCoreData
     
@@ -48,6 +49,10 @@ extension PrjViewController {
         tasksTableView.isScrollEnabled = true
         tasksTableView.tableFooterView = UIView()
         tasksTableView.register(TaskTableViewCell.self, forCellReuseIdentifier: Resources.Cells.taskCellIdentefier)
+        
+        backImageView.image = UIImage(named: Resources.Images.noData)
+        backImageView.contentMode = .scaleAspectFit
+        backImageView.layer.masksToBounds = true
     }
     
     override func layoutViews() {
@@ -55,7 +60,7 @@ extension PrjViewController {
             tasksTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             tasksTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             tasksTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            tasksTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            tasksTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 }
@@ -68,11 +73,24 @@ extension PrjViewController {
     @objc private func editButtonTapped(_ sender:UIButton) {
         presenter?.showEditAlert(project: self.project,prjViewController: self) 
     }
+    
+    private func addBackImage(section:Int, countRowsInSection:Int) {
+        if countRowsInSection == 0 && section == 0 {
+            tasksTableView.backgroundView = backImageView
+            NSLayoutConstraint.activate([
+                backImageView.centerXAnchor.constraint(equalTo: self.tasksTableView.centerXAnchor),
+                backImageView.centerYAnchor.constraint(equalTo: self.tasksTableView.centerYAnchor),
+                backImageView.heightAnchor.constraint(equalToConstant: 300),
+                backImageView.widthAnchor.constraint(equalToConstant: 300)
+            ])
+        }  else {
+            tasksTableView.backgroundView = nil
+        }
+    }
 }
 
 //MARK: - PresenterToView
 extension PrjViewController:PresenterToViewPrjProtocol {
-    
     func updateDataCommonTasks() {
         presenter?.getCommonTasks(project: self.project)
     }
@@ -128,8 +146,6 @@ extension PrjViewController:PresenterToViewPrjProtocol {
             self.tasksTableView.reloadData()
         }
     }
-    
-    
 }
 
 //MARK: - TableViewMethods
@@ -145,11 +161,13 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            presenter?.numberOfRowsInSection(section: section) ?? 0
+        let numOfRowsInSection = presenter?.numberOfRowsInSection(section: section)
+        self.addBackImage(section: section, countRowsInSection: numOfRowsInSection ?? 0)
+        return numOfRowsInSection ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            presenter?.cellForRowAt(tableView: tableView, indexPath: indexPath) ?? UITableViewCell()
+        presenter?.cellForRowAt(tableView: tableView, indexPath: indexPath) ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

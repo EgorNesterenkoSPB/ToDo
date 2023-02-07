@@ -141,6 +141,9 @@ extension OnBoardingViewController {
         if currentPage == 1 {
 //            presenter?.showLoginScreen(navigationController: navigationController)
             presenter?.showMainScreen(navigationController: navigationController)
+            // CODE BELOW IS TEMPORARY !!!
+            let defaults = UserDefaults.standard
+            defaults.set(true, forKey: Resources.isOnBoardingKey)
             return
         }
         self.configureLastPage()
@@ -155,6 +158,9 @@ extension OnBoardingViewController {
     @objc private func skipButtonTapped(_ sender:UIButton) {
 //        presenter?.showLoginScreen(navigationController: navigationController)
         presenter?.showMainScreen(navigationController: navigationController)
+        // CODE BELOW IS TEMPORARY !!!
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: Resources.isOnBoardingKey)
     }
     
     @objc func handleSwipes(_ sender: UISwipeGestureRecognizer)

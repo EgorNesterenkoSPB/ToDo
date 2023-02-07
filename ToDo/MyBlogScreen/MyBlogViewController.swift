@@ -6,6 +6,7 @@ class MyBlogViewController: BaseViewController {
     let notesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     var selectButton = UIBarButtonItem()
     var deleteButton = UIBarButtonItem()
+    let backImageView = UIImageView()
     
     private enum UIConstants {
         static let collectionTopAnchor = 10.0
@@ -43,6 +44,10 @@ extension MyBlogViewController {
         self.notesCollectionView.delegate = self
         self.notesCollectionView.register(NoteListCollectionViewCell.self, forCellWithReuseIdentifier: Resources.Cells.noteListCellIdentefier)
         self.notesCollectionView.collectionViewLayout = createCompositionalLayout()
+        
+        backImageView.image = UIImage(named: Resources.Images.noData)
+        backImageView.layer.masksToBounds = true
+        backImageView.contentMode = .scaleAspectFit
     }
     
     override func layoutViews() {
@@ -99,6 +104,20 @@ extension MyBlogViewController {
     private func reloadNotes() {
         DispatchQueue.main.async {
             self.notesCollectionView.reloadData()
+        }
+    }
+    
+    private func addBackImageView(countOfItemsInSection:Int) {
+        if countOfItemsInSection == 0 {
+            self.notesCollectionView.backgroundView = backImageView
+            NSLayoutConstraint.activate([
+                backImageView.centerXAnchor.constraint(equalTo: notesCollectionView.centerXAnchor),
+                backImageView.centerYAnchor.constraint(equalTo: notesCollectionView.centerYAnchor),
+                backImageView.widthAnchor.constraint(equalToConstant: 300),
+                backImageView.heightAnchor.constraint(equalToConstant: 300)
+            ])
+        } else {
+            self.notesCollectionView.backgroundView = nil
         }
     }
 }
@@ -160,7 +179,9 @@ extension MyBlogViewController: UICollectionViewDelegate,UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.presenter?.numberOfItemsInSection() ?? 0
+        let countOfItemsInSection = self.presenter?.numberOfItemsInSection()
+        self.addBackImageView(countOfItemsInSection: countOfItemsInSection ?? 0)
+        return countOfItemsInSection ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
