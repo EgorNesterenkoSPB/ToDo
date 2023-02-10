@@ -1,11 +1,3 @@
-//
-//  CommonTaskCoreData+CoreDataProperties.swift
-//  
-//
-//  Created by no name on 22.11.2022.
-//
-//
-
 import Foundation
 import CoreData
 
@@ -23,5 +15,9 @@ extension CommonTaskCoreData {
     @NSManaged public var time: Date?
     @NSManaged public var timeFinished: Date?
     @NSManaged public var project: ProjectCoreData?
+
+}
+
+extension CommonTaskCoreData : Identifiable {
 
 }

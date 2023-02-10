@@ -1,11 +1,3 @@
-//
-//  ProjectCoreData+CoreDataProperties.swift
-//  
-//
-//  Created by no name on 17.11.2022.
-//
-//
-
 import Foundation
 import CoreData
 
@@ -55,5 +47,9 @@ extension ProjectCoreData {
 
     @objc(removeCommonTasks:)
     @NSManaged public func removeFromCommonTasks(_ values: NSSet)
+
+}
+
+extension ProjectCoreData : Identifiable {
 
 }

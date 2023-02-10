@@ -1,11 +1,3 @@
-//
-//  CategoryCoreData+CoreDataProperties.swift
-//  
-//
-//  Created by no name on 17.11.2022.
-//
-//
-
 import Foundation
 import CoreData
 
@@ -36,5 +28,9 @@ extension CategoryCoreData {
 
     @objc(removeTasks:)
     @NSManaged public func removeFromTasks(_ values: NSSet)
+
+}
+
+extension CategoryCoreData : Identifiable {
 
 }

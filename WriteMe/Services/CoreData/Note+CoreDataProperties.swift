@@ -1,11 +1,3 @@
-//
-//  Note+CoreDataProperties.swift
-//  
-//
-//  Created by no name on 31.01.2023.
-//
-//
-
 import Foundation
 import CoreData
 
@@ -36,5 +28,9 @@ extension Note {
 
     @objc(removeImages:)
     @NSManaged public func removeFromImages(_ values: NSSet)
+
+}
+
+extension Note : Identifiable {
 
 }
