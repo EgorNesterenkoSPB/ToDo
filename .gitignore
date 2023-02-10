@@ -2,11 +2,3 @@ Podfile
 Podfile.lock
 Pods
 ToDo.xcworkspace
-CategoryCoreData+CoreDataClass.swift
-CategoryCoreData+CoreDataProperties.swift
-CommonTaskCoreData+CoreDataClass.swift
-CommonTaskCoreData+CoreDataProperties.swift
-Note+CoreDataClass.swift
-Note+CoreDataProperties.swift
-NoteImage+CoreDataClass.swift
-NoteImage+CoreDataProperties.swifts
