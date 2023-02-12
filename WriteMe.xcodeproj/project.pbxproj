@@ -361,8 +361,8 @@
 		54ED8E4C29170EE600A43C62 /* ProjectsTableSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsTableSectionHeaderView.swift; sourceTree = "<group>"; };
 		54ED8E4E29170F0A00A43C62 /* BaseTableSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableSectionHeaderView.swift; sourceTree = "<group>"; };
 		54F2401F2932CBB600CF8F25 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		54F240232932CC1E00CF8F25 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		54F240252932CC2100CF8F25 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		54F240232932CC1E00CF8F25 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; usesTabs = 1; };
+		54F240252932CC2100CF8F25 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; usesTabs = 1; };
 		54F240262932D4BE00CF8F25 /* Extensions+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+String.swift"; sourceTree = "<group>"; };
 		EE6188836D078F0E17025EEC /* Pods-ToDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.release.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
