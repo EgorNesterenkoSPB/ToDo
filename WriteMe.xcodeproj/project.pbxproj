@@ -1378,6 +1378,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WriteMe/Application/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "WriteMe: Notebook";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow permission to add image at note";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow permission to select photos from library to add at note";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1410,6 +1411,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WriteMe/Application/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "WriteMe: Notebook";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow permission to add image at note";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow permission to select photos from library to add at note";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
