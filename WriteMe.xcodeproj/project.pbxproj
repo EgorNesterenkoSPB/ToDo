@@ -1240,7 +1240,6 @@
 		};
 		54BF8586290BC2C6002DAB62 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EC7AF8B0EB980D78A61661A /* Pods-WriteMe Notebook.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -1304,7 +1303,6 @@
 		};
 		54BF8587290BC2C6002DAB62 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 592B848EE72F1F3EC655CC85 /* Pods-WriteMe Notebook.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -1362,6 +1360,7 @@
 		};
 		54BF8589290BC2C6002DAB62 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EC7AF8B0EB980D78A61661A /* Pods-WriteMe Notebook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1394,6 +1393,7 @@
 		};
 		54BF858A290BC2C6002DAB62 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 592B848EE72F1F3EC655CC85 /* Pods-WriteMe Notebook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
