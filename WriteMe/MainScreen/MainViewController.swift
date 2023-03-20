@@ -4,8 +4,7 @@ final class MainViewController:BaseViewController {
     var presenter:(InteractorToPresenterMainProtocol & ViewToPresenterMainProtocol)?
     
     let tableView = UITableView()
-    let bottomBackgroundView = CustomizedShapeView()
-    let circleButton = UIButton()
+    let createTaskButton = UIButton()
     let projectsButton = UIButton()
     let settingsButton = UIButton()
     var token:Token?
@@ -13,14 +12,6 @@ final class MainViewController:BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.creatyIncomingProject()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        circleButton.clipsToBounds = true
-        circleButton.layer.cornerRadius = circleButton.frame.width / 2
-        circleButton.layoutIfNeeded()
-        bottomBackgroundView.layoutIfNeeded()
-        super.viewDidLayoutSubviews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,27 +28,29 @@ final class MainViewController:BaseViewController {
 //MARK: - Setup UI
 extension MainViewController {
     override func addViews() {
-        self.view.addView(bottomBackgroundView)
-        self.view.addView(circleButton)
         self.view.addView(tableView)
-        bottomBackgroundView.addView(projectsButton)
-        bottomBackgroundView.addView(settingsButton)
+        self.view.addView(projectsButton)
+        self.view.addView(settingsButton)
+        self.view.addView(createTaskButton)
     }
     
     override func configure() {
         super.configure()
+    
+        createTaskButton.setTitle("Create task", for: .normal)
+        createTaskButton.setTitleColor(.white, for: .normal)
+        createTaskButton.backgroundColor = .systemOrange
+        createTaskButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        createTaskButton.layer.cornerRadius = 12
+        createTaskButton.clipsToBounds = true
+        createTaskButton.addTarget(self, action: #selector(addTaskButtonTapped), for: .touchUpInside)
         
-        circleButton.backgroundColor = .systemOrange
-        circleButton.setImage(UIImage(systemName: Resources.Images.plusImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-        circleButton.tintColor = .white
-        circleButton.addTarget(self, action: #selector(addTaskButtonTapped(_:)), for: .touchUpInside)
-        
-        self.configureBottomButton(button: projectsButton, imageName:  Resources.Images.projectsImage)
+        self.configureActionButton(button: projectsButton, imageName:  Resources.Images.projectsImage)
         
         projectsButton.addTarget(self, action: #selector(projectsButtonTapped), for: .touchUpInside)
         projectsButton.tintColor = UIColor(named: Resources.Titles.labelAndTintColor)
         
-        self.configureBottomButton(button: settingsButton, imageName: Resources.Images.settingsImage)
+        self.configureActionButton(button: settingsButton, imageName: Resources.Images.settingsImage)
         
         settingsButton.addTarget(self, action: #selector(settingsButtonTapped(_:)), for: .touchUpInside)
         settingsButton.tintColor = UIColor(named: Resources.Titles.labelAndTintColor)
@@ -68,28 +61,20 @@ extension MainViewController {
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: Resources.Cells.taskCellIdentefier)
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
-        
-        
     }
     
     override func layoutViews() {
         NSLayoutConstraint.activate([
-            bottomBackgroundView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            bottomBackgroundView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            bottomBackgroundView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
-            bottomBackgroundView.heightAnchor.constraint(equalToConstant: 55),
-            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,constant: 10),
-            tableView.bottomAnchor.constraint(equalTo: bottomBackgroundView.topAnchor),
+            projectsButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,constant: 15),
+            projectsButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 15),
+            settingsButton.topAnchor.constraint(equalTo: projectsButton.topAnchor),
+            settingsButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -15),
+            tableView.topAnchor.constraint(equalTo: projectsButton.bottomAnchor),
             tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor,constant: -10),
             tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor,constant: 10),
-            circleButton.centerXAnchor.constraint(equalTo: bottomBackgroundView.centerXAnchor),
-            circleButton.bottomAnchor.constraint(equalTo: bottomBackgroundView.bottomAnchor,constant: -20),
-            circleButton.widthAnchor.constraint(equalToConstant: 70),
-            circleButton.heightAnchor.constraint(equalToConstant: 70),
-            projectsButton.centerYAnchor.constraint(equalTo: bottomBackgroundView.centerYAnchor),
-            projectsButton.leftAnchor.constraint(equalTo: bottomBackgroundView.leftAnchor, constant: 20),
-            settingsButton.rightAnchor.constraint(equalTo: bottomBackgroundView.rightAnchor, constant: -20),
-            settingsButton.centerYAnchor.constraint(equalTo: bottomBackgroundView.centerYAnchor)
+            tableView.bottomAnchor.constraint(equalTo: createTaskButton.topAnchor),
+            createTaskButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            createTaskButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
     }
 }
@@ -111,7 +96,7 @@ extension MainViewController {
 }
 
 extension MainViewController {
-    private func configureBottomButton(button:UIButton, imageName:String) {
+    private func configureActionButton(button:UIButton, imageName:String) {
         button.setImage(UIImage(systemName: imageName,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
         button.tintColor = .darkGray
     }

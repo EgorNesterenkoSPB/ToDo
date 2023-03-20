@@ -15,6 +15,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please allow permission to select photos from library to add at note</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow permission to add image at note</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -1,4 +1,5 @@
 import UIKit
+import PhotosUI
 
 class BaseNoteViewController: BaseViewController {
     
@@ -132,22 +133,9 @@ extension BaseNoteViewController {
     }
     
     @objc func addPhotoButtonTapped(_ sender:UIButton) {
-        let picker = UIImagePickerController()
-        picker.allowsEditing = true
-        picker.delegate = self
-        
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Take photo", style: .default, handler: { (action:UIAlertAction) -> Void in
-            // it will be crashed on simulator device, bc commented !!!
-            picker.sourceType = .camera
-            self.present(picker,animated: true)
-        }))
-        alert.addAction(UIAlertAction(title: "Choose from photo gallery", style: .default, handler: { (action:UIAlertAction) -> Void in
-            self.present(picker,animated: true)
-        }))
-        
-        alert.addAction(UIAlertAction(title: Resources.Titles.close, style: .cancel, handler: nil))
-        self.present(alert,animated: true)
+        PHPhotoLibrary.execute(controller: self, onAccessHasBeenGranted: { [weak self] in
+            self?.showPhotoPicker()
+        })
     }
     
     @objc private func dismissNewImageView(){
@@ -191,6 +179,26 @@ extension BaseNoteViewController {
                 return nil
             }
         }
+    }
+    
+    private func showPhotoPicker() {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        picker.delegate = self
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Take photo", style: .default, handler: { (action:UIAlertAction) -> Void in
+            checkCameraAccess(controller: self, onAccessCompletion: { [weak self] in
+                picker.sourceType = .camera
+                self?.present(picker,animated: true)
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "Choose from photo gallery", style: .default, handler: { (action:UIAlertAction) -> Void in
+            self.present(picker,animated: true)
+        }))
+        
+        alert.addAction(UIAlertAction(title: Resources.Titles.close, style: .cancel, handler: nil))
+        self.present(alert,animated: true)
     }
     
     private func notesLayoutSection() -> NSCollectionLayoutSection {
@@ -251,6 +259,10 @@ extension BaseNoteViewController:UITextFieldDelegate {
 //MARK: - ImagePickerDelegate
 extension BaseNoteViewController:UINavigationControllerDelegate,UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {}
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
 }
 
 

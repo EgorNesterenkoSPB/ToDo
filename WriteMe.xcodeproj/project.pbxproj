@@ -58,6 +58,7 @@
 		546188B92913225A00279FE3 /* LoaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188B82913225A00279FE3 /* LoaderButton.swift */; };
 		546188BC29132B0800279FE3 /* MainEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BB29132B0800279FE3 /* MainEntity.swift */; };
 		546188BE2913A14A00279FE3 /* CreateTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546188BD2913A14A00279FE3 /* CreateTaskViewController.swift */; };
+		5468702E29C7CC1100835660 /* Extensions+PHPotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468702D29C7CC1100835660 /* Extensions+PHPotoLibrary.swift */; };
 		5476C51A2987D69E00963A30 /* NoteListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5192987D69E00963A30 /* NoteListCollectionViewCell.swift */; };
 		5476C52E298936B700963A30 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C52D298936B700963A30 /* CreateNoteViewController.swift */; };
 		5476C530298936CB00963A30 /* CreateNotePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C52F298936CA00963A30 /* CreateNotePresenter.swift */; };
@@ -72,7 +73,7 @@
 		5476C5422989375700963A30 /* NoteProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5412989375700963A30 /* NoteProtocols.swift */; };
 		5476C5462989382400963A30 /* BaseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C5452989382400963A30 /* BaseNoteViewController.swift */; };
 		5476C54829893C4B00963A30 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C54729893C4B00963A30 /* PhotoCollectionViewCell.swift */; };
-		5476C54A29893CFF00963A30 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C54929893CFF00963A30 /* UITextView+Extensions.swift */; };
+		5476C54A29893CFF00963A30 /* Extensions+UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C54929893CFF00963A30 /* Extensions+UITextView.swift */; };
 		5476C54E29910A6B00963A30 /* NoteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476C54D29910A6A00963A30 /* NoteEntity.swift */; };
 		54788970291976260089F254 /* CreateTaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5478896F291976260089F254 /* CreateTaskEntity.swift */; };
 		54788972291976340089F254 /* CreateTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54788971291976340089F254 /* CreateTaskPresenter.swift */; };
@@ -243,6 +244,7 @@
 		546188B82913225A00279FE3 /* LoaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderButton.swift; sourceTree = "<group>"; };
 		546188BB29132B0800279FE3 /* MainEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEntity.swift; sourceTree = "<group>"; };
 		546188BD2913A14A00279FE3 /* CreateTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskViewController.swift; sourceTree = "<group>"; };
+		5468702D29C7CC1100835660 /* Extensions+PHPotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+PHPotoLibrary.swift"; sourceTree = "<group>"; };
 		5476C5192987D69E00963A30 /* NoteListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListCollectionViewCell.swift; sourceTree = "<group>"; };
 		5476C52D298936B700963A30 /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
 		5476C52F298936CA00963A30 /* CreateNotePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNotePresenter.swift; sourceTree = "<group>"; };
@@ -257,7 +259,7 @@
 		5476C5412989375700963A30 /* NoteProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteProtocols.swift; sourceTree = "<group>"; };
 		5476C5452989382400963A30 /* BaseNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNoteViewController.swift; sourceTree = "<group>"; };
 		5476C54729893C4B00963A30 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
-		5476C54929893CFF00963A30 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
+		5476C54929893CFF00963A30 /* Extensions+UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UITextView.swift"; sourceTree = "<group>"; };
 		5476C54D29910A6A00963A30 /* NoteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEntity.swift; sourceTree = "<group>"; };
 		5478896F291976260089F254 /* CreateTaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskEntity.swift; sourceTree = "<group>"; };
 		54788971291976340089F254 /* CreateTaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskPresenter.swift; sourceTree = "<group>"; };
@@ -744,7 +746,8 @@
 				54D4659F292BB4B0006FA8BC /* Extensions+Date.swift */,
 				54D465A1292C239F006FA8BC /* Extensions+URLRequest.swift */,
 				54F240262932D4BE00CF8F25 /* Extensions+String.swift */,
-				5476C54929893CFF00963A30 /* UITextView+Extensions.swift */,
+				5476C54929893CFF00963A30 /* Extensions+UITextView.swift */,
+				5468702D29C7CC1100835660 /* Extensions+PHPotoLibrary.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1020,6 +1023,7 @@
 				54ACFE4D291AC930002C806C /* BaseCollectionViewCell.swift in Sources */,
 				546188AF291317D700279FE3 /* MainRouter.swift in Sources */,
 				543330982914190600B1EA44 /* CoreModel.xcdatamodeld in Sources */,
+				5468702E29C7CC1100835660 /* Extensions+PHPotoLibrary.swift in Sources */,
 				540448E329868B7500ED4A1A /* MyBlogViewController.swift in Sources */,
 				541CF20A2926811B003DC2BE /* SettingsEntity.swift in Sources */,
 				5478897C291979C40089F254 /* CreateProjectRouter.swift in Sources */,
@@ -1089,7 +1093,7 @@
 				54BF8594290BC41B002DAB62 /* LoginRouter.swift in Sources */,
 				544E819129465C25001A7C33 /* ProductivityPresenter.swift in Sources */,
 				549AFFA5291E7B1D009924CC /* PrjEntity.swift in Sources */,
-				5476C54A29893CFF00963A30 /* UITextView+Extensions.swift in Sources */,
+				5476C54A29893CFF00963A30 /* Extensions+UITextView.swift in Sources */,
 				54ACFE3E2919C185002C806C /* PrjViewController.swift in Sources */,
 				540448DB29868B3400ED4A1A /* MyBlogPresenter.swift in Sources */,
 				54BF85A1290BC84B002DAB62 /* NavController.swift in Sources */,
