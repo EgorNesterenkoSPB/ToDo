@@ -394,7 +394,6 @@
 				0EC7AF8B0EB980D78A61661A /* Pods-WriteMe Notebook.debug.xcconfig */,
 				592B848EE72F1F3EC655CC85 /* Pods-WriteMe Notebook.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -970,16 +969,13 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1198,6 +1194,7 @@
 /* Begin XCBuildConfiguration section */
 		540F58DE292827090072C87B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EC7AF8B0EB980D78A61661A /* Pods-WriteMe Notebook.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1221,6 +1218,7 @@
 		};
 		540F58DF292827090072C87B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 592B848EE72F1F3EC655CC85 /* Pods-WriteMe Notebook.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1244,6 +1242,7 @@
 		};
 		54BF8586290BC2C6002DAB62 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EC7AF8B0EB980D78A61661A /* Pods-WriteMe Notebook.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -1307,6 +1306,7 @@
 		};
 		54BF8587290BC2C6002DAB62 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 592B848EE72F1F3EC655CC85 /* Pods-WriteMe Notebook.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
