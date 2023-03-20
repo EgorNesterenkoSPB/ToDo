@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "54BF8573290BC2C1002DAB62"
-               BuildableName = "WriteMe: Notebook.app"
-               BlueprintName = "WriteMe: Notebook"
+               BuildableName = "WriteMe Notebook.app"
+               BlueprintName = "WriteMe Notebook"
                ReferencedContainer = "container:WriteMe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,16 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "540F58D5292827090072C87B"
-               BuildableName = "WriteMeUITests.xctest"
-               BlueprintName = "WriteMeUITests"
-               ReferencedContainer = "container:WriteMe.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -55,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "54BF8573290BC2C1002DAB62"
-            BuildableName = "WriteMe: Notebook.app"
-            BlueprintName = "WriteMe: Notebook"
+            BuildableName = "WriteMe Notebook.app"
+            BlueprintName = "WriteMe Notebook"
             ReferencedContainer = "container:WriteMe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -72,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "54BF8573290BC2C1002DAB62"
-            BuildableName = "WriteMe: Notebook.app"
-            BlueprintName = "WriteMe: Notebook"
+            BuildableName = "WriteMe Notebook.app"
+            BlueprintName = "WriteMe Notebook"
             ReferencedContainer = "container:WriteMe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
