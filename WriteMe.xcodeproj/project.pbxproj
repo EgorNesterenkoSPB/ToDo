@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		375B0C79D4B8F68D11AF279C /* Pods_WriteMe__Notebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07040C861DFA4E6225CD2A9 /* Pods_WriteMe__Notebook.framework */; };
+		180B5E8F066A8598D3959125 /* Pods_WriteMe_Notebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF70787DB10AB05F602AA83 /* Pods_WriteMe_Notebook.framework */; };
 		540448D929868B1F00ED4A1A /* MyBlogEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540448D829868B1F00ED4A1A /* MyBlogEntity.swift */; };
 		540448DB29868B3400ED4A1A /* MyBlogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540448DA29868B3400ED4A1A /* MyBlogPresenter.swift */; };
 		540448DD29868B4300ED4A1A /* MyBlogInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540448DC29868B4300ED4A1A /* MyBlogInteractor.swift */; };
@@ -190,6 +190,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1AF70787DB10AB05F602AA83 /* Pods_WriteMe_Notebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WriteMe_Notebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		37DC46280B601AE58E1973B0 /* Pods-WriteMe Notebook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMe Notebook.release.xcconfig"; path = "Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook.release.xcconfig"; sourceTree = "<group>"; };
 		540448D829868B1F00ED4A1A /* MyBlogEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogEntity.swift; sourceTree = "<group>"; };
 		540448DA29868B3400ED4A1A /* MyBlogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogPresenter.swift; sourceTree = "<group>"; };
 		540448DC29868B4300ED4A1A /* MyBlogInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogInteractor.swift; sourceTree = "<group>"; };
@@ -364,9 +366,7 @@
 		54F240232932CC1E00CF8F25 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; usesTabs = 1; };
 		54F240252932CC2100CF8F25 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; usesTabs = 1; };
 		54F240262932D4BE00CF8F25 /* Extensions+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+String.swift"; sourceTree = "<group>"; };
-		6A0751194BE206CF09AA5776 /* Pods-WriteMe: Notebook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMe: Notebook.release.xcconfig"; path = "Target Support Files/Pods-WriteMe: Notebook/Pods-WriteMe: Notebook.release.xcconfig"; sourceTree = "<group>"; };
-		764877D2F9F0717302D6D6CE /* Pods-WriteMe: Notebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMe: Notebook.debug.xcconfig"; path = "Target Support Files/Pods-WriteMe: Notebook/Pods-WriteMe: Notebook.debug.xcconfig"; sourceTree = "<group>"; };
-		E07040C861DFA4E6225CD2A9 /* Pods_WriteMe__Notebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WriteMe__Notebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C4C9ABF796E20182C32613E /* Pods-WriteMe Notebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMe Notebook.debug.xcconfig"; path = "Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,27 +381,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				375B0C79D4B8F68D11AF279C /* Pods_WriteMe__Notebook.framework in Frameworks */,
+				180B5E8F066A8598D3959125 /* Pods_WriteMe_Notebook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1FB57D458BC537EC92658276 /* Frameworks */ = {
+		15CF3DC1C2A434A6F7FDEF4D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E07040C861DFA4E6225CD2A9 /* Pods_WriteMe__Notebook.framework */,
+				8C4C9ABF796E20182C32613E /* Pods-WriteMe Notebook.debug.xcconfig */,
+				37DC46280B601AE58E1973B0 /* Pods-WriteMe Notebook.release.xcconfig */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3D37DF4510BDAD5B83889277 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				764877D2F9F0717302D6D6CE /* Pods-WriteMe: Notebook.debug.xcconfig */,
-				6A0751194BE206CF09AA5776 /* Pods-WriteMe: Notebook.release.xcconfig */,
-			);
+			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -641,8 +634,8 @@
 				54BF8576290BC2C2002DAB62 /* WriteMe */,
 				540F58D7292827090072C87B /* ToDoUITests */,
 				54BF8575290BC2C2002DAB62 /* Products */,
-				3D37DF4510BDAD5B83889277 /* Pods */,
-				1FB57D458BC537EC92658276 /* Frameworks */,
+				15CF3DC1C2A434A6F7FDEF4D /* Pods */,
+				A017497C3EEC8F40C14DE316 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -841,6 +834,14 @@
 			path = ProjectsScreen;
 			sourceTree = "<group>";
 		};
+		A017497C3EEC8F40C14DE316 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1AF70787DB10AB05F602AA83 /* Pods_WriteMe_Notebook.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -947,15 +948,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WriteMe: Notebook/Pods-WriteMe: Notebook-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WriteMe: Notebook/Pods-WriteMe: Notebook-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WriteMe: Notebook/Pods-WriteMe: Notebook-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3E4993C795BDF8D990808F6D /* [CP] Check Pods Manifest.lock */ = {
@@ -973,7 +974,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WriteMe: Notebook-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-WriteMe Notebook-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1363,7 +1364,7 @@
 		};
 		54BF8589290BC2C6002DAB62 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 764877D2F9F0717302D6D6CE /* Pods-WriteMe: Notebook.debug.xcconfig */;
+			baseConfigurationReference = 8C4C9ABF796E20182C32613E /* Pods-WriteMe Notebook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1396,7 +1397,7 @@
 		};
 		54BF858A290BC2C6002DAB62 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6A0751194BE206CF09AA5776 /* Pods-WriteMe: Notebook.release.xcconfig */;
+			baseConfigurationReference = 37DC46280B601AE58E1973B0 /* Pods-WriteMe Notebook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
