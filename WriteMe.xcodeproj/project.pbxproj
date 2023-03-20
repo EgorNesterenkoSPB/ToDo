@@ -1194,7 +1194,6 @@
 /* Begin XCBuildConfiguration section */
 		540F58DE292827090072C87B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EC7AF8B0EB980D78A61661A /* Pods-WriteMe Notebook.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1218,7 +1217,6 @@
 		};
 		540F58DF292827090072C87B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 592B848EE72F1F3EC655CC85 /* Pods-WriteMe Notebook.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
