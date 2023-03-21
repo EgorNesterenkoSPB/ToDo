@@ -125,9 +125,8 @@ extension CreateTaskBaseController {
         timeTextField.tintColor = .clear
         
         let timePicker = UIDatePicker()
-        if #available(iOS 13.4, *) {
-            timePicker.preferredDatePickerStyle = .wheels
-        }
+        timePicker.datePickerMode = .time
+        timePicker.preferredDatePickerStyle = .wheels
         timePicker.calendar = Calendar.current
         timePicker.addTarget(self, action: #selector(timeChanged(_:)), for: .valueChanged)
         timeTextField.inputView = timePicker

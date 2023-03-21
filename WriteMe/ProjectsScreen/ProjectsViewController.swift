@@ -47,7 +47,7 @@ extension ProjectsViewController {
 //        backButton.setImage(UIImage(systemName: Resources.Images.chevronRight), for: .normal)
 //        backButton.setTitle(Resources.Titles.today, for: .normal)
         backButton.setTitle(Resources.Titles.back, for: .normal)
-        backButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        backButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
         backButton.tintColor = .systemOrange
         backButton.setTitleColor(.systemOrange, for: .normal)
 //        backButton.semanticContentAttribute = .forceRightToLeft

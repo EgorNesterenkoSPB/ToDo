@@ -72,6 +72,7 @@ extension TaskViewController {
         
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .dateAndTime
+        datePicker.preferredDatePickerStyle = .wheels
         datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         dateTextField.inputView = datePicker
         dateTextField.textColor = .link
