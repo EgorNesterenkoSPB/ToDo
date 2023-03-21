@@ -146,15 +146,16 @@ extension CreateTaskBaseController {
             descriptionTextView.rightAnchor.constraint(equalTo: containerView.rightAnchor,constant: UIConstants.descriptionTextFieldRightAnchor),
             descriptionTextView.leftAnchor.constraint(equalTo: containerView.leftAnchor,constant: UIConstants.descriptionTextFieldLeftAnchor),
             descriptionTextView.heightAnchor.constraint(equalToConstant: UIConstants.descriptionHeightAnchor),
-            createTaskButton.rightAnchor.constraint(equalTo: descriptionTextView.rightAnchor,constant: -10),
-            createTaskButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor,constant: UIConstants.createTaskButtonTopAnchor),
+            createTaskButton.rightAnchor.constraint(equalTo: containerView.rightAnchor,constant: -5),
+            createTaskButton.centerYAnchor.constraint(equalTo: timeTextField.centerYAnchor),
             dateTextField.centerYAnchor.constraint(equalTo: projectButton.centerYAnchor),
             dateTextField.leftAnchor.constraint(equalTo: projectButton.rightAnchor,constant: 20),
             projectButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor,constant: 10),
             projectButton.leftAnchor.constraint(equalTo: descriptionTextView.leftAnchor),
             projectButton.widthAnchor.constraint(equalToConstant: UIConstants.projectButtonWidth),
             timeTextField.centerYAnchor.constraint(equalTo: projectButton.centerYAnchor),
-            timeTextField.leftAnchor.constraint(equalTo: dateTextField.rightAnchor,constant: 20)
+            timeTextField.leftAnchor.constraint(equalTo: dateTextField.rightAnchor,constant: 20),
+            timeTextField.rightAnchor.constraint(equalTo: createTaskButton.leftAnchor, constant: -5)
         ])
     }
 }

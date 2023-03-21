@@ -27,7 +27,7 @@ extension MyBlogViewController {
     
     override func configure() {
         super.configure()
-        title = Resources.Titles.myBlogTitle
+        title = Resources.Titles.myNotesTitle
         
         let createNoteButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNoteButtonTapped(_:)))
         self.selectButton = UIBarButtonItem(title: Resources.Titles.select, style: .plain, target: self, action: #selector(selectButtonTapped(_:)))

@@ -30,7 +30,7 @@ final class MainRouter:PresenterToRouterMainProtocol {
     
     func showProjectsScreen(navigationController:UINavigationController?) {
         let projectsViewController = ProjectsRouter.createModule()
-        navigationController?.pushViewController(projectsViewController, animated: true)
+        navigationController?.pushViewControllerFromLeft(controller: projectsViewController)
     }
     
     func showCreateTaskViewController(mainViewController: MainViewController) {

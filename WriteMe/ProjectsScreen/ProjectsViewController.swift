@@ -35,8 +35,25 @@ extension ProjectsViewController {
     override func configure() {
         super.configure()
         navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: Resources.Titles.today, style: .plain, target: nil, action: nil)
+        self.navigationItem.setHidesBackButton(true, animated: false)
         title = Resources.Titles.projectsSection
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(backButtonTapped))
+        leftSwipe.direction = .left
+        self.view.addGestureRecognizer(leftSwipe)
+        
+        let backButton = UIButton(type: .system)
+        //FIXME: - image setted in left when pop to current view
+//        backButton.setImage(UIImage(systemName: Resources.Images.chevronRight), for: .normal)
+//        backButton.setTitle(Resources.Titles.today, for: .normal)
+        backButton.setTitle(Resources.Titles.back, for: .normal)
+        backButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        backButton.tintColor = .systemOrange
+        backButton.setTitleColor(.systemOrange, for: .normal)
+//        backButton.semanticContentAttribute = .forceRightToLeft
+        backButton.sizeToFit()
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: backButton)
         
         projectsTableView.register(ProjectTableViewCell.self, forCellReuseIdentifier: Resources.Cells.projectCellIdentefier)
         projectsTableView.register(CommonTableViewCell.self, forCellReuseIdentifier: Resources.Cells.commonTableCellIdentefier)
@@ -61,6 +78,10 @@ extension ProjectsViewController {
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
+    }
+    
+    @objc private func backButtonTapped(_ sender:UIButton) {
+        navigationController?.popViewControllerToLeft()
     }
 }
 
@@ -143,5 +164,3 @@ extension ProjectsViewController:CreateProjectViewControllerProtocol {
         self.updateTableView()
     }
 }
-
-

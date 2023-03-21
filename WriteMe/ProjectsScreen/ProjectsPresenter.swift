@@ -154,7 +154,7 @@ final class ProjectsPresenter:ViewToPresenterProjectsProtocol {
                 self.router?.showCalendarScreen(projectsViewController:projectsViewController)
             case Resources.Titles.productivity:
                 self.router?.showProductivityScreen(projectsViewController: projectsViewController)
-            case Resources.Titles.myBlog:
+            case Resources.Titles.myNotesTitle:
                 self.router?.showMyBlogScreen(projectsViewController: projectsViewController)
             default:
                 break

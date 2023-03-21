@@ -13,6 +13,7 @@
 		540448DF29868B5200ED4A1A /* MyBlogRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540448DE29868B5200ED4A1A /* MyBlogRouter.swift */; };
 		540448E129868B6600ED4A1A /* MyBlogProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540448E029868B6600ED4A1A /* MyBlogProtocols.swift */; };
 		540448E329868B7500ED4A1A /* MyBlogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540448E229868B7500ED4A1A /* MyBlogViewController.swift */; };
+		5407274A29C9E156006AB521 /* Extenstion+UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5407274929C9E156006AB521 /* Extenstion+UINavigationController.swift */; };
 		540A47C0292CFEF800CD8317 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540A47BF292CFEF800CD8317 /* TaskViewController.swift */; };
 		540A47C2292CFF0200CD8317 /* TaskRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540A47C1292CFF0200CD8317 /* TaskRouter.swift */; };
 		540A47C4292CFF0C00CD8317 /* TaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540A47C3292CFF0C00CD8317 /* TaskPresenter.swift */; };
@@ -190,13 +191,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0EC7AF8B0EB980D78A61661A /* Pods-WriteMe Notebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMe Notebook.debug.xcconfig"; path = "Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook.debug.xcconfig"; sourceTree = "<group>"; };
+		0EC7AF8B0EB980D78A61661A /* Pods-WriteMe Notebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMe Notebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook.debug.xcconfig"; sourceTree = "<group>"; };
 		540448D829868B1F00ED4A1A /* MyBlogEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogEntity.swift; sourceTree = "<group>"; };
 		540448DA29868B3400ED4A1A /* MyBlogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogPresenter.swift; sourceTree = "<group>"; };
 		540448DC29868B4300ED4A1A /* MyBlogInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogInteractor.swift; sourceTree = "<group>"; };
 		540448DE29868B5200ED4A1A /* MyBlogRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogRouter.swift; sourceTree = "<group>"; };
 		540448E029868B6600ED4A1A /* MyBlogProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogProtocols.swift; sourceTree = "<group>"; };
 		540448E229868B7500ED4A1A /* MyBlogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBlogViewController.swift; sourceTree = "<group>"; };
+		5407274929C9E156006AB521 /* Extenstion+UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extenstion+UINavigationController.swift"; sourceTree = "<group>"; };
 		540A47BF292CFEF800CD8317 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		540A47C1292CFF0200CD8317 /* TaskRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRouter.swift; sourceTree = "<group>"; };
 		540A47C3292CFF0C00CD8317 /* TaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPresenter.swift; sourceTree = "<group>"; };
@@ -365,7 +367,7 @@
 		54F240232932CC1E00CF8F25 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; usesTabs = 1; };
 		54F240252932CC2100CF8F25 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; usesTabs = 1; };
 		54F240262932D4BE00CF8F25 /* Extensions+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+String.swift"; sourceTree = "<group>"; };
-		592B848EE72F1F3EC655CC85 /* Pods-WriteMe Notebook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMe Notebook.release.xcconfig"; path = "Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook.release.xcconfig"; sourceTree = "<group>"; };
+		592B848EE72F1F3EC655CC85 /* Pods-WriteMe Notebook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteMe Notebook.release.xcconfig"; path = "Pods/Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook.release.xcconfig"; sourceTree = "<group>"; };
 		BA469E01F48A44349612B55C /* Pods_WriteMe_Notebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WriteMe_Notebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -673,6 +675,7 @@
 				54BF858B290BC33C002DAB62 /* LoginScreen */,
 				54BF85A2290BD221002DAB62 /* Extensions */,
 				54BF859B290BC4A9002DAB62 /* Application */,
+				54BF859E290BC830002DAB62 /* Resources */,
 				54BF858E290BC3B8002DAB62 /* Helper */,
 				54BF8580290BC2C6002DAB62 /* Assets.xcassets */,
 			);
@@ -696,7 +699,6 @@
 			children = (
 				546188B72913222C00279FE3 /* UI Elements */,
 				54BF859F290BC839002DAB62 /* Controllers */,
-				54BF859E290BC830002DAB62 /* Resources */,
 				54C8D363291BD1840003A958 /* GlobalFunctions.swift */,
 			);
 			path = Helper;
@@ -749,6 +751,7 @@
 				54F240262932D4BE00CF8F25 /* Extensions+String.swift */,
 				5476C54929893CFF00963A30 /* Extensions+UITextView.swift */,
 				5468702D29C7CC1100835660 /* Extensions+PHPotoLibrary.swift */,
+				5407274929C9E156006AB521 /* Extenstion+UINavigationController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -969,9 +972,11 @@
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WriteMe Notebook/Pods-WriteMe Notebook-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1074,6 +1079,7 @@
 				54ED8E342916C44000A43C62 /* TaskTableViewCell.swift in Sources */,
 				5478897E291979CD0089F254 /* CreateProjectPresenter.swift in Sources */,
 				54ED8E262915EA7500A43C62 /* CustomizedShapeView.swift in Sources */,
+				5407274A29C9E156006AB521 /* Extenstion+UINavigationController.swift in Sources */,
 				549CF3C729454D9C00F399AA /* CalendarPresenter.swift in Sources */,
 				54BF8596290BC46E002DAB62 /* LoginInteractor.swift in Sources */,
 				540A47C8292CFF2200CD8317 /* TaskProtocols.swift in Sources */,
@@ -1360,6 +1366,7 @@
 		};
 		54BF8589290BC2C6002DAB62 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EC7AF8B0EB980D78A61661A /* Pods-WriteMe Notebook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1381,7 +1388,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ENDEV.WriteMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1392,6 +1399,7 @@
 		};
 		54BF858A290BC2C6002DAB62 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 592B848EE72F1F3EC655CC85 /* Pods-WriteMe Notebook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1413,7 +1421,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ENDEV.WriteMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

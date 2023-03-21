@@ -39,7 +39,7 @@ enum Resources {
     
     static let colorsData = [Color(hex: "b8256f", name: "Berry red"),Color(hex: "db4035", name: "Red"),Color(hex: "ff9933", name: "Orange"),Color(hex: "fad000", name: "Yellow"),Color(hex: "afb83b", name: "Olive green"),Color(hex: "7ecc49", name: "Lime green"),Color(hex: "299438", name: "Green"),Color(hex: "6accbc", name: "Mint green"),Color(hex: "158fad", name: "Teal"),Color(hex: "14aaf5", name: "Sky blue"),Color(hex: "96c3eb", name: "Light blue"),Color(hex: "4073ff", name: "Blue"),Color(hex: "884dff", name: "Grape"),Color(hex: "af38eb", name: "Violet"),Color(hex: "eb96eb", name: "Lavender"),Color(hex: "e05194", name: "Magenta"),Color(hex: "ff8d85", name: "Salmon"),Color(hex: "808080", name: "Charcoal"),Color(hex: "b8b8b8", name: "Grey"),Color(hex: "ccac93", name: "Taupe")]
     
-    static let projectsModels:[CommonCellOption] = [CommonCellOption(title: Resources.incomingProjectName, icon: UIImage(systemName: Resources.Images.incoming,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.blue, handler: {}), CommonCellOption(title: Resources.Titles.calendar, icon: UIImage(systemName: Resources.Images.calendar,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.purple, handler: {}),CommonCellOption(title: Resources.Titles.productivity, icon: UIImage(systemName: Resources.Images.chartBar,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.systemGreen, handler: {}) ,CommonCellOption(title: Resources.Titles.myBlog, icon: UIImage(systemName: Resources.Images.folderFill, withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.systemIndigo, handler: {})]
+    static let projectsModels:[CommonCellOption] = [CommonCellOption(title: Resources.incomingProjectName, icon: UIImage(systemName: Resources.Images.incoming,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.blue, handler: {}), CommonCellOption(title: Resources.Titles.calendar, icon: UIImage(systemName: Resources.Images.calendar,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.purple, handler: {}),CommonCellOption(title: Resources.Titles.productivity, icon: UIImage(systemName: Resources.Images.chartBar,withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.systemGreen, handler: {}) ,CommonCellOption(title: Resources.Titles.myNotesTitle, icon: UIImage(systemName: Resources.Images.folderFill, withConfiguration: Resources.Configurations.largeConfiguration), iconBackgroundColor: UIColor.systemIndigo, handler: {})]
     
 //    static let settingsContent:[Section] = [Section(title: "", options: [CommonCellOption(title: Resources.Titles.account, icon: UIImage(systemName: Resources.Images.profileImage), iconBackgroundColor: .gray, handler: {}),CommonCellOption(title: Resources.Titles.writeInSupport, icon: UIImage(systemName: Resources.Images.mail), iconBackgroundColor: .systemIndigo, handler: {})])]
     
@@ -84,7 +84,7 @@ enum Resources {
         static let example = "Example"
         static let select = "Select"
         static let unselect = "Unselect"
-        static let myBlogTitle = "My Blog"
+        static let myNotesTitle = "My Notes"
         static let applicationName = "WriteMe: Notebook"
         static let confirmButtonTitle = "Confirm"
         static let bottomSheetMainLabel = "New task"
@@ -148,7 +148,6 @@ enum Resources {
         static let next = "Next"
         static let getStarted = "Get started"
         static let calendar = "Calendar"
-        static let myBlog = "My blog"
         static let openCalendar = "Open calendar"
         static let hideCalendar = "Hide calendar"
         static let productivity = "Productivity"

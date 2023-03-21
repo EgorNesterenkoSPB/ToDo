@@ -36,7 +36,11 @@ extension MainViewController {
     
     override func configure() {
         super.configure()
-    
+        
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(projectsButtonTapped))
+        rightSwipe.direction = .right
+        self.view.addGestureRecognizer(rightSwipe)
+        
         createTaskButton.setTitle("Create task", for: .normal)
         createTaskButton.setTitleColor(.white, for: .normal)
         createTaskButton.backgroundColor = .systemOrange
@@ -87,7 +91,7 @@ extension MainViewController {
     }
         
     @objc private func projectsButtonTapped(_ sender:UIButton) {
-        presenter?.userTapProjectsButton(navigationController:navigationController)
+        presenter?.userTapProjectsButton(navigationController: navigationController)
     }
     
     @objc private func settingsButtonTapped(_ sender:UIButton) {
