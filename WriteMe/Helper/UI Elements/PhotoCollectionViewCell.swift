@@ -48,8 +48,8 @@ extension PhotoCollectionViewCell {
     }
     
     private func selectCell() {
-        imageView.layer.borderColor = UIColor.blue.cgColor
-        imageView.layer.borderWidth = 2
+        self.layer.borderColor = UIColor.blue.cgColor
+        self.layer.borderWidth = 2
         imageView.addView(checkMarkImageView)
         NSLayoutConstraint.activate([
             checkMarkImageView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 10),
@@ -58,8 +58,8 @@ extension PhotoCollectionViewCell {
     }
     
     private func unSelectCell() {
-        imageView.layer.borderColor = nil
-        imageView.layer.borderWidth = 0
+        self.layer.borderColor = nil
+        self.layer.borderWidth = 0
         checkMarkImageView.removeFromSuperview()
     }
 }

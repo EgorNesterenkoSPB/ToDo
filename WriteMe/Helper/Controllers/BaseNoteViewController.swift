@@ -276,6 +276,7 @@ extension BaseNoteViewController {
         let closeButton = UIButton()
         closeButton.setTitle("Close image", for: .normal)
         closeButton.setTitleColor(.link, for: .normal)
+        closeButton.titleLabel?.font = .boldSystemFont(ofSize: 19)
         closeButton.addTarget(self, action: #selector(dismissNewImageView), for: .touchUpInside)
         blackBackgroundView.addView(closeButton)
         
@@ -283,18 +284,18 @@ extension BaseNoteViewController {
         blackBackgroundView.addView(newImageView)
         
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: blackBackgroundView.topAnchor, constant: 10),
-            closeButton.leftAnchor.constraint(equalTo: blackBackgroundView.leftAnchor, constant: 10),
+            closeButton.topAnchor.constraint(equalTo: blackBackgroundView.topAnchor, constant: 20),
+            closeButton.leftAnchor.constraint(equalTo: blackBackgroundView.leftAnchor, constant: 20),
             newImageView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 10),
             newImageView.bottomAnchor.constraint(equalTo: blackBackgroundView.bottomAnchor),
             newImageView.rightAnchor.constraint(equalTo: blackBackgroundView.rightAnchor),
             newImageView.leftAnchor.constraint(equalTo: blackBackgroundView.leftAnchor)
         ])
         
-        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+        UIView.animate(withDuration: 0.7, animations: { [weak self] in
             self?.blackBackgroundView.alpha = 1
         }, completion: { (success) in
-            UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            UIView.animate(withDuration: 0.7, animations: { [weak self] in
                 self?.newImageView.alpha = 1
             })
         })

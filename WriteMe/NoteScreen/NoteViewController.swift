@@ -84,7 +84,6 @@ extension NoteViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch super.selectPhotoButton.titleLabel?.text {
         case Resources.Titles.select:
-//            super.newScrollView.delegate = self
             super.newImageView.image = presenter?.getImage(indexPath: indexPath)
             super.showPhoto()
         default:
