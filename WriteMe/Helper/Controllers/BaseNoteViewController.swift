@@ -9,7 +9,6 @@ class BaseNoteViewController: BaseViewController {
     let photosCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let closeButton = UIButton()
     let doneButton = UIButton()
-    let newScrollView = UIScrollView()
     var newImageView = UIImageView()
     let blackBackgroundView = UIView()
     let selectPhotoButton = UIButton()
@@ -271,15 +270,8 @@ extension BaseNoteViewController {
         blackBackgroundView.frame = view.frame
         blackBackgroundView.backgroundColor = .black
         blackBackgroundView.alpha = 0
-        
-        newScrollView.frame = view.frame
-        newScrollView.minimumZoomScale = 1.0
-        newScrollView.maximumZoomScale = 6.0
-        newImageView.frame = view.frame
-        newImageView.backgroundColor = .black
+
         newImageView.contentMode = .scaleAspectFit
-        newImageView.alpha = 0
-        newImageView.isUserInteractionEnabled = true
         
         let closeButton = UIButton()
         closeButton.setTitle("Close image", for: .normal)
@@ -287,17 +279,16 @@ extension BaseNoteViewController {
         closeButton.addTarget(self, action: #selector(dismissNewImageView), for: .touchUpInside)
         blackBackgroundView.addView(closeButton)
         
-        newScrollView.addSubview(newImageView)
-        blackBackgroundView.addView(newScrollView)
         view.addSubview(blackBackgroundView)
+        blackBackgroundView.addView(newImageView)
         
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: blackBackgroundView.topAnchor, constant: 10),
             closeButton.leftAnchor.constraint(equalTo: blackBackgroundView.leftAnchor, constant: 10),
-            newScrollView.topAnchor.constraint(equalTo: closeButton.bottomAnchor),
-            newScrollView.leftAnchor.constraint(equalTo: blackBackgroundView.leftAnchor),
-            newScrollView.rightAnchor.constraint(equalTo: blackBackgroundView.rightAnchor),
-            newScrollView.bottomAnchor.constraint(equalTo: blackBackgroundView.bottomAnchor)
+            newImageView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 10),
+            newImageView.bottomAnchor.constraint(equalTo: blackBackgroundView.bottomAnchor),
+            newImageView.rightAnchor.constraint(equalTo: blackBackgroundView.rightAnchor),
+            newImageView.leftAnchor.constraint(equalTo: blackBackgroundView.leftAnchor)
         ])
         
         UIView.animate(withDuration: 0.2, animations: { [weak self] in

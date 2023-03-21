@@ -65,7 +65,6 @@ extension CreateTaskViewController {
     override func textFieldDidEndEditing(_ textField: UITextField) {
         super.textFieldDidEndEditing(textField)
         presenter?.textFieldDidEndEditing(textField: textField)
-        self.enableCreateTaskButton()
     }
 }
 

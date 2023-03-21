@@ -80,8 +80,7 @@ extension CreateTaskBaseController {
         
         createTaskButton.setImage(UIImage(systemName: Resources.Images.createTaskButtonImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
         createTaskButton.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-        createTaskButton.tintColor = .gray
-        createTaskButton.isEnabled = false
+        self.disableCreateTaskButton()
         
         projectButton.layer.cornerRadius = 10
         projectButton.layer.borderColor = UIColor.gray.cgColor
@@ -276,6 +275,8 @@ extension CreateTaskBaseController:ProjectsPopOverViewControllerProtocol {
     func passTappedProject(id: NSManagedObjectID, name: String) {
         self.projectButton.setTitle(name, for: .normal)
         self.projectID = id
-        self.enableCreateTaskButton()
+        if let text = nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty {
+            self.enableCreateTaskButton()
+        }
     }
 }

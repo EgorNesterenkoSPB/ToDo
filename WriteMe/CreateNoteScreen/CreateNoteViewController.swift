@@ -95,7 +95,6 @@ extension CreateNoteViewController: UICollectionViewDelegate,UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch super.selectPhotoButton.titleLabel?.text {
         case Resources.Titles.select:
-            super.newScrollView.delegate = self
             super.newImageView.image = presenter?.imagesData[indexPath.row].image
             super.showPhoto()
         default:
@@ -142,12 +141,5 @@ extension CreateNoteViewController:PresenterToViewCreateNoteProtocol {
     
     func onFailedCoreData(errorText: String) {
         self.present(createInfoAlert(messageText: errorText, titleText: Resources.Titles.errorTitle),animated: true)
-    }
-}
-
-//MARK: - UIScrollViewDelegate
-extension CreateNoteViewController {
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return super.newImageView
     }
 }
