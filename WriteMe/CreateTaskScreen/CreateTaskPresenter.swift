@@ -41,6 +41,7 @@ final class CreateTaskPresenter:ViewToPresenterCreateTaskProtocol {
         }
         if let category = category {
             self.interactor?.onCreateTask(name: name, description: description, category: category,settedDate: settedDate)
+            return
         }
         if let projectID = projectID {
             self.interactor?.onCreateCommonTask(name: name, description: description, settedData: settedDate, projectID: projectID)
