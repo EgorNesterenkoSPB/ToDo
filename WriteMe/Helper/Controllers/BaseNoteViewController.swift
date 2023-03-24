@@ -186,13 +186,13 @@ extension BaseNoteViewController {
         picker.delegate = self
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Take photo", style: .default, handler: { (action:UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: Resources.Titles.takePhoto, style: .default, handler: { (action:UIAlertAction) -> Void in
             checkCameraAccess(controller: self, onAccessCompletion: { [weak self] in
                 picker.sourceType = .camera
                 self?.present(picker,animated: true)
             })
         }))
-        alert.addAction(UIAlertAction(title: "Choose from photo gallery", style: .default, handler: { (action:UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title:Resources.Titles.chooseFromGallery , style: .default, handler: { (action:UIAlertAction) -> Void in
             self.present(picker,animated: true)
         }))
         
@@ -274,7 +274,7 @@ extension BaseNoteViewController {
         newImageView.contentMode = .scaleAspectFit
         
         let closeButton = UIButton()
-        closeButton.setTitle("Close image", for: .normal)
+        closeButton.setTitle(Resources.Titles.close, for: .normal)
         closeButton.setTitleColor(.link, for: .normal)
         closeButton.titleLabel?.font = .boldSystemFont(ofSize: 19)
         closeButton.addTarget(self, action: #selector(dismissNewImageView), for: .touchUpInside)

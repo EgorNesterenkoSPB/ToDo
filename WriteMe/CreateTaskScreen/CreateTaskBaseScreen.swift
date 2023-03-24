@@ -8,6 +8,7 @@ class CreateTaskBaseController:BottomSheetController {
     var createTaskButton = UIButton()
     let dateTextField = UITextField()
     var timeTextField = UITextField()
+    let horizontStackView = UIStackView()
     let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
@@ -47,7 +48,6 @@ class CreateTaskBaseController:BottomSheetController {
         static let createTaskButtonTopAnchor = 20.0
         static let projectButtonWidth = 100.0
     }
-
 }
 
 //MARK: - Setup view
@@ -57,10 +57,7 @@ extension CreateTaskBaseController {
         containerView.addView(mainLabel)
         containerView.addView(descriptionTextView)
         containerView.addView(nameTextField)
-        containerView.addView(createTaskButton)
-        containerView.addView(dateTextField)
-        containerView.addView(timeTextField)
-        containerView.addView(projectButton)
+        self.view.addView(horizontStackView)
     }
     
     override func configure() {
@@ -78,8 +75,8 @@ extension CreateTaskBaseController {
         nameTextField.placeholder = Resources.Placeholders.textFieldPlaceholder
         nameTextField.delegate = self
         
-        createTaskButton.setImage(UIImage(systemName: Resources.Images.createTaskButtonImage,withConfiguration: Resources.Configurations.largeConfiguration), for: .normal)
-        createTaskButton.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+        createTaskButton.setImage(UIImage(systemName: Resources.Images.createTaskButtonImage,withConfiguration: UIImage.SymbolConfiguration(pointSize: 0, weight: .black, scale: .large)), for: .normal)
+//        createTaskButton.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
         self.disableCreateTaskButton()
         
         projectButton.layer.cornerRadius = 10
@@ -89,6 +86,7 @@ extension CreateTaskBaseController {
         projectButton.addTarget(self, action: #selector(projectButtonTapped(_:)), for: .touchUpInside)
         
         dateTextField.text = Resources.Titles.setDate
+        dateTextField.adjustsFontSizeToFitWidth = true
         dateTextField.textColor = .link
         dateTextField.tintColor = .clear //to remove cursor when tapped
         
@@ -120,6 +118,7 @@ extension CreateTaskBaseController {
         
         timeToolBar.items = [flexsibleSpace,clearTimeButton,doneTimeButton]
         timeTextField.inputAccessoryView = timeToolBar
+        timeTextField.adjustsFontSizeToFitWidth = true
         self.disableTextField(textField: timeTextField)
         timeTextField.tintColor = .clear
         
@@ -129,6 +128,15 @@ extension CreateTaskBaseController {
         timePicker.calendar = Calendar.current
         timePicker.addTarget(self, action: #selector(timeChanged(_:)), for: .valueChanged)
         timeTextField.inputView = timePicker
+        
+        horizontStackView.axis = .horizontal
+        horizontStackView.alignment = .fill
+        horizontStackView.spacing = 1.5
+        horizontStackView.distribution = .equalCentering
+        horizontStackView.addArrangedSubview(projectButton)
+        horizontStackView.addArrangedSubview(dateTextField)
+        horizontStackView.addArrangedSubview(timeTextField)
+        horizontStackView.addArrangedSubview(createTaskButton)
     }
     
     override func layoutViews() {
@@ -144,16 +152,9 @@ extension CreateTaskBaseController {
             descriptionTextView.rightAnchor.constraint(equalTo: containerView.rightAnchor,constant: UIConstants.descriptionTextFieldRightAnchor),
             descriptionTextView.leftAnchor.constraint(equalTo: containerView.leftAnchor,constant: UIConstants.descriptionTextFieldLeftAnchor),
             descriptionTextView.heightAnchor.constraint(equalToConstant: UIConstants.descriptionHeightAnchor),
-            createTaskButton.rightAnchor.constraint(equalTo: containerView.rightAnchor,constant: -5),
-            createTaskButton.centerYAnchor.constraint(equalTo: timeTextField.centerYAnchor),
-            dateTextField.centerYAnchor.constraint(equalTo: projectButton.centerYAnchor),
-            dateTextField.leftAnchor.constraint(equalTo: projectButton.rightAnchor,constant: 20),
-            projectButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor,constant: 10),
-            projectButton.leftAnchor.constraint(equalTo: descriptionTextView.leftAnchor),
-            projectButton.widthAnchor.constraint(equalToConstant: UIConstants.projectButtonWidth),
-            timeTextField.centerYAnchor.constraint(equalTo: projectButton.centerYAnchor),
-            timeTextField.leftAnchor.constraint(equalTo: dateTextField.rightAnchor,constant: 20),
-            timeTextField.rightAnchor.constraint(equalTo: createTaskButton.leftAnchor, constant: -5)
+            horizontStackView.leftAnchor.constraint(equalTo: descriptionTextView.leftAnchor),
+            horizontStackView.rightAnchor.constraint(equalTo: descriptionTextView.rightAnchor),
+            horizontStackView.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 10)
         ])
     }
 }

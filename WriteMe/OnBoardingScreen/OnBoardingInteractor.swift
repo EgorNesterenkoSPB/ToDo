@@ -9,7 +9,7 @@ final class OnBoardingInteractor:PresenterToInteractorOnBoardingProtocol {
 //        ["image":Resources.Images.managements,"mainText":Resources.secondMainOnBoardingText,"secondText":Resources.secondSecondOnBoardingText]]
     let contentOfViewDemo = [
         ["image":Resources.Images.blog,"mainText":Resources.firstMainOnBoardingText,"secondText":Resources.firstSecondOnBoardingText],
-        ["image":Resources.Images.managements,"mainText":"Welcome","secondText":"Use different projects to manage your tasks and keep track their on calendar"]
+        ["image":Resources.Images.managements,"mainText":Resources.Titles.welcome,"secondText":Resources.Titles.secondTextOnboarding]
     ]
     
     func setIsOnBoarding(navigationController: UINavigationController?) {

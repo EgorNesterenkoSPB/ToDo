@@ -26,7 +26,7 @@ class ColorHeaderView: UIView {
     
     private func configureView() {
         self.backgroundColor = .systemBackground
-        titleLabel.text = "Color"
+        titleLabel.text = Resources.Titles.color
         titleLabel.font = .boldSystemFont(ofSize: 22)
         self.addView(titleLabel)
         

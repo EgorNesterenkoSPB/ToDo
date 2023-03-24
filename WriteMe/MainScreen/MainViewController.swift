@@ -41,7 +41,7 @@ extension MainViewController {
         rightSwipe.direction = .right
         self.view.addGestureRecognizer(rightSwipe)
         
-        createTaskButton.setTitle("Create task", for: .normal)
+        createTaskButton.setTitle(Resources.Titles.createTask, for: .normal)
         createTaskButton.setTitleColor(.white, for: .normal)
         createTaskButton.backgroundColor = .systemOrange
         createTaskButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)

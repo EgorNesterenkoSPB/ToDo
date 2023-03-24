@@ -52,13 +52,16 @@ extension CreateProjectViewController {
         
         topTitle.text = Resources.Titles.createProjectTitle
         topTitle.textColor = .systemOrange
+        topTitle.adjustsFontSizeToFitWidth = true
         topTitle.font = .boldSystemFont(ofSize: 25)
         
         cancelButton.setTitle(Resources.Titles.cancelButton, for: .normal)
         cancelButton.setTitleColor(.systemOrange, for: .normal)
+        cancelButton.titleLabel?.adjustsFontSizeToFitWidth = true
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         
         confirmButton.setTitle(Resources.Titles.confirmButtonTitle, for: .normal)
+        confirmButton.titleLabel?.adjustsFontSizeToFitWidth = true
         confirmButton.setTitleColor(.gray, for: .normal)
         confirmButton.isEnabled = false
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
@@ -67,6 +70,7 @@ extension CreateProjectViewController {
         favoriteIconImageView.tintColor = UIColor(named: Resources.Titles.labelAndTintColor)
         
         addToFavoriteLabel.text = Resources.Titles.addToFavorite
+        addToFavoriteLabel.adjustsFontSizeToFitWidth = true
         addToFavoriteLabel.font = .boldSystemFont(ofSize: 20)
         
         colorTableView.delegate = self
@@ -90,6 +94,8 @@ extension CreateProjectViewController {
         NSLayoutConstraint.activate([
             topTitle.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
             topTitle.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            topTitle.leftAnchor.constraint(equalTo: cancelButton.rightAnchor, constant: 5),
+            topTitle.rightAnchor.constraint(equalTo: confirmButton.leftAnchor, constant: -5),
             cancelButton.centerYAnchor.constraint(equalTo: topTitle.centerYAnchor),
             cancelButton.leftAnchor.constraint(equalTo: containerView.leftAnchor,constant: 20),
             confirmButton.centerYAnchor.constraint(equalTo: cancelButton.centerYAnchor),

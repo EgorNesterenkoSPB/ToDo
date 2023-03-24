@@ -228,7 +228,7 @@ final class MainPresenter: ViewToPresenterMainProtocol {
         let title:UILabel = {
            let label = UILabel()
             label.font = .systemFont(ofSize: 24)
-            label.text = section == 1 ? "\(day).\(month) \u{2022} Today" : "Overdue"
+            label.text = section == 1 ? "\(day).\(month) \u{2022} \(NSLocalizedString("TODAY", comment: "today"))" : Resources.Titles.overdue
             return label
         }()
         headerView.addView(title)
