@@ -78,7 +78,7 @@ extension ProductivityViewController {
         showHideCalendarButton.addTarget(self, action: #selector(showHideCalendarButtonTapped(sender:)), for: .touchUpInside)
         
         lineChartView.legend.enabled = false
-        lineChartView.noDataText = "No data for this dates"
+        lineChartView.noDataText = Resources.Titles.noDataForThisDays
         let lineChartXAxis = lineChartView.xAxis
         lineChartXAxis.labelPosition = .bottom
         lineChartXAxis.drawGridLinesEnabled = false

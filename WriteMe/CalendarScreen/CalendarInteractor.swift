@@ -9,7 +9,7 @@ final class CalendarInteractor:PresenterToInteractorCalendarProtocol {
             let tasks = try self.getTasksAtDate(date: date)
             return tasks.count
         } catch let error {
-            self.presenter?.failureGetTasks(errorText: "Failed get tasks at day \(date): \(error.localizedDescription)")
+            self.presenter?.failureGetTasks(errorText: "\(Resources.Titles.failedGetTasksForThisDate) \(date): \(error.localizedDescription)")
             return 0
         }
     }

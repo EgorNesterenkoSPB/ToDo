@@ -13,7 +13,7 @@ class MyBlogInteractor:PresenterToInteractorMyBlogProtocol {
                 defaults.set(true, forKey: Resources.exampleNoteKey)
             }
         } catch let error {
-            self.presenter?.failedCoreData(errorText:"Failed delete note ,error: \(error.localizedDescription) ")
+            self.presenter?.failedCoreData(errorText:"\(Resources.Titles.failedDeleteNote),error: \(error.localizedDescription) ")
         }
     }
     
@@ -33,7 +33,7 @@ class MyBlogInteractor:PresenterToInteractorMyBlogProtocol {
                 }
             }            
         } catch let error {
-            self.presenter?.failedCoreData(errorText:"Failed load data, error: \(error.localizedDescription)")
+            self.presenter?.failedCoreData(errorText:"\(Resources.Titles.failedLoadData), error: \(error.localizedDescription)")
         }
         return notes
     }

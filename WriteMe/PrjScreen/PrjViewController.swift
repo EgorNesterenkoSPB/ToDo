@@ -179,7 +179,7 @@ extension PrjViewController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        presenter?.viewForHeaderInSection(prjViewController: self, tableView: tableView, section: section)
+        presenter?.viewForHeaderInSection(prjViewController: self, tableView: tableView, section: section,project: self.project)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

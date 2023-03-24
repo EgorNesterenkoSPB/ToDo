@@ -16,7 +16,7 @@ final class ProjectsInteractor:PresenterToInteractorProjectsProtocol {
         do {
             let projects = try DataManager.shared.projects()
             guard let incomingProject = projects.first(where: {$0.name == Resources.incomingProjectName}) else {
-                self.presenter?.failedGetIncomingProject(errorText: "Incoming project isnt found, please write in support!")
+                self.presenter?.failedGetIncomingProject(errorText: Resources.Titles.incomingProjectErrorMessage)
                 return
             }
             self.presenter?.successfulyGetIncomingProject(project: incomingProject, projectsViewController: projectsViewController)

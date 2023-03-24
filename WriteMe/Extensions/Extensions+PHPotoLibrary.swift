@@ -7,7 +7,7 @@ extension PHPhotoLibrary {
                         onAccessHasBeenGranted: @escaping () -> Void,
                         onAccessHasBeenDenied: (() -> Void)? = nil) {
         let onDeniedOrRestricted = onAccessHasBeenDenied ?? {
-            let alert = UIAlertController(title: "We were unable to load your album groups. Sorry!", message: "You can enable access in Privacy Settings", preferredStyle: .alert)
+            let alert = UIAlertController(title: Resources.Titles.albumErrorMessage, message: Resources.Titles.settingsAskMessage, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel))
             alert.addAction(UIAlertAction(title: Resources.Titles.settings, style: .default,handler: { _ in
                 if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
@@ -68,7 +68,7 @@ func checkCameraAccess(controller:UIViewController,onAccessCompletion: @escaping
 }
 
 private func presentCameraSettings(_ controller:UIViewController) {
-    let alert = UIAlertController(title: Resources.Titles.errorTitle, message: "Camera access is denied", preferredStyle: .alert)
+    let alert = UIAlertController(title: Resources.Titles.errorTitle, message: Resources.Titles.cameraAccessIsDeneid, preferredStyle: .alert)
     alert.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel))
     alert.addAction(UIAlertAction(title: Resources.Titles.settings, style: .default,handler: { _ in
         if let settingsURL = URL(string: UIApplication.openSettingsURLString) {

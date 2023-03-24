@@ -42,7 +42,9 @@ extension OnBoardingViewController {
         
         nextButton.addTarget(self, action: #selector(nextButtonTapped(_:)
             ), for: .touchUpInside)
+        nextButton.titleLabel?.adjustsFontSizeToFitWidth = true
         skipButton.addTarget(self, action: #selector(skipButtonTapped(_:)), for: .touchUpInside)
+        skipButton.titleLabel?.adjustsFontSizeToFitWidth = true
         backButton.addTarget(self, action: #selector(backButtonTapped(_:)), for: .touchUpInside)
         backButton.isHidden = true
         
@@ -90,11 +92,9 @@ extension OnBoardingViewController {
             nextButton.heightAnchor.constraint(equalToConstant: UIConstants.nextButtonHeight),
             pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             pageControl.bottomAnchor.constraint(equalTo: nextButton.topAnchor,constant: -10),
-//            secondTextLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             secondTextLabel.bottomAnchor.constraint(equalTo: pageControl.topAnchor,constant: -10),
             secondTextLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor,constant: -5),
             secondTextLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor,constant: 5),
-//            mainTextLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             mainTextLabel.bottomAnchor.constraint(equalTo: secondTextLabel.topAnchor,constant: -5),
             mainTextLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor,constant: -5),
             mainTextLabel.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor,constant: 5),

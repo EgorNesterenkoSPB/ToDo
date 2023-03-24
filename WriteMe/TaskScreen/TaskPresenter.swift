@@ -38,7 +38,7 @@ final class TaskPresenter:ViewToPresenterTaskProtocol {
     
     func userTapEditButton(task: NSManagedObject, taskViewController: TaskViewController) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Delete task", style: .destructive, handler: {_ in
+        alertController.addAction(UIAlertAction(title: Resources.Titles.deleteTask, style: .destructive, handler: {_ in
             self.interactor?.deleteTask(task: task)
         }))
         alertController.addAction(UIAlertAction(title: Resources.Titles.cancelButton, style: .cancel, handler: nil))

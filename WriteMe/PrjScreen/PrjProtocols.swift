@@ -16,7 +16,7 @@ protocol ViewToPresenterPrjProtocol {
     func trailingSwipeActionsConfigurationForRowAt(tableView:UITableView,indexPath:IndexPath) -> UISwipeActionsConfiguration?
     func heightForHeaderInSection(section:Int) -> CGFloat
     func heightForFooterInSection() -> CGFloat
-    func viewForHeaderInSection(prjViewController:PrjViewController,tableView: UITableView, section: Int) -> UIView?
+    func viewForHeaderInSection(prjViewController:PrjViewController,tableView: UITableView, section: Int,project: ProjectCoreData) -> UIView?
     func updateSection(category:CategoryCoreData,section:Int)
     func didSelectRowAt(tableView:UITableView, indexPath:IndexPath,prjViewController:PrjViewController)
 }

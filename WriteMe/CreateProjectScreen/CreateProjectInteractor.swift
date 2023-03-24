@@ -4,7 +4,7 @@ final class CreateProjectInteractor:PresenterToInteractorCreateProjectProtocol {
     func onCreateProject(name: String, hexColor: String, isFavorite: Bool) {
         do {
             guard name != Resources.incomingProjectName else { // protect from create project with name "Incoming" bc we init project with this name at first when user open main screen
-                self.presenter?.failureCreateProject(errorText: "You cant create project with this name")
+                self.presenter?.failureCreateProject(errorText: Resources.Titles.errorCreateProjectMessage)
                 return
             }
             var projects = try DataManager.shared.projects()

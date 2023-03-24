@@ -274,7 +274,7 @@ extension BaseNoteViewController {
         newImageView.contentMode = .scaleAspectFit
         
         let closeButton = UIButton()
-        closeButton.setTitle(Resources.Titles.close, for: .normal)
+        closeButton.setTitle(Resources.Titles.closeImage, for: .normal)
         closeButton.setTitleColor(.link, for: .normal)
         closeButton.titleLabel?.font = .boldSystemFont(ofSize: 19)
         closeButton.addTarget(self, action: #selector(dismissNewImageView), for: .touchUpInside)

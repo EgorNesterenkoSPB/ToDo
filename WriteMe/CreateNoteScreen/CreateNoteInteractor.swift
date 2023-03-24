@@ -18,7 +18,7 @@ final class CreateNoteInteractor: PresenterToInteractorCreateNoteProtocol {
             
             presenter?.successfulyCreateNote()
         } catch let error {
-            presenter?.failedCoreData(errorText: "Failed create note, error: \(error.localizedDescription)")
+            presenter?.failedCoreData(errorText: "\(Resources.Titles.failedCreateNote), error: \(error.localizedDescription)")
         }
     }
     

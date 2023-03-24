@@ -18,16 +18,16 @@ final class ProfilePresenter:ViewToPresenterProfileProtocol {
         picker.delegate = profileViewController
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Take photo", style: .default, handler: { (action:UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: Resources.Titles.takePhoto, style: .default, handler: { (action:UIAlertAction) -> Void in
             picker.sourceType = .camera
             profileViewController.present(picker,animated: true)
         }))
-        alert.addAction(UIAlertAction(title: "Choose from photo gallery", style: .default, handler: { (action:UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: Resources.Titles.chooseFromGallery, style: .default, handler: { (action:UIAlertAction) -> Void in
             profileViewController.present(picker,animated: true)
         }))
         
         if let _ = defaults.url(forKey: Resources.imageProfilePathKey)?.path {
-            alert.addAction(UIAlertAction(title: "Delete current photo", style: .destructive, handler: { [weak self] (action:UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: Resources.Titles.deleteCurrentPhoto, style: .destructive, handler: { [weak self] (action:UIAlertAction) -> Void in
                 accountImageButton.setImage(UIImage(named: Resources.Images.user), for: .normal)
                 self?.defaults.removeObject(forKey: Resources.imageProfilePathKey)
             }))

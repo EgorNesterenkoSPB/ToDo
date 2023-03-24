@@ -67,7 +67,7 @@ extension CreateNoteViewController {
     override func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         super.imagePickerController(picker, didFinishPickingMediaWithInfo: info)
         guard let image = info[.editedImage] as? UIImage else {
-            self.present(createInfoAlert(messageText: "Failed get image,try again!", titleText:Resources.Titles.errorTitle), animated: true)
+            self.present(createInfoAlert(messageText: Resources.Titles.failedGetImage, titleText:Resources.Titles.errorTitle), animated: true)
             picker.dismiss(animated: true, completion: nil)
             return
         }

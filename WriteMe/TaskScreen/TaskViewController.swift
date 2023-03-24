@@ -82,14 +82,13 @@ extension TaskViewController {
         }
         dateTextField.font = .systemFont(ofSize: 15)
         
-        descriptionTitle.text = "Descriptions"
+        descriptionTitle.text = Resources.Placeholders.textViewPlaceholder
         descriptionTitle.textColor = .lightGray
         descriptionTitle.font = .boldSystemFont(ofSize: 16)
         
         descriptionTextView.text = taskContent.description == nil ? Resources.Placeholders.textViewPlaceholder : taskContent.description
         descriptionTextView.font = .systemFont(ofSize: 18)
         descriptionTextView.delegate = self
-        
     }
     
     override func layoutViews() {

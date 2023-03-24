@@ -9,7 +9,7 @@ final class NoteInteractor: PresenterToInteractorNoteProtocol {
             let image = UIImage(data: noteImages[indexPath.row].image! as Data)
             return image
         } catch let error {
-            presenter?.failedCoreData(errorText: "Failed to get image, error: \(error.localizedDescription)")
+            presenter?.failedCoreData(errorText: "\(Resources.Titles.failedGetImage), error: \(error.localizedDescription)")
             return nil
         }
     }
@@ -21,7 +21,7 @@ final class NoteInteractor: PresenterToInteractorNoteProtocol {
             noteImages.insert(noteImage, at: 0)
             try DataManager.shared.save()
         } catch let error {
-            presenter?.failedCoreData(errorText: "Failed to save image, error: \(error.localizedDescription)")
+            presenter?.failedCoreData(errorText: "\(Resources.Titles.failedSaveImage), error: \(error.localizedDescription)")
         }
     }
     
@@ -30,7 +30,7 @@ final class NoteInteractor: PresenterToInteractorNoteProtocol {
             try DataManager.shared.save()
             presenter?.successfulyEditNote()
         } catch let error {
-            presenter?.failedCoreData(errorText: "Failed to change, error:\(error.localizedDescription)")
+            presenter?.failedCoreData(errorText: "\(Resources.Titles.failedChange), error:\(error.localizedDescription)")
         }
     }
     
@@ -43,7 +43,7 @@ final class NoteInteractor: PresenterToInteractorNoteProtocol {
             }
             self.presenter?.successfulyDeleteImages()
         } catch let error {
-            presenter?.failedCoreData(errorText: "Failed to delete image: \(error.localizedDescription)")
+            presenter?.failedCoreData(errorText: "\(Resources.Titles.failedDeleteImage): \(error.localizedDescription)")
         }
     }
 }

@@ -38,7 +38,7 @@ final class ProductivityInteractor:PresenterToInteractorProductivityProtocol {
     
     func onConfigureDataLineChart(lineChart: LineChartView, dates: [Date],dateFormatter:DateFormatter) {
         guard let commonTasks = commonTasks, let categoryTasks = categoryTasks else {
-            self.presenter?.failureSetDataLineChart(errorText: "Failed to get data for this dates, try again!")
+            self.presenter?.failureSetDataLineChart(errorText: Resources.Titles.failedLoadDataForThisDate)
             return
         }
         
@@ -118,7 +118,7 @@ final class ProductivityInteractor:PresenterToInteractorProductivityProtocol {
     func onSetDataPieChart(pieChart: PieChartView) {
         
         guard let commonTasks = commonTasks,let categoryTasks = categoryTasks else {
-            self.presenter?.failureSetDataPieChart(errorText: "Failed to get data, try again!")
+            self.presenter?.failureSetDataPieChart(errorText: Resources.Titles.failedLoadData)
             return
         }
         

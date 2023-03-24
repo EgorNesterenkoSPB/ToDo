@@ -278,7 +278,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         2
     }
     
-    func viewForHeaderInSection(prjViewController:PrjViewController, tableView: UITableView, section: Int) -> UIView? {
+    func viewForHeaderInSection(prjViewController:PrjViewController, tableView: UITableView, section: Int,project: ProjectCoreData) -> UIView? {
         
         if section == 0 {
             return UIView()
@@ -296,7 +296,7 @@ final class PrjPresenter:ViewToPresenterPrjProtocol {
         guard let currentCategory = currentCategory else {
             return nil
         }
-        let headerView = CategoryTableSectionHeaderView(titleText: title, section: section, expandable: expandable, prjViewController: prjViewController, category:currentCategory, projectName: prjViewController.title ?? Resources.Titles.errorTitle)
+        let headerView = CategoryTableSectionHeaderView(titleText: title, section: section, expandable: expandable, prjViewController: prjViewController, category:currentCategory, projectName: prjViewController.title ?? Resources.Titles.errorTitle, projectID: project.objectID)
         headerView.delegate = self
         headerView.categoryDelegate = self
         return headerView

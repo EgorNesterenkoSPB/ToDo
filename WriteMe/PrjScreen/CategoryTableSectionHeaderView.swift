@@ -1,4 +1,5 @@
 import UIKit
+import CoreData
 
 protocol CategoryTableSectionHeaderViewProtocol {
     func renameSection(category:CategoryCoreData)
@@ -11,12 +12,14 @@ class CategoryTableSectionHeaderView: BaseTableSectionHeaderView {
     let prjViewController:PrjViewController
     let category:CategoryCoreData
     let projectName:String
+    let projectID:NSManagedObjectID
     var categoryDelegate:CategoryTableSectionHeaderViewProtocol?
     
-    init(titleText: String, section: Int, expandable: Bool,prjViewController:PrjViewController,category:CategoryCoreData,projectName:String) {
+    init(titleText: String, section: Int, expandable: Bool,prjViewController:PrjViewController,category:CategoryCoreData,projectName:String,projectID:NSManagedObjectID) {
         self.prjViewController = prjViewController
         self.category = category
         self.projectName = projectName
+        self.projectID = projectID
         super.init(titleText: titleText, section: section, expandable: expandable)
     }
     
@@ -54,6 +57,7 @@ extension CategoryTableSectionHeaderView {
         alert.addAction(UIAlertAction(title: Resources.Titles.addTask, style: .default, handler: {[weak self] _ in
             guard let self = self else {return}
             let createTaskViewController = CreateTaskRouter.createModule(category: self.category, section: self.section, projectName: self.projectName)
+            createTaskViewController.projectID = self.projectID
             createTaskViewController.modalPresentationStyle = .overCurrentContext
             createTaskViewController.delegate = self.prjViewController
             self.prjViewController.present(createTaskViewController,animated: false)
