@@ -68,7 +68,7 @@
 "CALENDAR" = "Calendar";
 "OPEN_CALENDAR" = "Open calendar";
 "HIDE_CALENDAR" = "Hide calendar";
-"PRODUCTIVITY" = "Productiviry";
+"PRODUCTIVITY" = "Productivity";
 "FINISH_ANY_TASK" = "Finish any task";
 "COUNT_OF_FINISHED_TASKS" = "Count of finished tasks";
 "THE_PINCODE_IS_WRONG,_TRY_AGAIN!" = "The pincode is wrong, try again!";
@@ -110,3 +110,4 @@
 "ASK_SETTINGS_MESSAGE" = "You can enable access in Privacy Settings";
 "CAMERA_ACCESS_IS_DENIED" = "Camera access is denied"; 
 "CLOSE_IMAGE" = "Close image";
+"NO_TASKS_FOR_THIS_DATE" = "No tasks for this date";

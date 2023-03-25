@@ -5,12 +5,14 @@ class CalendarViewController: BaseViewController {
     
     var presenter: (ViewToPresenterCalendarProtocol & InteractorToPresenterCalendarProtocol)?
     let tasksTableView = UITableView()
+    let noDataLabel = UILabel()
     private var calendar = FSCalendar()
     var calendarHeightConstraint:NSLayoutConstraint!
     let showHideCalendarButton = UIButton()
     
     private enum UIConstants {
         static let calendarHeight = 300.0
+        static let noDataLabelFont = 17.0
     }
     
     override func viewDidLoad() {
@@ -30,6 +32,7 @@ extension CalendarViewController {
         self.view.addView(calendar)
         self.view.addView(showHideCalendarButton)
         self.view.addView(tasksTableView)
+        self.view.addView(noDataLabel)
     }
     
     override func configure() {
@@ -65,6 +68,10 @@ extension CalendarViewController {
         tasksTableView.register(TaskTableViewCell.self, forCellReuseIdentifier: Resources.Cells.taskCellIdentefier)
         tasksTableView.tableFooterView = UIView()
         tasksTableView.separatorStyle = .none
+        
+        noDataLabel.font = .systemFont(ofSize: UIConstants.noDataLabelFont)
+        noDataLabel.text = Resources.Titles.noTasksForThisDate
+        noDataLabel.isHidden = true
     }
     
     override func layoutViews() {
@@ -81,7 +88,9 @@ extension CalendarViewController {
             tasksTableView.topAnchor.constraint(equalTo: showHideCalendarButton.bottomAnchor),
             tasksTableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             tasksTableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            tasksTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            tasksTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            noDataLabel.topAnchor.constraint(equalTo: showHideCalendarButton.bottomAnchor, constant: 20),
+            noDataLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
     }
 }
@@ -125,7 +134,9 @@ extension CalendarViewController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.numberOfRowsInSection(section: section) ?? 0
+        let numberOfRows = presenter?.numberOfRowsInSection(section: section) ?? 0
+        self.noDataLabel.isHidden = numberOfRows == 0 ? false : true
+        return numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

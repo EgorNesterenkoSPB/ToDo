@@ -110,3 +110,4 @@
 "ASK_SETTINGS_MESSAGE" = "Вы можете включить доступ в настройках";
 "CAMERA_ACCESS_IS_DENIED" = "Доступ к камере отказан";
 "CLOSE_IMAGE" = "Закрыть изображение";
+"NO_TASKS_FOR_THIS_DATE" = "Нет задач на этот день";

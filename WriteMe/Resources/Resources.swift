@@ -170,6 +170,7 @@ enum Resources {
         static let noDataForThisDays = NSLocalizedString("NO_DATA_FOR_THIS_DATES", comment: "no data for this dates")
         static let failedLoadDataForThisDate = NSLocalizedString("FAILED_TO_GET_DATA_FOR_THIS_DATES", comment: "failed load data for this dates")
         static let failedGetTasksForThisDate = NSLocalizedString("FAILED_GET_TASKS_AT_DAY", comment: "failed get task for this date")
+        static let noTasksForThisDate = NSLocalizedString("NO_TASKS_FOR_THIS_DATE", comment: "no tasks message")
         static let deleteTask = NSLocalizedString("DELETE_TASK", comment: "delete task")
         static let errorCreateProjectMessage = NSLocalizedString("CREATE_PROJECT_ERROR_TEXT", comment: "error crating project message")
         static let deleteCurrentPhoto = NSLocalizedString("DELETE_CURRENT_PHOTO", comment: "delete current photo")
