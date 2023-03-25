@@ -57,7 +57,7 @@
 "MAIL_SERVICES_ARE_NOT_AVAILABLE" = "Сервис почта недоступен";
 "THE_LETTER_WAS_SAVED!" = "Письмо было сохранено!";
 "THE_LETTER_WAS_SENT!" = "Письмо было отправлено!";
-"FAILED_TO_SEND_THE_LETTER,TRY_AGAIN!" = "Неудалось отправить письмо, попытайтесь еще раз!";
+"FAILED_TO_SEND_THE_LETTER,TRY_AGAIN!" = "Не удалось отправить письмо, попытайтесь еще раз!";
 "UNKWOWN_FEATURE" = "Неизвестная команда";
 "FORGOT_PASSWORD" = "Забыл пароль";
 "REMOVE_FROM_FAVORITES" = "Удалить из избранного";
@@ -88,7 +88,7 @@
 "WELCOME" = "Добро пожаловать";
 "CLOSE_IMAGE" = "Закрыть изображение";
 "TAKE_PHOTO" = "Сделать фото";
-"CHOOSE_FROM_PHOTO_GALLERY" = "Выбрать фотографию из галлереи";
+"CHOOSE_FROM_PHOTO_GALLERY" = "Выбрать фотографию из альбома";
 "INCOMING" = "Входящий";
 "COLOR" = "Цвет";
 "OVERDUE" = "Просроченные";
@@ -96,8 +96,8 @@
 "FAILED_TO_SAVE_IMAGE" = "Не удалось сохранить изображение";
 "FAILED_TO_CHANGE" = "Не удалось изменить";
 "FAILED_TO_DELETE_IMAGE" = "Не удалось удалить изображение";
-"FAILED_CREATE_NOTE" = "Не удалосб создать заметку";
-"FAILED_DELETE_NOTE" = "Не удалосб удалить заметку";
+"FAILED_CREATE_NOTE" = "Не удалось создать заметку";
+"FAILED_DELETE_NOTE" = "Не удалось удалить заметку";
 "FAILED_LOAD_DATA" = "Не удалось загрузить данные";
 "NO_DATA_FOR_THIS_DATES" = "Нет данных на эти дни";
 "FAILED_TO_GET_DATA_FOR_THIS_DATES" = "Не удалось получить данные по данным дням";
